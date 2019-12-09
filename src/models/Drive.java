@@ -1,7 +1,8 @@
 package models;
 
 public class Drive {
-	enum DriveType {SSD, HDD};
+	enum DriveType {SSD, HDD}
+
 	private String name;
 	private DriveType type;
 	private int capacity;
@@ -71,12 +72,4 @@ public class Drive {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-
-	
 }
