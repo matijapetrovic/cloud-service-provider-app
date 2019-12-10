@@ -7,8 +7,8 @@ import java.util.Optional;
 import models.User;
 
 public class UserController {
-	public boolean authenticate(String email) {
-		if (email.isEmpty())
+	public static boolean authenticate(String email) {
+		if (email == null || email.isEmpty())
 			return false;
 		
 		Optional<User> user = userService.getUser(email);

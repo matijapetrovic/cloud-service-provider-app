@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import models.User;
+import models.User.Role;
 
 public class UserService {
 	private final List<User> users = loadUsersFromFile("users.txt");
@@ -14,7 +15,8 @@ public class UserService {
 	}
 	
 	private List<User> loadUsersFromFile(String path) {
-		return new ArrayList<User>();
+		List<User> users = new ArrayList<User>();
+		users.add(new User("mattheo777@gmail.com", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
+		return users;
 	}
-	
 }
