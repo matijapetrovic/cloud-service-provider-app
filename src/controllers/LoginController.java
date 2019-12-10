@@ -21,4 +21,12 @@ public class LoginController {
 			response.redirect("/");
 		return "Successfully logged in";
 	};
+	
+	// TODO - check
+	public static void ensureUserIsLoggedIn(Request request, Response response) {
+		if(request.session().attribute("user") == null) {
+			request.session().attribute("loginRedirect", true);
+			response.redirect("/login");
+		}
+	}
 }

@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import controllers.IndexController;
 import controllers.LoginController;
+import controllers.OrganizationController;
+
 import services.UserService;
 	
 public class App {
@@ -25,5 +27,7 @@ public class App {
         get("/", IndexController.serveIndexPage);
         get("/login", LoginController.serveLoginPage);
         post("/login", LoginController.handleLoginPost);
+        
+        get("/organizations", OrganizationController.serveOrganizationsPage);
     }
 }
