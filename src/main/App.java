@@ -11,7 +11,7 @@ import java.io.IOException;
 import controllers.IndexController;
 import controllers.LoginController;
 import services.UserService;
-
+	
 public class App {
 	public static UserService userService;
 	
@@ -21,7 +21,7 @@ public class App {
         port(8080);
         
         staticFiles.externalLocation(new File("./WebContent").getCanonicalPath()); 
-        
+        	
         get("/", IndexController.serveIndexPage);
         get("/login", LoginController.serveLoginPage);
         post("/login", LoginController.handleLoginPost);

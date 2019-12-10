@@ -1,7 +1,5 @@
 package controllers;
 
-import javax.websocket.Session;
-
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -9,8 +7,8 @@ import spark.Route;
 public class IndexController {
 	public static Route serveIndexPage = (Request request, Response response) -> {
 		if(request.session().attribute("user") == null)
-			return false;
+			response.redirect("/login");
 		
-		return "Hello from index page";
+		return "Hello , "+ request.session().attribute("user");
 	};
 }
