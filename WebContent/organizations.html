@@ -11,94 +11,46 @@
     <script src="assets/js/bootstrap.js"></script>
 </head>
 <body>
+    <div id="app">
+        <h1>Organizations</h1>
+        <router-view></router-view>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal">
+                Add organization
+            </button>
 
-    <h1>Organizations</h1>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Logo</th>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td><a href="#">Name link</a></td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-    </table>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal">
-            Add organization
-          </button>
-
-    <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add organization</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="http://localhost:8080/organizations" method="POST" id="addOrganizationForm">
-                <div class="modal-body">
-                    <label for="name">Name</label>
-                    <div class="input-group"><input class="form-control" type="text" name="name" id=""></div>
-                    <label for="description">Description</label>
-                    <div class="input-group"><input class="form-control" type="text" name="description"></div>
-                    <label for="logo">Logo</label>
-                    <div class="input-group"><input class="form-control-file" type="file" name="logo" id=""></div>
+        <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add organization</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" type="submit">Add</button>
+                <form action="http://localhost:8080/organizations" method="POST" id="addOrganizationForm">
+                    <div class="modal-body">
+                        <label for="name">Name</label>
+                        <div class="input-group"><input class="form-control" type="text" name="name" id=""></div>
+                        <label for="description">Description</label>
+                        <div class="input-group"><input class="form-control" type="text" name="description"></div>
+                        <label for="logo">Logo</label>
+                        <div class="input-group"><input class="form-control-file" type="file" name="logo" id=""></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
                 </div>
-            </form>
             </div>
         </div>
     </div>
+
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vue-router.js"></script>
+    <script src="assets/js/axios.js"></script>
+    <script src="assets/js/jquery-3.4.1.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="app/ogranizationsTable.js"></script>
 </body>
 </html>
