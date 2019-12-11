@@ -18,7 +18,6 @@ public class UserService {
 		return users.stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
 	}
 
-	// TODO - update i delete
 	
 	private Set<User> loadUsersFromFile(String path) {
 		Set<User> users = new HashSet<User>();
