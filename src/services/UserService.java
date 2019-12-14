@@ -17,6 +17,7 @@ public class UserService {
 	public Optional<User> getUser(String email) {
 		return users.stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
 	}
+
 	
 	public boolean updateUser(String email){
 		Optional<User> u = getUser(email);
@@ -38,7 +39,7 @@ public class UserService {
 		users.removeIf(u -> u.getEmail().equals(email));
 		return true;
 	}
-	
+
 	private Set<User> loadUsersFromFile(String path) {
 		Set<User> users = new HashSet<User>();
 		users.add(new User("mattheo777@gmail.com", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
