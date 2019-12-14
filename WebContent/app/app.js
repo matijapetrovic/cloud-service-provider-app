@@ -15,4 +15,4 @@ var app = new Vue({
     data: {
         message : 'Kabib'
     }
-})
+}).$mount('#app')
