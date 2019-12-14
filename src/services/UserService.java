@@ -17,8 +17,27 @@ public class UserService {
 	public Optional<User> getUser(String email) {
 		return users.stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
 	}
-
-	// TODO - update i delete
+	
+	public boolean updateUser(String email){
+		Optional<User> u = getUser(email);
+		if(!u.isPresent()) {
+			return false;
+		}
+		
+		u.get().setEmail(email);
+		users.removeIf(us -> us.getEmail().equals(email));
+		users.add(u.get());
+		return true;	
+	}
+	
+	// Super admin
+	public boolean deleteUser(String email) {
+		if(!users.contains(getUser(email))) {
+			return false;
+		}
+		users.removeIf(u -> u.getEmail().equals(email));
+		return true;
+	}
 	
 	private Set<User> loadUsersFromFile(String path) {
 		Set<User> users = new HashSet<User>();

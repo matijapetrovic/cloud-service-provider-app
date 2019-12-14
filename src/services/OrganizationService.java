@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import models.Organization;
+import models.User;
+import services.UserService;
+import main.App;
+
 
 public class OrganizationService {
     private final Set<Organization> organizations = loadOrganizationsFromFile("organizations.json");
@@ -35,7 +39,17 @@ public class OrganizationService {
         organizations.removeIf(org -> org.getName().equalsIgnoreCase(name));
         return true;
     }
-
+    // Admin
+    public Iterable<User> getAllUsersFromOrganization(String organizatioName){
+    	return getOrganization(organizatioName).get().getUsers();
+    }
+    
+    public boolean AddUserToOrganization(User user, Organization organization) {
+    	if(!getOrganization(organization.getName()).isPresent()) 
+    		return false;
+    	
+    	return organization.getUsers().add(user);
+    }
     private Set<Organization> loadOrganizationsFromFile(String path) {
         return new HashSet<Organization>();
     }

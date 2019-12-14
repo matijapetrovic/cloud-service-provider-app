@@ -8,5 +8,5 @@ public class IndexController {
 	public static Route serveIndexPage = (Request request, Response response) -> {
 		LoginController.ensureUserIsLoggedIn(request, response);
 		return "Hello , "+ request.session().attribute("user");
-	};	
+	};
 }
