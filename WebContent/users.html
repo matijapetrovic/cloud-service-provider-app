@@ -8,74 +8,47 @@
     <title>Document</title>
 </head>
 <body>
-    <table border=1>
-        <tr>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Organization</th>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
-        <tr>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-            <td>Random data</td>
-        </tr>
+    <div id="app">
+        <h1>Users</h1>
+        <router-view></router-view>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUser">
+               Add user
+            </button>
 
-    </table>
+        <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add organization</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="http://localhost:8080/users" method="POST" id="addUser">
+                    <div class="modal-body">
+                        <label for="email">Email</label>
+                        <div class="input-group"><input class="form-control" type="text" name="email" id=""></div>
+                        <label for="name">Name</label>
+                        <div class="input-group"><input class="form-control" type="text" name="name"></div>
+                        <label for="surname">Surname</label>
+                        <div class="input-group"><input class="form-control-file" type="file" name="surname" id=""></div>
+                        <label for="organization">Organization</label>
+                        <div class="input-group"><input class="form-control-file" type="file" name="surname" id=""></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vue-router.js"></script>
+    <script src="assets/js/axios.js"></script>
+    <script src="assets/js/jquery-3.4.1.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="app/usersTable.js"></script>
 </body>
 </html>

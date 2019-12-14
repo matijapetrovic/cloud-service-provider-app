@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import controllers.IndexController;
 import controllers.LoginController;
+import controllers.UserController;
 import controllers.OrganizationController;
 import services.OrganizationService;
 import services.UserService;
@@ -35,5 +36,7 @@ public class App {
         post("/login", LoginController.handleLoginPost);
         
         get("/organizations", OrganizationController.serveOrganizationsPage);
+
+        get("/users", UserController.serveUserPage);
     }
 }
