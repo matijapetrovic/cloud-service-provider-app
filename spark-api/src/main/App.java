@@ -29,8 +29,8 @@ public class App {
     	
         port(8080);
         
-        staticFiles.externalLocation(new File("./WebContent").getCanonicalPath()); 
-        	
+        staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
+
         get("/", IndexController.serveIndexPage);
         get("/login", LoginController.serveLoginPage);
         post("/login", LoginController.handleLoginPost);
