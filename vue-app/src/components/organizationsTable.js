@@ -22,7 +22,7 @@ Vue.component("organizations-table", {
     },
     mounted () {
         axios
-            .get('/organizations', )
+            .get('/organizations')
             .then(response => {
                 this.organizations = response.data
             })

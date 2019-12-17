@@ -2,10 +2,10 @@ const OrganizationsTable = { template: '<organizations-table></organizations-tab
 const UsersTable = {template : '<users-table></users-table>'}
 
 const router = new VueRouter({
-    mode : '',
+    mode : 'hash',
     routes : [
         { path: '/organizations', component: OrganizationsTable },
-        {path: '/users', component: UsersTable}
+        { path: '/users', component: UsersTable }
     ]
 })
 

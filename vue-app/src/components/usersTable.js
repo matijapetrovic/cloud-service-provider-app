@@ -26,7 +26,7 @@ data: function(){
 },
 mounted () {
     axios
-        .get('/users', )
+        .get('/users')
         .then(response => {
             this.users = response.data
         })

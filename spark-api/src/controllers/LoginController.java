@@ -8,7 +8,7 @@ public class LoginController {
 	public static Route serveLoginPage = (Request request, Response response) -> {
 		if (request.session().attribute("user") != null)
 			response.redirect("/");
-		response.redirect("login.html");
+		response.redirect("/public/login.html");
 		return null;
 	};
 	
