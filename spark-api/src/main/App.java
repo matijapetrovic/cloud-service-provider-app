@@ -28,15 +28,14 @@ public class App {
         organizationService = new OrganizationService();
     	
         port(8080);
-        
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
+        //get("/", IndexController.serveIndexPage);
 
-        get("/", IndexController.serveIndexPage);
         get("/login", LoginController.serveLoginPage);
         post("/login", LoginController.handleLoginPost);
         
-        get("/organizations", OrganizationController.serveOrganizationsPage);
+        get("/api/organizations", OrganizationController.serveOrganizationsPage);
 
-        get("/users", UserController.serveUserPage);
+        get("/api/users", UserController.serveUserPage);
     }
 }

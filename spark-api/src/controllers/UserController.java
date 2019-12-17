@@ -23,7 +23,7 @@ public class UserController {
 	}
 
 	public static Route serveUserPage = (Request request, Response response) -> {
-		LoginController.ensureUserIsLoggedIn(request, response);
+		//LoginController.ensureUserIsLoggedIn(request, response);
 		
 		response.type("application/json");
 		

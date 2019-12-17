@@ -1,11 +1,12 @@
-const OrganizationsTable = { template: '<organizations-table></organizations-table>'}
-const UsersTable = {template : '<users-table></users-table>'}
+const OrganizationsPage = { template: '<organizations-page></organizations-page>'}
+const UsersPage = {template : '<users-page></users-page>'}
 
 const router = new VueRouter({
     mode : 'hash',
     routes : [
-        { path: '/organizations', component: OrganizationsTable },
-        { path: '/users', component: UsersTable }
+        { path: '/', component: UsersPage},
+        { path: '/organizations', component: OrganizationsPage },
+        { path: '/users', component: UsersPage }
     ]
 })
 
@@ -15,4 +16,4 @@ var app = new Vue({
     data: {
         message : 'Kabib'
     }
-}).$mount('#app')
+})

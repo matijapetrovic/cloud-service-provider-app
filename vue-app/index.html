@@ -9,15 +9,23 @@
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-light">
-  <div id="app"></div>
+<body class="bg-light text-center">
+  <div id="app" style="margin:auto;">
+    <router-view>
+    </router-view>
+  </div>
 
   <!-- JS Libraries -->
   <script src="assets/js/jquery-3.4.1.js" ></script>
   <script src="assets/js/bootstrap.js"></script>
   <script src="assets/js/vue.js"></script>
-
+  <script src="assets/js/vue-router.js"></script>
+  <script src="assets/js/axios.js"></script>
+  <script src="assets/js/toast.js"></script>
   <!-- App -->
-  <script src="../src/main.js"></script>
+  <script src="src/components/navbar.js"></script>
+  <script src="src/components/users.js"></script>
+  <script src="src/components/organizations.js"></script>
+  <script src="src/main.js"></script>
 </body>
 </html>
