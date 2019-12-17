@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-import controllers.IndexController;
 import controllers.LoginController;
 import controllers.UserController;
 import controllers.OrganizationController;

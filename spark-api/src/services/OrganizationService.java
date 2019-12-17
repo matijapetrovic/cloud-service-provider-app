@@ -6,8 +6,6 @@ import java.util.Set;
 
 import models.Organization;
 import models.User;
-import services.UserService;
-import main.App;
 
 
 public class OrganizationService {

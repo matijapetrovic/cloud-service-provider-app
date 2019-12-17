@@ -40,7 +40,7 @@ public class UserService {
 	
 	// Super admin
 	public boolean deleteUser(String email) {
-		if(!users.contains(getUser(email))) {
+		if(!users.contains(getUser(email).get())) {
 			return false;
 		}
 		users.removeIf(u -> u.getEmail().equals(email));

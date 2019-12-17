@@ -5,8 +5,6 @@ import static main.App.userService;
 import java.util.Optional;
 
 import models.User;
-import models.User.Role;
-import services.UserService;
 
 import main.App;
 import spark.Request;
