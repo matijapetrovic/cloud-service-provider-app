@@ -37,7 +37,8 @@ public class App {
             });
             path("/organizations", () -> {
                 get("", OrganizationController.getAllOrganizations);
-                post("/add", OrganizationController.addOrganization);
+                post("/add", OrganizationController.postOrganization);
+                put("/update/:name", OrganizationController.putOrganization);
             });
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
