@@ -2,6 +2,7 @@ package models;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 
 public class Organization {
 	private String name;
@@ -68,6 +69,38 @@ public class Organization {
 		this.resources = resources;
 	}
 
+	public boolean addUser(User u) {
+		if (u == null)
+			return false;
+
+		if (users.contains(u))
+			return false;
+		
+		users.add(u);
+		return true;
+	}
+
+	public boolean deleteUser(String email) {
+		Optional<User> user = users.stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
+
+		if (!user.isPresent())
+			return false;
+	
+		users.remove(user.get());
+		return true;
+	}
+
+	public boolean addResource(VirtualMachine vm) {
+		if (vm == null)
+			return false;
+		
+		if (resources.contains(vm))
+			return false;
+		
+		resources.add(vm);
+		return true;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,15 +124,5 @@ public class Organization {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
