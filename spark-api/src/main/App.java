@@ -3,6 +3,7 @@ package main;
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.port;
+import static spark.Spark.path;
 import static spark.Spark.staticFiles;
 
 import java.io.File;
@@ -28,13 +29,18 @@ public class App {
     	
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
-        //get("/", IndexController.serveIndexPage);
-
-        get("/login", LoginController.serveLoginPage);
-        post("/login", LoginController.handleLoginPost);
         
-        get("/api/organizations", OrganizationController.serveOrganizationsPage);
-
-        get("/api/users", UserController.serveUserPage);
+        path("/api", () -> {
+            path("/login", () -> {
+                get("", LoginController.serveLoginPage);
+                post("", LoginController.handleLoginPost);
+            });
+            path("/organizations", () -> {
+                get("", OrganizationController.serveOrganizationsPage);
+            });
+            path ("/users", () -> {
+                get("", UserController.serveUserPage);
+            });
+        });
     }
 }
