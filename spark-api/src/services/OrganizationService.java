@@ -49,6 +49,9 @@ public class OrganizationService {
     	return organization.getUsers().add(user);
     }
     private Set<Organization> loadOrganizationsFromFile(String path) {
-        return new HashSet<Organization>();
+        HashSet<Organization> result = new HashSet<Organization>();
+        result.add(new Organization("Glavne baje", "Samo najjaci gym momci", null));
+        result.add(new Organization("Nubovi", "Kivun i dzon", null));
+        return result;
     }
 }

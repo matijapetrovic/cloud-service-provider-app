@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Organization {
 	private String name;
@@ -8,6 +9,14 @@ public class Organization {
 	private String logo;
 	private Collection<User> users;
 	private Collection<VirtualMachine> resources;
+
+	public Organization(String name, String description, String logo) {
+		this.name = name;
+		this.description = description;
+		this.logo = logo;
+		this.users = new HashSet<User>();
+		this.resources = new HashSet<VirtualMachine>();
+	}
 	
 	public Organization(String name, String description, String logo, Collection<User> users,
 			Collection<VirtualMachine> resources) {
