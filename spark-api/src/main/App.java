@@ -1,13 +1,11 @@
 package main;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.port;
-import static spark.Spark.path;
-import static spark.Spark.staticFiles;
+import static spark.Spark.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
@@ -22,6 +20,7 @@ public class App {
     public static OrganizationService organizationService;
     
     public static final Gson g = new Gson();
+    public static final Logger logger = Logger.getAnonymousLogger();
 	
     public static void main(String[] args) throws IOException {
         userService = new UserService();
@@ -31,12 +30,14 @@ public class App {
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
         
         path("/api", () -> {
+            before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
             path("/login", () -> {
                 get("", LoginController.serveLoginPage);
                 post("", LoginController.handleLoginPost);
             });
             path("/organizations", () -> {
-                get("", OrganizationController.serveOrganizationsPage);
+                get("", OrganizationController.getAllOrganizations);
+                post("/add", OrganizationController.addOrganization);
             });
             path ("/users", () -> {
                 get("", UserController.serveUserPage);

@@ -1,4 +1,4 @@
-const OrganizationsPage = { template: '<organizations-page></organizations-page>'}
+const OrganizationsPage = { template: '<org-page></org-page>'}
 const UsersPage = {template : '<users-page></users-page>'}
 
 const router = new VueRouter({

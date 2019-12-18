@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import main.App;
 import models.Organization;
 import models.User;
 
@@ -17,6 +18,13 @@ public class OrganizationService {
 
     public Optional<Organization> getOrganization(String name) {
         return organizations.stream().filter(o -> o.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    public boolean addOrganization(Organization org) {
+        if (organizations.contains(org))
+            return false;
+        organizations.add(org);
+        return true;
     }
 
     public Optional<Organization> updateOrganization(String name, Organization o) {

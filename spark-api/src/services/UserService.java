@@ -25,7 +25,6 @@ public class UserService {
 		return users.stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
 	}
 
-	
 	public boolean updateUser(String email){
 		Optional<User> u = getUser(email);
 		if(!u.isPresent()) {
