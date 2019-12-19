@@ -20,6 +20,8 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
     }
     @Override
     public void save(T entity) {
+        if (repo.contains(entity))
+            repo.remove(entity);
         repo.add(entity);
         saveEntities();
     }

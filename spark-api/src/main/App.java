@@ -14,18 +14,17 @@ import controllers.UserController;
 import controllers.OrganizationController;
 import services.OrganizationService;
 import services.UserService;
-	
+import services.VirtualMachineService;
+
 public class App {
-    public static UserService userService;
-    public static OrganizationService organizationService;
-    
+    public static UserService userService = new UserService();
+    public static OrganizationService organizationService = new OrganizationService();
+    public static VirtualMachineService vmService = new VirtualMachineService();
+
     public static final Gson g = new Gson();
     public static final Logger logger = Logger.getAnonymousLogger();
 	
     public static void main(String[] args) throws IOException {
-        userService = new UserService();
-        organizationService = new OrganizationService();
-    	
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
         
