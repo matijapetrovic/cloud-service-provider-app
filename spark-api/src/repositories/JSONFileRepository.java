@@ -1,7 +1,7 @@
 package repositories;
 
-import com.google.gson.stream.JsonReader;
 import main.App;
+import serializer.JSONSerializer;
 
 import java.io.*;
 import java.util.*;
@@ -10,11 +10,16 @@ import java.util.logging.Level;
 public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
     private String filePath;
     private Collection<T> repo;
+    protected JSONSerializer serializer;
 
     public JSONFileRepository(String filePath) {
         this.filePath = filePath;
         repo = new ArrayList<T>();
+        setSerializer();
+        //loadEntities();
     }
+
+    protected abstract void setSerializer();
 
     @Override
     public void save(T entity) {
@@ -35,10 +40,11 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
         return repo;
     }
 
-    protected void loadEntities(Class<T[]> cls) {
+    private void loadEntities() {
         List<T> data;
-        try (JsonReader reader = new JsonReader(new FileReader(filePath))) {
-            data = Arrays.asList(App.g.fromJson(reader, cls));
+        try (FileReader reader = new FileReader(filePath)) {
+            //data = Arrays.asList(App.g.fromJson(reader, cls));
+            data = serializer.deserialize(reader);
             repo.addAll(data);
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
@@ -48,7 +54,8 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
 
     private void saveEntities() {
         try (FileWriter writer = new FileWriter(filePath)) {
-            App.g.toJson(repo, writer);
+            //App.g.toJson(repo, writer);
+            serializer.serialize(repo, writer);
         } catch (IOException e) {
             App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
         }

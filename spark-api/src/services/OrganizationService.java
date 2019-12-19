@@ -14,11 +14,11 @@ public class OrganizationService {
     }
 
     public Optional<Organization> findByName(String name) {
-        return repository.findbyKey(name);
+        return repository.findByKey(name);
     }
 
     public boolean add(Organization org) {
-        Optional<Organization> o = repository.findbyKey(org.getName());
+        Optional<Organization> o = repository.findByKey(org.getName());
         if (o.isPresent())
             return false;
 
@@ -28,7 +28,7 @@ public class OrganizationService {
 
     // TODO check if org name is fine
     public boolean update(String name, Organization org) {
-        Optional<Organization> o = repository.findbyKey(name);
+        Optional<Organization> o = repository.findByKey(name);
         if (!o.isPresent())
             return false;
 
@@ -37,7 +37,7 @@ public class OrganizationService {
     }
 
     public boolean delete(String name) {
-        Optional<Organization> o = repository.findbyKey(name);
+        Optional<Organization> o = repository.findByKey(name);
         if (!o.isPresent())
             return false;
 

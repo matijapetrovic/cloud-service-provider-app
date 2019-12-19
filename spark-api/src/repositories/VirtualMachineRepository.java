@@ -1,6 +1,7 @@
 package repositories;
 
 import models.VirtualMachine;
+import serializer.virtualmachine.VMSerializer;
 
 import java.util.Optional;
 
@@ -8,11 +9,15 @@ public class VirtualMachineRepository extends JSONFileRepository<String, Virtual
 
     public VirtualMachineRepository(String filePath) {
         super(filePath);
-        loadEntities(VirtualMachine[].class);
     }
 
     @Override
-    public Optional<VirtualMachine> findbyKey(String name) {
+    protected void setSerializer() {
+        this.serializer = new VMSerializer();
+    }
+
+    @Override
+    public Optional<VirtualMachine> findByKey(String name) {
         return findAll()
                 .stream()
                 .filter(x -> x.getName().equalsIgnoreCase(name))

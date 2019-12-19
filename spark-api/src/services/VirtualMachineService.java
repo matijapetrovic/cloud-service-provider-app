@@ -13,11 +13,11 @@ public class VirtualMachineService {
     }
 
     public Optional<VirtualMachine> findByName(String name) {
-        return repository.findbyKey(name);
+        return repository.findByKey(name);
     }
 
     public boolean add(VirtualMachine vm) {
-        Optional<VirtualMachine> v = repository.findbyKey(vm.getName());
+        Optional<VirtualMachine> v = repository.findByKey(vm.getName());
         if (v.isPresent())
             return false;
 
@@ -26,7 +26,7 @@ public class VirtualMachineService {
     }
 
     public boolean update(String name, VirtualMachine vm) {
-        Optional<VirtualMachine> v = repository.findbyKey(name);
+        Optional<VirtualMachine> v = repository.findByKey(name);
         if (!v.isPresent())
             return false;
 
@@ -35,7 +35,7 @@ public class VirtualMachineService {
     }
 
     public boolean delete(String name) {
-        Optional<VirtualMachine> v = repository.findbyKey(name);
+        Optional<VirtualMachine> v = repository.findByKey(name);
         if (!v.isPresent())
             return false;
 
