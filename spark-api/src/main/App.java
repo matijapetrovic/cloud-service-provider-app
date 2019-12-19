@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import controllers.LoginController;
 import controllers.UserController;
 import controllers.OrganizationController;
+import controllers.VirtualMachineController;
 import services.OrganizationService;
 import services.UserService;
 import services.VirtualMachineService;
@@ -30,17 +31,27 @@ public class App {
         
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
+
             path("/login", () -> {
                 get("", LoginController.serveLoginPage);
                 post("", LoginController.handleLoginPost);
             });
+
             path("/organizations", () -> {
-                get("", OrganizationController.getAllOrganizations);
-                post("/add", OrganizationController.postOrganization);
-                put("/update/:name", OrganizationController.putOrganization);
+                get("", OrganizationController.handleGetAll);
+                post("/add", OrganizationController.handlePost);
+                put("/update/:name", OrganizationController.handlePut);
             });
+
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
+            });
+
+            path("/vms", () -> {
+               get("", VirtualMachineController.handleGetAll);
+               get(":name", VirtualMachineController.handleGetSingle);
+               post("/add", VirtualMachineController.handlePost);
+               put("/update/:name", VirtualMachineController.handlePut);
             });
         });
     }
