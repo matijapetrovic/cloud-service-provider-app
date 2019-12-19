@@ -22,7 +22,7 @@ public class OrganizationService {
         if (o.isPresent())
             return false;
 
-        repository.add(org);
+        repository.save(org);
         return true;
     }
 
@@ -32,7 +32,7 @@ public class OrganizationService {
         if (!o.isPresent())
             return false;
 
-        repository.add(org);
+        repository.save(org);
         return true;
     }
 
