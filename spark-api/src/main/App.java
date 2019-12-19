@@ -18,13 +18,13 @@ import services.UserService;
 import services.VirtualMachineService;
 
 public class App {
+    public static final Gson g = new Gson();
+    public static final Logger logger = Logger.getAnonymousLogger();
+
     public static UserService userService = new UserService();
     public static OrganizationService organizationService = new OrganizationService();
     public static VirtualMachineService vmService = new VirtualMachineService();
 
-    public static final Gson g = new Gson();
-    public static final Logger logger = Logger.getAnonymousLogger();
-	
     public static void main(String[] args) throws IOException {
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
@@ -35,7 +35,7 @@ public class App {
             path("/login", () -> {
                 get("", LoginController.serveLoginPage);
                 post("", LoginController.handleLoginPost);
-            });
+        });
 
             path("/organizations", () -> {
                 get("", OrganizationController.handleGetAll);

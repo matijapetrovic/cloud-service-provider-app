@@ -5,9 +5,8 @@ public class VMCategory {
 	private int cores;
 	private int memory;
 	private int gpus;
-	
-	
-	
+
+
 	public VMCategory(String name, int cores, int memory, int gpus) {
 		super();
 		this.name = name;

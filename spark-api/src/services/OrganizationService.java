@@ -7,7 +7,7 @@ import repositories.OrganizationRepository;
 
 
 public class OrganizationService {
-    private final OrganizationRepository repository = new OrganizationRepository("../data/organizations.json");
+    private final OrganizationRepository repository = new OrganizationRepository("./data/organizations.json");
 
     public Iterable<Organization> findAll() {
         return repository.findAll();

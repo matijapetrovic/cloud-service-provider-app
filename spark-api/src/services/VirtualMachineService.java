@@ -6,7 +6,7 @@ import repositories.VirtualMachineRepository;
 import java.util.Optional;
 
 public class VirtualMachineService {
-    private final VirtualMachineRepository repository = new VirtualMachineRepository("../data/organizations.json");
+    private final VirtualMachineRepository repository = new VirtualMachineRepository("./data/organizations.json");
 
     public Iterable<VirtualMachine> findAll() {
         return repository.findAll();

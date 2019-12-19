@@ -8,7 +8,7 @@ public class VirtualMachineRepository extends JSONFileRepository<String, Virtual
 
     public VirtualMachineRepository(String filePath) {
         super(filePath);
-        loadEntities(VirtualMachine.class);
+        loadEntities(VirtualMachine[].class);
     }
 
     @Override

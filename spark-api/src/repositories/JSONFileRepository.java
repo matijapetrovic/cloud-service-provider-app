@@ -3,10 +3,7 @@ package repositories;
 import com.google.gson.stream.JsonReader;
 import main.App;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -16,8 +13,9 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
 
     public JSONFileRepository(String filePath) {
         this.filePath = filePath;
-        this.repo = new ArrayList<T>();
+        repo = new ArrayList<T>();
     }
+
     @Override
     public void save(T entity) {
         if (repo.contains(entity))
@@ -37,7 +35,7 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
         return repo;
     }
 
-    protected void loadEntities(Class<T> cls) {
+    protected void loadEntities(Class<T[]> cls) {
         List<T> data;
         try (JsonReader reader = new JsonReader(new FileReader(filePath))) {
             data = Arrays.asList(App.g.fromJson(reader, cls));
