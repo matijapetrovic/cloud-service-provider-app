@@ -1,14 +1,14 @@
 package serializer.organization;
 
 import com.google.gson.GsonBuilder;
+import main.App;
 import models.Organization;
+import models.User;
 import serializer.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class OrganizationSerializer extends JSONSerializer<Organization> {
 
@@ -28,6 +28,16 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
 
     @Override
     public List<Organization> deserialize(FileReader reader) {
-        return Arrays.asList(gson.fromJson(reader, Organization[].class));
+        List<Organization> data = Arrays.asList(gson.fromJson(reader, Organization[].class));
+        buildReferences(data);
+        return data;
+    }
+
+    private void buildReferences(List<Organization> data) {
+        data.forEach(this::buildReferences);
+    }
+
+    private void buildReferences(Organization org) {
+        // TODO resi
     }
 }

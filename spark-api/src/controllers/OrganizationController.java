@@ -2,6 +2,7 @@ package controllers;
 
 import main.App;
 import models.Organization;
+import models.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;

@@ -48,7 +48,7 @@ public class UserService {
 
 	private Set<User> loadUsersFromFile(String path) {
 		Set<User> users = new HashSet<User>();
-		users.add(new User("mattheo777@gmail.com", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
+		users.add(new User("mattheo@gmail.com", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
 		users.add(new User("nikola@gmail.com", "Admino", "Adminovovski", null, Role.ADMIN));
 		return users;
 	}
