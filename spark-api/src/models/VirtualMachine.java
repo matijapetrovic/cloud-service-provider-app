@@ -2,7 +2,7 @@ package models;
 
 import java.util.Collection;
 
-public class VirtualMachine {
+public class VirtualMachine implements Model<String> {
 	private String name;
 	private VMCategory category;
 	private Collection<Drive> drives;
@@ -74,6 +74,10 @@ public class VirtualMachine {
 			return false;
 		return true;
 	}
-	
-	
+
+
+	@Override
+	public String getKey() {
+		return name;
+	}
 }

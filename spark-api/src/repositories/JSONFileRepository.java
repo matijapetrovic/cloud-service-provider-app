@@ -1,28 +1,27 @@
 package repositories;
 
 import main.App;
+import models.Model;
 import serializer.JSONSerializer;
 
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 
-public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
+public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, E>{
     private String filePath;
-    private Collection<T> repo;
-    protected JSONSerializer<T> serializer;
+    private Collection<E> repo;
+    private JSONSerializer<E> serializer;
 
-    public JSONFileRepository(String filePath) {
+    public JSONFileRepository(JSONSerializer<E> serializer, String filePath) {
+        this.serializer = serializer;
         this.filePath = filePath;
-        repo = new ArrayList<T>();
-        setSerializer();
-        //loadEntities();
+        repo = new ArrayList<E>();
+        loadEntities();
     }
 
-    protected abstract void setSerializer();
-
     @Override
-    public void save(T entity) {
+    public void save(E entity) {
         if (repo.contains(entity))
             repo.remove(entity);
         repo.add(entity);
@@ -30,18 +29,26 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(E entity) {
         repo.remove(entity);
         saveEntities();
     }
 
     @Override
-    public Collection<T> findAll() {
+    public Collection<E> findAll() {
         return repo;
     }
 
+    @Override
+    public Optional<E> findByKey(K key) {
+        return findAll()
+                .stream()
+                .filter(x -> x.getKey().equals(key))
+                .findFirst();
+    }
+
     private void loadEntities() {
-        List<T> data;
+        List<E> data;
         try (FileReader reader = new FileReader(filePath)) {
             //data = Arrays.asList(App.g.fromJson(reader, cls));
             data = serializer.deserialize(reader);
@@ -60,5 +67,4 @@ public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
             App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
         }
     }
-
 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 
-public class Organization {
+public class Organization implements Model<String> {
 	private String name;
 	private String description;
 	private String logo;
@@ -124,5 +124,10 @@ public class Organization {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}	
+	}
+
+	@Override
+	public String getKey() {
+		return name;
+	}
 }

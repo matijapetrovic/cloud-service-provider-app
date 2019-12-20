@@ -1,12 +1,14 @@
 package repositories;
 
+import models.Model;
+
 import java.util.Collection;
 import java.util.Optional;
 
 
-public interface Repository<ID, T> {
-    void save(T entity);
-    void delete(T entity);
-    Collection<T> findAll();
-    Optional<T> findByKey(ID id);
+public interface Repository<K, E extends Model<K>> {
+    void save(E entity);
+    void delete(E entity);
+    Collection<E> findAll();
+    Optional<E> findByKey(K key);
 }

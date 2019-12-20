@@ -13,9 +13,12 @@ import controllers.LoginController;
 import controllers.UserController;
 import controllers.OrganizationController;
 import controllers.VirtualMachineController;
+import models.Organization;
+import models.VirtualMachine;
 import services.OrganizationService;
+import services.Service;
 import services.UserService;
-import services.VirtualMachineService;
+import services.VMService;
 
 public class App {
     public static final Gson g = new Gson();
@@ -23,7 +26,7 @@ public class App {
 
     public static UserService userService = new UserService();
     public static OrganizationService organizationService = new OrganizationService();
-    public static VirtualMachineService vmService = new VirtualMachineService();
+    public static VMService vmService = new VMService();
 
     public static void main(String[] args) throws IOException {
         port(8080);
