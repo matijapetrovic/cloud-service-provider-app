@@ -22,7 +22,7 @@ public class VMSerializer extends JSONSerializer<VirtualMachine> {
     }
 
     @Override
-    public void serialize(Collection data, FileWriter writer) {
+    public void serialize(Collection<VirtualMachine> data, FileWriter writer) {
         gson.toJson(data, writer);
     }
 

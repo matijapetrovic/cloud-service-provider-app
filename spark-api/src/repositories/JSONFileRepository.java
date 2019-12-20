@@ -10,7 +10,7 @@ import java.util.logging.Level;
 public abstract class JSONFileRepository<ID, T> implements Repository<ID, T> {
     private String filePath;
     private Collection<T> repo;
-    protected JSONSerializer serializer;
+    protected JSONSerializer<T> serializer;
 
     public JSONFileRepository(String filePath) {
         this.filePath = filePath;
