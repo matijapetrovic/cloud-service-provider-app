@@ -10,12 +10,15 @@ Vue.component("org-table", {
         </thead>
     
         <tr v-for="org in organizations">
-            <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">{{ org.name }}</a></td>
+            <td><a href="#" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ org.name }}</a></td>
             <td>{{ org.description }}</td>
             <td>{{ org.logo }}</td>
         </tr>
     </table>
     `,
+    props : {
+        viewModalId : String
+    },
     data : function () {
         return {
             organizations: null
