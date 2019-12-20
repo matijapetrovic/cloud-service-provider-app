@@ -1,9 +1,7 @@
 package serializer.organization;
 
 import com.google.gson.GsonBuilder;
-import main.App;
 import models.Organization;
-import models.User;
 import serializer.JSONSerializer;
 
 import java.io.FileReader;

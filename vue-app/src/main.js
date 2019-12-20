@@ -1,5 +1,5 @@
-const OrganizationsPage = { template: '<org-page></org-page>'}
-const UsersPage = {template : '<users-page></users-page>'}
+const OrganizationsPage = { template: '<org-page></org-page>' }
+const UsersPage = { template : '<users-page></users-page>' }
 
 const router = new VueRouter({
     mode : 'hash',

@@ -1,7 +1,6 @@
 Vue.component("users-page",{
     template: `
     <div>
-        <nav-bar></nav-bar>
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>

@@ -1,31 +1,14 @@
 Vue.component("nav-bar",{
     template: `
-    <nav v-if="!isLogin" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="#">Cloud-service provider</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              <a class="nav-link" href="#/">Home</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="#/users">Users</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="#/organizations">Organizations</a>
-              </li>
-          </ul>
-          <div class="form-inline mt-2 mt-md-0">
-              <ul class="navbar-nav mr-auto  navbar-right">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
-                  </li>
-              </ul>
-          </div>
-          </div>
-      </nav>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#/">Cloud Provider Service</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
     `
     ,
     data: function(){
