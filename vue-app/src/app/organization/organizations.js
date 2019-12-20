@@ -1,13 +1,11 @@
-Vue.component("org-page", {
+Vue.component("organizations-page", {
     template: `
     <div>
-        <h1>Organizations</h1>
-        <org-table></org-table>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal" style="margin: 15px 0;">
                 Add organization
         </button>
+        <org-table></org-table>
         <org-modal></org-modal>
     </div>
     `
 });
-

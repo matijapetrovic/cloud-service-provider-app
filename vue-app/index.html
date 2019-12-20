@@ -10,30 +10,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-light">
-  <div id="app" style="width:100%">
-    <nav-bar></nav-bar>
-    <div class="container-fluid">
-      <div class="row">
-        <side-nav></side-nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-              </button>
-            </div>
-          </div>
-          <router-view></router-view>
-        </main>
-      </div>
-    </div>
-  </div>
+  <div id="app" style="width:100%"></div>
 
   <!-- JS Libraries -->
   <script src="assets/js/jquery-3.4.1.js" ></script>
@@ -47,14 +24,18 @@
 
   <!-- Shared -->
   <script src="src/app/shared/components/navbar.js"></script>
-  <script src="src/app/shared/components/sidenav.js"></script>
+  <script src="src/app/shared/components/side-nav.js"></script>
+  <script src="src/app/shared/components/modal.js"></script>
+  <script src="src/app/shared/components/main-section.js"></script>
+
+  <script src="src/app/shared/base-layout.js"></script>
 
   <!-- Users -->
   <script src="src/app/user/users.js"></script>
 
   <!-- Organizations -->
-  <script src="src/app/organization/components/organizationsTable.js"></script>
-  <script src="src/app/organization/components/organizationsModal.js"></script>
+  <script src="src/app/organization/components/organizations-table.js"></script>
+  <script src="src/app/organization/components/organizations-modal.js"></script>
   <script src="src/app/organization/organizations.js"></script>
 
   <!-- Main -->

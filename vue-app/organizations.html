@@ -7,76 +7,241 @@
     <title>Organizations</title>
 
     <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/jquery-3.4.1.js"></script>
     <script src="assets/js/bootstrap.js"></script>
 </head>
-<body>
-    <div id="app">
-        <header>
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <a class="navbar-brand" href="#">Cloud-service provider</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                    <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+<body class="bg-light">
+    <div id="app" style="width:100%">
+        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#/">Cloud Provider Service</a>
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <ul class="navbar-nav px-3">
+              <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Sign out</a>
+              </li>
+            </ul>
+          </nav>
+      <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="home"></span>
+                        Profile <span class="sr-only">(current)</span>
+                      </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Change profile</a>
+                      <a class="nav-link" href="#/users">
+                        <span data-feather="user"></span>
+                        Users
+                      </a>
                     </li>
-                </ul>
-                <div class="form-inline mt-2 mt-md-0">
-                    <ul class="navbar-nav mr-auto  navbar-right">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
-                        </li>
-                    </ul>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#/organizations">
+                        <span data-feather="users"></span>
+                        Organizations
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="layers"></span>
+                        Virtual Machines
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="database"></span>
+                        Drives
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="folder"></span>
+                        VM Categories
+                      </a>
+                    </li>
+                  </ul>
+      
+                  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                      <span data-feather="plus-circle"></span>
+                    </a>
+                  </h6>
+                  <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="file-text"></span>
+                        Current month
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="file-text"></span>
+                        Last quarter
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="file-text"></span>
+                        Social engagement
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <span data-feather="file-text"></span>
+                        Year-end sale
+                      </a>
+                    </li>
+                  </ul>
                 </div>
+              </nav>
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Organizations</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                  <button class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button class="btn btn-sm btn-outline-secondary">Export</button>
                 </div>
-            </nav>
-        </header>
-        
-        <h1>Organizations</h1>
-        <router-view></router-view>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal">
-                Add organization
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                  <span data-feather="calendar"></span>
+                  This week
+                </button>
+              </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrganizationModal" style="margin: 15px 0;">
+                    Add organization
             </button>
 
-        <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add organization</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="http://localhost:8080/organizations" method="POST" id="addOrganizationForm">
-                    <div class="modal-body">
-                        <label for="name">Name</label>
-                        <div class="input-group"><input class="form-control" type="text" name="name" id=""></div>
-                        <label for="description">Description</label>
-                        <div class="input-group"><input class="form-control" type="text" name="description"></div>
-                        <label for="logo">Logo</label>
-                        <div class="input-group"><input class="form-control-file" type="file" name="logo" id=""></div>
+            <table border="1" class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Logo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#" data-toggle="modal" data-target="#viewOrganizationModal">Example</a></td>
+                        <td>Example</td>
+                        <td>Example</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="modal fade" id="addOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add organization</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" type="submit">Add</button>
+                    <form
+                        id="addOrganizationForm"
+                        @submit="submitForm"
+                        method="POST"
+                        novalidate="true"
+                    >
+                        <div class="modal-body">
+                            <p v-if="errors.length">
+                                <b>Please correct the following error(s):</b>
+                                <ul>
+                                    <li v-for="error in errors">{{ error }}</li>
+                                </ul>
+                            </p>
+                            <label for="name">Name</label>
+                            <div class="input-group">
+                                <input
+                                    id="name"
+                                    class="form-control"
+                                    v-model="name"
+                                    type="text"
+                                    name="name"                            
+                                >
+                            </div>
+                            <label for="description">Description</label>
+                            <div class="input-group">
+                                <input
+                                    id="description"
+                                    class="form-control"
+                                    v-model="description"
+                                    type="text"
+                                    name="description"
+                                >
+                            </div>
+                            <label for="logo">Logo</label>
+                            <div class="input-group">
+                                <input
+                                    id="logo"
+                                    class="form-control-file"
+                                    @change="processFile"
+                                    type="file"
+                                    name="logo"
+                                >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                class="btn btn-secondary"
+                                type="button"
+                                data-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                class="btn btn-primary"
+                                type="submit"
+                            >
+                                Add
+                            </button>
+                        </div>
+                    </form>
                     </div>
-                </form>
                 </div>
             </div>
+          </main>
         </div>
+      </div>
     </div>
 
-    <script src="assets/js/vue.js"></script>
-    <script src="assets/js/vue-router.js"></script>
-    <script src="assets/js/axios.js"></script>
-    <script src="assets/js/jquery-3.4.1.js"></script>
-    <script src="assets/js/toast.js"></script>
-    <script src="app/ogranizationsTable.js"></script>
+    <!-- Icons -->
+   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+   <script>
+     feather.replace()
+   </script>
 </body>
 </html>

@@ -137,3 +137,22 @@ body {
 .form-signin #inputEmail {
     margin-bottom:10px;
 }
+
+.modal-dialog {
+  max-width: 100%;
+  margin: 0 0;
+}
+
+
+
+.modal-content {
+  height: 100vh;
+}
+.modal-header {
+  background-color: rgba(52, 58, 64);
+  color: #fff;
+}
+
+.modal-header .close {
+  color: #fff;
+}
