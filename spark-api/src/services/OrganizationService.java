@@ -1,9 +1,9 @@
 package services;
 
-import repositories.JSONFileRepository;
+import models.Organization;
 import repositories.OrganizationRepository;
 
-public class OrganizationService extends Service {
+public class OrganizationService extends Service<String, Organization> {
     public OrganizationService() {
         super(new OrganizationRepository("./data/organizations.json"));
     }
