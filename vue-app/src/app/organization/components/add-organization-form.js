@@ -1,52 +1,33 @@
 Vue.component("add-org-form", {
     template: `
-        <form
+        <main-form 
             id="addOrganizationForm"
-            @submit="submitForm"
             method="POST"
-            novalidate="true"
-            class="main-form card"
+            headerText="Organization info"
+            v-on:submit="submitForm($event)"
         >
-                <div class="card-header">
-                    <h5>Organization info</h5>
-                </div>
-                <div class="card-body">
-                    <p v-if="errors.length">
-                        <b>Please correct the following error(s):</b>
-                        <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                    </p>
-                    <text-input
-                        name="name"
-                        v-model="organization.name"
-                    >
-                        Name
-                    </text-input>
-                    <text-input
-                        name="description"
-                        v-model="organization.description"
-                    >
-                        Description
-                    </text-input>
-                    <file-input
-                        name="logo"
-                        v-model="organization.logo"
-                    >
-                        Logo
-                    </file-input>
-                    <button
-                        class="btn btn-outline-primary"
-                        type="submit"
-                    >
-                        Add
-                    </button>
-                </div>
-        </form>
+            <text-input
+                name="name"
+                v-model="organization.name"
+            >
+                Name
+            </text-input>
+            <text-input
+                name="description"
+                v-model="organization.description"
+            >
+                Description
+            </text-input>
+            <file-input
+                name="logo"
+                v-model="organization.logo"
+            >
+                Logo
+            </file-input>
+        </main-form>
     `,
     data : function () {
         return {
-            errors: [],
             organization : {
                 name: null,
                 description: null,
@@ -55,22 +36,7 @@ Vue.component("add-org-form", {
         }
     },
     methods: {
-        checkForm: function() {
-            if (this.name) {
-                return true;
-            }
-
-            this.errors = [];
-            if (!this.name) {
-                this.errors.push('Name required');
-            }
-            return false;
-        },
-        submitForm: function(e) {
-            e.preventDefault();
-            if (!this.checkForm()) {
-                return;
-            }
+        submitForm: function() {
             axios
                 .post('/api/organizations/add', 
                 {
