@@ -5,8 +5,12 @@ Vue.component("organizations-page", {
                 Add organization
         </button>
         <org-table v-bind:view-modal-id="viewModalId"></org-table>
-        <org-modal v-bind:modal-id="addModalId" modal-title="Add Organization"></org-modal>
-        <org-modal v-bind:modal-id="viewModalId" modal-title="View Organization"></org-modal>
+        <full-modal v-bind:modal-id="addModalId" modal-title="Add organization">
+            <add-org-form></add-org-form>
+        </full-modal>
+        <full-modal v-bind:modal-id="viewModalId" modal-title="View organization">
+            <view-org-form></view-org-form>
+        </full-modal>
     </div>
     `,
     data : function() {

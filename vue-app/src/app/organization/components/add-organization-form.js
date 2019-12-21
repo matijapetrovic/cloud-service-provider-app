@@ -1,62 +1,42 @@
 Vue.component("add-org-form", {
     template: `
-    <form
-        id="addOrganizationForm"
-        @submit="submitForm"
-        method="POST"
-        novalidate="true"
-    >
-        <div class="modal-body">
-            <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors">{{ error }}</li>
-                </ul>
-            </p>
-            <label for="name">Name</label>
-            <div class="input-group">
-                <input
-                    class="form-control"
+        <form
+            id="addOrganizationForm"
+            @submit="submitForm"
+            method="POST"
+            novalidate="true"
+        >
+                <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </p>
+                <text-input
+                    name="name"
                     v-model="organization.name"
-                    type="text"
-                    name="name"                            
                 >
-            </div>
-            <label for="description">Description</label>
-            <div class="input-group">
-                <input
-                    class="form-control"
-                    v-model="organization.description"
-                    type="text"
+                    Name
+                </text-input>
+                <text-input
                     name="description"
+                    v-model="organization.description"
                 >
-            </div>
-            <label for="logo">Logo</label>
-            <div class="input-group">
-                <input
-                    class="form-control-file"
-                    @change="processFile"
-                    type="file"
+                    Description
+                </text-input>
+                <file-input
                     name="logo"
+                    v-model="organization.logo"
                 >
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button
-                class="btn btn-secondary"
-                type="button"
-                data-dismiss="modal"
-            >
-                Close
-            </button>
-            <button
-                class="btn btn-outline-primary"
-                type="submit"
-            >
-                Add
-            </button>
-        </div>
-    </form>
+                    Logo
+                </file-input>
+                <button
+                    class="btn btn-outline-primary"
+                    type="submit"
+                >
+                    Add
+                </button>
+        </form>
     `,
     data : function () {
         return {
@@ -97,9 +77,6 @@ Vue.component("add-org-form", {
                 .then(response => {
                     alert(response);
                 });
-        },
-        processFile(e) {
-            this.organization.logo = e.target.files[0];
         }
     }
 });

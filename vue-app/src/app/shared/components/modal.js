@@ -9,7 +9,9 @@ Vue.component("full-modal", {
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <slot></slot>
+                <div class="modal-body">
+                    <slot></slot>
+                </div>
             </div>
         </div>
     </div>
