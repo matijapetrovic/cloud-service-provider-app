@@ -49,6 +49,15 @@ Vue.component("view-org-form", {
             })
     },
     methods: {
+        checkResponse: function(response) {
+            if (response.status === 200) {
+                alert('Updating organization successful');
+                this.$emit('submit')
+            }
+            else {
+                alert('Error: ' + response.data);
+            }
+        },
         submitForm: function(e) {
             axios
                 .post('/api/organizations/update/' + this.organization.name, 
@@ -60,7 +69,7 @@ Vue.component("view-org-form", {
                     "resources": []
                 })
                 .then(response => {
-                    alert(response);
+                    this.checkResponse(response);
                 });
         }
     }

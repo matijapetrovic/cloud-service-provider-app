@@ -39,6 +39,15 @@ Vue.component("add-org-form", {
         }
     },
     methods: {
+        checkResponse: function(response) {
+            if (response.status === 200) {
+                alert('Adding organization successful');
+                this.$emit('submit')
+            }
+            else {
+                alert('Error: ' + response.data);
+            }
+        },
         submitForm: function() {
             axios
                 .post('/api/organizations/add', 
@@ -50,7 +59,7 @@ Vue.component("add-org-form", {
                     "resources": []
                 })
                 .then(response => {
-                    alert(response);
+                    this.checkResponse(response);
                 });
         }
     }

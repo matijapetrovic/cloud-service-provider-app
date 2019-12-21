@@ -5,11 +5,11 @@ Vue.component("organizations-page", {
                 Add organization
         </button>
         <org-table v-bind:view-modal-id="viewModalId"></org-table>
-        <full-modal @close="removeValidation" v-bind:modal-id="addModalId" modal-title="Add organization">
-            <add-org-form ref="addForm"></add-org-form>
+        <full-modal @close="removeAddValidation" v-bind:modal-id="addModalId" modal-title="Add organization">
+            <add-org-form @submit="closeAddModal" ref="addForm"></add-org-form>
         </full-modal>
-        <full-modal v-bind:modal-id="viewModalId" modal-title="View organization">
-            <view-org-form ref="viewForm"></view-org-form>
+        <full-modal @close="removeViewValidation" v-bind:modal-id="viewModalId" modal-title="View organization">
+            <view-org-form @submit="closeViewModal" ref="viewForm"></view-org-form>
         </full-modal>
     </div>
     `,
@@ -20,9 +20,19 @@ Vue.component("organizations-page", {
         }
     },
     methods: {
-        removeValidation () {
-            this.$refs.addForm.$refs.form.removeValidation();
+        removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();
+        },
+        removeAddValidation () {
+            this.$refs.addForm.$refs.form.removeValidation();
+        },
+        closeViewModal() {
+            this.removeViewValidation();
+            $('#' + this.viewModalId).modal('hide');
+        },
+        closeAddModal() {
+            this.removeAddValidation();
+            $('#' + this.addModalId).modal('hide');
         }
     }
 });
