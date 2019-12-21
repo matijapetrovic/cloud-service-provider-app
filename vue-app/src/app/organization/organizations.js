@@ -11,6 +11,7 @@ Vue.component("organizations-page", {
                 Add organization
         </button>
         <org-table
+            @viewOrganization="viewOrganization($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
@@ -34,6 +35,7 @@ Vue.component("organizations-page", {
             >
                 <view-org-form
                     @submit="closeViewModal"
+                    @updatedOrganization="updateOrganization($event)"
                     ref="viewForm"
                     >
                     </view-org-form>
@@ -63,6 +65,12 @@ Vue.component("organizations-page", {
         },
         addOrganization(organization) {
             this.$refs.table.addOrganization(organization);
+        },
+        updateOrganization(organization) {
+            this.$refs.table.updateOrganization(organization);
+        },
+        viewOrganization(name) {
+            this.$refs.viewForm.getOrganization(name);
         }
     }
 });

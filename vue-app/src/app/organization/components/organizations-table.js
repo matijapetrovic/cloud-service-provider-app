@@ -10,7 +10,7 @@ Vue.component("org-table", {
         </thead>
     
         <tr v-for="org in organizations">
-            <td><a href="#" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ org.name }}</a></td>
+            <td><a href="#" @click.prevent="viewOrganization(org.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ org.name }}</a></td>
             <td>{{ org.description }}</td>
             <td>{{ org.logo }}</td>
         </tr>
@@ -34,6 +34,17 @@ Vue.component("org-table", {
     methods: {
         addOrganization(organization) {
             this.organizations.push(organization);
+        },
+        updateOrganization(organization) {
+            var el = this.organizations.find(function(element) {
+                return element.name === organization.name;
+            });
+            var idx = this.organizations.indexOf(el);
+            this.organizations.splice(idx, 1);
+            this.organizations.splice(idx, 0, organization);
+        },
+        viewOrganization(name) {
+            this.$emit('viewOrganization', name);
         }
     }
 });

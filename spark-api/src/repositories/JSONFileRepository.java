@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, E>{
     private String filePath;
-    private Collection<E> repo;
+    private List<E> repo;
     private JSONSerializer<E> serializer;
 
     public JSONFileRepository(JSONSerializer<E> serializer, String filePath) {
@@ -22,9 +22,13 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
 
     @Override
     public void save(E entity) {
-        if (repo.contains(entity))
+        if (repo.contains(entity)) {
+            int idx = repo.indexOf(entity);
             repo.remove(entity);
-        repo.add(entity);
+            repo.add(idx, entity);
+        }
+        else
+            repo.add(entity);
         saveEntities();
     }
 
@@ -35,7 +39,7 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
     }
 
     @Override
-    public Collection<E> findAll() {
+    public List<E> findAll() {
         return repo;
     }
 

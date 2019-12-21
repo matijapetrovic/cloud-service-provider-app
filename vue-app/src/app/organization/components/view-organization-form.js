@@ -39,18 +39,18 @@ Vue.component("view-org-form", {
             }
         }
     },
-    // nece ici u mounted nego on click
-    mounted () {
-        axios
-        // placeholder name
-            .get('/api/organizations/Doktori')
-            .then(response => {
-                this.organization = response.data
-            })
-    },
+    
     methods: {
+        getOrganization: function(name) {
+            axios
+                .get('/api/organizations/' + name)
+                .then(response => {
+                    this.organization = response.data
+                });
+        },
         checkResponse: function(response) {
             if (response.status === 200) {
+                this.$emit('updatedOrganization', this.organization);
                 alert('Updating organization successful');
                 this.$emit('submit')
             }
@@ -60,7 +60,7 @@ Vue.component("view-org-form", {
         },
         submitForm: function(e) {
             axios
-                .post('/api/organizations/update/' + this.organization.name, 
+                .put('/api/organizations/update/' + this.organization.name, 
                 {
                     "name": this.organization.name,
                     "description": this.organization.description,
