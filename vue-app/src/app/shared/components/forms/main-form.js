@@ -28,9 +28,16 @@ Vue.component("main-form", {
         buttonText: String
     },
     methods: {
+        checkForm: function() {
+            var form = document.getElementById(this.id);
+            form.classList.add('was-validated');
+            return form.checkValidity();
+        },
         submitForm: function(e) {
             e.preventDefault();
-            this.$emit('submit');
+            if (this.checkForm()) {
+                this.$emit('submit');
+            }
         }
     }
 });
