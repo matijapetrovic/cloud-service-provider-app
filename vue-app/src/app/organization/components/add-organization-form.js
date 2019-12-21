@@ -41,6 +41,7 @@ Vue.component("add-org-form", {
     methods: {
         checkResponse: function(response) {
             if (response.status === 200) {
+                this.$emit('addedOrganization', this.organization);
                 alert('Adding organization successful');
                 this.$emit('submit')
             }

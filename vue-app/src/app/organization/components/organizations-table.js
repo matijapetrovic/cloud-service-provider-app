@@ -28,7 +28,12 @@ Vue.component("org-table", {
         axios
             .get('/api/organizations')
             .then(response => {
-                this.organizations = response.data
+                this.organizations = response.data;
             })
+    },
+    methods: {
+        addOrganization(organization) {
+            this.organizations.push(organization);
+        }
     }
 });
