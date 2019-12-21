@@ -10,6 +10,7 @@ Vue.component("view-org-form", {
             <text-input
                 name="name"
                 v-model="organization.name"
+                required
             >
                 Name
             </text-input>

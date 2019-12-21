@@ -4,8 +4,8 @@ Vue.component("main-form", {
             v-bind:id="id"
             v-bind:method="method"
             v-on:submit="submitForm"
-            novalidate="true"
             class="main-form card"
+            novalidate
         >
             <div class="card-header">
                 <h5>{{ headerText }}</h5>

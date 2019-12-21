@@ -10,14 +10,22 @@ Vue.component("file-input", {
                     type="file"
                     v-bind:name="name"
                     @change="handleFileChange"
+                    v-bind:required="required"
                 >
+                <div class="invalid-feedback">
+                    Please provide a valid {{ name }} file
+                </div>
             </div>
         </div>
     `,
 
     props: {
         name: String,
-        value: File
+        value: File,
+        required: {
+            type: Boolean,
+            default: false
+        }
     },
 
     methods: {
