@@ -6,6 +6,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Optional;
+
 public class OrganizationController {
     public static Route handleGetAll = (Request request, Response response) -> {
         //LoginController.ensureUserIsLoggedIn(request, response);
@@ -13,6 +15,20 @@ public class OrganizationController {
         response.type("application/json");
         return App.g.toJson(App.organizationService.findAll());
 	};
+
+    public static Route handleGetSingle = (Request request, Response response) -> {
+        String name = request.params(":name");
+        Optional<Organization> org = App.organizationService.findByKey(name);
+
+        response.type("application/json");
+        if (!org.isPresent()) {
+            response.status(400);
+            return "Organization with the name " + name + " doesn't exist";
+        }
+
+        response.status(200);
+        return App.g.toJson(org.get());
+    };
 
     public static Route handlePost = (Request request, Response response) -> {
         Organization org = App.g.fromJson(request.body(), Organization.class);

@@ -4,6 +4,7 @@ Vue.component("add-org-form", {
             id="addOrganizationForm"
             method="POST"
             headerText="Organization info"
+            buttonText="Add"
             v-on:submit="submitForm($event)"
         >
             <text-input

@@ -16,7 +16,7 @@ public class VirtualMachineController {
 
     public static Route handleGetSingle = (Request request, Response response) -> {
         String name = request.params(":name");
-        Optional<VirtualMachine> vm = App.vmService.findByKey(request.params(name));
+        Optional<VirtualMachine> vm = App.vmService.findByKey(name);
 
         response.type("application/json");
         if (!vm.isPresent()) {

@@ -1,63 +1,31 @@
 Vue.component("view-org-form", {
-    // moz se izdvoji u vise komponenti
     template: `
-    <form
-        id="viewOrganizationForm"
-        @submit="submitForm"
-        method="PUT"
-        novalidate="true"
-    >
-        <div class="modal-body">
-            <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors">{{ error }}</li>
-                </ul>
-            </p>
-            <label for="name">Name</label>
-            <div class="input-group">
-                <input
-                    class="form-control"
-                    v-model="organization.name"
-                    type="text"
-                    name="name"                            
-                >
-            </div>
-            <label for="description">Description</label>
-            <div class="input-group">
-                <input
-                    class="form-control"
-                    v-model="organization.description"
-                    type="text"
-                    name="description"
-                >
-            </div>
-            <label for="logo">Logo</label>
-            <div class="input-group">
-                <input
-                    class="form-control-file"
-                    @change="processFile"
-                    type="file"
-                    name="logo"
-                >
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button
-                class="btn btn-secondary"
-                type="button"
-                data-dismiss="modal"
+        <main-form 
+            id="viewOrganizationForm"
+            method="PUT"
+            headerText="Organization info"
+            buttonText="Update"
+            v-on:submit="submitForm($event)"
+        >
+            <text-input
+                name="name"
+                v-model="organization.name"
             >
-                Close
-            </button>
-            <button
-                class="btn btn-outline-primary"
-                type="submit"
+                Name
+            </text-input>
+            <text-input
+                name="description"
+                v-model="organization.description"
             >
-                Add
-            </button>
-        </div>
-    </form>
+                Description
+            </text-input>
+            <file-input
+                name="logo"
+                v-model="organization.logo"
+            >
+                Logo
+            </file-input>
+        </main-form>
     `,
     data : function () {
         return {
@@ -69,23 +37,17 @@ Vue.component("view-org-form", {
             }
         }
     },
+    // nece ici u mounted nego on click
+    mounted () {
+        axios
+        // placeholder name
+            .get('/api/organizations/Doktori')
+            .then(response => {
+                this.organization = response.data
+            })
+    },
     methods: {
-        checkForm: function() {
-            if (this.name) {
-                return true;
-            }
-
-            this.errors = [];
-            if (!this.name) {
-                this.errors.push('Name required');
-            }
-            return false;
-        },
         submitForm: function(e) {
-            e.preventDefault();
-            if (!this.checkForm()) {
-                return;
-            }
             axios
                 .post('/api/organizations/update/' + this.organization.name, 
                 {
@@ -98,9 +60,6 @@ Vue.component("view-org-form", {
                 .then(response => {
                     alert(response);
                 });
-        },
-        processFile(e) {
-            this.organization.logo = e.target.files[0];
         }
     }
 });

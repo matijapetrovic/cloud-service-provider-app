@@ -16,7 +16,7 @@ Vue.component("main-form", {
                     class="btn btn-outline-primary"
                     type="submit"
                 >
-                    Add
+                    {{ buttonText }}
                 </button>
             </div>
         </form>
@@ -24,7 +24,8 @@ Vue.component("main-form", {
     props: {
         id: String,
         method: String,
-        headerText: String
+        headerText: String,
+        buttonText: String
     },
     methods: {
         submitForm: function(e) {

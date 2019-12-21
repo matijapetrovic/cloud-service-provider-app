@@ -39,6 +39,7 @@ public class App {
 
             path("/organizations", () -> {
                 get("", OrganizationController.handleGetAll);
+                get("/:name", OrganizationController.handleGetSingle);
                 post("/add", OrganizationController.handlePost);
                 put("/update/:name", OrganizationController.handlePut);
             });
@@ -49,7 +50,7 @@ public class App {
 
             path("/vms", () -> {
                get("", VirtualMachineController.handleGetAll);
-               get(":name", VirtualMachineController.handleGetSingle);
+               get("/:name", VirtualMachineController.handleGetSingle);
                post("/add", VirtualMachineController.handlePost);
                put("/update/:name", VirtualMachineController.handlePut);
             });
