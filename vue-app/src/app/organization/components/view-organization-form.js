@@ -6,6 +6,7 @@ Vue.component("view-org-form", {
             headerText="Organization info"
             buttonText="Update"
             v-on:submit="submitForm($event)"
+            ref="form"
         >
             <text-input
                 name="name"

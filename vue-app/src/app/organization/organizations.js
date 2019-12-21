@@ -5,11 +5,11 @@ Vue.component("organizations-page", {
                 Add organization
         </button>
         <org-table v-bind:view-modal-id="viewModalId"></org-table>
-        <full-modal v-bind:modal-id="addModalId" modal-title="Add organization">
-            <add-org-form></add-org-form>
+        <full-modal @close="removeValidation" v-bind:modal-id="addModalId" modal-title="Add organization">
+            <add-org-form ref="addForm"></add-org-form>
         </full-modal>
         <full-modal v-bind:modal-id="viewModalId" modal-title="View organization">
-            <view-org-form></view-org-form>
+            <view-org-form ref="viewForm"></view-org-form>
         </full-modal>
     </div>
     `,
@@ -18,5 +18,11 @@ Vue.component("organizations-page", {
             addModalId: 'addOrganizationModal',
             viewModalId: 'viewOrganizationModal'
         }
-    } 
+    },
+    methods: {
+        removeValidation () {
+            this.$refs.addForm.$refs.form.removeValidation();
+            this.$refs.viewForm.$refs.form.removeValidation();
+        }
+    }
 });

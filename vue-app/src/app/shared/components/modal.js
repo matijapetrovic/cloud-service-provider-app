@@ -5,7 +5,7 @@ Vue.component("full-modal", {
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel">{{ modalTitle }}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button @click="$emit('close')" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -19,6 +19,5 @@ Vue.component("full-modal", {
     props: {
         modalId: String,
         modalTitle: String
-    },
-
+    }
 });

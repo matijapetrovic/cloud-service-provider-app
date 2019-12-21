@@ -28,14 +28,18 @@ Vue.component("main-form", {
         buttonText: String
     },
     methods: {
-        checkForm: function() {
+        removeValidation: function() {
+            var form = document.getElementById(this.id);
+            form.classList.remove('was-validated');
+        },
+        validateForm: function() {
             var form = document.getElementById(this.id);
             form.classList.add('was-validated');
             return form.checkValidity();
         },
         submitForm: function(e) {
             e.preventDefault();
-            if (this.checkForm()) {
+            if (this.validateForm()) {
                 this.$emit('submit');
             }
         }
