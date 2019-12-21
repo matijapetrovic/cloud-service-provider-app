@@ -5,37 +5,43 @@ Vue.component("add-org-form", {
             @submit="submitForm"
             method="POST"
             novalidate="true"
+            class="main-form card"
         >
-                <p v-if="errors.length">
-                    <b>Please correct the following error(s):</b>
-                    <ul>
-                        <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                </p>
-                <text-input
-                    name="name"
-                    v-model="organization.name"
-                >
-                    Name
-                </text-input>
-                <text-input
-                    name="description"
-                    v-model="organization.description"
-                >
-                    Description
-                </text-input>
-                <file-input
-                    name="logo"
-                    v-model="organization.logo"
-                >
-                    Logo
-                </file-input>
-                <button
-                    class="btn btn-outline-primary"
-                    type="submit"
-                >
-                    Add
-                </button>
+                <div class="card-header">
+                    <h5>Organization info</h5>
+                </div>
+                <div class="card-body">
+                    <p v-if="errors.length">
+                        <b>Please correct the following error(s):</b>
+                        <ul>
+                            <li v-for="error in errors">{{ error }}</li>
+                        </ul>
+                    </p>
+                    <text-input
+                        name="name"
+                        v-model="organization.name"
+                    >
+                        Name
+                    </text-input>
+                    <text-input
+                        name="description"
+                        v-model="organization.description"
+                    >
+                        Description
+                    </text-input>
+                    <file-input
+                        name="logo"
+                        v-model="organization.logo"
+                    >
+                        Logo
+                    </file-input>
+                    <button
+                        class="btn btn-outline-primary"
+                        type="submit"
+                    >
+                        Add
+                    </button>
+                </div>
         </form>
     `,
     data : function () {
