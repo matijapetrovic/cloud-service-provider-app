@@ -46,6 +46,9 @@ public class App {
 
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
+                get("/:name", OrganizationController.handleGetSingle);
+                post("/add", OrganizationController.handlePost);
+                put("/update/:name", OrganizationController.handlePut);
             });
 
             path("/vms", () -> {

@@ -4,7 +4,7 @@ Vue.component("side-nav",{
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link"  data-toggle="modal" href="#/users/profile">
                   <span data-feather="home"></span>
                   Profile <span class="sr-only">(current)</span>
                 </a>
