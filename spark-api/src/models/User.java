@@ -3,14 +3,16 @@ package models;
 public class User {
 	public enum Role {SUPER_ADMIN, ADMIN, USER};
 	private String email;
+	private String password;
 	private String name;
 	private String surname;
 	private Organization organization;
 	private Role role;
 	
-	public User(String email, String name, String surname, Organization organization, Role role) {
+	public User(String email, String password, String name, String surname, Organization organization, Role role) {
 		super();
 		this.email = email;
+		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.organization = organization;
@@ -23,6 +25,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getName() {
