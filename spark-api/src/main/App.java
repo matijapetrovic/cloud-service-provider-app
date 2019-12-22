@@ -28,32 +28,35 @@ public class App {
     public static void main(String[] args) throws IOException {
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
-        
+
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
 
             path("/login", () -> {
-                get("", LoginController.serveLoginPage);
-                post("", LoginController.handleLoginPost);
-        });
+                post("", LoginController.handlePost);
+            });
+            path("", () -> {
+                before("/*", LoginController::ensureUserIsLoggedIn);
 
-            path("/organizations", () -> {
-                get("", OrganizationController.handleGetAll);
-                get("/:name", OrganizationController.handleGetSingle);
-                post("/add", OrganizationController.handlePost);
-                put("/update/:name", OrganizationController.handlePut);
+                path("/organizations", () -> {
+                    get("", OrganizationController.handleGetAll);
+                    get("/:name", OrganizationController.handleGetSingle);
+                    post("/add", OrganizationController.handlePost);
+                    put("/update/:name", OrganizationController.handlePut);
+                });
+
+                path ("/users", () -> {
+                    get("", UserController.serveUserPage);
+                });
+
+                path("/vms", () -> {
+                    get("", VirtualMachineController.handleGetAll);
+                    get("/:name", VirtualMachineController.handleGetSingle);
+                    post("/add", VirtualMachineController.handlePost);
+                    put("/update/:name", VirtualMachineController.handlePut);
+                });
             });
 
-            path ("/users", () -> {
-                get("", UserController.serveUserPage);
-            });
-
-            path("/vms", () -> {
-               get("", VirtualMachineController.handleGetAll);
-               get("/:name", VirtualMachineController.handleGetSingle);
-               post("/add", VirtualMachineController.handlePost);
-               put("/update/:name", VirtualMachineController.handlePut);
-            });
         });
     }
 }

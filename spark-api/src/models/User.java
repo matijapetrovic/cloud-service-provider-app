@@ -1,7 +1,22 @@
 package models;
 
 public class User {
-	public enum Role {SUPER_ADMIN, ADMIN, USER};
+	public enum Role
+	{
+		USER (0),
+		ADMIN (1),
+		SUPER_ADMIN(2);
+
+		private int strength;
+
+		Role(int strength) {
+			this.strength = strength;
+		}
+
+		public int compare(Role other) {
+			return this.strength - other.strength;
+		}
+	};
 	private String email;
 	private String password;
 	private String name;

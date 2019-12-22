@@ -12,13 +12,6 @@ import spark.Response;
 import spark.Route;
 
 public class UserController {
-	public static boolean authenticate(String email) {
-		if (email == null || email.isEmpty())
-			return false;
-		
-		Optional<User> user = userService.getUser(email);
-		return user.isPresent();
-	}
 
 	public static Route serveUserPage = (Request request, Response response) -> {
 		//LoginController.ensureUserIsLoggedIn(request, response);
