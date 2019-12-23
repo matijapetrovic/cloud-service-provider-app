@@ -4,7 +4,7 @@ const LoginPage = { template: '<login-page></login-page>' }
 
 
 const router = new VueRouter({
-    mode : 'history',
+    mode : 'hash',
     routes : [
         { path: '/', component: UsersPage, meta: {title: 'Home', requiresAuth: true}},
         { path: '/login', component: LoginPage, meta: { title: 'Login', requiresAuth: false}},
@@ -34,10 +34,9 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-
 var app = new Vue({
     template: `
-        <base-layout v-bind:page-title="$route.meta.title"></base-layout>
+        <router-view></router-view>
     `,
     router,
     el: '#app',

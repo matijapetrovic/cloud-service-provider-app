@@ -1,6 +1,6 @@
 Vue.component("users-page",{
     template: `
-    <div>
+    <base-layout v-bind:page-title="$route.meta.title">
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -18,7 +18,7 @@ Vue.component("users-page",{
                 <td>{{ user.organization }}</td>
             </tr>
         </table>
-    </div>
+    </base-layout>
     `
     ,
     data: function(){

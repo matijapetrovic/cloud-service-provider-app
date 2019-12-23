@@ -1,29 +1,37 @@
 Vue.component("login-page", {
     template: `
-        <main-form
-            id="loginForm"
-            method="POST"
-            headerText="Login form"
-            buttonText="Login"
-            v-on:submit="submitForm($event)"
+    <form
+        id="#loginForm"
+        action="http://localhost:8080/login"
+        method="POST"
+        v-on:submit="submitForm"
+        class="form-signin"
+        novalidate
+    >
+        <h1>Log in</h1>
+        <email-input
+            name="email"
+            v-model="user.email"
+            required
+            autofocus
         >
-            <email-input
-                name="email"
-                v-model="user.email"
-                required
-            >
-                E-mail
-            </email-input>
-            <password-input
-                name="password"
-                v-model="user.password"
-                required
-            >
-                Password
-            </password-input>
-        </main-form>
+            E-mail
+        </email-input>
+        <password-input
+            name="password"
+            v-model="user.password"
+            required
+        >
+            Password
+        </password-input>
+        <button
+            class="btn btn-primary btn-block"
+            type="submit"
+        >
+            Log in
+        </button> 
+    </form>
     `,
-
     data: function() {
         return {
             user: {
@@ -50,15 +58,23 @@ Vue.component("login-page", {
                 alert('Error: ' + response.data);
             }
         },
+        validateForm: function() {
+            var form = document.getElementById('loginForm');
+            form.classList.add('was-validated');
+            return form.checkValidity();
+        },
         submitForm : function() {
-            axios
-                .post('/api/login', {
-                    email: this.email,
-                    password: this.password
-                })
-                .then(response => {
-                    this.checkResponse(response);
-                })
+            e.preventDefault();
+            if (this.validateForm()) {
+                axios
+                    .post('/api/login', {
+                        email: this.email,
+                        password: this.password
+                    })
+                    .then(response => {
+                        this.checkResponse(response);
+                    })
+            }
         }
     }
 });
