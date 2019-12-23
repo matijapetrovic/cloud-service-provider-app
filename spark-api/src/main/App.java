@@ -28,14 +28,14 @@ public class App {
     public static void main(String[] args) throws IOException {
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
-        
+
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
+            before("/*", LoginController::ensureUserIsLoggedIn);
 
             path("/login", () -> {
-                get("", LoginController.serveLoginPage);
-                post("", LoginController.handleLoginPost);
-        });
+                post("", LoginController.handlePost);
+            });
 
             path("/organizations", () -> {
                 get("", OrganizationController.handleGetAll);
@@ -52,10 +52,10 @@ public class App {
             });
 
             path("/vms", () -> {
-               get("", VirtualMachineController.handleGetAll);
-               get("/:name", VirtualMachineController.handleGetSingle);
-               post("/add", VirtualMachineController.handlePost);
-               put("/update/:name", VirtualMachineController.handlePut);
+                get("", VirtualMachineController.handleGetAll);
+                get("/:name", VirtualMachineController.handleGetSingle);
+                post("/add", VirtualMachineController.handlePost);
+                put("/update/:name", VirtualMachineController.handlePut);
             });
         });
     }

@@ -1,6 +1,6 @@
 Vue.component("organizations-page", {
     template: `
-    <div>
+    <base-layout v-bind:page-title="$route.meta.title">
         <button
             type="button"
             class="btn btn-outline-primary"
@@ -40,7 +40,7 @@ Vue.component("organizations-page", {
                     >
                     </view-org-form>
         </full-modal>
-    </div>
+    </base-layout>
     `,
     data : function() {
         return {

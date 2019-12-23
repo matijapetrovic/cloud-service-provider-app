@@ -48,12 +48,12 @@ public class UserService {
 
 	private Set<User> loadUsersFromFile(String path) {
 		Set<User> users = new HashSet<User>();
-		users.add(new User("mattheo@gmail.com", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
-		users.add(new User("nikola@gmail.com", "Admino", "Adminovovski", null, Role.ADMIN));
+		users.add(new User("mattheo@gmail.com", "Hasaki", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
+		users.add(new User("nikola@gmail.com", "Anunaki", "Admino", "Adminovovski", null, Role.ADMIN));
 		return users;
 	}
 
 	public static User getCurrentUser(Request request){
-		return request.session().attribute("user");
+		return request.attribute("loggedIn");
 	}
 }
