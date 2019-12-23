@@ -2,6 +2,11 @@ const OrganizationsPage = { template: '<organizations-page></organizations-page>
 const UsersPage = { template : '<users-page></users-page>' }
 const LoginPage = { template: '<login-page></login-page>' }
 
+// kad se refreshuje stranica da pokupi token
+const token = localStorage.getItem('user-token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = token
+}
 
 const router = new VueRouter({
     mode : 'hash',
@@ -15,7 +20,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (localStorage.getItem('jwt') == null) {
+        if (localStorage.getItem('user-token') == null) {
             next({
                 path: '/login',
                 params: { nextUrl: to.fullPath }
@@ -24,7 +29,7 @@ router.beforeEach((to, from, next) => {
             next();
         }
     } else {
-        if (localStorage.getItem('jwt') != null) {
+        if (localStorage.getItem('user-token') != null) {
             next({
                 path: '/'
             });

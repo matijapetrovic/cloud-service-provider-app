@@ -31,32 +31,29 @@ public class App {
 
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
+            before("/*", LoginController::ensureUserIsLoggedIn);
 
             path("/login", () -> {
                 post("", LoginController.handlePost);
             });
-            path("", () -> {
-                before("/*", LoginController::ensureUserIsLoggedIn);
 
-                path("/organizations", () -> {
-                    get("", OrganizationController.handleGetAll);
-                    get("/:name", OrganizationController.handleGetSingle);
-                    post("/add", OrganizationController.handlePost);
-                    put("/update/:name", OrganizationController.handlePut);
-                });
-
-                path ("/users", () -> {
-                    get("", UserController.serveUserPage);
-                });
-
-                path("/vms", () -> {
-                    get("", VirtualMachineController.handleGetAll);
-                    get("/:name", VirtualMachineController.handleGetSingle);
-                    post("/add", VirtualMachineController.handlePost);
-                    put("/update/:name", VirtualMachineController.handlePut);
-                });
+            path("/organizations", () -> {
+                get("", OrganizationController.handleGetAll);
+                get("/:name", OrganizationController.handleGetSingle);
+                post("/add", OrganizationController.handlePost);
+                put("/update/:name", OrganizationController.handlePut);
             });
 
+            path ("/users", () -> {
+                get("", UserController.serveUserPage);
+            });
+
+            path("/vms", () -> {
+                get("", VirtualMachineController.handleGetAll);
+                get("/:name", VirtualMachineController.handleGetSingle);
+                post("/add", VirtualMachineController.handlePost);
+                put("/update/:name", VirtualMachineController.handlePut);
+            });
         });
     }
 }

@@ -1,10 +1,9 @@
 Vue.component("login-page", {
     template: `
     <form
-        id="#loginForm"
-        action="http://localhost:8080/login"
+        id="loginForm"
         method="POST"
-        v-on:submit="submitForm"
+        @submit="submitForm"
         class="form-signin"
         novalidate
     >
@@ -41,38 +40,36 @@ Vue.component("login-page", {
         }
     },
     methods : {
-        checkResponse: function(response) {
-            if (response.status === 200) {
-                localStorage.setItem('jwt', response.data.token);               
-                if (localStorage.getItem('jwt') != null) {
-                    alert('Login successful');
-                    this.$emit('loggedIn');
-                    if (this.$route.params.nextUrl != null) {
-                        this.$router.push(this.$route.params.nextUrl);
-                    } else {
-                        this.$router.push('');
-                    }
-                }
-            }
-            else {
-                alert('Error: ' + response.data);
-            }
-        },
         validateForm: function() {
             var form = document.getElementById('loginForm');
             form.classList.add('was-validated');
             return form.checkValidity();
         },
-        submitForm : function() {
+        submitForm : function(e) {
             e.preventDefault();
             if (this.validateForm()) {
                 axios
-                    .post('/api/login', {
-                        email: this.email,
-                        password: this.password
+                    .post('/api/login', 
+                    {
+                        email: this.user.email,
+                        password: this.user.password
                     })
                     .then(response => {
-                        this.checkResponse(response);
+                        const token = response.data.token;
+                        // cuvamo u local storageu da bismo pristupili iz bilo koje komponente
+                        // i da bi ostalo i kad se refreshuje
+                        localStorage.setItem('user-token', token);
+                        localStorage.setItem('user', response.data.user);
+                        // stavljamo po defaultu u header da bi axios automatski
+                        // slao zahteve sa nasim tokenom
+                        axios.defaults.headers.common['Authorization'] = token;
+                        this.$router.push('/');
+                    })
+                    .catch(err => {
+                        localStorage.removeItem('user-token');
+                        const status = err.response.status;
+                        const msg = err.response.data;
+                        alert('' + status + ': ' +  msg);
                     })
             }
         }

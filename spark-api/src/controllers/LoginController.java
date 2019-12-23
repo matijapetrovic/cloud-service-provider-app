@@ -44,6 +44,9 @@ public class LoginController {
 	};
 
 	public static void ensureUserIsLoggedIn(Request request, Response response) {
+		if (request.pathInfo().equalsIgnoreCase("/api/login"))
+			return;
+
 		String token = request.headers("Authorization"); // mozda menjamo
 		String email = null;
 		try {
