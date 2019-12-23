@@ -18,16 +18,15 @@ Vue.component("org-table", {
     `,
     props : {
         viewModalId : String
-        
     },
     data : function () {
         return {
-            users: null
+            organizations: null
         }
     },
     mounted () {
         axios
-            .get('/api/users')
+            .get('/api/organizations')
             .then(response => {
                 this.organizations = response.data;
             })

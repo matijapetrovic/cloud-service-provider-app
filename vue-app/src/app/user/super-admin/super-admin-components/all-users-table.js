@@ -43,11 +43,11 @@ Vue.component("all-users-table",{
             var el = this.users.find(function(element) {
                 return element.email === users.email;
             });
-            var idx = this.user.indexOf(el);
+            var idx = this.user.indexOf(el);    
             this.users.splice(idx, 1);
-            this.users.splice(idx, 0, organization);
+            this.users.splice(idx, 0, user);
         },
-        viewOrganization(email) {
+        viewUser(email) {
             this.$emit('viewUser', email);
         }
     }

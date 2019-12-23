@@ -17,32 +17,40 @@ Vue.component("users-from-organization-table", {
                 <td>{{ u.surname }}</td>
                 <td>{{ u.organization }}</td>
             </div> 
-        </tr>
+        </tr>   
     </table>
-`,
-data: function(){
-    return {
-        user : null,
-        organizationUsers : null
-    }
-},
-mounted () {
-    axios
-        .get('api/users')
-        .then(response => {
-            this.users = response.data
-        })
+        `,
+        props : {
+            viewModalId : String
 
-        .post('api/login')
+        },
+        data: function(){
+            return {
+                users: null
+            }
+        },
+        mounted () {
+        axios
+            .get('api/users')
             .then(response => {
-                this.user =  response.data
+                this.users = response.data
             })
+        },
+        methods: {
+        addUser(user) {
+            this.users.push(user);
+        },
+        updateUser(user) {
+            var el = this.users.find(function(element) {
+                return element.email === users.email;
+            });
+            var idx = this.user.indexOf(el);
+            this.users.splice(idx, 1);
+            this.users.splice(idx, 0, organization);
+        },
+        viewOrganization(email) {
+            this.$emit('viewUser', email);
+        }
+   }
 
-},
-methods :{
-    getOrganizationUsers(user){
-        return this.user.organization;
-    }
-
-}
 });

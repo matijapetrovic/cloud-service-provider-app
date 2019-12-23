@@ -17,6 +17,31 @@ Vue.component('super-admin-page',{
             ref="table"
             >
             </all-users-table>
+            <full-modal
+            @close="removeViewValidation"
+            v-bind:modal-id="viewModalId"
+            modal-title="View user"
+            >
+                <view-user-form
+                    @submit="closeViewModal"
+                    @updatedOrganization="updateOrganization($event)"
+                    ref="viewForm"
+                    >
+                    </view-user-form>
+            </full-modal>
+
+            <full-modal
+            @close="removeAddValidation"
+            v-bind:modal-id="addModalId"
+            modal-title="Add user"
+            >
+                <add-user-form
+                    @submit="closeAddModal"
+                    @addedUser="addUser($event)"
+                    ref="addForm"
+                    >
+                    </add-user-form>
+        </full-modal>
         </div>
         
     `,
@@ -54,8 +79,8 @@ Vue.component('super-admin-page',{
         updateuser(user) {
             this.$refs.table.updateUser(user);
         },
-        viewUser(name) {
-            this.$refs.viewForm.getUser(name);
+        viewUser(email) {
+            this.$refs.viewForm.getUser(email);
         }
     }
 
