@@ -54,6 +54,6 @@ public class UserService {
 	}
 
 	public static User getCurrentUser(Request request){
-		return request.session().attribute("user");
+		return request.attribute("loggedIn");
 	}
 }

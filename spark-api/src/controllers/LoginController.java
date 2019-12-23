@@ -47,7 +47,7 @@ public class LoginController {
 		if (request.pathInfo().equalsIgnoreCase("/api/login"))
 			return;
 
-		String token = request.headers("Authorization"); // mozda menjamo
+		String token = request.headers("Authorization");
 		String email = null;
 		try {
 			email = LoginService.getEmail(token);
