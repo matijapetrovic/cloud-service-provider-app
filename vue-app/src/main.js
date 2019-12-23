@@ -9,7 +9,7 @@ if (token) {
 }
 
 const router = new VueRouter({
-    mode : 'hash',
+    mode : 'history',
     routes : [
         { path: '/', component: UsersPage, meta: {title: 'Home', requiresAuth: true}},
         { path: '/login', component: LoginPage, meta: { title: 'Login', requiresAuth: false}},
@@ -19,6 +19,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('user-token') == null) {
             next({
