@@ -43,6 +43,7 @@ Vue.component("view-user-form", {
                 password : null,
                 name : null,
                 surname : null,
+                organizaion : null,
             }
         }
     },
@@ -67,13 +68,13 @@ Vue.component("view-user-form", {
         },
         submitForm: function(e) {
             axios
-                .put('/api/organizations/update/' + this.organization.name, 
+                .put('/api/users/update/' + this.user.email, 
                 {
                     "email": this.user.email,
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organizaion": null
+                    "organizaion": null,
                 })
                 .then(response => {
                     this.checkResponse(response);
