@@ -1,7 +1,7 @@
 Vue.component("add-user-form", {
     template: `
         <main-form 
-            id="addOrganizationForm"
+            id="addUserForm"
             method="POST"
             headerText="User info"
             buttonText="Add"
@@ -10,10 +10,10 @@ Vue.component("add-user-form", {
         >
             <text-input
                 name="email"
-                v-model="user.email"
+                v-model="user.email"    
                 required
             >
-                Emal
+                Email
             </text-input>
             <text-input
                 name="password"
@@ -21,30 +21,27 @@ Vue.component("add-user-form", {
             >
                 Password
             </text-input>
-            <text-input
+            <text-input 
                 name="name"
                 v-model="user.name"
             >
                 Name
             </text-input>
             <text-input
-                name="surname"
-                v-model="user.surname"
+            name="surname"
+            v-model="user.surname"
             >
                 Surname
             </text-input>
-            <text-input
-                name="surname"
-                v-model="user.surname"
-            >
-                Surname
-            </text-input>
-            <b-dropdown text="Button text via Prop">
-                <div v-for="org in organizations">
-                    <b-dropdown-item href="#">{{org.name}}</b-dropdown-item>
-                </div>
-  </b-dropdown>
-
+            <span name="organization">
+                Organization 
+                <select v-model="user.organization">
+                    <option disabled value="">Please select one</option>
+                    <div v-for="org in organizations">
+                        <option>org.name</option>
+                    </div>
+                </select>
+            </span>
         </main-form>
     `,
     data : function () {
@@ -53,24 +50,24 @@ Vue.component("add-user-form", {
                 email: null,
                 password: null,
                 name: null,
-                surname : null,
-                organizaton : null,
+                surname: null,
+                organization: null,
             },
             organizations : null
         }
     },
     mounted () {
-        axios
-            .get('/api/organizations')
+        axios  
+            .get('api/organizations')
             .then(response => {
-                this.organizations = response.data;
+                this.organizations = response.data
             })
     },
     methods: {
         checkResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('addedUser', this.user);
-                alert('Adding user successful');
+                this.$emit('addedUser', this.User);
+                alert('Adding User successful');
                 this.$emit('submit')
             }
             else {
@@ -85,7 +82,7 @@ Vue.component("add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organizaton": this.user.organizaton
+                    "organization": this.user.organization
                 })
                 .then(response => {
                     this.checkResponse(response);
