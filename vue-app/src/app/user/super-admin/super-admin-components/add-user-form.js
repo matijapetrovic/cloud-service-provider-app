@@ -18,6 +18,7 @@ Vue.component("add-user-form", {
             <text-input
                 name="password"
                 v-model="user.password"
+                required
             >
                 Password
             </text-input>
@@ -33,15 +34,14 @@ Vue.component("add-user-form", {
             >
                 Surname
             </text-input>
-            <span name="organization">
-                Organization 
-                <select v-model="user.organization">
-                    <option disabled value="">Please select one</option>
-                    <div v-for="org in organizations">
-                        <option>org.name</option>
-                    </div>
-                </select>
-            </span>
+            
+            <select-input
+            name="Organizations"
+            options="organizations"
+            required
+            >
+            Organizations
+            </select-input>  
         </main-form>
     `,
     data : function () {
