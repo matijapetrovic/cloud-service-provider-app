@@ -1,10 +1,10 @@
 Vue.component("users-page",{
     template: `
 
-        <div> 
-            <super-admin-page></super-admin-page>
-            <!-- <admin-page></admin-page>-->     
-        </div>
+    <div> 
+        <super-admin-page></super-admin-page>
+        <!-- <admin-page></admin-page>-->     
+    </div>
 
     <base-layout v-bind:page-title="$route.meta.title">
         <table border="1" class="table">

@@ -53,7 +53,7 @@ public class UserService {
 		return users;
 	}
 
-	public static User getCurrentUser(Request request){
+	public User getCurrentUser(Request request){
 		return request.attribute("loggedIn");
 	}
 }

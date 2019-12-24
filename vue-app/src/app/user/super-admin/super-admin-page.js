@@ -26,7 +26,7 @@ Vue.component('super-admin-page',{
             >
                 <view-user-form
                     @submit="closeViewModal"
-                    @updatedOrganization="updateOrganization($event)"
+                    @updatedUser="updateUser($event)"
                     ref="viewForm"
                     >
                     </view-user-form>
@@ -78,7 +78,7 @@ Vue.component('super-admin-page',{
         addUser(user) {
             this.$refs.table.addUser(user);
         },
-        updateuser(user) {
+        updateUser(user) {
             this.$refs.table.updateUser(user);
         },
         viewUser(email) {
