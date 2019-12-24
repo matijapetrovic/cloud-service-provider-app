@@ -5,12 +5,17 @@ import java.util.Set;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import repositories.UserRepository;
 import spark.Request;
 
 import models.User;
 import models.User.Role;
 
-public class UserService {
+public class UserService extends Service<String, User> {
+	public UserService() {
+		super(new UserRepository("./data/users.json"));
+		}
+
 	private final Set<User> users = loadUsersFromFile("users.txt");
 	
 	public Iterable<User> getAllUsers() {

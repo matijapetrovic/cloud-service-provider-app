@@ -32,7 +32,7 @@ public class UserController {
 
 	public static Route serveGetSingle = (Request request, Response response) -> {
 		String name = request.params("/:name");
-		Optional<User> user = App.UserService.
+		Optional<User> user = App.UserService
 
 
 		response.type("application/json");
