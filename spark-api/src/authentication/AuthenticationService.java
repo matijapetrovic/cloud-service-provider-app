@@ -1,13 +1,12 @@
-package services;
+package authentication;
 
-import authentication.Token;
 import main.App;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.keys.HmacKey;
 import org.jose4j.lang.JoseException;
 
-public class LoginService {
+public class AuthenticationService {
     private static String TOKEN_SECRET = "572247f3042d4add9397333a172680143d7363ace4";
 
     public static String createToken(String email) throws JoseException {

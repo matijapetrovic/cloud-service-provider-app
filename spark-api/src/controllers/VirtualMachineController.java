@@ -1,17 +1,24 @@
 package controllers;
 
 import main.App;
+import models.Organization;
+import models.User;
 import models.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class VirtualMachineController {
     public static Route handleGetAll = (Request request, Response response) -> {
+        User user = request.attribute("loggedIn");
+        List<VirtualMachine> vms = applyRoleFilter(App.vmService.findAll(), user);
+
         response.type("application/json");
-        return App.g.toJson(App.vmService.findAll());
+        return App.g.toJson(vms);
     };
 
     public static Route handleGetSingle = (Request request, Response response) -> {
@@ -54,4 +61,15 @@ public class VirtualMachineController {
         response.status(200);
         return "OK";
     };
+
+    private static List<VirtualMachine> applyRoleFilter(List<VirtualMachine> vms, User user) {
+        if (user.getRole().equals(User.Role.SUPER_ADMIN))
+            return vms;
+
+        Organization org = user.getOrganization();
+        return vms
+            .stream()
+            .filter(x -> org.getResources().contains(x))
+            .collect(Collectors.toList());
+    }
 }

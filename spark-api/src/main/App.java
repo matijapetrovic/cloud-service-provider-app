@@ -48,7 +48,7 @@ public class App {
                 get("", UserController.serveUserPage);
             });
 
-            path("/vms", () -> {
+            path("/virtualmachines", () -> {
                 get("", VirtualMachineController.handleGetAll);
                 get("/:name", VirtualMachineController.handleGetSingle);
                 post("/add", VirtualMachineController.handlePost);

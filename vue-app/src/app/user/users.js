@@ -28,7 +28,7 @@ Vue.component("users-page",{
     },
     mounted () {
         axios
-            .get('api/users/' + $route.params.email)
+            .get('api/users')
             .then(response => {
                 this.users = response.data
             })

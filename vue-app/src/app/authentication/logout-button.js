@@ -11,6 +11,7 @@ Vue.component("logout-button", {
     methods: {
         logout () {
             localStorage.removeItem('user-token');
+            localStorage.removeItem('user');
             delete axios.defaults.headers.common['Authorization'];
             this.$router.push('/login');
         }

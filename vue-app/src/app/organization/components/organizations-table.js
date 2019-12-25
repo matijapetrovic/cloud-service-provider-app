@@ -10,7 +10,16 @@ Vue.component("org-table", {
         </thead>
     
         <tr v-for="org in organizations">
-            <td><a href="#" @click.prevent="viewOrganization(org.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ org.name }}</a></td>
+            <td>
+                <a 
+                href="#" 
+                @click.prevent="viewOrganization(org.name)" 
+                data-toggle="modal" 
+                v-bind:data-target="'#' + viewModalId"
+                >
+                    {{ org.name }}
+                </a>
+            </td>
             <td>{{ org.description }}</td>
             <td>{{ org.logo }}</td>
         </tr>
@@ -29,7 +38,7 @@ Vue.component("org-table", {
             .get('/api/organizations')
             .then(response => {
                 this.organizations = response.data;
-            })
+            });
     },
     methods: {
         addOrganization(organization) {
