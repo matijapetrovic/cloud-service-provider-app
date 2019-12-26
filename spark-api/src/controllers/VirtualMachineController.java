@@ -69,7 +69,7 @@ public class VirtualMachineController {
         Organization org = user.getOrganization();
         return vms
             .stream()
-            .filter(x -> org.getResources().contains(x))
+            .filter(x -> org.getVirtualMachines().contains(x))
             .collect(Collectors.toList());
     }
 }

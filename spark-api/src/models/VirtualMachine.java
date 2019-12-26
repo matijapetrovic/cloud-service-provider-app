@@ -1,13 +1,13 @@
 package models;
 
-import java.util.Collection;
+import java.util.List;
 
 public class VirtualMachine implements Model<String> {
 	private String name;
 	private VMCategory category;
-	private Collection<Drive> drives;
+	private List<Drive> drives;
 	
-	public VirtualMachine(String name, VMCategory category, Collection<Drive> drives) {
+	public VirtualMachine(String name, VMCategory category, List<Drive> drives) {
 		super();
 		this.name = name;
 		this.category = category;
@@ -30,24 +30,54 @@ public class VirtualMachine implements Model<String> {
 		this.category = category;
 	}
 	
-	public int getCores() {
-		return category.getCores();
+	public int getCpus() {
+		return category.getCpus();
 	}
 	
-	public int getMemory() {
-		return category.getMemory();
+	public int getRam() {
+		return category.getRam();
 	}
 	
 	public int getGpus() {
 		return category.getGpus();
 	}
 	
-	public Collection<Drive> getDrives() {
+	public List<Drive> getDrives() {
 		return drives;
 	}
 	
-	public void setDrives(Collection<Drive> drives) {
+	public void setDrives(List<Drive> drives) {
 		this.drives = drives;
+	}
+
+	public boolean addDrive(Drive drive) {
+		if (drive == null)
+			return false;
+
+		if (drives.contains(drive))
+			return false;
+
+		return drives.add(drive);
+	}
+
+	public boolean removeDrive(Drive drive) {
+		if (drive == null)
+			return false;
+
+		return drives.remove(drive);
+	}
+
+	public boolean updateDrive(String name, Drive drive) {
+		if (drive == null)
+			return false;
+
+		int idx = drives.indexOf(drive);
+		if (idx == -1)
+			return false;
+
+		drives.remove(idx);
+		drives.add(idx, drive);
+		return true;
 	}
 
 	@Override

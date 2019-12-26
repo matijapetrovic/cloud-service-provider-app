@@ -1,7 +1,11 @@
 package serializer.organization;
 
 import com.google.gson.GsonBuilder;
+import main.App;
+import models.Drive;
 import models.Organization;
+import models.User;
+import models.VirtualMachine;
 import serializer.JSONSerializer;
 
 import java.io.FileReader;
@@ -36,6 +40,35 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
     }
 
     private void buildReferences(Organization org) {
-        // TODO resi
+        buildUserReferences(org);
+        buildVMReferences(org);
+//      buildDriveReferences(org);
     }
+
+    private void buildUserReferences(Organization org) {
+        List<User> users = new ArrayList<User>();
+        org.getUsers()
+                .forEach(x -> App.userService
+                        .getUser(x.getEmail())
+                        .ifPresent(users::add));
+        org.setUsers(users);
+    }
+
+    private void buildVMReferences(Organization org) {
+        List<VirtualMachine> vms = new ArrayList<VirtualMachine>();
+        org.getVirtualMachines()
+                .forEach(x -> App.vmService
+                        .findByKey(x.getKey())
+                        .ifPresent(vms::add));
+        org.setVirtualMachines(vms);
+    }
+
+//    private void buildDriveReferences(Organization org) {
+//        List<Drive> drives = new ArrayList<Drive>();
+//        org.getDrives()
+//                .forEach(x -> App.driveService
+//                        .findByKey(x.getKey()))
+//                        .ifPresent(drives::add);
+//        org.setDrives(drives);
+//    }
 }

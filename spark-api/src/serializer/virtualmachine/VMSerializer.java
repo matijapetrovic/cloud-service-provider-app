@@ -28,6 +28,25 @@ public class VMSerializer extends JSONSerializer<VirtualMachine> {
 
     @Override
     public List<VirtualMachine> deserialize(FileReader reader) {
-        return Arrays.asList(gson.fromJson(reader, VirtualMachine[].class));
+        List<VirtualMachine> data = Arrays.asList(gson.fromJson(reader, VirtualMachine[].class));
+        buildReferences(data);
+        return data;
     }
+
+    private void buildReferences(List<VirtualMachine> data) {
+        data.forEach(this::buildReferences);
+    }
+
+    private void buildReferences(VirtualMachine vm) {
+//      buildDriveReferences(vm);
+    }
+
+//    private void buildDriveReferences(VirtualMachine vm) {
+//        List<Drive> drives = new ArrayList<Drive>();
+//        vm.getDrives()
+//                .forEach(x -> App.driveService
+//                        .findByKey(x.getKey()))
+//                        .ifPresent(drives::add);
+//        vm.setDrives(drives);
+//    }
 }
