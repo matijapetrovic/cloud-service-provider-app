@@ -1,8 +1,8 @@
-Vue.component('user-page',{
+Vue.component('profile',{
     template: `
         <div>
             <!-- Pokusaj prikaza na pritisnuto profile dugme-->
-            <profile-page></profile-page>
+            <profile-info></profile-info>
 
             <button
             type="button"

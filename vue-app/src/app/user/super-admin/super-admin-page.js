@@ -53,13 +53,6 @@ Vue.component('super-admin-page',{
             viewModalId: 'viewUserModal'
         }
     },
-    mounted () {
-        axios
-            .get('api/users')
-            .then(response => {
-                this.users = response.data
-            })
-    },
     methods: {
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();

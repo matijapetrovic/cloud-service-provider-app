@@ -1,4 +1,4 @@
-Vue.component("add-user-form", {
+Vue.component("dmin-add-user-form", {
     template: `
         <main-form 
             id="addUserForm"
@@ -58,7 +58,7 @@ Vue.component("add-user-form", {
     },
     mounted () {
         axios  
-            .get('api/users/organizations/:name')
+            .get('api/organization/:name')
             .then(response => {
                 this.organizations = response.data
             })

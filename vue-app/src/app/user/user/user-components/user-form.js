@@ -19,7 +19,13 @@ Vue.component("view-user-form", {
             name="password"
             v-model="user.password"
         >
-            Surname
+            Password
+        </file-input>
+        <file-input
+            name="confirm-password"
+            v-model="user.password"
+        >
+            Confirm password
         </file-input>
         <text-input
             name="name"

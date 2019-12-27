@@ -1,4 +1,4 @@
-Vue.component("users-page",{
+Vue.component("profile",{
     template: `
 
         <base-layout v-bind:page-title="$route.meta.title">
@@ -12,14 +12,4 @@ Vue.component("users-page",{
             user : null
         }
     },
-    mounted () {
-
-        axios
-            .get('api/users')
-            .then(response => {
-                this.users = response.data
-             })
-          
-    }
-
 });

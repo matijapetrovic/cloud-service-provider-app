@@ -31,7 +31,6 @@ public class App {
         userService = new UserService();
         vmService = new VMService();
         organizationService = new OrganizationService();
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -60,9 +59,11 @@ public class App {
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
                 get("currentUser", UserController.serveCurrentUser);
-                get("/:name", OrganizationController.handleGetSingle);
-                post("/add", OrganizationController.handlePost);
-                put("/update/:name", OrganizationController.handlePut);
+                get("/profile", UserController.serveCurrentUser);
+                get("/:name", UserController.handleGetSingle);
+                get("/organization/:name", UserController.handleUsersOrganization);
+                post("/add", UserController.handlePost);
+                put("/update/:name", UserController.handlePut);
             });
 
             path("/virtualmachines", () -> {

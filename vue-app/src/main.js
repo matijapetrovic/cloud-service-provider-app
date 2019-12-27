@@ -2,6 +2,7 @@ const OrganizationsPage = { template: '<organizations-page></organizations-page>
 const UsersPage = { template : '<users-page></users-page>' }
 const LoginPage = { template: '<login-page></login-page>' }
 const VMPage = { template: '<virtual-machines-page></virtual-machines-page>'}
+const Profile = {template: '<profile></profile>'}
 
 // kad se refreshuje stranica da pokupi token
 const token = localStorage.getItem('user-token')
@@ -16,7 +17,9 @@ const router = new VueRouter({
         { path: '/login', component: LoginPage, meta: { title: 'Login', requiresAuth: false}},
         { path: '/organizations', component: OrganizationsPage, meta: { title: 'Organizations', requiresAuth: true} },
         { path: '/users', component: UsersPage, meta: { title: 'Users', requiresAuth: true }},
-        { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true}}
+        { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true}},
+        { path: '/profile', component: Profile, meta: { title:'Profiles', requiresAuth: true}}
+        
     ]
 });
 

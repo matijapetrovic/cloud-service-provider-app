@@ -4,7 +4,7 @@ Vue.component("side-nav",{
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link class="nav-link" to="/">
+              <router-link class="nav-link" to="/profile">
                 <span data-feather="home"></span>
                 Profile
               </router-link>
