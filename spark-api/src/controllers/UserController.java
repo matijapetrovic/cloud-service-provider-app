@@ -1,10 +1,5 @@
 package controllers;
 
-import static main.App.userService;
-
-import java.util.Optional;
-
-import models.User;
 
 import main.App;
 import spark.Request;

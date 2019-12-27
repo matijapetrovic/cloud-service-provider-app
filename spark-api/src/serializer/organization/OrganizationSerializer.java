@@ -2,7 +2,6 @@ package serializer.organization;
 
 import com.google.gson.GsonBuilder;
 import main.App;
-import models.Drive;
 import models.Organization;
 import models.User;
 import models.VirtualMachine;

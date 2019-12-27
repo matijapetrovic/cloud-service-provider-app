@@ -1,6 +1,5 @@
 package authentication;
 
-import models.User;
 
 public class TokenResponse {
     private boolean authenticated;
