@@ -47,7 +47,7 @@ public class LoginController {
 	}
 
 	private static User validateEmail(User toLogin) {
-		Optional<User> user = userService.getUser(toLogin.getEmail());
+		Optional<User> user = userService.findByKey(toLogin.getKey());
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, "Invalid e-mail");
 		return user.get();
@@ -71,7 +71,7 @@ public class LoginController {
 
 	private static User validateToken(String token) {
 		String email = getEmail(token);
-		Optional<User> user = userService.getUser(email);
+		Optional<User> user = userService.findByKey(email);
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, App.g.toJson("Invalid token"));
 		return user.get();

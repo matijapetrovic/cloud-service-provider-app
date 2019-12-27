@@ -1,6 +1,6 @@
 package models;
 
-public class User {
+public class User  implements Model<String>{
 	public enum Role
 	{
 		USER (0),
@@ -106,11 +106,10 @@ public class User {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String getKey() {
+		return email;
+	}
+
 }

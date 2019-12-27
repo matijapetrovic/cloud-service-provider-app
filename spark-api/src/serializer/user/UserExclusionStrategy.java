@@ -2,6 +2,10 @@ package serializer.user;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
+<<<<<<< HEAD
+=======
+import models.User;
+>>>>>>> develop
 
 public class UserExclusionStrategy implements ExclusionStrategy {
         @Override

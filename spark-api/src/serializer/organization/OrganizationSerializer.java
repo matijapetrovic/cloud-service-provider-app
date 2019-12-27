@@ -2,7 +2,6 @@ package serializer.organization;
 
 import com.google.gson.GsonBuilder;
 import main.App;
-import models.Drive;
 import models.Organization;
 import models.User;
 import models.VirtualMachine;
@@ -49,7 +48,7 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
         List<User> users = new ArrayList<User>();
         org.getUsers()
                 .forEach(x -> App.userService
-                        .getUser(x.getEmail())
+                        .findByKey(x.getKey())
                         .ifPresent(users::add));
         org.setUsers(users);
     }
