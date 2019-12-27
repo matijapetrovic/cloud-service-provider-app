@@ -1,10 +1,8 @@
 package serializer.user;
 
 import com.google.gson.GsonBuilder;
-import models.Organization;
 import models.User;
 import serializer.JSONSerializer;
-import serializer.organization.OrganizationExclusionStrategy;
 
 import java.io.FileReader;
 import java.io.FileWriter;

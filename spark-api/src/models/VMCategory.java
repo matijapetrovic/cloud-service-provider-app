@@ -2,16 +2,16 @@ package models;
 
 public class VMCategory {
 	private String name;
-	private int cores;
-	private int memory;
+	private int cpus;
+	private int ram;
 	private int gpus;
 
 
-	public VMCategory(String name, int cores, int memory, int gpus) {
+	public VMCategory(String name, int cpus, int ram, int gpus) {
 		super();
 		this.name = name;
-		this.cores = cores;
-		this.memory = memory;
+		this.cpus = cpus;
+		this.ram = ram;
 		this.gpus = gpus;
 	}
 
@@ -23,20 +23,20 @@ public class VMCategory {
 		this.name = name;
 	}
 	
-	public int getCores() {
-		return cores;
+	public int getCpus() {
+		return cpus;
 	}
 	
-	public void setCores(int cores) {
-		this.cores = cores;
+	public void setCpus(int cpus) {
+		this.cpus = cpus;
 	}
 	
-	public int getMemory() {
-		return memory;
+	public int getRam() {
+		return ram;
 	}
 	
-	public void setMemory(int memory) {
-		this.memory = memory;
+	public void setRam(int ram) {
+		this.ram = ram;
 	}
 	
 	public int getGpus() {

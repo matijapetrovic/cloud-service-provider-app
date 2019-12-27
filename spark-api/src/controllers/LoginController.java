@@ -47,7 +47,7 @@ public class LoginController {
 	}
 
 	private static User validateEmail(User toLogin) {
-		Optional<User> user = userService.findByKey(toLogin.getEmail());
+		Optional<User> user = userService.findByKey(toLogin.getKey());
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, "Invalid e-mail");
 		return user.get();

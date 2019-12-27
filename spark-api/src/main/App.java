@@ -23,9 +23,16 @@ public class App {
     public static final Gson g = new Gson();
     public static final Logger logger = Logger.getAnonymousLogger();
 
-    public static UserService userService = new UserService();
-    public static OrganizationService organizationService = new OrganizationService();
-    public static VMService vmService = new VMService();
+    public static UserService userService;
+    public static VMService vmService;
+    public static OrganizationService organizationService;
+
+    static {
+        userService = new UserService();
+        vmService = new VMService();
+        organizationService = new OrganizationService();
+
+    }
 
     public static void main(String[] args) throws IOException {
         userService.add(new User("mattheo@gmail.com", "Hasaki", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
