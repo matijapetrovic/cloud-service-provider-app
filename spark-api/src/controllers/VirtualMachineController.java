@@ -32,7 +32,7 @@ public class VirtualMachineController {
         }
 
         User user = request.attribute("loggedIn");
-        if (!user.getOrganization().getVirtualMachines().contains(vm)) {
+        if (!user.getOrganization().getVirtualMachines().contains(vm.get())) {
             response.status(403);
             return "Forbidden";
         }
