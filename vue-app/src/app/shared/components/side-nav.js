@@ -19,25 +19,25 @@ Vue.component("side-nav",{
               <router-link class="nav-link" to="/organizations">
                 <span data-feather="users"></span>
                 Organizations
-              </a>
+                </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">
+              <router-link class="nav-link" to="/virtualmachines">
                 <span data-feather="layers"></span>
                 Virtual Machines
-              </a>
+                </router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="#">
                 <span data-feather="database"></span>
                 Drives
-              </a>
+                </router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="#">
                 <span data-feather="folder"></span>
                 VM Categories
-              </a>
+              </router-link>
             </li>
           </ul>
 

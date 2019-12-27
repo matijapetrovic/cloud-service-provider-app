@@ -52,7 +52,7 @@ public class App {
                 put("/update/:name", OrganizationController.handlePut);
             });
 
-            path("/vms", () -> {
+            path("/virtualmachines", () -> {
                 get("", VirtualMachineController.handleGetAll);
                 get("/:name", VirtualMachineController.handleGetSingle);
                 post("/add", VirtualMachineController.handlePost);

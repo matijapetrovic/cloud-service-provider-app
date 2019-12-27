@@ -3,6 +3,7 @@ package services;
 import models.Model;
 import repositories.JSONFileRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Service<K, E extends Model<K>> {
@@ -12,7 +13,7 @@ public abstract class Service<K, E extends Model<K>> {
         this.repository = repository;
     }
 
-    public Iterable<E> findAll() {
+    public List<E> findAll() {
         return repository.findAll();
     }
 

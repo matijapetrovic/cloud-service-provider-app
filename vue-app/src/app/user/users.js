@@ -14,7 +14,6 @@ Vue.component("users-page",{
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Organization</th>
-
                 </tr>
             </thead>
             <tr v-for="user in users">
@@ -35,23 +34,12 @@ Vue.component("users-page",{
     },
     mounted () {
 
-        axios.all([
-            axios
-            .post('api/login')
-            .then(response => {
-                this.user =  response.data
-             }),
-            axios
+        axios
             .get('api/users')
             .then(response => {
                 this.users = response.data
              })
-        ])
-       
-         
-       
-
-            
+          
     }
 
 });
