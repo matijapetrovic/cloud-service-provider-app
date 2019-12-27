@@ -1,10 +1,5 @@
 package controllers;
 
-import static main.App.userService;
-
-import java.util.Optional;
-
-import models.User;
 
 import main.App;
 import spark.Request;
@@ -30,11 +25,4 @@ public class UserController {
 		return App.g.toJson(App.userService.getCurrentUser(request));
 	};
 
-	public static Route serveGetSingle = (Request request, Response response) -> {
-		String name = request.params("/:name");
-		Optional<User> user = App.UserService;
-
-
-		response.type("application/json");
-	};
 }

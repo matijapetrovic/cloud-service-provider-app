@@ -27,14 +27,21 @@ public class VirtualMachineController {
 
         response.type("application/json");
         if (!vm.isPresent()) {
-            response.status(400);
+            response.status(404);
             return "Virtual machine with the name " + name + " doesn't exist";
+        }
+
+        User user = request.attribute("loggedIn");
+        if (!user.getOrganization().getVirtualMachines().contains(vm)) {
+            response.status(403);
+            return "Forbidden";
         }
 
         response.status(200);
         return App.g.toJson(vm.get());
     };
 
+    // TODO : SUPER_ADMIN adds a VM, how to send organization??
     public static Route handlePost = (Request request, Response response) -> {
         VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
 
@@ -44,6 +51,8 @@ public class VirtualMachineController {
             return "Virtual machine with the name " + vm.getName() + " already exists";
         }
 
+        User user = request.attribute("loggedIn");
+        user.getOrganization().addVirtualMachine(vm);
         response.status(200);
         return "OK";
     };
@@ -51,13 +60,21 @@ public class VirtualMachineController {
     public static Route handlePut = (Request request, Response response) -> {
         VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
         String name = request.params(":name");
+        Optional<VirtualMachine> toUpdate = App.vmService.findByKey(name);
 
         response.type("application/json");
-        if (!App.vmService.update(name, vm)) {
-            response.status(400);
+        if (!toUpdate.isPresent()) {
+            response.status(404);
             return "Virtual machine with the name " + name + " doesn't exist";
         }
 
+        User user = request.attribute("loggedIn");
+        if (!user.getOrganization().getVirtualMachines().contains(toUpdate.get())) {
+            response.status(403);
+            return "Forbidden";
+        }
+
+        App.vmService.update(name, vm);
         response.status(200);
         return "OK";
     };
@@ -69,7 +86,7 @@ public class VirtualMachineController {
         Organization org = user.getOrganization();
         return vms
             .stream()
-            .filter(x -> org.getResources().contains(x))
+            .filter(x -> org.getVirtualMachines().contains(x))
             .collect(Collectors.toList());
     }
 }

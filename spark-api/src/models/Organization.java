@@ -1,31 +1,35 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 public class Organization implements Model<String> {
 	private String name;
 	private String description;
 	private String logo;
-	private Collection<User> users;
-	private Collection<VirtualMachine> resources;
+	private List<User> users;
+	private List<VirtualMachine> virtualMachines;
+	private List<Drive> drives;
 
 	public Organization(String name, String description, String logo) {
 		this.name = name;
 		this.description = description;
 		this.logo = logo;
-		this.users = new HashSet<User>();
-		this.resources = new HashSet<VirtualMachine>();
+		this.users = new ArrayList<User>();
+		this.virtualMachines = new ArrayList<VirtualMachine>();
 	}
 	
-	public Organization(String name, String description, String logo, Collection<User> users,
-			Collection<VirtualMachine> resources) {
+	public Organization(String name, String description, String logo, List<User> users,
+			List<VirtualMachine> virtualMachines, List<Drive> drives) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.logo = logo;
 		this.users = users;
-		this.resources = resources;
+		this.virtualMachines = virtualMachines;
+		this.drives = drives;
 	}
 
 	public String getName() {
@@ -52,34 +56,58 @@ public class Organization implements Model<String> {
 		this.logo = logo;
 	}
 
-	public Collection<User> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Collection<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
-	public Collection<VirtualMachine> getResources() {
-		return resources;
+	public List<VirtualMachine> getVirtualMachines() {
+		return virtualMachines;
 	}
 
-	public void setResources(Collection<VirtualMachine> resources) {
-		this.resources = resources;
+	public void setVirtualMachines(List<VirtualMachine> virtualMachines) {
+		this.virtualMachines = virtualMachines;
+	}
+
+	public List<Drive> getDrives() {
+		return drives;
+	}
+
+	public void setDrives(List<Drive> drives) {
+		this.drives = drives;
 	}
 
 	public boolean addUser(User u) {
 		if (u == null)
 			return false;
 
+		if (users.contains(u))
+			return false;
+
 		return users.add(u);
 	}
 
-	public boolean addResource(VirtualMachine vm) {
+	public boolean addVirtualMachine(VirtualMachine vm) {
 		if (vm == null)
 			return false;
 
-		return resources.add(vm);
+		if (virtualMachines.contains(vm))
+			return false;
+
+		return virtualMachines.add(vm);
+	}
+
+	public boolean addDrive(Drive drive) {
+		if (drive == null)
+			return false;
+
+		if (drives.contains(drive))
+			return false;
+
+		return drives.add(drive);
 	}
 
 	public boolean removeUser(User u) {
@@ -89,31 +117,57 @@ public class Organization implements Model<String> {
 		return users.remove(u);
 	}
 
-	public boolean removeResource(VirtualMachine vm) {
+	public boolean removeVirtualMachine(VirtualMachine vm) {
 		if (vm == null)
 			return false;
 
-		return resources.remove(vm);
+		return virtualMachines.remove(vm);
+	}
+
+	public boolean removeDrive(Drive drive) {
+		if (drive == null)
+			return false;
+
+		return drives.remove(drive);
 	}
 
 	public boolean updateUser(String email, User u) {
 		if (u == null)
 			return false;
 
-		if (!users.removeIf(x -> x.getEmail().equalsIgnoreCase(email)))
+		int idx = users.indexOf(u);
+		if (idx == -1)
 			return false;
 
-		return users.add(u);
+		users.remove(idx);
+		users.add(idx, u);
+		return true;
 	}
 
-	public boolean updateResource(String name, VirtualMachine vm) {
+	public boolean updateVirtualMachine(String name, VirtualMachine vm) {
 		if (vm == null)
 			return false;
 
-		if (!resources.removeIf(x -> x.getName().equalsIgnoreCase(name)))
+		int idx = virtualMachines.indexOf(vm);
+		if (idx == -1)
 			return false;
 
-		return resources.add(vm);
+		virtualMachines.remove(idx);
+		virtualMachines.add(idx, vm);
+		return true;
+	}
+
+	public boolean updateDrive(String name, Drive drive) {
+		if (drive == null)
+			return false;
+
+		int idx = drives.indexOf(drive);
+		if (idx == -1)
+			return false;
+
+		drives.remove(idx);
+		drives.add(idx, drive);
+		return true;
 	}
 
 	@Override
