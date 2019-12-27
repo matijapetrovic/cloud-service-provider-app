@@ -13,6 +13,8 @@ import controllers.LoginController;
 import controllers.UserController;
 import controllers.OrganizationController;
 import controllers.VirtualMachineController;
+import models.User;
+import models.User.Role;
 import services.OrganizationService;
 import services.UserService;
 import services.VMService;
@@ -26,6 +28,10 @@ public class App {
     public static VMService vmService = new VMService();
 
     public static void main(String[] args) throws IOException {
+        userService.add(new User("mattheo@gmail.com", "Hasaki", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
+        userService.add(new User("nikola@gmail.com", "Anunaki", "Admino", "Adminovovski", null, Role.ADMIN));
+
+
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
 
