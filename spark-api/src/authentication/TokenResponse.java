@@ -11,4 +11,16 @@ public class TokenResponse {
         this.token = token;
         this.userResponse = userResponse;
     }
+
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public UserResponse getUserResponse() {
+        return userResponse;
+    }
 }
