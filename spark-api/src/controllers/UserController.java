@@ -28,13 +28,13 @@ public class UserController {
 	public static Route serveCurrentUser = (Request request, Response response) -> {
 		response.type("application/json");
 		return App.g.toJson(App.userService.getCurrentUser(request));
-	}
+	};
 
 	public static Route serveGetSingle = (Request request, Response response) -> {
 		String name = request.params("/:name");
-		Optional<User> user = App.UserService
+		Optional<User> user = App.UserService;
 
 
 		response.type("application/json");
-	}
+	};
 }
