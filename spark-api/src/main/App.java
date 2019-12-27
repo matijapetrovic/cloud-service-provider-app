@@ -21,9 +21,10 @@ public class App {
     public static final Gson g = new Gson();
     public static final Logger logger = Logger.getAnonymousLogger();
 
-    public static UserService userService = new UserService();
-    public static OrganizationService organizationService = new OrganizationService();
-    public static VMService vmService = new VMService();
+    public static final UserService userService = new UserService();
+    public static final OrganizationService organizationService = new OrganizationService();
+    public static final VMService vmService = new VMService();
+
 
     public static void main(String[] args) throws IOException {
         port(8080);
