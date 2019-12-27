@@ -7,10 +7,6 @@ import org.jose4j.lang.JoseException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-<<<<<<< HEAD
-	
-import java.util.Optional;
-=======
 
 import authentication.UserResponse;
 import authentication.AuthenticationService;
@@ -18,7 +14,6 @@ import authentication.TokenResponse;
 
 import main.App;
 import models.User;
->>>>>>> login
 
 import static main.App.userService;
 import static spark.Spark.halt;
@@ -52,7 +47,7 @@ public class LoginController {
 	}
 
 	private static User validateEmail(User toLogin) {
-		Optional<User> user = userService.getUser(toLogin.getEmail());
+		Optional<User> user = userService.findByKey(toLogin.getEmail());
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, "Invalid e-mail");
 		return user.get();
@@ -76,7 +71,7 @@ public class LoginController {
 
 	private static User validateToken(String token) {
 		String email = getEmail(token);
-		Optional<User> user = userService.getUser(email);
+		Optional<User> user = userService.findByKey(email);
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, App.g.toJson("Invalid token"));
 		return user.get();
