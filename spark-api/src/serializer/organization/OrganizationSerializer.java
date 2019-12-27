@@ -48,7 +48,7 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
         List<User> users = new ArrayList<User>();
         org.getUsers()
                 .forEach(x -> App.userService
-                        .getUser(x.getEmail())
+                        .findByKey(x.getKey())
                         .ifPresent(users::add));
         org.setUsers(users);
     }
