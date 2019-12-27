@@ -3,8 +3,7 @@ Vue.component("users-page",{
 
         <base-layout v-bind:page-title="$route.meta.title">
             <super-admin-page></super-admin-page>
-        <!-- <admin-page></admin-page>-->    
-    </base-layout>
+        </base-layout>
     `
     ,
     data: function(){
