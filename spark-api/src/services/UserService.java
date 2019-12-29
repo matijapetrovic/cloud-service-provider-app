@@ -1,7 +1,6 @@
 package services;
 
 import repositories.UserRepository;
-import spark.Request;
 
 import models.User;
 
@@ -16,7 +15,4 @@ public class UserService extends Service<String, User> {
 		return user.getOrganization().getUsers();
 	}
 
-	public User getCurrentUser(Request request){
-		return request.attribute("loggedIn");
-	}
 }

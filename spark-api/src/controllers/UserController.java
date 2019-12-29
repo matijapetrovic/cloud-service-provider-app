@@ -5,7 +5,6 @@ import java.util.Optional;
 import main.App;
 import models.Organization;
 import models.User;
-import models.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -16,13 +15,16 @@ public class UserController {
 		//LoginController.ensureUserIsLoggedIn(request, response);
 
 		response.type("application/json");
-		User currentUser = App.userService.getCurrentUser(request);
+		User currentUser = request.attribute("loggedIn");
 
-		switch(App.userService.getCurrentUser(request).getRole()) {
+		switch(currentUser.getRole()) {
 			case SUPER_ADMIN:
 				return App.g.toJson(App.userService.findAll());
 			case ADMIN:
-				return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
+				System.out.println("USAO U ADMIN CASE USER CONTROLLER 25");	
+				return App.g.toJson(App.userService.findAll());
+				
+				//return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
 			case USER:
 				break;
 			default:
@@ -36,7 +38,7 @@ public class UserController {
 
 	public static Route serveCurrentUser = (Request request, Response response) -> {
 		response.type("application/json");
-		return App.g.toJson(App.userService.getCurrentUser(request));
+		return App.g.toJson(request.attribute("loggedIn"));
 	};
 
 	public static Route handleGetSingle = (Request request, Response response) -> {

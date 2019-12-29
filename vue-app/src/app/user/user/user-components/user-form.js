@@ -77,7 +77,8 @@ Vue.component("view-user-form", {
                     "email": this.user.email,
                     "password": this.user.password,
                     "name": this.user.name,
-                    "users":
+                    "surname": this.user.surname,
+                    "organization" : this.user.organization
                 })
                 .then(response => {
                     this.checkResponse(response);   

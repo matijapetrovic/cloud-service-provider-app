@@ -1,4 +1,4 @@
-Vue.component("profile",{
+Vue.component("users-page",{
     template: `
 
         <base-layout v-bind:page-title="$route.meta.title">

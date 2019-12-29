@@ -20,30 +20,26 @@ Vue.component("profile-info", {
     `,
     data : function () {
         return {
-            errors: [],
             user : {
                 email: null,
                 password : null,
                 name : null,
                 surname : null,
                 organizaion : null,
-            }
+            },
         }
     },
     mounted(){
         axios
-        .get('/api/users/currentUser')
+        .get('api/users/currentUser')
         .then(response => {
-            this.user = response.data
+            this.user = {
+                "email" : this.user.email,
+                "password" : this.user.password,
+                "name" : this.user.name,
+                "surname" : this.user.surname,
+                "organization" : this.user.organizaion,
+            }
         });
     },
-    methods: {
-        getUser: function(email) {
-            axios
-                .get('/api/users/currentUser' + email)
-                .then(response => {
-                    this.user = response.data
-                });
-        },
-    }
 });

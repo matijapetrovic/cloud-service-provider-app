@@ -18,7 +18,7 @@ const router = new VueRouter({
         { path: '/organizations', component: OrganizationsPage, meta: { title: 'Organizations', requiresAuth: true} },
         { path: '/users', component: UsersPage, meta: { title: 'Users', requiresAuth: true }},
         { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true}},
-        { path: '/profile', component: Profile, meta: { title:'Profiles', requiresAuth: true}}
+        { path: '/profile', component: Profile, meta: { title:'Profile', requiresAuth: true}}
         
     ]
 });

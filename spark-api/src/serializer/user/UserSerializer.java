@@ -36,6 +36,7 @@ public class UserSerializer extends JSONSerializer<User> {
     private void buildReferences(List<User> data) {
         data.forEach(this::buildReferences);
     }
+
     private void buildReferences(User org) {
         // TODO resi
     }
