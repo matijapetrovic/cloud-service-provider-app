@@ -4,13 +4,6 @@
         "password": "Hasaki",
         "name": "Admin",
         "surname": "Adminovic",
-        "organization": {
-            "name": "Doktori",
-            "description": "Mateo i Kabi",
-            "users": [],
-            "virtualMachines": [],
-            "drives": []
-        },
         "role": "SUPER_ADMIN"
     },
     {
@@ -18,13 +11,6 @@
         "password": "Anunaki",
         "name": "Admino",
         "surname": "Adminovovski",
-        "organization": {
-            "name": "Doktori",
-            "description": "Mateo i Kabi",
-            "users": [],
-            "virtualMachines": [],
-            "drives": []
-        },
         "role": "ADMIN"
     }
 ]

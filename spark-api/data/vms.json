@@ -1,0 +1,1 @@
+[{"name": "VM1", "category": {"name": "Cat1", "cpus": 4, "ram": 1000, "gpus": 10}, "drives": []}, {"name": "VM2", "category": {"name": "Cat1", "cpus": 4, "ram": 1000, "gpus": 10}, "drives": []}]
