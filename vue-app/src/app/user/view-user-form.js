@@ -1,7 +1,7 @@
 Vue.component("view-user-form", {
     template: `
         <main-form 
-            id="viewUser"
+            id="viewUserForm"
             method="PUT"
             headerText="User info"
             buttonText="Update"
@@ -9,15 +9,9 @@ Vue.component("view-user-form", {
             ref="form"
         >
             <text-input
-                name="email"
-                v-model="user.email"
-                required
-            >
-                Email
-            </text-input>
-            <text-input
                 name="password"
                 v-model="user.password"
+                required
             >
                 Password
             </text-input>
@@ -33,17 +27,21 @@ Vue.component("view-user-form", {
             >
                 Surname
             </text-input>
+            <text-input
+                name="role"
+                v-model="user.role"
+            >
+                Role
+            </text-input>
         </main-form>
     `,
     data : function () {
         return {
-            errors: [],
             user : {
-                email: null,
                 password : null,
                 name : null,
                 surname : null,
-                organizaion : null,
+                role : null  
             }
         }
     },
@@ -53,7 +51,8 @@ Vue.component("view-user-form", {
             axios
                 .get('/api/users/' + email)
                 .then(response => {
-                    this.user = response.data
+                    this.user = response.data;
+                    console.log(response.data);
                 });
         },
         checkResponse: function(response) {
@@ -70,11 +69,11 @@ Vue.component("view-user-form", {
             axios
                 .put('/api/users/update/' + this.user.email, 
                 {
-                    "email": this.user.email,
+                    
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organizaion": this.user.organization,
+                    "role" : this.user.role
                 })
                 .then(response => {
                     this.checkResponse(response);

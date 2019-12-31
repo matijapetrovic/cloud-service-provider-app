@@ -1,6 +1,9 @@
 package serializer.user;
 
 import com.google.gson.GsonBuilder;
+
+import main.App;
+import models.Organization;
 import models.User;
 import serializer.JSONSerializer;
 
@@ -36,7 +39,13 @@ public class UserSerializer extends JSONSerializer<User> {
     private void buildReferences(List<User> data) {
         data.forEach(this::buildReferences);
     }
-    private void buildReferences(User org) {
-        // TODO resi
+
+    private void buildReferences(User user) {
+        buildOrganizationReference(user);
+    }
+
+    private void buildOrganizationReference(User user) {
+        //Organization org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
+        //user.setOrganization(org);
     }
 }

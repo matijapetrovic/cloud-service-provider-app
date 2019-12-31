@@ -26,17 +26,28 @@ Vue.component("users-from-organization-table", {
         },
         data: function(){
             return {
-                users: null
+                users: null,
+                user :{
+                    "email" : null,
+                    "password": null,
+                    "name": null,
+                    "surname": null,
+                    "organization": null
+                }
             }
         },
         mounted () {
         axios
-            .get('api/users')
+            .get('api/users/currentUser')
             .then(response => {
-                this.users = response.data
+                this.user = response.data
             })
         },
         methods: {
+        getOrganizationUsers(){
+            axios
+            .get('api/users/organizations/' + user.email)
+        },
         addUser(user) {
             this.users.push(user);
         },
@@ -49,7 +60,7 @@ Vue.component("users-from-organization-table", {
             this.users.splice(idx, 0, organization);
         },
         viewOrganization(email) {
-            this.$emit('viewUser', email);
+            this.$emit('viewUserA', email);
         }
    }
 

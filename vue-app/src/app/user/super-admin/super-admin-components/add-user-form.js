@@ -46,6 +46,7 @@ Vue.component("add-user-form", {
     `,
     data : function () {
         return {
+            
             user : {
                 email: null,
                 password: null,
@@ -53,15 +54,8 @@ Vue.component("add-user-form", {
                 surname: null,
                 organization: null,
             },
-            organizations : null
+            organizations : null,
         }
-    },
-    mounted () {
-        axios  
-            .get('api/users/organizations/:name')
-            .then(response => {
-                this.organizations = response.data
-            })
     },
     methods: {
         checkResponse: function(response) {

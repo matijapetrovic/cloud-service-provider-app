@@ -3,7 +3,7 @@ Vue.component('admin-page',{
     template: `
         <div>    
             <users-from-organization-table
-            @viewUSer="viewUser($event)"
+            @viewUserA="viewUserA($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
@@ -74,7 +74,7 @@ Vue.component('admin-page',{
         updateuser(user) {
             this.$refs.table.updateUser(user);
         },
-        viewUser(email) {
+        viewUserA(email) {
             this.$refs.viewForm.getUser(email);
         }
     }

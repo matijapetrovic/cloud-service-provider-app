@@ -34,10 +34,6 @@ public class App {
     }
 
     public static void main(String[] args) throws IOException {
-        userService.add(new User("mattheo@gmail.com", "Hasaki", "Admin", "Adminovic", null, Role.SUPER_ADMIN));
-        userService.add(new User("nikola@gmail.com", "Anunaki", "Admino", "Adminovovski", null, Role.ADMIN));
-
-
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
 
@@ -58,10 +54,10 @@ public class App {
 
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
-                get("currentUser", UserController.serveCurrentUser);
+                get("/currentUser", UserController.serveCurrentUser);
                 get("/profile", UserController.serveCurrentUser);
                 get("/:name", UserController.handleGetSingle);
-                get("/organization/:name", UserController.handleUsersOrganization);
+                get("/organizations/:name", UserController.handleUsersOrganization);
                 post("/add", UserController.handlePost);
                 put("/update/:name", UserController.handlePut);
             });

@@ -5,7 +5,6 @@ import java.util.Optional;
 import main.App;
 import models.Organization;
 import models.User;
-import models.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -13,12 +12,10 @@ import spark.Route;
 public class UserController {
 
 	public static Route serveUserPage = (Request request, Response response) -> {
-		//LoginController.ensureUserIsLoggedIn(request, response);
-
 		response.type("application/json");
-		User currentUser = App.userService.getCurrentUser(request);
-
-		switch(App.userService.getCurrentUser(request).getRole()) {
+		User currentUser = request.attribute("loggedIn");
+		
+		switch(currentUser.getRole()) {
 			case SUPER_ADMIN:
 				return App.g.toJson(App.userService.findAll());
 			case ADMIN:
@@ -29,18 +26,19 @@ public class UserController {
 				return "User "; // ovde vracam za obicnog usera
 		}
 
-
 		response.status(400);
         return "Something went wrong!";
 	};
 
 	public static Route serveCurrentUser = (Request request, Response response) -> {
 		response.type("application/json");
-		return App.g.toJson(App.userService.getCurrentUser(request));
+		User currentUser = request.attribute("loggedIn");
+		
+		return App.g.toJson(currentUser);
 	};
 
 	public static Route handleGetSingle = (Request request, Response response) -> {
-		String email = request.params("/:name");
+		String email = request.params(":name");
 		Optional<User> user = App.userService.findByKey(email);
 
 		response.type("application/json");
@@ -90,7 +88,7 @@ public class UserController {
 		String email = request.params(":name");
 		Optional<User> toFind = App.userService.findByKey(email);
 
-		response.type("applicatioj/json");
+		response.type("application/json");
 
 		if(!toFind.isPresent()){
 			response.status(400);

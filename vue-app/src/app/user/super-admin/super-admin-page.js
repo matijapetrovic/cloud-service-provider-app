@@ -1,14 +1,7 @@
 Vue.component('super-admin-page',{
 
     template: `
-        <div>    
-            <all-users-table
-            @viewUSer="viewUser($event)"
-            v-bind:view-modal-id="viewModalId"
-            ref="table"
-            >
-            </all-users-table>
-
+        <div>         
             <button
             type="button"
             class="btn btn-outline-primary"
@@ -18,6 +11,12 @@ Vue.component('super-admin-page',{
             >
                 Add user
             </button>
+            <all-users-table
+            @viewUser="viewUser($event)"
+            v-bind:view-modal-id="viewModalId"
+            ref="table"
+            >
+            </all-users-table>
 
             <full-modal
             @close="removeViewValidation"
@@ -33,16 +32,16 @@ Vue.component('super-admin-page',{
             </full-modal>
 
             <full-modal
-            @close="removeAddValidation"
-            v-bind:modal-id="addModalId"
-            modal-title="Add user"
+            @close="removeViewValidation"
+            v-bind:modal-id="viewModalId"
+            modal-title="View user"
             >
-                <add-user-form
-                    @submit="   "
-                    @addedUser="addUser($event)"
-                    ref="addForm"
+                <view-user-form
+                    @submit="closeViewModal"
+                    @updatedUser="updateUser($event)"
+                    ref="viewForm"
                     >
-                    </add-user-form>
+                    </view-user-form>
             </full-modal>
         </div>
         
