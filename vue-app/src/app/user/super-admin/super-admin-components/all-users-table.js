@@ -30,7 +30,6 @@ Vue.component("all-users-table",{
             users: null,
             currentUser : null,
             loaded : false,
-            loadedUsers : false
         }
     },
     mounted () {
@@ -38,7 +37,6 @@ Vue.component("all-users-table",{
             .get('api/users')
             .then(response => {
                 this.users = response.data;
-                loadedUsers = true;
             }),
         axios
         .get('api/users/currentUser')
@@ -53,9 +51,7 @@ Vue.component("all-users-table",{
         },
         updateUser(user) {
             var el = this.users.find(function(element) {
-                if(loadedUsers){
-                    return element.email === user.email;
-                } 
+                return element.email === user.email;
             });
             var idx = this.users.indexOf(el);
             this.users.splice(idx, 1);

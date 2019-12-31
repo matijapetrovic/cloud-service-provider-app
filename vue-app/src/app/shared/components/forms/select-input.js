@@ -9,7 +9,7 @@ Vue.component('select-input',{
                 class="selectpicker"  
                 v-bind:name="name"
                 v-bind:value="value"
-                v-bind:options=options
+                v-bind:options="options"
                 v-on:input="$emit('input', $event.target.value)"
                 v-bind:required="required"
                     >
@@ -21,16 +21,17 @@ Vue.component('select-input',{
             </div>
         </div>
     `,
+    props: {
+        name: String,
+        value: '',
+        required: {
+            type: Boolean,
+            default: false
+        }
+    },
     data : function () {
         return {
-            name: String,
-            options: [],
-            value : String,
-            required: {
-                type: Boolean,
-                default: false
-            },
-            
+            options : []
         }
     },
 

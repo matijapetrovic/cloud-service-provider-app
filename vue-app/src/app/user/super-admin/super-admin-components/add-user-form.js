@@ -68,6 +68,12 @@ Vue.component("add-user-form", {
                 alert('Error: ' + response.data);
             }
         },
+        checkFields:function(){
+            if(!this.user.email || !this.user.password || !this.user.name || !this.user.surname || !this.user.organization){
+                return false;
+            }
+            return true;
+        },
         submitForm: function() {
             axios
                 .post('/api/users/add', 
@@ -76,7 +82,8 @@ Vue.component("add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": this.user.organization
+                    "organization": this.user.organization,
+                    "role": this.user.role
                 })
                 .then(response => {
                     this.checkResponse(response);
