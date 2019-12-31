@@ -1,1 +1,30 @@
-[{"email":"mattheo@gmail.com","password":"Hasaki","name":"Admin","surname":"Adminovic","organization":"Doktori","role":"SUPER_ADMIN"},{"email":"nikola@gmail.com","password":"Anunaki","name":"Admino","surname":"Adminovovski","organization":"Doktori","role":"ADMIN"}]
+[
+    {
+        "email": "mattheo@gmail.com",
+        "password": "Hasaki",
+        "name": "Admin",
+        "surname": "Adminovic",
+        "organization": {
+            "name": "Doktori",
+            "description": "Mateo i Kabi",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "SUPER_ADMIN"
+    },
+    {
+        "email": "nikola@gmail.com",
+        "password": "Anunaki",
+        "name": "Admino",
+        "surname": "Adminovovski",
+        "organization": {
+            "name": "Doktori",
+            "description": "Mateo i Kabi",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "ADMIN"
+    }
+]
