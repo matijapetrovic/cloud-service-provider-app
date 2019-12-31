@@ -35,13 +35,10 @@ Vue.component("add-user-form", {
                 Surname
             </text-input>
             
-            <select-input
-            name="Organizations"
-            options="organizations"
+            <select-organization
             required
             >
-            Organizations
-            </select-input>  
+            </select-organization>  
         </main-form>
     `,
     data : function () {

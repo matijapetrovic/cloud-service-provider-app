@@ -1,17 +1,16 @@
-Vue.component('select-input',{
+Vue.component('select-organization',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-               <slot></slot>
+                Organizations
             </label>  
             <div> 
                 <select 
                 v-model="orgVal"
-                v-bind:options="options"
                 required="required"
                 >
                     <option disabled value="">Please select one</option>
-                    <option v-for="item in options" :value="item">{{item.name}}</option>
+                    <option v-for="item in organizations" :value="item">{{item.name}}</option>
                 </select>   
             </div>
         </div>
@@ -26,8 +25,15 @@ Vue.component('select-input',{
     },
     data : function () {
         return {
-            options : null,
+            organizations : null,
             orgVal: null
         }
-    }
+    },
+    mounted () {
+        axios
+            .get('api/organizations')
+            .then(response => {
+                this.organizations = response.data;
+            })
+    },
 })
