@@ -46,7 +46,11 @@ Vue.component("users-from-organization-table", {
         methods: {
         getOrganizationUsers(){
             axios
+
             .get('api/users/organizations/' + user.email)
+            .then(response =>{
+                this.users = response.data;
+            })
         },
         addUser(user) {
             this.users.push(user);
