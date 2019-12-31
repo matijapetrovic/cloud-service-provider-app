@@ -52,7 +52,6 @@ Vue.component("view-user-form", {
                 .get('/api/users/' + email)
                 .then(response => {
                     this.user = response.data;
-                    console.log(response.data);
                 });
         },
         checkResponse: function(response) {

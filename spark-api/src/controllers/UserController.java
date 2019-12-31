@@ -19,9 +19,7 @@ public class UserController {
 			case SUPER_ADMIN:
 				return App.g.toJson(App.userService.findAll());
 			case ADMIN:
-				return App.g.toJson(App.userService.findAll());
-				
-				//return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
+				return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
 			case USER:
 				break;
 			default:
@@ -34,7 +32,8 @@ public class UserController {
 
 	public static Route serveCurrentUser = (Request request, Response response) -> {
 		response.type("application/json");
-		return App.g.toJson(request.attribute("loggedIn"));
+		User currentUser = request.attribute("loggedIn");
+		return App.g.toJson(currentUser);
 	};
 
 	public static Route handleGetSingle = (Request request, Response response) -> {

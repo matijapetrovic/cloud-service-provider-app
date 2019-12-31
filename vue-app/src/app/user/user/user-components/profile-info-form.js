@@ -27,7 +27,9 @@ Vue.component("profile-info", {
                 <div class="collapse navbar-collapse" id="navBarForInfo">
                 </div>
                 <form class="form-inline my-2 my-md-0">
-                <h4><b>{{user.name}}</b></h4>  
+                <div v-if="loaded">   
+                    <h4><b>{{user.name}}</b></h4>  
+                </div> 
                 </form>
                 </nav>
             </div>

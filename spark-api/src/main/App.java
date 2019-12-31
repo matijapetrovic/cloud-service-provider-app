@@ -55,7 +55,6 @@ public class App {
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
                 get("/currentUser", UserController.serveCurrentUser);
-                get("/profile", UserController.serveCurrentUser);
                 get("/:name", UserController.handleGetSingle);
                 get("/organizations/:name", UserController.handleUsersOrganization);
                 post("/add", UserController.handlePost);

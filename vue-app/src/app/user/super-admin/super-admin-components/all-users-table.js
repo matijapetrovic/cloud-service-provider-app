@@ -8,7 +8,6 @@ Vue.component("all-users-table",{
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Organization</th>
-
                 </tr>
             </thead>
             <tr v-for="user in users">
