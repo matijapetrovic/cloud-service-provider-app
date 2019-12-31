@@ -70,7 +70,7 @@ public class UserController {
 	};
 
 	public static Route handlePost = (Request request, Response response) -> {
-		User user = App.g.fromJson(request.body(), User.class);
+			User user = App.g.fromJson(request.body(), User.class);
 
 		response.type("application/json");
 

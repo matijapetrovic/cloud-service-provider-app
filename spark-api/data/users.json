@@ -1,3 +1,32 @@
-[{"email":"mattheo@gmail.com","password":"Hasaki","name":"Admin","surname":"Adminovic","organization":{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[], "drives": []},"role":"SUPER_ADMIN"},
-{"email":"nikola@gmail.com","password":"Anunaki","name":"Admino","surname":"Adminovovski","organization":{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[], "drives": []},"role":"ADMIN"},
-    {"email":"dragan@gmail.com","password":"gagi","name":"Dragan","surname":"Dragic","organization":{"name":"Lavovi","description":"asdgzdg","users":[],"virtualMachines":[], "drives":[]},"role":"USER"}]
+[
+    {
+        "email": "mattheo@gmail.com",
+        "password": "Hasaki",
+        "name": "Admin",
+        "surname": "Adminovic",
+        "organization": {
+            "name": "Doktori"
+        },
+        "role": "SUPER_ADMIN"
+    },
+    {
+        "email": "nikola@gmail.com",
+        "password": "Anunaki",
+        "name": "Admino",
+        "surname": "Adminovovski",
+        "organization": {
+            "name": "Doktori"
+        },
+        "role": "ADMIN"
+    },
+    {
+        "email": "dragan@gmail.com",
+        "password": "gagi",
+        "name": "Dragan",
+        "surname": "Dragic",
+        "organization": {
+            "name": "Lavovi"
+        },
+        "role": "USER"
+    }
+]

@@ -1,4 +1,4 @@
-Vue.component('select-input',{
+Vue.component('select-role',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
@@ -7,14 +7,11 @@ Vue.component('select-input',{
             <div> 
                 <select
                 class="selectpicker"  
-                v-bind:name="name"
-                v-bind:key="key"
-                v-bind:options=options
                 v-on:input="$emit('input', $event.target.value)"
                     >
                     <option disabled value="">Please select one</option>
-                    <div v-for="opt in options">
-                        <option>opt.key</option>
+                    <div v-for="role in roles">
+                        <option>role</option>
                     </div>
                 </select>
             </div>
@@ -24,7 +21,7 @@ Vue.component('select-input',{
         return {
             name: String,
             key: String,
-            options: [],
+            roles: ["ADMIN","USER"],
             required: {
                 type: Boolean,
                 default: false

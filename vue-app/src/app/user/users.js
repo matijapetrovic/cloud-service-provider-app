@@ -9,7 +9,7 @@ Vue.component("users-page",{
                 <admin-page></admin-page>
             </div>
             <div v-else="user.role==='USER'">
-                
+            
             </div>    
         </base-layout>
     `

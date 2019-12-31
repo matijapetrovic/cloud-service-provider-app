@@ -25,14 +25,14 @@ Vue.component("all-users-table",{
     },
     data: function(){
         return {
-            users: null
+            users: null,
         }
     },
     mounted () {
         axios
             .get('api/users')
             .then(response => {
-                this.users = response.data
+                this.users = response.data;
             })
     },
     methods: {
@@ -43,7 +43,7 @@ Vue.component("all-users-table",{
             var el = this.users.find(function(element) {
                 return element.email === users.email;
             });
-            var idx = this.user.indexOf(el);    
+            var idx = this.user.indexOf(el);
             this.users.splice(idx, 1);
             this.users.splice(idx, 0, user);
         },
@@ -51,6 +51,4 @@ Vue.component("all-users-table",{
             this.$emit('viewUser', email);
         }
     }
-
-    
 })
