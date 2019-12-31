@@ -8,13 +8,14 @@ Vue.component('select-input',{
                 <select
                 class="selectpicker"  
                 v-bind:name="name"
-                v-bind:key="key"
+                v-bind:value="value"
                 v-bind:options=options
                 v-on:input="$emit('input', $event.target.value)"
+                v-bind:required="required"
                     >
                     <option disabled value="">Please select one</option>
                     <div v-for="opt in options">
-                        <option>opt.key</option>
+                        <option>opt.name</option>
                     </div>
                 </select>
             </div>
@@ -23,8 +24,8 @@ Vue.component('select-input',{
     data : function () {
         return {
             name: String,
-            key: String,
             options: [],
+            value : String,
             required: {
                 type: Boolean,
                 default: false

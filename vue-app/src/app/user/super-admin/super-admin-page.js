@@ -32,17 +32,17 @@ Vue.component('super-admin-page',{
             </full-modal>
 
             <full-modal
-            @close="removeViewValidation"
-            v-bind:modal-id="viewModalId"
-            modal-title="View user"
+            @close="removeAddValidation"
+            v-bind:modal-id="addModalId"
+            modal-title="Add user"
             >
-                <view-user-form
-                    @submit="closeViewModal"
-                    @updatedUser="updateUser($event)"
-                    ref="viewForm"
+                <add-user-form
+                    @submit="closeAddModal"
+                    @addedOrganization="addOrganization($event)"
+                    ref="addForm"
                     >
-                    </view-user-form>
-            </full-modal>
+                    </add-user-form>
+        </full-modal>
         </div>
         
     `,

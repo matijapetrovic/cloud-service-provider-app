@@ -27,21 +27,23 @@ Vue.component("view-user-form", {
             >
                 Surname
             </text-input>
-            <text-input
-                name="role"
-                v-model="user.role"
+
+            <select-role
+            v-model="user.role"
+            required
             >
-                Role
-            </text-input>
+            </select-role>
         </main-form>
     `,
     data : function () {
         return {
             user : {
+                email : null,
                 password : null,
                 name : null,
                 surname : null,
-                role : null  
+                role : null ,
+                organization: null 
             }
         }
     },
@@ -68,11 +70,12 @@ Vue.component("view-user-form", {
             axios
                 .put('/api/users/update/' + this.user.email, 
                 {
-                    
+                    "email": this.user.email,
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "role" : this.user.role
+                    "role" : this.user.role,
+                    "organization" : this.user.organization
                 })
                 .then(response => {
                     this.checkResponse(response);
