@@ -59,6 +59,7 @@ public class App {
                 get("/organizations/:name", UserController.handleUsersOrganization);
                 post("/add", UserController.handlePost);
                 put("/update/:name", UserController.handlePut);
+                delete("/delete/:name",UserController.handleDelete);
             });
 
             path("/virtualmachines", () -> {

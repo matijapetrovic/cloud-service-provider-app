@@ -33,6 +33,13 @@ Vue.component("view-user-form", {
             required
             >
             </select-role>
+            <button
+                class="btn btn-outline-secondary pull-right"
+                id='deleteButton'
+                @click="deleteUser($event)"
+                >
+                    Delete
+            </button>
         </main-form>
     `,
     data : function () {
@@ -66,6 +73,16 @@ Vue.component("view-user-form", {
                 alert('Error: ' + response.data);
             }
         },
+        checkDeleteResponse: function(response) {
+            if (response.status === 200) {
+                this.$emit('updatedUser', this.user);
+                alert('User with email '+ this.user.email + ' successfully!');
+                this.$emit('submit')
+            }
+            else {
+                alert('Error: ' + response.data);
+            }
+        },
         submitForm: function(e) {
             axios
                 .put('/api/users/update/' + this.user.email, 
@@ -79,6 +96,13 @@ Vue.component("view-user-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                });
+        },
+        deleteUser(user){
+            axios
+                .delete('api/users/delete/' + this.user.email)
+                .then(response => {
+                    this.checkDeleteResponse(response);
                 });
         }
     }

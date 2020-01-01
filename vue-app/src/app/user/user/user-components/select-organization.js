@@ -2,7 +2,7 @@ Vue.component('select-organization',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                <slot></slot>
+                Organizations
             </label>  
             <div> 
                 <select 
@@ -11,7 +11,6 @@ Vue.component('select-organization',{
                 v-on:input="$emit('input', $event.target.value)"
                 required="required"
                 >
-                    <option disabled value="">Please select one</option>
                     <option v-for="item in organizations" :value="JSON.stringify(item)">{{item.name}}</option>
                 </select>   
             </div>

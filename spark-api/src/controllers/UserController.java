@@ -100,4 +100,24 @@ public class UserController {
 		response.status(200);
 		return "OK";
 	};
+
+	public static Route handleDelete = (Request request, Response response) -> {
+		User user = App.g.fromJson(request.body(), User.class);
+		String email = request.params(":name");
+		System.out.println("postoji "+email);
+		Optional<User> toFind = App.userService.findByKey(email);
+
+		response.type("application/json");
+
+		if(!toFind.isPresent()){
+			response.status(400);
+			return "User with email " + email + " does not exist !";
+		}
+
+		App.userService.delete(email);
+
+		response.status(200);
+		return "OK";
+	};
+
 }
