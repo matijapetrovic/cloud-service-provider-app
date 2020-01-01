@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import main.App;
@@ -62,10 +63,10 @@ public class UserController {
 			return "User with email " + email + " does not exist!";
 		}
 		Organization org = user.get().getOrganization();
+		Collection<User> usersFromOrganization = org.getUsers();
 
 		response.status(200);
-		return App.g.toJson(org);
-
+		return App.g.toJson(usersFromOrganization);
 	};
 
 	public static Route handlePost = (Request request, Response response) -> {
@@ -104,7 +105,6 @@ public class UserController {
 	public static Route handleDelete = (Request request, Response response) -> {
 		User user = App.g.fromJson(request.body(), User.class);
 		String email = request.params(":name");
-		System.out.println("postoji "+email);
 		Optional<User> toFind = App.userService.findByKey(email);
 
 		response.type("application/json");

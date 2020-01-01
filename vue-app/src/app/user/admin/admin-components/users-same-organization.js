@@ -1,56 +1,51 @@
 Vue.component("users-from-organization-table", {
     template:`
-    <table border="1" class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Organization</th>
+    <div v-if="loaded">
+        <table border="1" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Organization</th>
 
-            </tr>
-        </thead>
-        <tr v-for="u in getOrganizationUsers(user)">
-            <div v-for=" in folder.checks">
+                </tr>
+            </thead>
+            <tr v-for="u in users" v-if="user.email !== currentUser.email">
                 <td><a href="#">{{ u.email }}</a></td>
                 <td>{{ u.name }}</td>
                 <td>{{ u.surname }}</td>
-                <td>{{ u.organization }}</td>
-            </div> 
-        </tr>   
-    </table>
+                <td>{{ u.organization }}</td> 
+            </tr>   
+        </table>
+    </div>
         `,
-        props : {
-            viewModalId : String
-
-        },
-        data: function(){
-            return {
-                users: null,
-                user :{
-                    "email" : null,
-                    "password": null,
-                    "name": null,
-                    "surname": null,
-                    "organization": null
-                }
-            }
-        },
-        mounted () {
+    props : {
+        viewModalId : String
+    },
+    data: function(){
+        return {
+            users: null,
+            currentUser: null,
+            loaded : false,
+        }
+    },
+    mounted () {
         axios
             .get('api/users/currentUser')
             .then(response => {
-                this.user = response.data
-            })
+                this.currentUser = response.data
+                this.loaded = true;
+                this.loadUsers(this.currentUser.email);       
+            });
         },
-        methods: {
-        getOrganizationUsers(){
+    methods: {
+        loadUsers(email){
             axios
-
-            .get('api/users/organizations/' + user.email)
+            .get('api/users/organizations/' + email)
             .then(response =>{
                 this.users = response.data;
-            })
+            });
         },
         addUser(user) {
             this.users.push(user);
@@ -64,7 +59,7 @@ Vue.component("users-from-organization-table", {
             this.users.splice(idx, 0, organization);
         },
         viewOrganization(email) {
-            this.$emit('viewUserA', email);
+            this.$emit('viewUser', email);
         }
    }
 

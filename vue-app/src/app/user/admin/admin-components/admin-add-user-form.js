@@ -1,4 +1,4 @@
-Vue.component("dmin-add-user-form", {
+Vue.component("add-user-form", {
     template: `
         <main-form 
             id="addUserForm"
@@ -8,62 +8,74 @@ Vue.component("dmin-add-user-form", {
             v-on:submit="submitForm($event)"
             ref="form"
         >
-            <text-input
+            <email-input
                 name="email"
                 v-model="user.email"    
                 required
             >
                 Email
-            </text-input>
-            <text-input
+            </email-input>
+            <password-input
                 name="password"
                 v-model="user.password"
                 required
             >
                 Password
-            </text-input>
+            </password-input>
             <text-input 
                 name="name"
                 v-model="user.name"
+                required
             >
                 Name
             </text-input>
             <text-input
             name="surname"
             v-model="user.surname"
+            required
             >
                 Surname
             </text-input>
             
-            <select-input
-            name="Organizations"
-            options="organizations"
+            <select-role
+            v-model="user.role"
             required
             >
-            Organizations
-            </select-input>  
+            </select-role>
         </main-form>
     `,
+   
     data : function () {
-        return {
+        return {  
+            currentUser: {
+                email: null,
+                password: null,
+                name: null,
+                surname: null,
+                organization: null,
+                role : null
+            },      
             user : {
                 email: null,
                 password: null,
                 name: null,
                 surname: null,
                 organization: null,
+                role : null
             },
-            organizations : null
+            organizations : null,
         }
     },
     mounted () {
-        axios  
-            .get('api/organization/:name')
-            .then(response => {
-                this.organizations = response.data
-            })
+        axios
+        .get('api/users/currentUser')
+        .then(response => {
+            this.currentUser = response.data
+        });
+        
     },
     methods: {
+        
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedUser', this.User);
@@ -82,7 +94,8 @@ Vue.component("dmin-add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": this.user.organization
+                    "organization": JSON.parse(this.user.organization),
+                    "role": this.user.role
                 })
                 .then(response => {
                     this.checkResponse(response);

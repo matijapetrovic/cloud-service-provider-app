@@ -1,95 +1,93 @@
 Vue.component("profile-info", {
     template: `
-        <base-layout v-bind:page-title="$route.meta.title">
-            <div>
-               <nav class="navbar navbar-expand navbar-dark bg-secondary">
-                <h4><b>Email:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
-                </div>
-                <form class="form-inline my-2 my-md-0">
-                <h4><b>{{user.email}}</b></h4>  
-                </form>
-                </nav>
+    <base-layout v-bind:page-title="$route.meta.title">
+        <div v-if="loaded">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">User information</h3>
             </div>
-            <div>
-               <nav class="navbar navbar-expand navbar-dark color:#fff">
-                <h4><b>Password:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                        <img class="img-circle" src="./assets/images/user.png" alt="User Pic">
+                    </div>
+                    <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                        <strong></strong><br>
+                        <dl>
+                            <dt>Email</dt>
+                            <dd>{{user.email}}</dd>
+                            <dt>Password</dt>
+                            <dd>{{user.password}}</dd>
+                            <dt>Name</dt>
+                            <dd>{{user.name}}</dd>
+                            <dt>Surname</dt>
+                            <dd>{{user.surname}}</dd>
+                            <dt>Role</dt>
+                            <dd>{{user.role}}</dd>
+                            <div v-if="user.role!=='SUPER_ADMIN'">
+                            <dt>Organization</dt>
+                            <dd>{{user.organization.name}}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div v-if="user.role!=='SUPER_ADMIN'">
+                        <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                            <strong>Organization info</strong><br>
+                            <table class="table table-user-information">
+                                <tbody>
+                                <tr>
+                                    <td>Name:</td>
+                                    <td>{{user.organization.name}}</td>
+                                    <td>Description:</td>
+                                    <td>{{user.organization.description}}</td>
+                                    <td>Users number:</td>
+                                    <td>{{user.organization.users.length}}</td>
+                                    <td>Virtual machines number:</td>
+                                    <td>{{user.organization.virtualMachines.length}}</td>
+                                    <td>Drives number:</td>
+                                    <td>{{user.organization.drives.length}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <form class="form-inline my-2 my-md-0">
-                <h4><b>{{user.password}}</b></h4>  
-                </form>
-                </nav>
             </div>
-            <div>
-               <nav class="navbar navbar-expand navbar-dark bg-secondary">
-                <h4><b>Name:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
+            <div class="panel-footer">
+                <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
+                <span class="pull-right">
+                    <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                    <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
+                </span>
                 </div>
-                <form class="form-inline my-2 my-md-0">
-                <div v-if="loaded">   
-                    <h4><b>{{user.name}}</b></h4>  
-                </div> 
-                </form>
-                </nav>
             </div>
-            <div>
-               <nav class="navbar navbar-expand navbar-dark color:#fff">
-                <h4><b>Surname:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
-                </div>
-                <form class="form-inline my-2 my-md-0">
-                <h4><b>{{user.surname}}</b></h4>  
-                </form>
-                </nav>
-            </div>
-
-            <div v-if="user.role!=='SUPER_ADMIN'">
-               <nav class="navbar navbar-expand navbar-dark bg-secondary">
-                <h4><b>Organization:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
-                </div>
-                <form class="form-inline my-2 my-md-0">
-                <div v-if="loaded">
-                    <h4><b>{{user.organization.name}}</b></h4>  
-                </div>
-                </form>
-                </nav>
-            </div>
-            <div>
-               <nav class="navbar navbar-expand navbar-dark color:#fff">
-                <h4><b>Role:</b></h4>
-                <div class="collapse navbar-collapse" id="navBarForInfo">
-                </div>
-                <form class="form-inline my-2 my-md-0">
-                <h4><b>{{user.role}}</b></h4>  
-                </form>
-                </nav>
-            </div>
-            <button
+        </div>
+        </div>
             
-            type="button"
-            class="btn btn-outline-primary"
-            data-toggle="modal"
-            v-bind:data-target="'#' + viewProfileId"
-            style="margin: 15px 0;"
-            >
-                Change profile
-            </button>
+        <button    
+        type="button"
+        class="btn btn-outline-primary"
+        data-toggle="modal"
+        v-bind:data-target="'#' + viewProfileId"
+        style="margin: 15px 0;"
+        >
+            Change profile
+        </button>
 
-            <full-modal
-            v-bind:modal-id="viewProfileId"
-            modal-title="View profile"
+        <full-modal
+        v-bind:modal-id="viewProfileId"
+        modal-title="View profile"
+        >
+            <change-profile-form
+            @submit="closeViewModal"
+            @updatedUser="updateUser($event)" 
+            ref="viewForm"
             >
-                <change-profile-form
-                @submit="closeViewModal"
-                @updatedUser="updateUser($event)" 
-                ref="viewForm"
-                >
-                </change-profile-form>
-            </full-modal>
+            </change-profile-form>
+        </full-modal>
             
-        </base-layout>
+    </base-layout>
     `,
     data : function () {
         return {
