@@ -64,41 +64,33 @@ Vue.component('change-profile-form',{
             this.user = response.data,
             this.p1 = this.user.password,
             this.p2 = this.user.password
-        ))
-        
+        ))  
     },
 methods:{
     checkPasswordConfirmation: function(){
         if(this.p1 === this.p2){
-            console.log(this.p1);
-            console.log(this.p2);
             return true;
         }
-        if (!this.p1 && this.p2) {
+        if(this.p1 !== this.p2){
+            this.errors.push("Your password and confirmation password do not match.");
+        }
+        else if (!this.p1 && this.p2) {
             this.errors.push("Password is empty!");
             }
         else if(!this.p2 && this.p1){
             this.errors.push("Password is not confirmed!"); 
-        }
-        else if(this.p1 !== this.p2){
-            this.errors.push("Your password and confirmation password do not match.");
         }
 
         e.preventDefault();
         return false;
     },
     checkResponse: function(response) {
-        if(this.checkPasswordConfirmation){
-            console.log(this.checkPasswordConfirmation)
-            if (response.status === 200) {
-                this.$emit('updatedUser', this.user);
-                alert('Updating user successful');
-                //this.$toast.success('Updated successfully!', {timeout: 10000,});
-                this.$emit('submit')
-                
-            }
+        if (response.status === 200) {
+            this.$emit('updatedUser', this.user);
+            alert('Updating user successful');
+            this.$emit('submit')
         }
-        else {
+        else {  
             alert('Error: ' + response.data);
         }
     },
@@ -106,10 +98,11 @@ methods:{
         axios
             .put('/api/users/update/' + this.user.email, 
             {
-                
+                "email": this.user.email,
                 "password": this.user.password,
                 "name": this.user.name,
                 "surname": this.user.surname,
+                "organization": this.user.organization,
                 "role" : this.user.role
             })
             .then(response => {

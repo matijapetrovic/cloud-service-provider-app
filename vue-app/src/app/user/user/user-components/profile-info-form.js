@@ -43,7 +43,8 @@ Vue.component("profile-info", {
                 </form>
                 </nav>
             </div>
-            <div>
+
+            <div v-if="user.role!=='SUPER_ADMIN'">
                <nav class="navbar navbar-expand navbar-dark bg-secondary">
                 <h4><b>Organization:</b></h4>
                 <div class="collapse navbar-collapse" id="navBarForInfo">
@@ -99,9 +100,10 @@ Vue.component("profile-info", {
                 password : null,
                 name : null,
                 surname : null,
-                organizaion : {name:null},
+                organizaion : { name: null },
             },
-            loaded: false
+            loaded: false,
+            users : null
 
         }
     },
@@ -111,6 +113,12 @@ Vue.component("profile-info", {
         .then(response => {
             this.user = response.data; 
             this.loaded = true;    
+        });
+        axios
+        .get('api/users')
+        .then(response => {
+            this.users = response.data;
+            laodedUsers = true;     
         });
     },
     methods:{
@@ -122,10 +130,8 @@ Vue.component("profile-info", {
             this.$refs.viewForm.$refs.form.removeValidation();
         },
         updateUser(user) {
-            var el = this.users.find(function(element) {
-                return element.email === users.email;
-            });
-            var idx = this.user.indexOf(el);    
+            var el = this.user;
+            var idx = this.users.indexOf(el);
             this.users.splice(idx, 1);
             this.users.splice(idx, 0, user);
         },

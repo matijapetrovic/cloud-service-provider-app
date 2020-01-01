@@ -14,7 +14,7 @@ public class UserController {
 	public static Route serveUserPage = (Request request, Response response) -> {
 		response.type("application/json");
 		User currentUser = request.attribute("loggedIn");
-		System.out.println("userController 17");
+
 		switch(currentUser.getRole()) {
 			case SUPER_ADMIN:
 				return App.g.toJson(App.userService.findAll());
@@ -69,13 +69,14 @@ public class UserController {
 	};
 
 	public static Route handlePost = (Request request, Response response) -> {
-			User user = App.g.fromJson(request.body(), User.class);
+		System.out.println(request.body());
+		User user = App.g.fromJson(request.body(), User.class);
 
 		response.type("application/json");
 
 		if (!App.userService.add(user)) {
 			response.status(400);
-			return "Virtual machine with the name " + user.getEmail() + " already exists";
+			return "User with the email " + user.getEmail() + " already exists";
 		}
 
 		response.status(200);

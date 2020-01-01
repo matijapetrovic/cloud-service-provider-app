@@ -38,7 +38,7 @@ Vue.component('super-admin-page',{
             >
                 <add-user-form
                     @submit="closeAddModal"
-                    @addedOrganization="addOrganization($event)"
+                    @addedUser="addUser($event)"
                     ref="addForm"
                     >
                     </add-user-form>

@@ -28,9 +28,9 @@ public class App {
     public static OrganizationService organizationService;
 
     static {
+        organizationService = new OrganizationService();
         userService = new UserService();
         vmService = new VMService();
-        organizationService = new OrganizationService();
     }
 
     public static void main(String[] args) throws IOException {

@@ -2,31 +2,31 @@ Vue.component('select-organization',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                Organizations
+                <slot></slot>
             </label>  
             <div> 
                 <select 
-                v-model="orgVal"
+                class="selectpicker" 
+                v-bind:value="value"
+                v-on:input="$emit('input', $event.target.value)"
                 required="required"
                 >
                     <option disabled value="">Please select one</option>
-                    <option v-for="item in organizations" :value="item">{{item.name}}</option>
+                    <option v-for="item in organizations" :value="JSON.stringify(item)">{{item.name}}</option>
                 </select>   
             </div>
         </div>
     `,
-    props: {
-        name: String,
-        value: '',
-        required: {
-            type: Boolean,
-            default: false
-        }
-    },
     data : function () {
         return {
             organizations : null,
-            orgVal: null
+            name: "Organizations",
+            value : '',
+            required: {
+                type: Boolean,
+                default: false
+            },
+            
         }
     },
     mounted () {

@@ -8,53 +8,64 @@ Vue.component("add-user-form", {
             v-on:submit="submitForm($event)"
             ref="form"
         >
-            <text-input
+            <email-input
                 name="email"
                 v-model="user.email"    
                 required
             >
                 Email
-            </text-input>
-            <text-input
+            </email-input>
+            <password-input
                 name="password"
                 v-model="user.password"
                 required
             >
                 Password
-            </text-input>
+            </password-input>
             <text-input 
                 name="name"
                 v-model="user.name"
+                required
             >
                 Name
             </text-input>
             <text-input
             name="surname"
             v-model="user.surname"
+            required
             >
                 Surname
             </text-input>
             
-            <select-organization
+            <select-role
+            v-model="user.role"
             required
             >
+            </select-role>
+
+            <select-organization
+            v-model="user.organization"
+            required
+            >
+            {{user.organization}}
             </select-organization>  
         </main-form>
     `,
     data : function () {
-        return {
-            
+        return {        
             user : {
                 email: null,
                 password: null,
                 name: null,
                 surname: null,
                 organization: null,
+                role : null
             },
             organizations : null,
         }
     },
     methods: {
+        
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedUser', this.User);
@@ -65,12 +76,6 @@ Vue.component("add-user-form", {
                 alert('Error: ' + response.data);
             }
         },
-        checkFields:function(){
-            if(!this.user.email || !this.user.password || !this.user.name || !this.user.surname || !this.user.organization){
-                return false;
-            }
-            return true;
-        },
         submitForm: function() {
             axios
                 .post('/api/users/add', 
@@ -79,7 +84,7 @@ Vue.component("add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": this.user.organization,
+                    "organization": JSON.parse(this.user.organization),
                     "role": this.user.role
                 })
                 .then(response => {
