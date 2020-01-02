@@ -47,7 +47,7 @@ Vue.component("add-user-form", {
             v-model="user.organization"
             required
             >
-            {{user.organization.name}}
+            {{user.organization}}
             </select-organization>  
         </main-form>
     `,

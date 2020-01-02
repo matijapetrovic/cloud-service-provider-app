@@ -43,7 +43,7 @@ public class UserSerializer extends JSONSerializer<User> {
     }
 
     private void buildReferences(User user) {
-        buildOrganizationReference(user);
+        //buildOrganizationReference(user);
     }
 
     private void buildOrganizationReference(User user) {

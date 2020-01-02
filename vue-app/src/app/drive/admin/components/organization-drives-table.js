@@ -36,13 +36,13 @@ Vue.component("drives-from-organization-table", {
             .then(response => {
                 this.currentUser = response.data
                 this.loaded = true;
-                this.loadDrives(this.currentUser.name);       
+                this.loadDrives(this.currentUser.email);       
             });
         },
     methods: {
-        loadDrives(name){
+        loadDrives(email){
             axios
-            .get('api/drives/organizations/' + name)
+            .get('api/drives/organizations/' + email)
             .then(response =>{
                 this.drives = response.data;
             });

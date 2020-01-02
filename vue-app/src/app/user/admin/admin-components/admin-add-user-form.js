@@ -1,4 +1,4 @@
-Vue.component("add-user-form", {
+Vue.component("admin-add-user-form", {
     template: `
         <main-form 
             id="addUserForm"
@@ -94,7 +94,7 @@ Vue.component("add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": JSON.parse(this.user.organization.name),
+                    "organization": JSON.parse(this.user.organization),
                     "role": this.user.role
                 })
                 .then(response => {

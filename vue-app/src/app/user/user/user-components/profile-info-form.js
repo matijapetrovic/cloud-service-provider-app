@@ -31,7 +31,7 @@ Vue.component("profile-info", {
                             </div>
                         </dl>
                     </div>
-                    <div v-if="user.role!=='SUPER_ADMIN'">
+                    <div v-if="(user.role!=='SUPER_ADMIN' && loaded)">
                         <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
                             <strong>Organization info</strong><br>
                             <table class="table table-user-information">
@@ -100,7 +100,10 @@ Vue.component("profile-info", {
                 password : null,
                 name : null,
                 surname : null,
-                organizaion : { name: null },
+                organizaion : {
+                    name: null,
+                    surname: null
+                },
             },
             loaded: false,
             users : null
@@ -112,7 +115,7 @@ Vue.component("profile-info", {
         .get('api/users/currentUser')
         .then(response => {
             this.user = response.data; 
-            this.loaded = true;    
+            this.loaded = true;  
         });
         axios
         .get('api/users')
