@@ -12,10 +12,7 @@ import com.google.gson.Gson;
 import controllers.*;
 import models.User;
 import models.User.Role;
-import services.DriveService;
-import services.OrganizationService;
-import services.UserService;
-import services.VMService;
+import services.*;
 
 public class App {
     public static final Gson g = new Gson();
@@ -25,12 +22,14 @@ public class App {
     public static VMService vmService;
     public static OrganizationService organizationService;
     public static DriveService driveService;
+    public static CategoryService categoryService;
 
     static {
         organizationService = new OrganizationService();
         userService = new UserService();
         vmService = new VMService();
         driveService = new DriveService();
+        categoryService = new CategoryService();
     }
 
     public static void main(String[] args) throws IOException {
@@ -78,11 +77,11 @@ public class App {
             });
 
             path ("/category", () -> {
-                get("", CategoryeController.handleGetAll);
-                get("/:name", CategoryeController.handleGetSingle);
-                post("/add", CategoryeController.handlePost);
-                put("/update/:name", CategoryeController.handlePut);
-                delete("/delete/:name",CategoryeController.handleDelete);
+                get("", CategoryController.handleGetAll);
+                get("/:name", CategoryController.handleGetSingle);
+                post("/add", CategoryController.handlePost);
+                put("/update/:name", CategoryController.handlePut);
+                delete("/delete/:name",CategoryController.handleDelete);
             });
         });
     }

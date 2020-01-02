@@ -37,15 +37,17 @@ Vue.component("profile-info", {
                             <table class="table table-user-information">
                                 <tbody>
                                 <tr>
-                                    <td>Name:</td>
-                                    <td>{{user.organization.name}}</td>
-                                    <td>Description:</td>
-                                    <td>{{user.organization.description}}</td>
-                                    <td>Users number:</td>
-                                    <td>{{user.organization.users.length}}</td>
-                                    <td>Virtual machines number:</td>
-                                    <td>{{user.organization.virtualMachines.length}}</td>
-                                    <td>Drives number:</td>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Users number</th>
+                                    <th>Virtual machines number</th>
+                                    <th>Drives number</th>
+                                </tr>
+                                <tr>
+                                    <td>{{user.organization.name}}</td>         
+                                    <td>{{user.organization.description}}</td>                                    
+                                    <td>{{user.organization.users.length}}</td>                                    
+                                    <td>{{user.organization.virtualMachines.length}}</td>                                    
                                     <td>{{user.organization.drives.length}}</td>
                                 </tr>
                                 </tbody>

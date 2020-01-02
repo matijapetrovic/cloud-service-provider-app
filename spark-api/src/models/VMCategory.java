@@ -1,6 +1,6 @@
 package models;
 
-public class VMCategory {
+public class VMCategory implements Model<String> {
 	private String name;
 	private int cpus;
 	private int ram;
@@ -70,5 +70,10 @@ public class VMCategory {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String getKey() {
+		return this.name;
 	}
 }

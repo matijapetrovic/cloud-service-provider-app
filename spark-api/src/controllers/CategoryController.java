@@ -3,9 +3,12 @@ package controllers;
 import main.App;
 import models.Drive;
 import models.User;
+import models.VMCategory;
+import models.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import sun.misc.VM;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -26,17 +29,17 @@ public class CategoryController {
 
     public static Route handleGetSingle = (Request request, Response response) -> {
         String name = request.params(":name");
-        Optional<Category> category = App.categoryService.findByKey(name);
+        Optional<VMCategory> vmCategory = App.categoryService.findByKey(name);
 
         response.type("application/json");
 
-        if(!category.isPresent()){
+        if(!vmCategory.isPresent()){
             response.status(400);
             return "Category with name " + name + " does not exist!";
         }
 
         response.status(200);
-        return App.g.toJson(category.get());
+        return App.g.toJson(vmCategory.get());
     };
 
     public static Route handlePost = (Request request, Response response) -> {
