@@ -1,42 +1,42 @@
-Vue.component("view-user-form", {
+Vue.component("view-drive-form", {
     template: `
         <main-form 
-            id="viewUserForm"
+            id="viewDriveForm"
             method="PUT"
-            headerText="User info"
+            headerText="Drive info"
             buttonText="Update"
             v-on:submit="submitForm($event)"
             ref="form"
         >
             <text-input
-                name="password"
-                v-model="user.password"
-                required
-            >
-                Password
-            </text-input>
-            <text-input
                 name="name"
-                v-model="user.name"
+                v-model="drive.name"
+                required
             >
                 Name
             </text-input>
             <text-input
-                name="surname"
-                v-model="user.surname"
+                name="type"
+                v-model="drive.type"
             >
-                Surname
+                Type
+            </text-input>
+            <text-input
+                name="capacity"
+                v-model="drive.capacity"
+            >
+                Capacity
             </text-input>
 
             <select-role
-            v-model="user.role"
+            v-model="drive.role"
             required
             >
             </select-role>
             <button
                 class="btn btn-outline-secondary pull-right"
                 id='deleteButton'
-                @click="deleteUser($event)"
+                @click="deleteDrive($event)"
                 >
                     Delete
             </button>
@@ -44,29 +44,27 @@ Vue.component("view-user-form", {
     `,
     data : function () {
         return {
-            user : {
-                email : null,
-                password : null,
+            drive : {
                 name : null,
-                surname : null,
-                role : null ,
-                organization: null 
+                type : null,
+                capacity : null,
+                vm : null,
             }
         }
     },
     
     methods: {
-        getUser: function(email) {
+        getDrive: function(name) {
             axios
-                .get('/api/users/' + email)
+                .get('/api/drives/' + name)
                 .then(response => {
-                    this.user = response.data;
+                    this.drive = response.data;
                 });
         },
         checkResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('updatedUser', this.user);
-                alert('Updating user successful');
+                this.$emit('updatedDrive', this.drive);
+                alert('Updating drive successful');
                 this.$emit('submit')
             }
             else {
@@ -75,8 +73,8 @@ Vue.component("view-user-form", {
         },
         checkDeleteResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('updatedUser', this.user);
-                alert('User with email '+ this.user.email + ' successfully!');
+                this.$emit('updatedDrive', this.drive);
+                alert('Drive with name '+ this.drive.name + ' successfully!');
                 this.$emit('submit')
             }
             else {
@@ -85,22 +83,20 @@ Vue.component("view-user-form", {
         },
         submitForm: function(e) {
             axios
-                .put('/api/users/update/' + this.user.email, 
+                .put('/api/drives/update/' + this.drive.name, 
                 {
-                    "email": this.user.email,
-                    "password": this.user.password,
-                    "name": this.user.name,
-                    "surname": this.user.surname,
-                    "role" : this.user.role,
-                    "organization" : this.user.organization.name
+                    "name": this.drive.name,
+                    "type": this.drive.type,
+                    "capacity": this.drive.capacity,
+                    "vm": this.drive.vm,
                 })
                 .then(response => {
                     this.checkResponse(response);
                 });
         },
-        deleteUser(user){
+        deleteDrive(drive){
             axios
-                .delete('api/users/delete/' + this.user.email)
+                .delete('api/drives/delete/' + this.drive.name)
                 .then(response => {
                     this.checkDeleteResponse(response);
                 });

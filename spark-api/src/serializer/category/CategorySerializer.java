@@ -1,6 +1,7 @@
 package serializer.category;
 
 import com.google.gson.GsonBuilder;
+
 import models.VMCategory;
 import serializer.JSONSerializer;
 

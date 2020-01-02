@@ -47,7 +47,7 @@ public class UserSerializer extends JSONSerializer<User> {
     }
 
     private void buildOrganizationReference(User user) {
-        //Organization org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
-        //user.setOrganization(org);
+//        Organization org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
+  //      user.setOrganization(org);
     }
 }

@@ -34,7 +34,7 @@ Vue.component("side-nav",{
                 </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">
+              <router-link class="nav-link" to="/categories">
                 <span data-feather="folder"></span>
                 VM Categories
               </router-link>

@@ -43,6 +43,20 @@ public class DriveController {
         return App.g.toJson(drive.get());
     };
 
+    public static Route handleDrivesOrganization = (Request request, Response response) -> {
+        String name = request.params(":name");
+        Optional<User> user = App.userService.findByKey(name);
+
+        response.type("application/json");
+
+        if(!user.isPresent()){
+            response.status(400);
+            return "User with email " + name + " does not exist!";
+        }
+
+        response.status(200);
+        return App.g.toJson(user.get().getOrganization().getDrives());
+    };
     public static Route handlePost = (Request request, Response response) -> {
         Drive drive = App.g.fromJson(request.body(), Drive.class);
 

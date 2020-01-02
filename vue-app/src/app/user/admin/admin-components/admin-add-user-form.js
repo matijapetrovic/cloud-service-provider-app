@@ -90,7 +90,7 @@ Vue.component("admin-add-user-form", {
             axios
                 .post('/api/users/add', 
                 {
-                    "email": this.user.email,
+                    "email": this.user.email,   
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,

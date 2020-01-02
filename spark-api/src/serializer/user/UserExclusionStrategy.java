@@ -8,13 +8,11 @@ import models.User;
 public class UserExclusionStrategy implements ExclusionStrategy {
         @Override
         public boolean shouldSkipField(FieldAttributes field) {
-            /*
-            if (field.getDeclaringClass() == Organization.class &&
+           /* if(field.getDeclaringClass() == Organization.class &&
                     !field.getName().equals("name"))
-                return true;
-            */
+                return true;*/
             return false;
-    }
+        }
 
         @Override
         public boolean shouldSkipClass(Class<?> aClass) {
