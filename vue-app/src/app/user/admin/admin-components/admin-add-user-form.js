@@ -90,11 +90,11 @@ Vue.component("add-user-form", {
             axios
                 .post('/api/users/add', 
                 {
-                    "email": this.user.email,
+                    "email": this.user.email,   
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": JSON.parse(this.user.organization),
+                    "organization": JSON.parse(this.user.organization.name),
                     "role": this.user.role
                 })
                 .then(response => {

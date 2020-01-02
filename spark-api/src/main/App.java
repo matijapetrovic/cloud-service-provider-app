@@ -71,12 +71,13 @@ public class App {
             path ("/drives", () -> {
                 get("", DriveController.handleGetAll);
                 get("/:name", DriveController.handleGetSingle);
+                get("/organizations/:name", DriveController.handleDrivesOrganization);
                 post("/add", DriveController.handlePost);
                 put("/update/:name", DriveController.handlePut);
                 delete("/delete/:name",DriveController.handleDelete);
             });
 
-            path ("/category", () -> {
+            path ("/categories", () -> {
                 get("", CategoryController.handleGetAll);
                 get("/:name", CategoryController.handleGetSingle);
                 post("/add", CategoryController.handlePost);

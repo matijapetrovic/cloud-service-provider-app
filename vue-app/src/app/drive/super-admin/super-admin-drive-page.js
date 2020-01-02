@@ -1,13 +1,13 @@
-Vue.component('super-admin-page',{
-
+Vue.component("super-admin-drive-page",{
     template: `
-        <div>         
-            <all-users-table
-            @viewUser="viewUser($event)"
+    <div>
+            
+            <all-drives-table
+            @viewDrive="viewDrive($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
-            </all-users-table>
+            </all-drives-table>
 
             <button
             type="button"
@@ -16,41 +16,41 @@ Vue.component('super-admin-page',{
             v-bind:data-target="'#' + addModalId"
             style="margin: 15px 0;"
             >
-                Add user
+                Add drive
             </button>
-
+            
             <full-modal
             @close="removeViewValidation"
             v-bind:modal-id="viewModalId"
-            modal-title="View user"
+            modal-title="View drive"
             >
-                <view-user-form
+                <view-drive-form
                     @submit="closeViewModal"
-                    @updatedUser="updateUser($event)"
+                    @updatedDrive="updateDrive($event)"
                     ref="viewForm"
                     >
-                    </view-user-form>
+                    </view-drive-form>
             </full-modal>
 
             <full-modal
             @close="removeAddValidation"
             v-bind:modal-id="addModalId"
-            modal-title="Add user"
+            modal-title="Add drive"
             >
-                <add-user-form
+                <add-drive-form
                     @submit="closeAddModal"
-                    @addedUser="addUser($event)"
+                    @addedDrive="addDrive($event)"
                     ref="addForm"
                     >
-                    </add-user-form>
-        </full-modal>
-        </div>
-        
-    `,
+                    </add-drive-form>
+        </full-modal>        
+    </div>
+    `
+    ,
     data : function() {
         return {
-            addModalId: 'addUserModal',
-            viewModalId: 'viewUserModal'
+            addModalId: 'addDriveModal',
+            viewModalId: 'viewDriveModal'
         }
     },
     methods: {
@@ -68,15 +68,14 @@ Vue.component('super-admin-page',{
             this.removeAddValidation();
             $('#' + this.addModalId).modal('hide');
         },
-        addUser(user) {
-            this.$refs.table.addUser(user);
+        addDrive(drive) {
+            this.$refs.table.addDrive(drive);
         },
-        updateUser(user) {
-            this.$refs.table.updateUser(user);
+        updateDrive(drive) {
+            this.$refs.table.updateDrive(drive);
         },
-        viewUser(email) {
-            this.$refs.viewForm.getUser(email);
+        viewDrive(name) {
+            this.$refs.viewForm.getDrive(name);
         }
     }
-
-})
+});
