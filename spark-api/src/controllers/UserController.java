@@ -16,19 +16,19 @@ public class UserController {
 		response.type("application/json");
 		User currentUser = request.attribute("loggedIn");
 
+		response.status(200);
 		switch(currentUser.getRole()) {
 			case SUPER_ADMIN:
+			case USER:
 				return App.g.toJson(App.userService.findAll());
 			case ADMIN:
 				return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
-			case USER:
-				break;
 			default:
-				return "User "; // ovde vracam za obicnog usera
+				response.status(400);
+				return "Something went wrong!";
 		}
 
-		response.status(400);
-        return "Something went wrong!";
+
 	};
 
 	public static Route serveCurrentUser = (Request request, Response response) -> {

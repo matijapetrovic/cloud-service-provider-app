@@ -1,4 +1,4 @@
-Vue.component("add-user-form", {
+Vue.component("admin-add-user-form", {
     template: `
         <main-form 
             id="addUserForm"

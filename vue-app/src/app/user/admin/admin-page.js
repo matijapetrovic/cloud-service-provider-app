@@ -37,12 +37,12 @@ Vue.component('admin-page',{
             v-bind:modal-id="addModalId"
             modal-title="Add user"
             >
-                <add-user-form
+                <admin-add-user-form
                     @submit="   "
                     @addedUser="addUser($event)"
                     ref="addForm"
                     >
-                    </add-user-form>
+                    </admin-add-user-form>
             </full-modal>
         </div>
         

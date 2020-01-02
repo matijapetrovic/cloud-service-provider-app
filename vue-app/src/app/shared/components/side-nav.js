@@ -28,7 +28,7 @@ Vue.component("side-nav",{
                 </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">
+              <router-link class="nav-link" to="/drives">
                 <span data-feather="database"></span>
                 Drives
                 </router-link>
