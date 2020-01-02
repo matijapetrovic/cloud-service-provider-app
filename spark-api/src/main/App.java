@@ -9,12 +9,10 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
-import controllers.LoginController;
-import controllers.UserController;
-import controllers.OrganizationController;
-import controllers.VirtualMachineController;
+import controllers.*;
 import models.User;
 import models.User.Role;
+import services.DriveService;
 import services.OrganizationService;
 import services.UserService;
 import services.VMService;
@@ -26,11 +24,13 @@ public class App {
     public static UserService userService;
     public static VMService vmService;
     public static OrganizationService organizationService;
+    public static DriveService driveService;
 
     static {
         organizationService = new OrganizationService();
         userService = new UserService();
         vmService = new VMService();
+        driveService = new DriveService();
     }
 
     public static void main(String[] args) throws IOException {
@@ -67,6 +67,22 @@ public class App {
                 get("/:name", VirtualMachineController.handleGetSingle);
                 post("/add", VirtualMachineController.handlePost);
                 put("/update/:name", VirtualMachineController.handlePut);
+            });
+
+            path ("/drives", () -> {
+                get("", DriveController.handleGetAll);
+                get("/:name", DriveController.handleGetSingle);
+                post("/add", DriveController.handlePost);
+                put("/update/:name", DriveController.handlePut);
+                delete("/delete/:name",DriveController.handleDelete);
+            });
+
+            path ("/category", () -> {
+                get("", CategoryeController.handleGetAll);
+                get("/:name", CategoryeController.handleGetSingle);
+                post("/add", CategoryeController.handlePost);
+                put("/update/:name", CategoryeController.handlePut);
+                delete("/delete/:name",CategoryeController.handleDelete);
             });
         });
     }

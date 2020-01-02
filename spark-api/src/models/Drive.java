@@ -1,6 +1,7 @@
 package models;
 
-public class Drive {
+public class Drive implements Model<String> {
+
 	enum DriveType {SSD, HDD}
 
 	private String name;
@@ -72,4 +73,10 @@ public class Drive {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String getKey() {
+		return this.name;
+	}
+
 }

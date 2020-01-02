@@ -1,5 +1,4 @@
 Vue.component("all-users-table",{
-
     template:`
     <div v-if="loaded">
         <table border="1" class="table">

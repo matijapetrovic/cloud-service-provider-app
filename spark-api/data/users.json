@@ -1,1 +1,65 @@
-[{"email":"mattheo@gmail.com","password":"Hasaki","name":"Matija","surname":"Petrovic","role":"SUPER_ADMIN"},{"email":"nikola@gmail.com","password":"Anunaki","name":"Admino","surname":"Adminovovski","organization":{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[],"drives":[]},"role":"ADMIN"},{"email":"dragam@gmail.com","password":"dragan","name":"Dragan","surname":"Dragic","organization":{"name":"Lavovi","description":"asdgzdg","users":[],"virtualMachines":[],"drives":[]},"role":"ADMIN"},{"email":"ana@gmail.com","password":"ana","name":"Ana","surname":"Naic","organization":{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[],"drives":[]},"role":"USER"},{"email":"nemanja543@gmail.com","password":"nemanja","name":"Nemanja","surname":"Matic","organization":{"name":"Lavovi","description":"asdgzdg","users":[],"virtualMachines":[],"drives":[]},"role":"ADMIN"}]
+[
+    {
+        "email": "mattheo@gmail.com",
+        "password": "Hasaki",
+        "name": "Matija",
+        "surname": "Petrovic",
+        "role": "SUPER_ADMIN"
+    },
+    {
+        "email": "nikola@gmail.com",
+        "password": "Anunaki",
+        "name": "Admino",
+        "surname": "Adminovovski",
+        "organization": {
+            "name": "Doktori",
+            "description": "Mateo i Kabi",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "ADMIN"
+    },
+    {
+        "email": "dragam@gmail.com",
+        "password": "dragan",
+        "name": "Dragan",
+        "surname": "Dragic",
+        "organization": {
+            "name": "Lavovi",
+            "description": "asdgzdg",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "ADMIN"
+    },
+    {
+        "email": "ana@gmail.com",
+        "password": "ana",
+        "name": "Ana",
+        "surname": "Naic",
+        "organization": {
+            "name": "Doktori",
+            "description": "Mateo i Kabi",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "USER"
+    },
+    {
+        "email": "nemanja543@gmail.com",
+        "password": "nemanja",
+        "name": "Nemanja",
+        "surname": "Matic",
+        "organization": {
+            "name": "Lavovi",
+            "description": "asdgzdg",
+            "users": [],
+            "virtualMachines": [],
+            "drives": []
+        },
+        "role": "ADMIN"
+    }
+]
