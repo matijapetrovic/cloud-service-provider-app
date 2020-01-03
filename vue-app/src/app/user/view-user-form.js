@@ -29,10 +29,12 @@ Vue.component("view-user-form", {
             </text-input>
 
             <select-role
+            value="user.role"
             v-model="user.role"
             required
             >
             </select-role>
+
             <button
                 class="btn btn-outline-secondary pull-right"
                 id='deleteButton'
