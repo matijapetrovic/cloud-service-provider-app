@@ -29,14 +29,12 @@ Vue.component("add-drive-form", {
             >
                 Capacity
             </number-input>
-            <text-input
-            name="vm"
+            
+            <select-vms
             v-model="drive.vm"
             required
             >
-                Virtual machine
-                Moram imati neki select za vm
-            </text-input>
+            </select-vms>
             
         </main-form>
     `,

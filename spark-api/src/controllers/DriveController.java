@@ -8,6 +8,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,8 +55,10 @@ public class DriveController {
             return "User with email " + name + " does not exist!";
         }
 
+        Collection<Drive> drives = user.get().getOrganization().getDrives();
+            
         response.status(200);
-        return App.g.toJson(user.get().getOrganization().getDrives());
+        return App.g.toJson(drives);
     };
     public static Route handlePost = (Request request, Response response) -> {
         Drive drive = App.g.fromJson(request.body(), Drive.class);

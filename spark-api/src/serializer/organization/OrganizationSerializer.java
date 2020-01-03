@@ -2,6 +2,7 @@ package serializer.organization;
 
 import com.google.gson.GsonBuilder;
 import main.App;
+import models.Drive;
 import models.Organization;
 import models.User;
 import models.VirtualMachine;
@@ -41,7 +42,7 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
     private void buildReferences(Organization org) {
         buildUserReferences(org);
         buildVMReferences(org);
-//      buildDriveReferences(org);
+      buildDriveReferences(org);
     }
 
     private void buildUserReferences(Organization org) {
@@ -62,12 +63,12 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
         org.setVirtualMachines(vms);
     }
 
-//    private void buildDriveReferences(Organization org) {
-//        List<Drive> drives = new ArrayList<Drive>();
-//        org.getDrives()
-//                .forEach(x -> App.driveService
-//                        .findByKey(x.getKey()))
-//                        .ifPresent(drives::add);
-//        org.setDrives(drives);
-//    }
+    private void buildDriveReferences(Organization org) {
+        List<Drive> drives = new ArrayList<Drive>();
+        org.getDrives()
+                .forEach(x -> App.driveService
+                        .findByKey(x.getKey())
+                        .ifPresent(drives::add));
+        org.setDrives(drives);
+    }
 }

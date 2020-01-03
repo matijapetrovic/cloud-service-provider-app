@@ -10,5 +10,11 @@
     "type": "SSD",
     "capacity": 64,
     "vm": {"name": "VM2"}
+  },
+  {
+    "name": "drive3",
+    "type": "SSD",
+    "capacity": 300,
+    "vm": {"name": "VM2"}
   }
 ]

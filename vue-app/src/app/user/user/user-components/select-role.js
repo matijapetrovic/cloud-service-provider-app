@@ -2,7 +2,7 @@ Vue.component('select-role',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                {{this.name}}
+                Role
             </label>  
             <div> 
                 <select

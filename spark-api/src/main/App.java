@@ -25,10 +25,10 @@ public class App {
     public static CategoryService categoryService;
 
     static {
-        organizationService = new OrganizationService();
-        userService = new UserService();
         vmService = new VMService();
         driveService = new DriveService();
+        organizationService = new OrganizationService();
+        userService = new UserService();
         categoryService = new CategoryService();
     }
 
