@@ -12,7 +12,7 @@ Vue.component("drives-from-organization-table", {
                 </tr>
             </thead>
             <tr v-for="drive in drives">
-                <td><a href="#">{{ drive.name }}</a></td>
+                <td><a href="#" @click.prevent="viewDrive(drive.name )" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
                 <td>{{ drive.type }}</td>
                 <td>{{ drive.capacity }}</td>
                 <td>{{ drive.vm }}</td> 
@@ -58,7 +58,7 @@ Vue.component("drives-from-organization-table", {
             this.drives.splice(idx, 1);
             this.drives.splice(idx, 0, drive);
         },
-        viewOrganization(name) {
+        viewDrive(name) {
             this.$emit('viewDrive', name);
         }
    }

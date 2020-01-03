@@ -22,13 +22,13 @@ Vue.component("add-drive-form", {
             >
                 Type
             </password-input>
-            <text-input 
+            <number-input 
                 name="capacity"
                 v-model="drive.capacity"
                 required
             >
                 Capacity
-            </text-input>
+            </number-input>
             <text-input
             name="vm"
             v-model="drive.vm"

@@ -24,8 +24,7 @@ Vue.component('select-organization',{
             required: {
                 type: Boolean,
                 default: false
-            },
-            
+            },   
         }
     },
     mounted () {

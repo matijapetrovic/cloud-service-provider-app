@@ -71,6 +71,7 @@ Vue.component("admin-add-user-form", {
         .get('api/users/currentUser')
         .then(response => {
             this.currentUser = response.data
+            this.user.organization = this.currentUser.organization;
         });
         
     },

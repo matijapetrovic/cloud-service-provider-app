@@ -92,7 +92,7 @@ Vue.component("view-user-form", {
                     "name": this.user.name,
                     "surname": this.user.surname,
                     "role" : this.user.role,
-                    "organization" : this.user.organization.name
+                    "organization" : this.user.organization
                 })
                 .then(response => {
                     this.checkResponse(response);

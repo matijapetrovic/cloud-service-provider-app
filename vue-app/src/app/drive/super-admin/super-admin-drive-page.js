@@ -1,7 +1,6 @@
 Vue.component("super-admin-drive-page",{
     template: `
     <div>
-            
             <all-drives-table
             @viewDrive="viewDrive($event)"
             v-bind:view-modal-id="viewModalId"
@@ -50,7 +49,8 @@ Vue.component("super-admin-drive-page",{
     data : function() {
         return {
             addModalId: 'addDriveModal',
-            viewModalId: 'viewDriveModal'
+            viewModalId: 'viewDriveModal',
+            search: ''
         }
     },
     methods: {

@@ -5,12 +5,10 @@ import com.google.gson.GsonBuilder;
 import main.App;
 import models.Organization;
 import models.User;
-import models.VirtualMachine;
 import serializer.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +45,11 @@ public class UserSerializer extends JSONSerializer<User> {
     }
 
     private void buildOrganizationReference(User user) {
-//        Organization org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
-  //      user.setOrganization(org);
+        Organization org = null;
+        if(user.getRole()!= User.Role.SUPER_ADMIN){
+            org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
+        }
+
+        user.setOrganization(org);
     }
 }

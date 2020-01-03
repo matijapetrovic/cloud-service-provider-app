@@ -8,9 +8,9 @@ import models.User;
 public class UserExclusionStrategy implements ExclusionStrategy {
         @Override
         public boolean shouldSkipField(FieldAttributes field) {
-           /* if(field.getDeclaringClass() == Organization.class &&
-                    !field.getName().equals("name"))
-                return true;*/
+            if(field.getDeclaringClass() == Organization.class &&  !field.getName().equals("name"))
+                return true;
+
             return false;
         }
 

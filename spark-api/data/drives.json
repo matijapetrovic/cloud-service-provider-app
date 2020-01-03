@@ -1,0 +1,14 @@
+[
+  {
+    "name": "drive1",
+    "type": "HDD",
+    "capacity": 64,
+    "vm": {"name": "VM1"}
+  },
+  {
+    "name": "drive2",
+    "type": "SSD",
+    "capacity": 64,
+    "vm": {"name": "VM2"}
+  }
+]

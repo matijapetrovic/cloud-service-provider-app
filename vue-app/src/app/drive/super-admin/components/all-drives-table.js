@@ -1,6 +1,6 @@
 Vue.component("all-drives-table",{
     template:`
-    <div >
+    <div  v-if="loaded">
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -12,7 +12,7 @@ Vue.component("all-drives-table",{
             <tr v-for="drive in drives">
                 <td><a href="#" @click.prevent="viewDrive(drive.name )" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
                 <td>{{ drive.capacity }}</td>
-                <td>{{ drive.vm }}</td>
+                <td>{{ drive.vm.name }}</td>
             </tr>
         </table>
     </div>
@@ -24,6 +24,7 @@ Vue.component("all-drives-table",{
     data: function(){
         return {
             drives: null,
+            loaded: false
         }
     },
     mounted () {
@@ -31,8 +32,8 @@ Vue.component("all-drives-table",{
             .get('api/drives')
             .then(response => {
                 this.drives = response.data;
-            }),
-        axios
+                this.loaded = true;
+            })
     },
     methods: {
         addDrive(drive) {

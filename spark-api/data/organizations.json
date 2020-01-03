@@ -4,13 +4,13 @@
         "description": "Mateo i Kabi",
         "users": [],
         "virtualMachines": [],
-        "drives": []
+        "drives": [{"name":"drive1"},{"name":"drive2"}]
     },
     {
         "name": "Lavovi",
         "description": "asdgzdg",
         "users": [],
         "virtualMachines": [],
-        "drives": []
+        "drisves": []
     }
 ]

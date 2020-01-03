@@ -21,17 +21,13 @@ Vue.component("view-drive-form", {
             >
                 Type
             </text-input>
-            <text-input
+            <number-input
                 name="capacity"
                 v-model="drive.capacity"
             >
                 Capacity
-            </text-input>
+            </number-input>
 
-            <select-role
-            v-model="drive.role"
-            required
-            >
             </select-role>
             <button
                 class="btn btn-outline-secondary pull-right"

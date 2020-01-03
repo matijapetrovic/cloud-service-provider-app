@@ -3,8 +3,6 @@ package serializer.drive;
 import com.google.gson.GsonBuilder;
 import main.App;
 import models.Drive;
-import models.Organization;
-import models.User;
 import models.VirtualMachine;
 import serializer.JSONSerializer;
 
@@ -41,7 +39,8 @@ public class DriveSerializer extends JSONSerializer<Drive> {
         data.forEach(this::buildReferences);
     }
 
-    private void buildReferences(Drive org) {
-
+    private void buildReferences(Drive drive) {
+        VirtualMachine vm  = App.vmService.findByKey(drive.getVm().getName()).orElse(null);
+        drive.setVm(vm);
     }
 }
