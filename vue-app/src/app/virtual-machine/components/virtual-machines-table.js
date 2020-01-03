@@ -21,8 +21,8 @@ Vue.component("vm-table", {
                         {{ virtualMachine.name }}
                     </a>
                 </td>
-                <td>{{ virtualMachine.category.cores }}</td>
-                <td>{{ virtualMachine.category.memory }}</td>
+                <td>{{ virtualMachine.category.cpus }}</td>
+                <td>{{ virtualMachine.category.ram }}</td>
                 <td>{{ virtualMachine.category.gpus }}</td>
             </tr>
         </table>
