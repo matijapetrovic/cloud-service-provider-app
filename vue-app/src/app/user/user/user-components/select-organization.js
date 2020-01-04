@@ -16,15 +16,17 @@ Vue.component('select-organization',{
             </div>
         </div>
     `,
-    data : function () {
-        return {
-            organizations : null,
-            name: "Organizations",
+    props: {
+        name: "Organizations",
             value : '',
             required: {
                 type: Boolean,
                 default: false
-            },   
+            }, 
+    },
+    data : function () {
+        return {
+            organizations : null,     
         }
     },
     mounted () {

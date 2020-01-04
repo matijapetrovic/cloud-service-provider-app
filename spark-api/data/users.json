@@ -40,10 +40,40 @@
         "email": "nemanja543@gmail.com",
         "password": "nemanja",
         "name": "Nemanja",
-        "surname": "Matic",
+        "surname": "Nedeljkovic",
         "organization": {
             "name": "Lavovi"
         },
-        "role": "ADMIN"
+        "role": "USER"
+    },
+    {
+        "email": "filipf@gmail.com",
+        "password": "fica",
+        "name": "Filip",
+        "surname": "Nastasijevic",
+        "organization": {
+            "name": "Doktori"
+        },
+        "role": "USER"
+    },
+    {
+        "email": "ena@gmai.com",
+        "password": "ena",
+        "name": "Ena",
+        "surname": "Pavlovic",
+        "organization": {
+            "name": "Lavovi"
+        },
+        "role": "USER"
+    },
+    {
+        "email": "petarpetrovic@gmail.com",
+        "password": "petarpetrovic",
+        "name": "Petar",
+        "   surname": "Petrovic",
+        "organization": {
+            "name": "Lavovi"
+        },
+        "role": "USER"
     }
 ]

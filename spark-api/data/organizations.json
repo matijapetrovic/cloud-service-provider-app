@@ -4,13 +4,39 @@
         "description": "Mateo i Kabi",
         "users": [],
         "virtualMachines": [],
-        "drives": [{"name":"drive1"}]
+        "drives": [
+            {
+                "name": "drive1",
+                "type": "HDD",
+                "capacity": 64,
+                "vm": {
+                    "name": "VM1"
+                }
+            }
+        ]
     },
     {
         "name": "Lavovi",
         "description": "asdgzdg",
         "users": [],
         "virtualMachines": [],
-        "drives": [{"name":"drive3"},{"name":"drive2"}]
+        "drives": [
+            {
+                "name": "drive3",
+                "type": "SSD",
+                "capacity": 319,
+                "vm": {
+                    "name": "VM2"
+                }
+            },
+            {
+                "name": "drive2",
+                "type": "HDD",
+                "capacity": 64,
+                "vm": {
+                    "name": "VM2"
+                }
+            }
+        ]
     }
 ]

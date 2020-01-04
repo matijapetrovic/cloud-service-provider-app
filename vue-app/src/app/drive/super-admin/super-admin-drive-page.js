@@ -49,8 +49,7 @@ Vue.component("super-admin-drive-page",{
     data : function() {
         return {
             addModalId: 'addDriveModal',
-            viewModalId: 'viewDriveModal',
-            search: ''
+            viewModalId: 'viewDriveModal'
         }
     },
     methods: {

@@ -61,6 +61,7 @@ public class DriveController {
         return App.g.toJson(drives);
     };
     public static Route handlePost = (Request request, Response response) -> {
+        System.out.println(request.body());
         Drive drive = App.g.fromJson(request.body(), Drive.class);
 
         response.type("application/json");

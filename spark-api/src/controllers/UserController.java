@@ -70,10 +70,11 @@ public class UserController {
 	};
 
 	public static Route handlePost = (Request request, Response response) -> {
+		LoginController.ensureUserRole(request, response, User.Role.SUPER_ADMIN);
+
 		User user = App.g.fromJson(request.body(), User.class);
 
 		response.type("application/json");
-
 		if (!App.userService.add(user)) {
 			response.status(400);
 			return "User with the email " + user.getEmail() + " already exists";

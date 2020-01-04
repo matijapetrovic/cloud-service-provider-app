@@ -10,7 +10,7 @@ Vue.component("number-input", {
                     type="number"
                     v-bind:name="name"
                     v-bind:value="value"
-                    v-on:input="$emit('input', $event.target.value)"
+                    v-on:input="$emit('input', Number($event.target.value))"
                     v-bind:required="required"
                 >
                 <div class="invalid-feedback">

@@ -49,7 +49,6 @@ public class UserSerializer extends JSONSerializer<User> {
         if(user.getRole()!= User.Role.SUPER_ADMIN){
             org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
         }
-
         user.setOrganization(org);
     }
 }

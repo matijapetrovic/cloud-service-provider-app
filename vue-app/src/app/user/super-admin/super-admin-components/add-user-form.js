@@ -68,7 +68,7 @@ Vue.component("add-user-form", {
         
         checkResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('addedUser', this.User);
+                this.$emit('addedUser', this.user);
                 alert('Adding User successful');
                 this.$emit('submit')
             }

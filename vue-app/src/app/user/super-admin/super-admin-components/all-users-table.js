@@ -1,6 +1,6 @@
 Vue.component("all-users-table",{
     template:`
-    <div v-if="loaded">
+    <div>
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -10,9 +10,16 @@ Vue.component("all-users-table",{
                     <th>Organization</th>
                 </tr>
             </thead>
-            <!-- Checking to not print currentUser in table -->
+            <!-- Check printing currentUser in table -->
             <tr v-for="user in users" v-if="user.email !== currentUser.email">
-                <td><a href="#" @click.prevent="viewUser(user.email )" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ user.email }}</a></td>
+                <td>
+                <a
+                 href="#" 
+                 @click.prevent="viewUser(user.email )" 
+                 data-toggle="modal" 
+                 v-bind:data-target="'#' + viewModalId">
+                 {{ user.email }}
+                 </a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
                 <td>{{ user.organization.name }}</td>
