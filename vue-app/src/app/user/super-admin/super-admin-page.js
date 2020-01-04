@@ -26,6 +26,8 @@ Vue.component('super-admin-page',{
             >
                 <view-user-form
                     @submit="closeViewModal"
+                    @submitDelete="closeViewModal"
+                    @deletedUser="deleteUser($event)"
                     @updatedUser="updateUser($event)"
                     ref="viewForm"
                     >
@@ -65,7 +67,7 @@ Vue.component('super-admin-page',{
             $('#' + this.viewModalId).modal('hide');
         },
         closeAddModal() {
-            this.removeAddValidation();
+            this.removeAddValidation(); 
             $('#' + this.addModalId).modal('hide');
         },
         addUser(user) {
@@ -73,6 +75,9 @@ Vue.component('super-admin-page',{
         },
         updateUser(user) {
             this.$refs.table.updateUser(user);
+        },
+        deleteUser(user){
+            this.$refs.table.deleteUser(user);
         },
         viewUser(email) {
             this.$refs.viewForm.getUser(email);

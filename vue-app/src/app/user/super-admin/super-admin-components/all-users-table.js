@@ -1,7 +1,6 @@
 Vue.component("all-users-table",{
     template:`
-    <div>
-        <table border="1" class="table">
+    <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th>Email</th>
@@ -11,7 +10,7 @@ Vue.component("all-users-table",{
                 </tr>
             </thead>
             <!-- Check printing currentUser in table -->
-            <tr v-for="user in users" v-if="user.email !== currentUser.email">
+            <tr v-for="user in users" v-if="user.role !== 'SUPER_ADMIN'">
                 <td>
                 <a
                  href="#" 
@@ -25,7 +24,7 @@ Vue.component("all-users-table",{
                 <td>{{ user.organization.name }}</td>
             </tr>
         </table>
-    </div>
+
     `,
     props : {
         viewModalId : String
@@ -33,9 +32,7 @@ Vue.component("all-users-table",{
     },
     data: function(){
         return {
-            users: null,
-            currentUser : null,
-            loaded : false,
+            users: null
         }
     },
     mounted () {
@@ -43,13 +40,7 @@ Vue.component("all-users-table",{
             .get('api/users')
             .then(response => {
                 this.users = response.data;
-            }),
-        axios
-        .get('api/users/currentUser')
-        .then(response => {
-            this.currentUser = response.data;
-            this.loaded = true;
-        })
+            })
     },
     methods: {
         addUser(user) {
