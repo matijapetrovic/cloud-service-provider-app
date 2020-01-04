@@ -22,6 +22,7 @@ Vue.component("main-form", {
                 </button>
         
                 <button
+                    @click = "submitDelete"
                     v-show="this.activeDelete"
                     class="btn btn-outline-secondary pull-right"
                     type="delete"

@@ -9,7 +9,7 @@ Vue.component("view-user-form", {
 
             activeDelete
             buttonTextDelete="Delete"
-            v-on:delete="submitDelete($event)"
+            v-on:submitDelete="submitDelete($event)"
             ref="form"
         >
             <text-input
