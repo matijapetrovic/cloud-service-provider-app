@@ -54,7 +54,7 @@ Vue.component("all-drives-table",{
         },
         deleteDrive(drive){
             var el = this.drives.find(function(element) {
-                return element.email === drive.email;
+                return element.name === drive.name;
             });
             var idx = this.drives.indexOf(el);
             this.drives.splice(idx, 1);

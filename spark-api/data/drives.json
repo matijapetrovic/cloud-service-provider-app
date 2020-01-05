@@ -1,1 +1,1 @@
-[{"name":"drive1","type":"HDD","capacity":64,"vm":{"name":"VM1"}},{"name":"drive2","type":"HDD","capacity":64,"vm":{"name":"VM2"}},{"name":"drive3","type":"SSD","capacity":319,"vm":{"name":"VM2"}}]
+[{"name":"drive1","type":"HDD","capacity":64,"vm":{"name":"VM1"}},{"name":"drive2","type":"HDD","capacity":64,"vm":{"name":"VM2"}}]

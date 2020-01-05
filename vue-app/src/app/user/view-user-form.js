@@ -95,7 +95,6 @@ Vue.component("view-user-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
-                    console.log(this.user.name);
                 });
         },
         submitDelete: function(e){
@@ -103,7 +102,6 @@ Vue.component("view-user-form", {
                 .delete('api/users/delete/' + this.user.email)
                 .then(response => {
                     this.checkDeleteResponse(response);
-                    console.log(this.user.email);
                 });
         }
     }

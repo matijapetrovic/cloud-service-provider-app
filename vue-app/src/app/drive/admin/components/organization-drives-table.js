@@ -36,7 +36,9 @@ Vue.component("drives-from-organization-table", {
                 .then(response => {
                     this.currentUser = response.data
                     this.loaded = true;
-                    this.loadDrives(this.currentUser.email);       
+                    if(this.currentUser.role !== 'SUPER_ADMIN'){
+                        this.loadDrives(this.currentUser.email);  
+                    }     
                 });
             },
         methods: {

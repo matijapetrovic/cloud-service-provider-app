@@ -27,8 +27,8 @@ Vue.component('super-admin-page',{
                 <view-user-form
                     @submit="closeViewModal"
                     @submitDelete="closeViewModal"
-                    @deletedUser="deleteUser($event)"
                     @updatedUser="updateUser($event)"
+                    @deletedUser="deleteUser($event)"
                     ref="viewForm"
                     >
                     </view-user-form>

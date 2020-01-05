@@ -6,6 +6,10 @@ Vue.component("view-drive-form", {
             headerText="Drive info"
             buttonText="Update"
             v-on:submit="submitForm($event)"
+
+            activeDelete
+            buttonTextDelete="Delete"
+            v-on:submitDelete="submitDelete($event)"
             ref="form"
         >
             <text-input
@@ -27,14 +31,6 @@ Vue.component("view-drive-form", {
             >
                 Capacity
             </number-input>
-
-            <button
-                class="btn btn-outline-secondary pull-right"
-                id='deleteButton'
-                @click="deleteDrive($event)"
-                >
-                    Delete
-            </button>
         </main-form>
     `,
     data : function () {
@@ -68,9 +64,9 @@ Vue.component("view-drive-form", {
         },
         checkDeleteResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('updatedDrive', this.drive);
+                this.$emit('deletedDrive', this.drive);
                 alert('Drive with name '+ this.drive.name + ' successfully!');
-                this.$emit('submit')
+                this.$emit('submitDelete')
             }
             else {
                 alert('Error: ' + response.data);
@@ -90,6 +86,13 @@ Vue.component("view-drive-form", {
                 });
         },
         deleteDrive(drive){
+            axios
+                .delete('api/drives/delete/' + this.drive.name)
+                .then(response => {
+                    this.checkDeleteResponse(response);
+                });
+        },
+        submitDelete: function(e){
             axios
                 .delete('api/drives/delete/' + this.drive.name)
                 .then(response => {

@@ -14,14 +14,14 @@ Vue.component("all-users-table",{
                 <td>
                 <a
                  href="#" 
-                 @click.prevent="viewUser(user.email )" 
+                 @click.prevent="viewUser(user.email)" 
                  data-toggle="modal" 
                  v-bind:data-target="'#' + viewModalId">
                  {{ user.email }}
                  </a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
-                <td>{{ user.organization.name }}</td>
+                <td>{{user.organization.name}}</td>
             </tr>
         </table>
 
@@ -32,7 +32,7 @@ Vue.component("all-users-table",{
     },
     data: function(){
         return {
-            users: null
+            users: null           
         }
     },
     mounted () {

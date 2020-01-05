@@ -4,7 +4,7 @@ Vue.component("main-form", {
             v-bind:id="id"
             v-bind:method="method"
             v-on:submit="submitForm"
-            v-on:delete="submitDelete"
+            v-on:submitDelete="submitDelete"
             class="main-form card"
             novalidate
             activeDelete
@@ -22,10 +22,10 @@ Vue.component("main-form", {
                 </button>
         
                 <button
-                    @click = "submitDelete"
                     v-show="this.activeDelete"
+                    v-on:click="submitDelete"
                     class="btn btn-outline-secondary pull-right"
-                    type="delete"
+                    type="submit"
                 >
                     {{ buttonTextDelete }}
                 </button>
@@ -41,12 +41,6 @@ Vue.component("main-form", {
         activeDelete : Boolean,
     },
     methods: {
-        checkDisable: function(){
-            if(this.activeDelete){
-                return false;
-            }
-            return true;
-        },
         removeValidation: function() {
             var form = document.getElementById(this.id);
             form.classList.remove('was-validated');
