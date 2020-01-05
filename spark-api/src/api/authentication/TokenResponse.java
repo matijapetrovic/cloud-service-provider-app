@@ -4,12 +4,12 @@ package api.authentication;
 public class TokenResponse {
     private boolean authenticated;
     private String token;
-    private UserResponse userResponse;
+    private UserResponse user;
 
-    public TokenResponse(boolean authenticated, String token, UserResponse userResponse) {
+    public TokenResponse(boolean authenticated, String token, UserResponse user) {
         this.authenticated = authenticated;
         this.token = token;
-        this.userResponse = userResponse;
+        this.user = user;
     }
 
     public boolean isAuthenticated() {
@@ -20,7 +20,7 @@ public class TokenResponse {
         return token;
     }
 
-    public UserResponse getUserResponse() {
-        return userResponse;
+    public UserResponse getUser() {
+        return user;
     }
 }

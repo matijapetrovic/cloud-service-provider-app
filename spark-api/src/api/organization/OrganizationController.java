@@ -3,6 +3,8 @@ package api.organization;
 import domain.organization.Organization;
 import api.authentication.LoginController;
 import application.App;
+import domain.organization.OrganizationService;
+import domain.organization.OrganizationStorage;
 import domain.user.User;
 import spark.Request;
 import spark.Response;
@@ -10,52 +12,70 @@ import spark.Route;
 
 import java.util.Optional;
 
-public class OrganizationController {
-    public static Route handleGetAll = (Request request, Response response) -> {
-        LoginController.ensureUserRole(request, response, User.Role.SUPER_ADMIN);
+import static spark.Spark.*;
+import static spark.Spark.put;
 
-        response.type("application/json");
-        return App.g.toJson(App.organizationService.findAll());
+public class OrganizationController {
+    private OrganizationStorage storage;
+    private OrganizationService service;
+
+    public OrganizationController(OrganizationStorage storage) {
+        this.storage = storage;
+        setUpRoutes();
+    }
+
+    private void setUpRoutes() {
+        path("api", () -> {
+            path("/organizations", () -> {
+                before ("*", (q, a) -> setService(q.attribute("loggedIn")));
+                get("", handleGetAll);
+                get("/:name", handleGetSingle);
+                post("/add", handlePost);
+                put("/update/:name", handlePut);
+            });
+        });
+    }
+
+    private void setService(User user) {
+        switch(user.getRole()) {
+            case SUPER_ADMIN:
+                 service = new SuperAdminOrganizationService(storage);
+            case ADMIN:
+                service = new AdminOrganizationService(storage);
+            case USER:
+                service = new RegularOrganizationService(storage);
+            default:
+                halt(500, "Something went wrong");
+        }
+    }
+
+    private Route handleGetAll = (Request request, Response response) -> {
+        response.status(200);
+        return App.g.toJson(service.getAll());
 	};
 
-    public static Route handleGetSingle = (Request request, Response response) -> {
-        LoginController.ensureUserRole(request, response, User.Role.SUPER_ADMIN);
-
+    private Route handleGetSingle = (Request request, Response response) -> {
         String name = request.params(":name");
-        Optional<Organization> org = App.organizationService.findByKey(name);
-
-        response.type("application/json");
-        if (!org.isPresent()) {
-            response.status(400);
-            return "Organization with the name " + name + " doesn't exist";
-        }
-
+        Organization organization = service.getSingle(name);
+        // dodaj null check ovde ili u service
         response.status(200);
-        return App.g.toJson(org.get());
+        return App.g.toJson(organization);
     };
 
-    public static Route handlePost = (Request request, Response response) -> {
-        LoginController.ensureUserRole(request, response, User.Role.SUPER_ADMIN);
-
-        Organization org = App.g.fromJson(request.body(), Organization.class);
-
-        response.type("application/json");
-        if (!App.organizationService.add(org)) {
-            response.status(400);
-            return "Organization with the name " + org.getName() + " already exists";
-        }
-
-        response.status(200);
-        return "OK";
+    private Route handlePost = (Request request, Response response) -> {
+        Organization organization = App.g.fromJson(request.body(), Organization.class);
+        service.post(organization);
+        response.status(201);
+        return "Created";
     };
 
-    public static Route handlePut = (Request request, Response response) -> {
+    private Route handlePut = (Request request, Response response) -> {
         LoginController.ensureUserRole(request, response, User.Role.ADMIN);
 
         Organization toUpdate = App.g.fromJson(request.body(), Organization.class);
         String name = request.params(":name");
 
-        Optional<Organization> org = App.organizationService.findByKey(name);
+        Optional<Organization> org = storage.findByName(name);
         if (org.isPresent()) {
             User loggedIn = request.attribute("loggedIn");
             if (!org.get().getUsers().contains(loggedIn)) {
@@ -64,9 +84,7 @@ public class OrganizationController {
             }
         }
 
-
-        response.type("application/json");
-        if (!App.organizationService.update(name, toUpdate)) {
+        if (!storage.update(toUpdate)) {
             response.status(400);
             return "Organization with the name " + name + " doesn't exist";
         }

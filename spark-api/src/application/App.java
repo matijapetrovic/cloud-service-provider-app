@@ -20,6 +20,7 @@ import api.virtual_machine.VMService;
 import api.virtual_machine.VirtualMachineController;
 import api.vm_category.CategoryController;
 import api.vm_category.CategoryService;
+import storage.organization.OrganizationJSONFileStorage;
 
 public class App {
     public static final Gson g = new Gson();
@@ -46,17 +47,18 @@ public class App {
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
             before("/*", LoginController::ensureUserIsLoggedIn);
+            after("/*", (q, a) -> a.type("application/json"));
 
             path("/login", () -> {
                 post("", LoginController.handlePost);
             });
 
-            path("/organizations", () -> {
-                get("", OrganizationController.handleGetAll);
-                get("/:name", OrganizationController.handleGetSingle);
-                post("/add", OrganizationController.handlePost);
-                put("/update/:name", OrganizationController.handlePut);
-            });
+//            path("/organizations", () -> {
+//                get("", OrganizationController.handleGetAll);
+//                get("/:name", OrganizationController.handleGetSingle);
+//                post("/add", OrganizationController.handlePost);
+//                put("/update/:name", OrganizationController.handlePut);
+//            });
 
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
@@ -93,5 +95,9 @@ public class App {
                 delete("/delete/:name",CategoryController.handleDelete);
             });
         });
+        new OrganizationController(
+                new OrganizationJSONFileStorage(
+                        "./data/organizations.json"
+                ));
     }
 }

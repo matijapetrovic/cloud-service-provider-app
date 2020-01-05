@@ -59,7 +59,7 @@ Vue.component("login-page", {
                         // cuvamo u local storageu da bismo pristupili iz bilo koje komponente
                         // i da bi ostalo i kad se refreshuje
                         localStorage.setItem('user-token', token);
-                        localStorage.setItem('user', response.data.user);
+                        localStorage.setItem('user', JSON.stringify(response.data.user));
                         // stavljamo po defaultu u header da bi axios automatski
                         // slao zahteve sa nasim tokenom
                         axios.defaults.headers.common['Authorization'] = token;

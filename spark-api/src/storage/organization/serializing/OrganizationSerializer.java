@@ -40,7 +40,7 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
 
     private void buildReferences(Organization org) {
         buildUserReferences(org);
-        buildVMReferences(org);
+//        buildVMReferences(org);
 //      buildDriveReferences(org);
     }
 
@@ -53,14 +53,14 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
         org.setUsers(users);
     }
 
-    private void buildVMReferences(Organization org) {
-        List<VirtualMachine> vms = new ArrayList<VirtualMachine>();
-        org.getVirtualMachines()
-                .forEach(x -> App.vmService
-                        .findByKey(x.getKey())
-                        .ifPresent(vms::add));
-        org.setVirtualMachines(vms);
-    }
+//    private void buildVMReferences(Organization org) {
+//        List<VirtualMachine> vms = new ArrayList<VirtualMachine>();
+//        org.getVirtualMachines()
+//                .forEach(x -> App.vmService
+//                        .findByKey(x.getKey())
+//                        .ifPresent(vms::add));
+//        org.setVirtualMachines(vms);
+//    }
 
 //    private void buildDriveReferences(Organization org) {
 //        List<Drive> drives = new ArrayList<Drive>();

@@ -1,6 +1,6 @@
 Vue.component("users-from-organization-table", {
     template:`
-    <div v-if="loaded">
+    <div>
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -31,14 +31,9 @@ Vue.component("users-from-organization-table", {
         }
     },
     mounted () {
-        axios
-            .get('api/users/currentUser')
-            .then(response => {
-                this.currentUser = response.data
-                this.loaded = true;
-                this.loadUsers(this.currentUser.email);       
-            });
-        },
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
+        this.loadUsers(this.currentUser.email);       
+    },
     methods: {
         loadUsers(email){
             axios

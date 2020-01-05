@@ -1,16 +1,1 @@
-[
-    {
-        "name": "Doktori",
-        "description": "Mateo i Kabi",
-        "users": [],
-        "virtualMachines": [],
-        "drives": [{"name":"drive1"},{"name":"drive2"}]
-    },
-    {
-        "name": "Lavovi",
-        "description": "asdgzdg",
-        "users": [],
-        "virtualMachines": [],
-        "drisves": []
-    }
-]
+[{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[],"drives":[{"name":"drive1","capacity":0},{"name":"drive2","capacity":0}]},{"name":"Lavovi","description":"asdgzdg","users":[],"virtualMachines":[]},{"name":"idjiots","description":"xcvxcbv","users":[]}]
