@@ -1,7 +1,7 @@
 package api.organization;
 
 import domain.organization.Organization;
-import features.authentication.LoginController;
+import api.authentication.LoginController;
 import application.App;
 import domain.user.User;
 import spark.Request;

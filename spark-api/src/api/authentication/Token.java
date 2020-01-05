@@ -1,4 +1,4 @@
-package features.authentication;
+package api.authentication;
 
 public class Token {
     private String email;

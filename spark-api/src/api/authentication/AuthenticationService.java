@@ -1,4 +1,4 @@
-package features.authentication;
+package api.authentication;
 
 import application.App;
 import org.jose4j.jws.AlgorithmIdentifiers;

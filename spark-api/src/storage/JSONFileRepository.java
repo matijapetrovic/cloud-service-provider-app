@@ -8,9 +8,10 @@ import java.util.*;
 import java.util.logging.Level;
 
 public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, E> {
-    private String filePath;
-    private List<E> repo;
     private JSONSerializer<E> serializer;
+    private String filePath;
+
+    private List<E> repo;
 
     public JSONFileRepository(JSONSerializer<E> serializer, String filePath) {
         this.serializer = serializer;
@@ -28,13 +29,13 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
         }
         else
             repo.add(entity);
-        saveEntities();
+        saveChanges();
     }
 
     @Override
     public void delete(E entity) {
         repo.remove(entity);
-        saveEntities();
+        saveChanges();
     }
 
     @Override
@@ -50,6 +51,16 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
                 .findFirst();
     }
 
+    @Override
+    public void saveChanges() {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            //App.g.toJson(repo, writer);
+            serializer.serialize(repo, writer);
+        } catch (IOException e) {
+            App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
+        }
+    }
+
     private void loadEntities() {
         List<E> data;
         try (FileReader reader = new FileReader(filePath)) {
@@ -59,15 +70,6 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
             App.logger.log(Level.WARNING, "Reading from " + filePath + " failed");
-        }
-    }
-
-    private void saveEntities() {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            //App.g.toJson(repo, writer);
-            serializer.serialize(repo, writer);
-        } catch (IOException e) {
-            App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
         }
     }
 }

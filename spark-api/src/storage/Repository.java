@@ -11,4 +11,5 @@ public interface Repository<K, E extends Model<K>> {
     void delete(E entity);
     Collection<E> findAll();
     Optional<E> findByKey(K key);
+    void saveChanges();
 }
