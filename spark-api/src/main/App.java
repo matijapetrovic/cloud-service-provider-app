@@ -54,11 +54,11 @@ public class App {
             path ("/users", () -> {
                 get("", UserController.serveUserPage);
                 get("/currentUser", UserController.serveCurrentUser);
-                get("/:name", UserController.handleGetSingle);
-                get("/organizations/:name", UserController.handleUsersOrganization);
+                get("/:email", UserController.handleGetSingle);
+                get("/organizations/:email", UserController.handleUsersOrganization);
                 post("/add", UserController.handlePost);
-                put("/update/:name", UserController.handlePut);
-                delete("/delete/:name",UserController.handleDelete);
+                put("/update/:email", UserController.handlePut);
+                delete("/delete/:email",UserController.handleDelete);
             });
 
             path("/virtualmachines", () -> {
@@ -81,6 +81,7 @@ public class App {
             path ("/categories", () -> {
                 get("", CategoryController.handleGetAll);
                 get("/:name", CategoryController.handleGetSingle);
+                get("/organizations/:name", CategoryController.handleCategoriesOrganization);
                 post("/add", CategoryController.handlePost);
                 put("/update/:name", CategoryController.handlePut);
                 delete("/delete/:name",CategoryController.handleDelete);

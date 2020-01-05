@@ -8,6 +8,7 @@ Vue.component("number-input", {
                 <input
                     class="form-control"
                     type="number"
+                    min=0
                     v-bind:name="name"
                     v-bind:value="value"
                     v-on:input="$emit('input', Number($event.target.value))"

@@ -1,6 +1,7 @@
 package controllers;
 
 import main.App;
+import models.Drive;
 import models.VMCategory;
 import models.User;
 import spark.Request;
@@ -8,6 +9,8 @@ import spark.Response;
 import spark.Route;
 import sun.misc.VM;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 public class CategoryController {
@@ -38,6 +41,24 @@ public class CategoryController {
 
         response.status(200);
         return App.g.toJson(vmCategory.get());
+    };
+
+    public static Route handleCategoriesOrganization = (Request request, Response response) -> {
+        String name = request.params(":name");
+        Optional<User> user = App.userService.findByKey(name);
+
+        response.type("application/json");
+
+        if(!user.isPresent()){
+            response.status(400);
+            return "User with email " + name + " does not exist!";
+        }
+
+        Collection<VMCategory> categories = new ArrayList<VMCategory>();
+        user.get().getOrganization().getVirtualMachines().forEach(x-> categories.add(x.getCategory()));
+
+        response.status(200);
+        return App.g.toJson(categories);
     };
 
     public static Route handlePost = (Request request, Response response) -> {

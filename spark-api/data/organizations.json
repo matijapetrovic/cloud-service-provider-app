@@ -22,14 +22,6 @@
         "virtualMachines": [],
         "drives": [
             {
-                "name": "drive3",
-                "type": "SSD",
-                "capacity": 319,
-                "vm": {
-                    "name": "VM2"
-                }
-            },
-            {
                 "name": "drive2",
                 "type": "HDD",
                 "capacity": 64,

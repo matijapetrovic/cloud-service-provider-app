@@ -27,8 +27,6 @@ public class UserController {
 				response.status(400);
 				return "Something went wrong!";
 		}
-
-
 	};
 
 	public static Route serveCurrentUser = (Request request, Response response) -> {
@@ -38,7 +36,7 @@ public class UserController {
 	};
 
 	public static Route handleGetSingle = (Request request, Response response) -> {
-		String email = request.params(":name");
+		String email = request.params(":email");
 		Optional<User> user = App.userService.findByKey(email);
 
 		response.type("application/json");
@@ -53,7 +51,7 @@ public class UserController {
 	};
 
 	public static Route handleUsersOrganization = (Request request, Response response) -> {
-		String email = request.params(":name");
+		String email = request.params(":email");
 		Optional<User> user = App.userService.findByKey(email);
 
 		response.type("application/json");
@@ -86,7 +84,7 @@ public class UserController {
 
 	public static Route handlePut = (Request request, Response response) -> {
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
+		String email = request.params(":email");
 		Optional<User> toFind = App.userService.findByKey(email);
 
 		response.type("application/json");
@@ -104,7 +102,7 @@ public class UserController {
 
 	public static Route handleDelete = (Request request, Response response) -> {
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
+		String email = request.params(":email");
 		Optional<User> toFind = App.userService.findByKey(email);
 
 		response.type("application/json");

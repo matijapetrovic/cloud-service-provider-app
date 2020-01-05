@@ -4,7 +4,6 @@ Vue.component("main-form", {
             v-bind:id="id"
             v-bind:method="method"
             v-on:submit="submitForm"
-            v-on:submitDelete="submitDelete"
             class="main-form card"
             novalidate
             activeDelete
@@ -20,7 +19,7 @@ Vue.component("main-form", {
                 >
                     {{ buttonText }}
                 </button>
-        
+                
                 <button
                     v-show="this.activeDelete"
                     v-on:click="submitDelete"
