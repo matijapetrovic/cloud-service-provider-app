@@ -2,7 +2,6 @@ package storage.organization;
 
 import domain.organization.Organization;
 import domain.organization.OrganizationStorage;
-import domain.virtual_machine.VirtualMachine;
 import storage.JSONFileRepository;
 import storage.organization.serializing.OrganizationSerializer;
 

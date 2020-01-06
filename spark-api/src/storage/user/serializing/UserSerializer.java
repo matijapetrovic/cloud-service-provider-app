@@ -32,24 +32,24 @@ public class UserSerializer extends JSONSerializer<User> {
     @Override
     public List<User> deserialize(FileReader reader) {
         List<User> data = Arrays.asList(gson.fromJson(reader, User[].class));
-        buildReferences(data);
+//        buildReferences(data);
         return data;
     }
-
-    private void buildReferences(List<User> data) {
-        data.forEach(this::buildReferences);
-    }
-
-    private void buildReferences(User user) {
-        buildOrganizationReference(user);
-    }
-
-    private void buildOrganizationReference(User user) {
-        Organization org = null;
-        if(user.getRole()!= User.Role.SUPER_ADMIN){
-            org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
-        }
-
-        user.setOrganization(org);
-    }
+//
+//    private void buildReferences(List<User> data) {
+//        data.forEach(this::buildReferences);
+//    }
+//
+//    private void buildReferences(User user) {
+//        buildOrganizationReference(user);
+//    }
+//
+//    private void buildOrganizationReference(User user) {
+//        Organization org = null;
+//        if(user.getRole()!= User.Role.SUPER_ADMIN){
+//            org = App.organizationService.findByKey(user.getOrganization().getKey()).orElse(null);
+//        }
+//
+//        user.setOrganization(org);
+//    }
 }

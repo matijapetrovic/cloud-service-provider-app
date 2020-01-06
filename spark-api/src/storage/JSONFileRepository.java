@@ -2,6 +2,8 @@ package storage;
 
 import application.App;
 import domain.Model;
+import domain.user.User;
+import storage.user.serializing.UserSerializer;
 
 import java.io.*;
 import java.util.*;
@@ -16,7 +18,7 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
     public JSONFileRepository(JSONSerializer<E> serializer, String filePath) {
         this.serializer = serializer;
         this.filePath = filePath;
-        repo = new ArrayList<E>();
+        repo = new ArrayList<>();
         loadEntities();
     }
 
@@ -64,8 +66,8 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
     private void loadEntities() {
         List<E> data;
         try (FileReader reader = new FileReader(filePath)) {
-            //data = Arrays.asList(App.g.fromJson(reader, cls));
             data = serializer.deserialize(reader);
+            repo.clear();
             repo.addAll(data);
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
