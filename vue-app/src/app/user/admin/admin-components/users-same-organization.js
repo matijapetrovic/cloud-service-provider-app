@@ -60,6 +60,13 @@ Vue.component("users-from-organization-table", {
         },
         viewUser(email) {
             this.$emit('viewUser', email);
+        },
+        deleteUser(user){
+            var el = this.users.find(function(element) {
+                return element.email === user.email;
+            });
+            var idx = this.users.indexOf(el);
+            this.users.splice(idx, 1);
         }
    }
 

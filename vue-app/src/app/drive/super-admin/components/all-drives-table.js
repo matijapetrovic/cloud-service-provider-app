@@ -43,18 +43,18 @@ Vue.component("all-drives-table",{
         },
         updateDrive(drive) {
             var el = this.drives.find(function(element) {
-                return element.email === drive.email;
+                return element.name === drive.name;
             });
             var idx = this.drives.indexOf(el);
             this.drives.splice(idx, 1);
             this.drives.splice(idx, 0, drive);
         },
-        viewDrive(email) {
-            this.$emit('viewDrive', email);
+        viewDrive(name) {
+            this.$emit('viewDrive', name);
         },
         deleteDrive(drive){
             var el = this.drives.find(function(element) {
-                return element.email === drive.email;
+                return element.name === drive.name;
             });
             var idx = this.drives.indexOf(el);
             this.drives.splice(idx, 1);

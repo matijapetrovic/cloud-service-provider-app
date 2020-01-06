@@ -5,7 +5,7 @@ Vue.component('change-profile-form',{
         method="PUT"
         headerText="User info"
         buttonText="Update"
-        v-on:submit="submitFormP($event)"
+        v-on:submit="submitForm($event)"
         ref="form"
     >
         <text-input
@@ -27,18 +27,11 @@ Vue.component('change-profile-form',{
         >
             Surname
         </text-input>
-        <password-input
-            name="password"
-            v-model="this.p1"     
+
+        <password-confirm-input
+            v-model="user.password"
         >
-            Password
-        </password-input>
-        <password-input
-            name="role"
-            v-model="this.p2"
-        >
-            Confirm password
-        </password-input>
+        </password-confirm-input>
     </main-form>
     
     `,
@@ -53,8 +46,7 @@ Vue.component('change-profile-form',{
                 role : null,
                 oganization : null
             },
-            p1 : null,
-            p2 : null
+            email : null,
         }
     },
     mounted(){
@@ -62,28 +54,10 @@ Vue.component('change-profile-form',{
         .get('api/users/currentUser')
         .then(response =>(
             this.user = response.data,
-            this.p1 = this.user.password,
-            this.p2 = this.user.password
+            this.email = this.user.email
         ))  
     },
 methods:{
-    checkPasswordConfirmation: function(){
-        if(this.p1 === this.p2){
-            return true;
-        }
-        if(this.p1 !== this.p2){
-            this.errors.push("Your password and confirmation password do not match.");
-        }
-        else if (!this.p1 && this.p2) {
-            this.errors.push("Password is empty!");
-            }
-        else if(!this.p2 && this.p1){
-            this.errors.push("Password is not confirmed!"); 
-        }
-
-        e.preventDefault();
-        return false;
-    },
     checkResponse: function(response) {
         if (response.status === 200) {
             this.$emit('updatedUser', this.user);
@@ -93,10 +67,11 @@ methods:{
         else {  
             alert('Error: ' + response.data);
         }
+              
     },
-    submitFormP: function(e) {
+    submitForm: function(e) {
         axios
-            .put('/api/users/update/' + this.user.email, 
+            .put('/api/users/update/' + this.email, 
             {
                 "email": this.user.email,
                 "password": this.user.password,
@@ -106,7 +81,8 @@ methods:{
                 "role" : this.user.role
             })
             .then(response => {
-                this.checkResponse(response);             
+                this.checkResponse(response);
+
             });
         }
     } 

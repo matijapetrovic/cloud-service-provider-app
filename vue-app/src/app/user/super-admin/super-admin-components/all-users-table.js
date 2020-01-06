@@ -1,7 +1,6 @@
 Vue.component("all-users-table",{
     template:`
-    <div v-if="loaded">
-        <table border="1" class="table">
+    <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
                     <th>Email</th>
@@ -10,15 +9,22 @@ Vue.component("all-users-table",{
                     <th>Organization</th>
                 </tr>
             </thead>
-            <!-- Checking to not print currentUser in table -->
-            <tr v-for="user in users" v-if="user.email !== currentUser.email">
-                <td><a href="#" @click.prevent="viewUser(user.email )" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ user.email }}</a></td>
+            <!-- Check printing currentUser in table -->
+            <tr v-for="user in users" v-if="user.role !== 'SUPER_ADMIN'">
+                <td>
+                <a
+                 href="#" 
+                 @click.prevent="viewUser(user.email)" 
+                 data-toggle="modal" 
+                 v-bind:data-target="'#' + viewModalId">
+                 {{ user.email }}
+                 </a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
-                <td>{{ user.organization.name }}</td>
+                <td>{{user.organization.name}}</td>
             </tr>
         </table>
-    </div>
+
     `,
     props : {
         viewModalId : String
@@ -26,9 +32,7 @@ Vue.component("all-users-table",{
     },
     data: function(){
         return {
-            users: null,
-            currentUser : null,
-            loaded : false,
+            users: null           
         }
     },
     mounted () {
@@ -36,13 +40,7 @@ Vue.component("all-users-table",{
             .get('api/users')
             .then(response => {
                 this.users = response.data;
-            }),
-        axios
-        .get('api/users/currentUser')
-        .then(response => {
-            this.currentUser = response.data;
-            this.loaded = true;
-        })
+            })
     },
     methods: {
         addUser(user) {

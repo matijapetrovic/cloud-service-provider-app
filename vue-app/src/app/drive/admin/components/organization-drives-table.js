@@ -36,7 +36,9 @@ Vue.component("drives-from-organization-table", {
                 .then(response => {
                     this.currentUser = response.data
                     this.loaded = true;
-                    this.loadDrives(this.currentUser.email);       
+                    if(this.currentUser.role !== 'SUPER_ADMIN'){
+                        this.loadDrives(this.currentUser.email);  
+                    }     
                 });
             },
         methods: {
@@ -58,9 +60,17 @@ Vue.component("drives-from-organization-table", {
                 this.drives.splice(idx, 1);
                 this.drives.splice(idx, 0, organization);
             },
+            deleteDrive(drive){
+                var el = this.drives.find(function(element) {
+                    return element.name === drive.name;
+                });
+                var idx = this.drives.indexOf(el);
+                this.drives.splice(idx, 1);
+            },
             viewDrive(name) {
                 this.$emit('viewDrive', name);
             }
+            
        }
 
 });

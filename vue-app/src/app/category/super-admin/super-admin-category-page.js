@@ -1,13 +1,12 @@
-Vue.component('super-admin-page',{
-
+Vue.component("super-admin-category-page",{
     template: `
-        <div>                
-            <all-users-table
-            @viewUser="viewUser($event)"
+    <div>
+            <all-categories-table
+            @viewCategory="viewCategory($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
-            </all-users-table>
+            </all-categories-table>
 
             <button
             type="button"
@@ -16,43 +15,43 @@ Vue.component('super-admin-page',{
             v-bind:data-target="'#' + addModalId"
             style="margin: 15px 0;"
             >
-                Add user
+                Add category
             </button>
-
+            
             <full-modal
             @close="removeViewValidation"
             v-bind:modal-id="viewModalId"
-            modal-title="View user"
+            modal-title="View category"
             >
-                <view-user-form
+                <view-category-form
                     @submit="closeViewModal"
                     @submitDelete="closeViewModal"
-                    @updatedUser="updateUser($event)"
-                    @deletedUser="deleteUser($event)"
+                    @updatedCategory="updateCategory($event)"
+                    @deletedCategory="deleteCategory($event)"
                     ref="viewForm"
                     >
-                    </view-user-form>
+                    </view-category-form>
             </full-modal>
 
             <full-modal
             @close="removeAddValidation"
             v-bind:modal-id="addModalId"
-            modal-title="Add user"
+            modal-title="Add category"
             >
-                <add-user-form
+                <add-category-form
                     @submit="closeAddModal"
-                    @addedUser="addUser($event)"
+                    @addedCategory="addCategory($event)"
                     ref="addForm"
                     >
-                    </add-user-form>
-        </full-modal>
-        </div>
-        
-    `,
+                    </add-category-form>
+        </full-modal>        
+    </div>
+    `
+    ,
     data : function() {
         return {
-            addModalId: 'addUserModal',
-            viewModalId: 'viewUserModal'
+            addModalId: 'addCategoryModal',
+            viewModalId: 'viewCategoryModal'
         }
     },
     methods: {
@@ -67,21 +66,20 @@ Vue.component('super-admin-page',{
             $('#' + this.viewModalId).modal('hide');
         },
         closeAddModal() {
-            this.removeAddValidation(); 
+            this.removeAddValidation();
             $('#' + this.addModalId).modal('hide');
         },
-        addUser(user) {
-            this.$refs.table.addUser(user);
+        addCategory(category) {
+            this.$refs.table.addCategory(category);
         },
-        updateUser(user) {
-            this.$refs.table.updateUser(user);
+        updateCategory(category) {
+            this.$refs.table.updateCategory(category);
         },
-        deleteUser(user){
-            this.$refs.table.deleteUser(user);
+        deleteCategory(category){
+            this.$refs.table.deleteCategory(category);
         },
-        viewUser(email) {
-            this.$refs.viewForm.getUser(email);
+        viewCategory(name) {
+            this.$refs.viewForm.getCategory(name);
         }
     }
-
-})
+});

@@ -1,8 +1,8 @@
-Vue.component('select-vms',{
+Vue.component('select-organization',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                Virtual machines
+                Organizations
             </label>  
             <div> 
                 <select 
@@ -11,33 +11,32 @@ Vue.component('select-vms',{
                 v-on:input="$emit('input', $event.target.value)"
                 required="required"
                 >
-                    <option disabled selected value="">Please select one</option>
-                    <option v-for="vm in vms" :value="JSON.stringify(vm)">{{vm.name}}</option>
+                    <option v-for="item in organizations" :value="JSON.stringify(item)">{{item.name}}</option>
                 </select>   
                 <div class="invalid-feedback">
-                    Please provide a valid Virtual machine
+                    Please provide a Organization
                 </div>
             </div>
         </div>
     `,
     props: {
-        value : '',
-        required: {
-            type: Boolean,
-            default: false
-        }
+        name: "Organizations",
+            value : '',
+            required: {
+                type: Boolean,
+                default: false
+            }, 
     },
     data : function () {
         return {
-            vms : null,
-            name: "Virtual machines" 
+            organizations : null,     
         }
     },
     mounted () {
         axios
-            .get('api/virtualmachines')
+            .get('api/organizations')
             .then(response => {
-                this.vms = response.data;
+                this.organizations = response.data;
             })
     },
 })
