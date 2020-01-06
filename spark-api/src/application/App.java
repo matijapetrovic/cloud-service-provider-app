@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import api.drive.DriveController;
 import api.drive.DriveService;
 import api.organization.OrganizationController;
-import api.organization.OrganizationService;
 import api.user.UserController;
 import api.user.UserService;
 import api.virtual_machine.VMService;
@@ -28,12 +27,10 @@ public class App {
 
     public static UserService userService;
     public static VMService vmService;
-    public static OrganizationService organizationService;
     public static DriveService driveService;
     public static CategoryService categoryService;
 
     static {
-        organizationService = new OrganizationService();
         userService = new UserService();
         vmService = new VMService();
         driveService = new DriveService();

@@ -16,9 +16,13 @@ public class User  implements Model<String> {
 			this.strength = strength;
 		}
 
-		public int compare(Role other) {
+		public boolean weakerThan(Role other) {
+			return this.compare(other) < 0;
+		}
+		private int compare(Role other) {
 			return this.strength - other.strength;
 		}
+
 	};
 	private String email;
 	private String password;

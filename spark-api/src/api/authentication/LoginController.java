@@ -36,10 +36,10 @@ public class LoginController {
 		request.attribute("loggedIn", user);
 	}
 
-	public static void ensureUserRole(Request request, Response response, User.Role role) {
+	public static void ensureUserHasPermission(Request request, User.Role role) {
 		User user = request.attribute("loggedIn");
-		if (user.getRole().compare(role) < 0)
-			halt(HttpStatus.FORBIDDEN_403,"Forbidden");
+		if (user.getRole().weakerThan(role))
+			halt(403,"Forbidden");
 	}
 
 	private static User validateEmail(User toLogin) {

@@ -1,7 +1,6 @@
 package api.organization;
 
 import domain.organization.Organization;
-import api.authentication.LoginController;
 import application.App;
 import domain.organization.OrganizationService;
 import domain.organization.OrganizationStorage;
@@ -10,24 +9,22 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.Optional;
 
+import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
 import static spark.Spark.put;
 
 public class OrganizationController {
-    private OrganizationStorage storage;
     private OrganizationService service;
 
     public OrganizationController(OrganizationStorage storage) {
-        this.storage = storage;
+        this.service = new OrganizationRESTService(storage);
         setUpRoutes();
     }
 
     private void setUpRoutes() {
         path("api", () -> {
             path("/organizations", () -> {
-                before ("*", (q, a) -> setService(q.attribute("loggedIn")));
                 get("", handleGetAll);
                 get("/:name", handleGetSingle);
                 post("/add", handlePost);
@@ -36,33 +33,26 @@ public class OrganizationController {
         });
     }
 
-    private void setService(User user) {
-        switch(user.getRole()) {
-            case SUPER_ADMIN:
-                 service = new SuperAdminOrganizationService(storage);
-            case ADMIN:
-                service = new AdminOrganizationService(storage);
-            case USER:
-                service = new RegularOrganizationService(storage);
-            default:
-                halt(500, "Something went wrong");
-        }
-    }
-
     private Route handleGetAll = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
+
         response.status(200);
         return App.g.toJson(service.getAll());
 	};
 
     private Route handleGetSingle = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
         String name = request.params(":name");
-        Organization organization = service.getSingle(name);
-        // dodaj null check ovde ili u service
+        ensureUserCanAccessOrganization(request, name);
+
         response.status(200);
-        return App.g.toJson(organization);
+        return App.g.toJson(service.getSingle(name));
     };
 
     private Route handlePost = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
+
         Organization organization = App.g.fromJson(request.body(), Organization.class);
         service.post(organization);
         response.status(201);
@@ -70,26 +60,27 @@ public class OrganizationController {
     };
 
     private Route handlePut = (Request request, Response response) -> {
-        LoginController.ensureUserRole(request, response, User.Role.ADMIN);
+        ensureUserHasPermission(request, User.Role.ADMIN);
 
-        Organization toUpdate = App.g.fromJson(request.body(), Organization.class);
         String name = request.params(":name");
+        ensureUserCanAccessOrganization(request, name);
 
-        Optional<Organization> org = storage.findByName(name);
-        if (org.isPresent()) {
-            User loggedIn = request.attribute("loggedIn");
-            if (!org.get().getUsers().contains(loggedIn)) {
-                response.status(403);
-                return App.g.toJson("Forbidden");
-            }
-        }
-
-        if (!storage.update(toUpdate)) {
-            response.status(400);
-            return "Organization with the name " + name + " doesn't exist";
-        }
-
+        Organization organization = App.g.fromJson(request.body(), Organization.class);
+        service.put(name, organization);
         response.status(200);
         return "OK";
     };
+
+    private static void ensureUserCanAccessOrganization(Request request, String name) {
+        User loggedIn = request.attribute("loggedIn");
+        if (userOrganizationNameNotEqualTo(name, loggedIn))
+            halt(403, "Forbidden");
+    }
+
+    private static boolean userOrganizationNameNotEqualTo(String name, User loggedIn) {
+        return !loggedIn
+                .getOrganization()
+                .getName()
+                .equalsIgnoreCase(name);
+    }
 }

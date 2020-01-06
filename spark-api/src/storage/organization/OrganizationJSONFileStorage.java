@@ -35,8 +35,10 @@ public class OrganizationJSONFileStorage implements OrganizationStorage {
     }
 
     @Override
-    public boolean update(Organization entity) {
-        repository.save(entity); // TODO : dal treba name da se salje i sta ako ne postoji itd..
+    public boolean update(String name, Organization entity) {
+        if (!delete(name))
+            return false;
+        repository.save(entity);
         return true;
     }
 
