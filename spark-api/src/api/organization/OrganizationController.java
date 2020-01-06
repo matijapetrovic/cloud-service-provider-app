@@ -10,6 +10,10 @@ import spark.Response;
 import spark.Route;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
 import static spark.Spark.put;
@@ -37,7 +41,7 @@ public class OrganizationController {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
 
         response.status(200);
-        return App.g.toJson(service.getAll());
+        return App.g.toJson(OrganizationMapper.toOrganizationDTOList(service.getAll()));
 	};
 
     private Route handleGetSingle = (Request request, Response response) -> {
@@ -47,7 +51,7 @@ public class OrganizationController {
         ensureUserCanAccessOrganization(request, name);
 
         response.status(200);
-        return App.g.toJson(service.getSingle(name));
+        return App.g.toJson(OrganizationMapper.toOrganizationDTO(service.getSingle(name)));
     };
 
     private Route handlePost = (Request request, Response response) -> {
