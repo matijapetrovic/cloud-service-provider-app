@@ -14,6 +14,9 @@ Vue.component('select-role',{
                     <option>USER</option>
                     <option>ADMIN</option>
                 </select>
+                <div class="invalid-feedback">
+                    Please provide a valid {{ name }}
+                </div>
             </div>
         </div>
     `,

@@ -13,6 +13,9 @@ Vue.component('select-organization',{
                 >
                     <option v-for="item in organizations" :value="JSON.stringify(item)">{{item.name}}</option>
                 </select>   
+                <div class="invalid-feedback">
+                    Please provide a valid {{ name }}
+                </div>
             </div>
         </div>
     `,

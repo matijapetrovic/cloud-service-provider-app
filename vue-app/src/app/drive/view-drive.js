@@ -40,7 +40,9 @@ Vue.component("view-drive-form", {
                 type : null,
                 capacity : null,
                 vm : null,
-            }
+            },
+            id
+
         }
     },
     
