@@ -27,18 +27,11 @@ Vue.component('change-profile-form',{
         >
             Surname
         </text-input>
-        <password-input
-            name="password"
-            v-model="this.p1"     
+
+        <password-confirm-input
+            v-model="user.password"
         >
-            Password
-        </password-input>
-        <password-input
-            name="role"
-            v-model="this.p2"
-        >
-            Confirm password
-        </password-input>
+        </password-confirm-input>
     </main-form>
     
     `,
@@ -54,8 +47,6 @@ Vue.component('change-profile-form',{
                 oganization : null
             },
             email : null,
-            p1 : null,
-            p2 : null
         }
     },
     mounted(){
@@ -63,42 +54,20 @@ Vue.component('change-profile-form',{
         .get('api/users/currentUser')
         .then(response =>(
             this.user = response.data,
-            this.p1 = this.user.password,
-            this.p2 = this.user.password,
             this.email = this.user.email
         ))  
     },
 methods:{
-    checkPasswordConfirmation: function(){
-        if(this.p1 === this.p2){
-            return true;
-        }
-        if (!this.p1 && this.p2) {
-            this.errors.push("Password is empty!");
-            }
-        else if(!this.p2 && this.p1){
-            this.errors.push("Password is not confirmed!"); 
-        }
-        else if(this.p1 !== this.p2){
-            this.errors.push("Your password and confirmation password do not match.");
-        }
-
-        e.preventDefault();
-        return false;
-    },
     checkResponse: function(response) {
-        console.log(this.p1);
-        console.log(this.p2);
-        if(this.checkPasswordConfirmation){
-            if (response.status === 200) {
-                this.$emit('updatedUser', this.user);
-                alert('Updating user successful');
-                this.$emit('submit')
-            }
-            else {  
-                alert('Error: ' + response.data);
-            }
-        }      
+        if (response.status === 200) {
+            this.$emit('updatedUser', this.user);
+            alert('Updating user successful');
+            this.$emit('submit')
+        }
+        else {  
+            alert('Error: ' + response.data);
+        }
+              
     },
     submitForm: function(e) {
         axios
