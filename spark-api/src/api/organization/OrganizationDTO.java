@@ -10,6 +10,10 @@ public class OrganizationDTO {
     private List<String> virtualMachines;
     private List<String> drives;
 
+    public OrganizationDTO() {
+
+    }
+
     public List<String> getUsers() {
         return users;
     }

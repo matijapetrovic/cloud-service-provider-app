@@ -2,11 +2,11 @@ package api.virtual_machine;
 
 import api.Service;
 import domain.virtual_machine.VirtualMachine;
-import storage.virtual_machine.VMRepository;
+import storage.virtual_machine.VirtualMachineRepository;
 
 public class VMService extends Service<String, VirtualMachine> {
     public VMService() {
-        super(new VMRepository("./data/vms.json"));
+        super(new VirtualMachineRepository("./data/vms.json"));
     }
 
 }

@@ -20,7 +20,9 @@ import api.virtual_machine.VirtualMachineController;
 import api.vm_category.CategoryController;
 import api.vm_category.CategoryService;
 import com.google.gson.GsonBuilder;
+import domain.virtual_machine.VirtualMachineStorage;
 import storage.organization.OrganizationJSONFileStorage;
+import storage.virtual_machine.VirtualMachineJSONFileStorage;
 
 public class App {
     public static final Gson g = new GsonBuilder().setPrettyPrinting().create();
@@ -68,12 +70,12 @@ public class App {
                 delete("/delete/:name",UserController.handleDelete);
             });
 
-            path("/virtualmachines", () -> {
-                get("", VirtualMachineController.handleGetAll);
-                get("/:name", VirtualMachineController.handleGetSingle);
-                post("/add", VirtualMachineController.handlePost);
-                put("/update/:name", VirtualMachineController.handlePut);
-            });
+//            path("/virtualmachines", () -> {
+//                get("", VirtualMachineController.handleGetAll);
+//                get("/:name", VirtualMachineController.handleGetSingle);
+//                post("/add", VirtualMachineController.handlePost);
+//                put("/update/:name", VirtualMachineController.handlePut);
+//            });
 
             path ("/drives", () -> {
                 get("", DriveController.handleGetAll);
@@ -96,6 +98,11 @@ public class App {
         new OrganizationController(
                 new OrganizationJSONFileStorage(
                         "./data/organizations.json"
+                ));
+
+        new VirtualMachineController(
+                new VirtualMachineJSONFileStorage(
+                        ".data/vms.json"
                 ));
     }
 }

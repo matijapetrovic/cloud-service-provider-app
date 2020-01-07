@@ -10,14 +10,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class VMSerializer extends JSONSerializer<VirtualMachine> {
+public class VirtualMachineSerializer extends JSONSerializer<VirtualMachine> {
 
-    public VMSerializer() {
+    public VirtualMachineSerializer() {
         gson = new GsonBuilder()
                 .addSerializationExclusionStrategy(
-                        new VMExclusionStrategy())
+                        new VirtualMachineExclusionStrategy())
                 .addDeserializationExclusionStrategy(
-                        new VMExclusionStrategy())
+                        new VirtualMachineExclusionStrategy())
                 .create();
     }
 

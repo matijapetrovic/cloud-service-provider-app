@@ -4,6 +4,8 @@ import application.App;
 import domain.organization.Organization;
 import domain.user.User;
 import domain.virtual_machine.VirtualMachine;
+import domain.virtual_machine.VirtualMachineService;
+import domain.virtual_machine.VirtualMachineStorage;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -12,8 +14,30 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static spark.Spark.*;
+import static spark.Spark.put;
+
 public class VirtualMachineController {
-    public static Route handleGetAll = (Request request, Response response) -> {
+    private VirtualMachineService service;
+
+    public VirtualMachineController(VirtualMachineStorage storage) {
+        this.service = new VirtualMachineRESTService(storage);
+        setUpRoutes();
+    }
+
+    private void setUpRoutes() {
+        path("api", () -> {
+            path("/virtualmachines", () -> {
+                get("", handleGetAll);
+                get("/:name", handleGetSingle);
+                post("/add", handlePost);
+                put("/update/:name", handlePut);
+                delete("delete/:name", handleDelete);
+            });
+        });
+    }
+
+    private Route handleGetAll = (Request request, Response response) -> {
         User user = request.attribute("loggedIn");
         List<VirtualMachine> vms = applyRoleFilter(App.vmService.findAll(), user);
 
@@ -21,7 +45,7 @@ public class VirtualMachineController {
         return App.g.toJson(vms);
     };
 
-    public static Route handleGetSingle = (Request request, Response response) -> {
+    private Route handleGetSingle = (Request request, Response response) -> {
         String name = request.params(":name");
         Optional<VirtualMachine> vm = App.vmService.findByKey(name);
 
@@ -42,7 +66,7 @@ public class VirtualMachineController {
     };
 
     // TODO : SUPER_ADMIN adds a VM, how to send domain.organization??
-    public static Route handlePost = (Request request, Response response) -> {
+    private Route handlePost = (Request request, Response response) -> {
         VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
 
         response.type("application/json");
@@ -57,7 +81,7 @@ public class VirtualMachineController {
         return "OK";
     };
 
-    public static Route handlePut = (Request request, Response response) -> {
+    private Route handlePut = (Request request, Response response) -> {
         VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
         String name = request.params(":name");
         Optional<VirtualMachine> toUpdate = App.vmService.findByKey(name);
@@ -79,7 +103,11 @@ public class VirtualMachineController {
         return "OK";
     };
 
-    private static List<VirtualMachine> applyRoleFilter(List<VirtualMachine> vms, User user) {
+    private Route handleDelete = (Request request, Response response) -> {
+        return "OK";
+    };
+
+    private List<VirtualMachine> applyRoleFilter(List<VirtualMachine> vms, User user) {
         if (user.getRole().equals(User.Role.SUPER_ADMIN))
             return vms;
 

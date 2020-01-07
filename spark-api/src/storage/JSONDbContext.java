@@ -1,6 +1,5 @@
 package storage;
 
-import application.App;
 import application.Utility;
 import domain.drive.Drive;
 import domain.organization.Organization;
@@ -10,14 +9,8 @@ import domain.vm_category.VMCategory;
 import storage.drive.serializing.DriveSerializer;
 import storage.organization.serializing.OrganizationSerializer;
 import storage.user.serializing.UserSerializer;
-import storage.virtual_machine.serializing.VMSerializer;
+import storage.virtual_machine.serializing.VirtualMachineSerializer;
 import storage.vm_category.serializing.CategorySerializer;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
 
 public class JSONDbContext {
     JSONFileRepository<String, Organization> organizations;
@@ -31,7 +24,7 @@ public class JSONDbContext {
                 Utility.joinPath(directoryName, "organizations.json"));
         users = new JSONFileRepository<>(new UserSerializer(),
                 Utility.joinPath(directoryName, "users.json"));
-        virtualMachines = new JSONFileRepository<>(new VMSerializer(),
+        virtualMachines = new JSONFileRepository<>(new VirtualMachineSerializer(),
                 Utility.joinPath(directoryName, "vms.json"));
         drives = new JSONFileRepository<>(new DriveSerializer(),
                 Utility.joinPath(directoryName, "drives.json"));

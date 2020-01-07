@@ -1,18 +1,18 @@
 package storage.virtual_machine;
 
-import domain.virtual_machine.VMStorage;
+import domain.virtual_machine.VirtualMachineStorage;
 import domain.virtual_machine.VirtualMachine;
 import storage.JSONFileRepository;
-import storage.virtual_machine.serializing.VMSerializer;
+import storage.virtual_machine.serializing.VirtualMachineSerializer;
 
 import java.util.List;
 import java.util.Optional;
 
-public class VirtualMachineJSONFileStorage implements VMStorage {
+public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
     private JSONFileRepository<String, VirtualMachine> repository;
 
     public VirtualMachineJSONFileStorage(String filePath) {
-        repository = new JSONFileRepository<>(new VMSerializer(), filePath);
+        repository = new JSONFileRepository<>(new VirtualMachineSerializer(), filePath);
     }
 
     @Override

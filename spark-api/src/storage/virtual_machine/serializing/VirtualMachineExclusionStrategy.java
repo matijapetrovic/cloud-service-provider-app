@@ -4,7 +4,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import domain.drive.Drive;
 
-public class VMExclusionStrategy implements ExclusionStrategy {
+public class VirtualMachineExclusionStrategy implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes field) {
         if (field.getDeclaringClass() == Drive.class &&
