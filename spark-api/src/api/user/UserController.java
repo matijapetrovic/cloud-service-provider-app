@@ -1,10 +1,6 @@
 package api.user;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import application.App;
-import domain.organization.Organization;
 import domain.user.User;
 import domain.user.UserService;
 import domain.user.UserStorage;
@@ -29,11 +25,11 @@ public class UserController {
 			path("/users", () -> {
 				get("", serveUserPage);
 				get("/currentUser", serveCurrentUser);
-				get("/:name", handleGetSingle);
-				get("/organizations/:name", handleUsersOrganization);
+				get("/:email", handleGetSingle);
+				get("/organizations/:email", handleUsersOrganization);
 				post("/add", handlePost);
-				put("/update/:name", handlePut);
-				delete("/delete/:name", handleDelete);
+				put("/update/:email", handlePut);
+				delete("/delete/:email", handleDelete);
 			});
 		});
 	}
@@ -48,9 +44,9 @@ public class UserController {
 			case USER:
 				return App.g.toJson(UserMapper.toUserDTOList(service.getAll()));
 			case ADMIN:
-				return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(currentUser.getKey())));
+				return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(currentUser)));
 			default:
-				response.status(400);
+				response.status(500);
 				return "Something went wrong!";
 		}
 	};
@@ -64,7 +60,7 @@ public class UserController {
 	private Route handleGetSingle = (Request request, Response response) -> {
 		ensureUserHasPermission(request, User.Role.ADMIN);
 
-		String email = request.params(":name");
+		String email = request.params(":email");
 
 		response.type("application/json");
 		response.status(200);
@@ -72,11 +68,12 @@ public class UserController {
 	};
 
 	private Route handleUsersOrganization = (Request request, Response response) -> {
-		String email = request.params(":name");
+		User user = App.g.fromJson(request.body(), User.class);
+		String email = request.params(":email");
 
 		response.type("application/json");
 		response.status(200);
-		return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(email)));
+		return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(user)));
 	};
 
 	private Route handlePost = (Request request, Response response) -> {
@@ -93,7 +90,7 @@ public class UserController {
 		ensureUserHasPermission(request, User.Role.ADMIN);
 
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
+		String email = request.params(":email");
 
 		service.put(email, user);
 		response.type("application/json");
@@ -105,7 +102,7 @@ public class UserController {
 		ensureUserHasPermission(request, User.Role.ADMIN);
 
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
+		String email = request.params(":email");
 
 		service.delete(email);
 		response.type("application/json");
