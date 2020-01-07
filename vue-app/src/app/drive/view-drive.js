@@ -28,6 +28,7 @@ Vue.component("view-drive-form", {
                 Capacity
             </number-input>
 
+            </select-role>
             <button
                 class="btn btn-outline-secondary pull-right"
                 id='deleteButton'

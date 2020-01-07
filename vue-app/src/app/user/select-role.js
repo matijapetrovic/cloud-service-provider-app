@@ -2,7 +2,7 @@ Vue.component('select-role',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                Role
+                {{this.name}}
             </label>  
             <div> 
                 <select
@@ -11,7 +11,7 @@ Vue.component('select-role',{
                 v-on:input="$emit('input', $event.target.value)"
                 v-bind:required="required"
                 >
-                    <option disabled  value="">Please select one</option>
+                    <option disabled value="">Please select one</option>
                     <option>USER</option>
                     <option>ADMIN</option>
                 </select>
