@@ -84,6 +84,10 @@ public class VirtualMachine implements Model<String> {
 		return true;
 	}
 
+	public void detachDrives() {
+		drives.forEach(drive -> drive.setVm(null));
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

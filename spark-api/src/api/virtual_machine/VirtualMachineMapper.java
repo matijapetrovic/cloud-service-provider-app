@@ -4,6 +4,7 @@ import domain.drive.Drive;
 import domain.virtual_machine.VirtualMachine;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class VirtualMachineMapper {
@@ -20,5 +21,12 @@ public class VirtualMachineMapper {
                 .collect(Collectors.toList())
         ));
         return dto;
+    }
+
+    public static List<VirtualMachineDTO> toVirtualMachineDTOList(List<VirtualMachine> virtualMachines) {
+        return virtualMachines
+                .stream()
+                .map(VirtualMachineMapper::toVirtualMachineDTO)
+                .collect(Collectors.toList());
     }
 }

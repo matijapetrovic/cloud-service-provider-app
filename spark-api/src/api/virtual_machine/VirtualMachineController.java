@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
 import static spark.Spark.put;
 
@@ -38,83 +39,81 @@ public class VirtualMachineController {
     }
 
     private Route handleGetAll = (Request request, Response response) -> {
-        User user = request.attribute("loggedIn");
-        List<VirtualMachine> vms = applyRoleFilter(App.vmService.findAll(), user);
+        ensureUserHasPermission(request, User.Role.USER);
 
-        response.type("application/json");
-        return App.g.toJson(vms);
+        List<VirtualMachine> virtualMachines = applyRoleFilter(request, service.getAll());
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTOList(virtualMachines));
     };
 
     private Route handleGetSingle = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.USER);
+
         String name = request.params(":name");
-        Optional<VirtualMachine> vm = App.vmService.findByKey(name);
-
-        response.type("application/json");
-        if (!vm.isPresent()) {
-            response.status(404);
-            return "Virtual machine with the name " + name + " doesn't exist";
-        }
-
-        User user = request.attribute("loggedIn");
-        if (!user.getOrganization().getVirtualMachines().contains(vm.get())) {
-            response.status(403);
-            return "Forbidden";
-        }
+        VirtualMachine virtualMachine = service.getSingle(name);
+        ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
         response.status(200);
-        return App.g.toJson(vm.get());
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(virtualMachine));
     };
 
-    // TODO : SUPER_ADMIN adds a VM, how to send domain.organization??
+    // TODO : SUPER_ADMIN adds a VM, how to send domain.organization?
     private Route handlePost = (Request request, Response response) -> {
-        VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
+        ensureUserHasPermission(request, User.Role.ADMIN);
+        VirtualMachine virtualMachine = App.g.fromJson(request.body(), VirtualMachine.class);
+        // dodaj za admina da mu se poveze vm sa organizacijom
 
-        response.type("application/json");
-        if (!App.vmService.add(vm)) {
-            response.status(400);
-            return "Virtual machine with the name " + vm.getName() + " already exists";
-        }
-
-        User user = request.attribute("loggedIn");
-        user.getOrganization().addVirtualMachine(vm);
-        response.status(200);
-        return "OK";
+        service.post(virtualMachine);
+        response.status(201);
+        return "Created";
     };
-
+    // TODO : check
     private Route handlePut = (Request request, Response response) -> {
-        VirtualMachine vm = App.g.fromJson(request.body(), VirtualMachine.class);
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
         String name = request.params(":name");
-        Optional<VirtualMachine> toUpdate = App.vmService.findByKey(name);
+        VirtualMachine virtualMachine = service.getSingle(name);
+        ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        response.type("application/json");
-        if (!toUpdate.isPresent()) {
-            response.status(404);
-            return "Virtual machine with the name " + name + " doesn't exist";
-        }
-
-        User user = request.attribute("loggedIn");
-        if (!user.getOrganization().getVirtualMachines().contains(toUpdate.get())) {
-            response.status(403);
-            return "Forbidden";
-        }
-
-        App.vmService.update(name, vm);
+        VirtualMachine toUpdate = App.g.fromJson(request.body(), VirtualMachine.class);
+        service.put(name, toUpdate);
         response.status(200);
         return "OK";
     };
 
     private Route handleDelete = (Request request, Response response) -> {
-        return "OK";
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
+        String name = request.params(":name");
+        VirtualMachine virtualMachine = service.getSingle(name);
+        ensureUserCanAccessVirtualMachine(request, virtualMachine);
+
+        service.delete(name);
+        response.status(204);
+        return "No content";
     };
 
-    private List<VirtualMachine> applyRoleFilter(List<VirtualMachine> vms, User user) {
+    private List<VirtualMachine> applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {
+        User user = request.attribute("loggedIn");
         if (user.getRole().equals(User.Role.SUPER_ADMIN))
-            return vms;
+            return virtualMachines;
 
         Organization org = user.getOrganization();
-        return vms
+        return virtualMachines
             .stream()
             .filter(x -> org.getVirtualMachines().contains(x))
             .collect(Collectors.toList());
+    }
+
+    private static void ensureUserCanAccessVirtualMachine(Request request, VirtualMachine virtualMachine) {
+        User loggedIn = request.attribute("loggedIn");
+        if (!userOrganizationContainsVirtualMachine(virtualMachine, loggedIn))
+            halt(403, "Forbidden");
+    }
+
+    private static boolean userOrganizationContainsVirtualMachine(VirtualMachine virtualMachine, User loggedIn) {
+        return loggedIn
+                .getOrganization()
+                .getVirtualMachines()
+                .contains(virtualMachine);
     }
 }
