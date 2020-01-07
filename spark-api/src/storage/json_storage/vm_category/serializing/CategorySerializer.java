@@ -1,9 +1,9 @@
-package storage.vm_category.serializing;
+package storage.json_storage.vm_category.serializing;
 
 import com.google.gson.GsonBuilder;
 
 import domain.vm_category.VMCategory;
-import storage.JSONSerializer;
+import storage.json_storage.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;

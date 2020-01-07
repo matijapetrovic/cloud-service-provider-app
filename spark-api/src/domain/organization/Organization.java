@@ -134,43 +134,25 @@ public class Organization implements Model<String> {
 		return drives.remove(drive);
 	}
 
-	public boolean updateUser(String email, User u) {
+	public void updateUser(int idx, User u) {
 		if (u == null)
-			return false;
+			return;
 
-		int idx = users.indexOf(u);
-		if (idx == -1)
-			return false;
-
-		users.remove(idx);
-		users.add(idx, u);
-		return true;
+		users.set(idx, u);
 	}
 
-	public boolean updateVirtualMachine(String name, VirtualMachine vm) {
+	public void updateVirtualMachine(int idx, VirtualMachine vm) {
 		if (vm == null)
-			return false;
+			return;
 
-		int idx = virtualMachines.indexOf(vm);
-		if (idx == -1)
-			return false;
-
-		virtualMachines.remove(idx);
-		virtualMachines.add(idx, vm);
-		return true;
+		virtualMachines.set(idx, vm);
 	}
 
-	public boolean updateDrive(String name, Drive drive) {
+	public void updateDrive(int idx, Drive drive) {
 		if (drive == null)
-			return false;
+			return;
 
-		int idx = drives.indexOf(drive);
-		if (idx == -1)
-			return false;
-
-		drives.remove(idx);
-		drives.add(idx, drive);
-		return true;
+		drives.set(idx, drive);
 	}
 
 	@Override

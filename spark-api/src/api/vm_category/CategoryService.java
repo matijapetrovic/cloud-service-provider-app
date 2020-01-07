@@ -2,7 +2,7 @@ package api.vm_category;
 
 import api.Service;
 import domain.vm_category.VMCategory;
-import storage.vm_category.CategoryRepository;
+import storage.json_storage.vm_category.CategoryRepository;
 
 public class CategoryService extends Service<String, VMCategory> {
     public CategoryService() {

@@ -1,7 +1,7 @@
 package api;
 
 import domain.Model;
-import storage.JSONFileRepository;
+import storage.json_storage.JSONFileRepository;
 
 import java.util.List;
 import java.util.Optional;

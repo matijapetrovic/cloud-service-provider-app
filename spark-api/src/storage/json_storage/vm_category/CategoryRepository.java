@@ -1,8 +1,8 @@
-package storage.vm_category;
+package storage.json_storage.vm_category;
 
 import domain.vm_category.VMCategory;
-import storage.JSONFileRepository;
-import storage.vm_category.serializing.CategorySerializer;
+import storage.json_storage.JSONFileRepository;
+import storage.json_storage.vm_category.serializing.CategorySerializer;
 
 public class CategoryRepository extends JSONFileRepository<String, VMCategory> {
     public CategoryRepository(String filePath) {

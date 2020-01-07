@@ -1,4 +1,4 @@
-package storage.organization.serializing;
+package storage.json_storage.organization.serializing;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

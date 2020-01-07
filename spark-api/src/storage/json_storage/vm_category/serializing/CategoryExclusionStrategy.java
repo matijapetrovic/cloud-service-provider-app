@@ -1,4 +1,4 @@
-package storage.vm_category.serializing;
+package storage.json_storage.vm_category.serializing;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

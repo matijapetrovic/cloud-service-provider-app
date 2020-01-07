@@ -6,7 +6,7 @@ import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.keys.HmacKey;
 import org.jose4j.lang.JoseException;
 
-public class AuthenticationService {
+public class JWTUtil {
     private static String TOKEN_SECRET = "572247f3042d4add9397333a172680143d7363ace4";
 
     public static String createToken(String email) throws JoseException {
@@ -37,6 +37,5 @@ public class AuthenticationService {
         Token login = App.g.fromJson(plaintext, Token.class);
 
         return login.getEmail();
-
     }
 }

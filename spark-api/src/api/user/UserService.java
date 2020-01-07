@@ -2,7 +2,7 @@ package api.user;
 
 import api.Service;
 import domain.user.User;
-import storage.user.UserRepository;
+import storage.json_storage.user.UserRepository;
 
 import java.util.Collection;
 

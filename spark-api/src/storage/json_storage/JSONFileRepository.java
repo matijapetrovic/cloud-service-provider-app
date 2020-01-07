@@ -1,9 +1,8 @@
-package storage;
+package storage.json_storage;
 
 import application.App;
 import domain.Model;
-import domain.user.User;
-import storage.user.serializing.UserSerializer;
+import storage.Repository;
 
 import java.io.*;
 import java.util.*;
@@ -13,36 +12,48 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
     private JSONSerializer<E> serializer;
     private String filePath;
 
-    private List<E> repo;
+    List<E> data;
 
     public JSONFileRepository(JSONSerializer<E> serializer, String filePath) {
         this.serializer = serializer;
         this.filePath = filePath;
-        repo = new ArrayList<>();
+        data = new ArrayList<>();
         loadEntities();
+    }
+
+    private void loadEntities() {
+        List<E> data;
+        try (FileReader reader = new FileReader(filePath)) {
+            data = serializer.deserialize(reader);
+            this.data.clear();
+            this.data.addAll(data);
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            App.logger.log(Level.WARNING, "Reading from " + filePath + " failed");
+        }
     }
 
     @Override
     public void save(E entity) {
-        if (repo.contains(entity)) {
-            int idx = repo.indexOf(entity);
-            repo.remove(entity);
-            repo.add(idx, entity);
+        if (data.contains(entity)) {
+            int idx = data.indexOf(entity);
+            data.remove(entity);
+            data.add(idx, entity);
         }
         else
-            repo.add(entity);
+            data.add(entity);
         saveChanges();
     }
 
     @Override
     public void delete(E entity) {
-        repo.remove(entity);
+        data.remove(entity);
         saveChanges();
     }
 
     @Override
     public List<E> findAll() {
-        return repo;
+        return data;
     }
 
     @Override
@@ -56,22 +67,11 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
     @Override
     public void saveChanges() {
         try (FileWriter writer = new FileWriter(filePath)) {
-            //App.g.toJson(repo, writer);
-            serializer.serialize(repo, writer);
+            serializer.serialize(data, writer);
         } catch (IOException e) {
             App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
         }
     }
 
-    private void loadEntities() {
-        List<E> data;
-        try (FileReader reader = new FileReader(filePath)) {
-            data = serializer.deserialize(reader);
-            repo.clear();
-            repo.addAll(data);
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-            App.logger.log(Level.WARNING, "Reading from " + filePath + " failed");
-        }
-    }
+
 }

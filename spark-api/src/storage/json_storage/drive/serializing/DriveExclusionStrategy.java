@@ -1,15 +1,12 @@
-package storage.virtual_machine.serializing;
+package storage.json_storage.drive.serializing;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
-import domain.drive.Drive;
 
-public class VirtualMachineExclusionStrategy implements ExclusionStrategy {
+public class DriveExclusionStrategy implements ExclusionStrategy {
     @Override
     public boolean shouldSkipField(FieldAttributes field) {
-        if (field.getDeclaringClass() == Drive.class &&
-                !field.getName().equals("name"))
-            return true;
+        // Treba da pogledam da li treba da se preskace Virtualna Maasina, u zavisnosti da li je gledam kao id ili referencu
 
         return false;
     }

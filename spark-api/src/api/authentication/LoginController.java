@@ -2,6 +2,7 @@ package api.authentication;
 
 
 import java.util.Optional;
+
 import org.eclipse.jetty.http.HttpStatus;
 import org.jose4j.lang.JoseException;
 import spark.Request;
@@ -15,7 +16,6 @@ import static application.App.userService;
 import static spark.Spark.halt;
 
 public class LoginController {
-	
 	public static Route handlePost = (Request request, Response response) -> {
 		User toLogin = App.g.fromJson(request.body(), User.class);
 
@@ -26,21 +26,6 @@ public class LoginController {
 		response.status(200);
 		return App.g.toJson(new TokenResponse(true, token, new UserResponse(user)));
 	};
-
-	public static void ensureUserIsLoggedIn(Request request, Response response) {
-		if (request.pathInfo().equalsIgnoreCase("/api/login"))
-			return;
-
-		String token = request.headers("Authorization");
-		User user = validateToken(token);
-		request.attribute("loggedIn", user);
-	}
-
-	public static void ensureUserHasPermission(Request request, User.Role role) {
-		User user = request.attribute("loggedIn");
-		if (user.getRole().weakerThan(role))
-			halt(403,"Forbidden");
-	}
 
 	private static User validateEmail(User toLogin) {
 		Optional<User> user = userService.findByKey(toLogin.getKey());
@@ -54,10 +39,25 @@ public class LoginController {
 			halt(HttpStatus.UNAUTHORIZED_401, "Invalid password");
 	}
 
+	public static void ensureUserHasPermission(Request request, User.Role role) {
+		User user = request.attribute("loggedIn");
+		if (user.getRole().weakerThan(role))
+			halt(403,"Forbidden");
+	}
+
+	public static void ensureUserIsLoggedIn(Request request, Response response) {
+		if (request.pathInfo().equalsIgnoreCase("/api/login"))
+			return;
+
+		String token = request.headers("Authorization");
+		User user = validateToken(token);
+		request.attribute("loggedIn", user);
+	}
+
 	private static String createToken(String email) {
 		String token = "";
 		try {
-			token = AuthenticationService.createToken(email);
+			token = JWTUtil.createToken(email);
 		} catch(JoseException e) {
 			halt(HttpStatus.INTERNAL_SERVER_ERROR_500, "Internal server error");
 		}
@@ -76,13 +76,11 @@ public class LoginController {
 	private static String getEmail(String token) {
 		String email = "";
 		try {
-			email = AuthenticationService.getEmail(token);
+			email = JWTUtil.getEmail(token);
 		} catch(JoseException e) {
 			halt(HttpStatus.INTERNAL_SERVER_ERROR_500, App.g.toJson("Internal server error"));
 		}
 
 		return email;
 	}
-
-
 }

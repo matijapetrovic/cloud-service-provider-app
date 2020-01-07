@@ -1,8 +1,8 @@
-package storage.virtual_machine.serializing;
+package storage.json_storage.virtual_machine.serializing;
 
 import com.google.gson.GsonBuilder;
 import domain.virtual_machine.VirtualMachine;
-import storage.JSONSerializer;
+import storage.json_storage.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;

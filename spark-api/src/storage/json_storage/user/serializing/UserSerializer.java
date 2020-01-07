@@ -1,11 +1,9 @@
-package storage.user.serializing;
+package storage.json_storage.user.serializing;
 
 import com.google.gson.GsonBuilder;
 
-import application.App;
-import domain.organization.Organization;
 import domain.user.User;
-import storage.JSONSerializer;
+import storage.json_storage.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package storage.user.serializing;
+package storage.json_storage.user.serializing;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

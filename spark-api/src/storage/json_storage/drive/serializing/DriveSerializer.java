@@ -1,10 +1,10 @@
-package storage.drive.serializing;
+package storage.json_storage.drive.serializing;
 
 import com.google.gson.GsonBuilder;
 import application.App;
 import domain.drive.Drive;
 import domain.virtual_machine.VirtualMachine;
-import storage.JSONSerializer;
+import storage.json_storage.JSONSerializer;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -30,16 +30,16 @@ public class DriveSerializer extends JSONSerializer<Drive> {
     @Override
     public List<Drive> deserialize(FileReader reader) {
         List<Drive> data = Arrays.asList(gson.fromJson(reader, Drive[].class));
-        buildReferences(data);
+//        buildReferences(data);
         return data;
     }
 
-    private void buildReferences(List<Drive> data) {
-        data.forEach(this::buildReferences);
-    }
-
-    private void buildReferences(Drive drive) {
-        VirtualMachine vm  = App.vmService.findByKey(drive.getVm().getName()).orElse(null);
-        drive.setVm(vm);
-    }
+//    private void buildReferences(List<Drive> data) {
+//        data.forEach(this::buildReferences);
+//    }
+//
+//    private void buildReferences(Drive drive) {
+//        VirtualMachine vm  = App.vmService.findByKey(drive.getVm().getName()).orElse(null);
+//        drive.setVm(vm);
+//    }
 }

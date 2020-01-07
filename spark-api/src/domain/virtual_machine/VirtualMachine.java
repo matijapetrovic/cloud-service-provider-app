@@ -71,17 +71,10 @@ public class VirtualMachine implements Model<String> {
 		return drives.remove(drive);
 	}
 
-	public boolean updateDrive(String name, Drive drive) {
+	public void updateDrive(int idx, Drive drive) {
 		if (drive == null)
-			return false;
-
-		int idx = drives.indexOf(drive);
-		if (idx == -1)
-			return false;
-
-		drives.remove(idx);
-		drives.add(idx, drive);
-		return true;
+			return;
+		drives.set(idx, drive);
 	}
 
 	public void detachDrives() {

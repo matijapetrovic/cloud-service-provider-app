@@ -1,8 +1,8 @@
-package storage.drive;
+package storage.json_storage.drive;
 
 import domain.drive.Drive;
-import storage.JSONFileRepository;
-import storage.drive.serializing.DriveSerializer;
+import storage.json_storage.JSONFileRepository;
+import storage.json_storage.drive.serializing.DriveSerializer;
 
 public class DriveRepository extends JSONFileRepository<String, Drive> {
     public DriveRepository(String filePath) {

@@ -1,17 +1,17 @@
-package storage.organization;
+package storage.json_storage.organization;
 
 import domain.organization.Organization;
 import domain.organization.OrganizationStorage;
-import storage.JSONFileRepository;
-import storage.organization.serializing.OrganizationSerializer;
+import storage.json_storage.JSONDbContext;
+import storage.json_storage.JSONFileRepository;
 
 import java.util.Optional;
 
 public class OrganizationJSONFileStorage implements OrganizationStorage {
     JSONFileRepository<String, Organization> repository;
 
-    public OrganizationJSONFileStorage(String filePath) {
-        repository = new JSONFileRepository<>(new OrganizationSerializer(), filePath);
+    public OrganizationJSONFileStorage(JSONDbContext context) {
+        repository = context.getOrganizationsRepository();
     }
 
     @Override

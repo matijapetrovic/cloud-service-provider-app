@@ -1,4 +1,4 @@
-package storage;
+package storage.json_storage;
 
 import com.google.gson.Gson;
 
