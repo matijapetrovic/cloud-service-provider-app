@@ -6,6 +6,10 @@ Vue.component("view-user-form", {
             headerText="User info"
             buttonText="Update"
             v-on:submit="submitForm($event)"
+
+            activeDelete
+            buttonTextDelete="Delete"
+            v-on:submitDelete="submitDelete($event)"
             ref="form"
         >
             <text-input
@@ -33,6 +37,9 @@ Vue.component("view-user-form", {
             required
             >
             </select-role>
+<<<<<<< HEAD
+
+=======
             <button
                 class="btn btn-outline-secondary pull-right"
                 id='deleteButton'
@@ -40,6 +47,7 @@ Vue.component("view-user-form", {
                 >
                     Delete
             </button>
+>>>>>>> 874c70ac4bef0ced2a43025300c2e35db7092b61
         </main-form>
     `,
     data : function () {
@@ -75,9 +83,9 @@ Vue.component("view-user-form", {
         },
         checkDeleteResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('updatedUser', this.user);
-                alert('User with email '+ this.user.email + ' successfully!');
-                this.$emit('submit')
+                this.$emit('deletedUser', this.user);
+                alert('User with email '+ this.user.email + ' deleted successfully!');
+                this.$emit('submitDelete')
             }
             else {
                 alert('Error: ' + response.data);
@@ -98,7 +106,7 @@ Vue.component("view-user-form", {
                     this.checkResponse(response);
                 });
         },
-        deleteUser(user){
+        submitDelete: function(e){
             axios
                 .delete('api/users/delete/' + this.user.email)
                 .then(response => {

@@ -8,35 +8,32 @@ Vue.component("add-drive-form", {
             v-on:submit="submitForm($event)"
             ref="form"
         >
-            <email-input
+            <text-input
                 name="name"
                 v-model="drive.name"    
                 required
             >
                 Name
-            </email-input>
-            <password-input
+            </text-input>
+            <text-input
                 name="type"
                 v-model="drive.type"
                 required
             >
                 Type
-            </password-input>
+            </text-input>
             <number-input 
-                name="capacity"
-                v-model="drive.capacity"
+                name="Capacity"
+                v-model=drive.capacity
                 required
             >
-                Capacity
             </number-input>
-            <text-input
-            name="vm"
+            
+            <select-vms
             v-model="drive.vm"
             required
             >
-                Virtual machine
-                Moram imati neki select za vm
-            </text-input>
+            </select-vms>
             
         </main-form>
     `,
@@ -55,7 +52,7 @@ Vue.component("add-drive-form", {
         
         checkResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('addedDrive', this.Drive);
+                this.$emit('addedDrive', this.drive);
                 alert('Adding drive successful');
                 this.$emit('submit')
             }

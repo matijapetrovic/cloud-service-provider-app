@@ -10,7 +10,12 @@ Vue.component("all-drives-table",{
                 </tr>
             </thead>
             <tr v-for="drive in drives">
+<<<<<<< HEAD
+                <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
+                <td>{{ drive.type }}</td>
+=======
                 <td><a href="#" @click.prevent="viewDrive(drive.name )" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
+>>>>>>> 874c70ac4bef0ced2a43025300c2e35db7092b61
                 <td>{{ drive.capacity }}</td>
                 <td>{{ drive.vm.name }}</td>
             </tr>
@@ -41,18 +46,18 @@ Vue.component("all-drives-table",{
         },
         updateDrive(drive) {
             var el = this.drives.find(function(element) {
-                return element.email === drive.email;
+                return element.name === drive.name;
             });
             var idx = this.drives.indexOf(el);
             this.drives.splice(idx, 1);
             this.drives.splice(idx, 0, drive);
         },
-        viewDrive(email) {
-            this.$emit('viewDrive', email);
+        viewDrive(name) {
+            this.$emit('viewDrive', name);
         },
         deleteDrive(drive){
             var el = this.drives.find(function(element) {
-                return element.email === drive.email;
+                return element.name === drive.name;
             });
             var idx = this.drives.indexOf(el);
             this.drives.splice(idx, 1);

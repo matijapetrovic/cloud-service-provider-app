@@ -60,16 +60,15 @@ Vue.component("add-user-form", {
                 surname: null,
                 organization: null,
                 role : null
-            },
-            organizations : null,
+            }
         }
     },
     methods: {
         
         checkResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('addedUser', this.User);
-                alert('Adding User successful');
+                this.$emit('addedUser', this.user);
+                alert('Adding user successful');
                 this.$emit('submit')
             }
             else {

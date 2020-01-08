@@ -6,6 +6,7 @@ import domain.organization.Organization;
 import domain.user.User;
 import storage.json_storage.JSONSerializer;
 
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
@@ -61,12 +62,12 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
 //        org.setVirtualMachines(vms);
 //    }
 
-//    private void buildDriveReferences(Organization org) {
-//        List<Drive> drives = new ArrayList<Drive>();
-//        org.getDrives()
-//                .forEach(x -> App.driveService
-//                        .findByKey(x.getKey()))
-//                        .ifPresent(drives::add);
-//        org.setDrives(drives);
-//    }
+    private void buildDriveReferences(Organization org) {
+        List<Drive> drives = new ArrayList<Drive>();
+        org.getDrives()
+                .forEach(x -> App.driveService
+                        .findByKey(x.getKey())
+                        .ifPresent(drives::add));
+        org.setDrives(drives);
+    }
 }

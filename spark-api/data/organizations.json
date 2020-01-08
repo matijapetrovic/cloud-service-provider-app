@@ -1,1 +1,20 @@
+<<<<<<< HEAD
+[
+    {
+        "name": "Doktori",
+        "description": "Mateo i Kabi",
+        "users": [],
+        "virtualMachines": [],
+        "drives": [{"name":"drive1"}]
+    },
+    {
+        "name": "Lavovi",
+        "description": "asdgzdg",
+        "users": [],
+        "virtualMachines": [],
+        "drives": [{"name":"drive3"},{"name":"drive2"}]
+    }
+]
+=======
 [{"name":"Doktori","description":"Mateo i Kabi","users":[],"virtualMachines":[],"drives":[{"name":"drive1","capacity":0},{"name":"drive2","capacity":0}]},{"name":"Lavovi","description":"asdgzdg","users":[],"virtualMachines":[], "drives":[]}]
+>>>>>>> 874c70ac4bef0ced2a43025300c2e35db7092b61

@@ -1,5 +1,6 @@
 package domain.drive;
 
+import api.drive.DriveDTO;
 import domain.Model;
 import domain.virtual_machine.VirtualMachine;
 
@@ -20,7 +21,7 @@ public class Drive implements Model<String> {
 		this.vm = vm;
 	}
 
-	public DriveType getType() {
+	public DriveDTO.DriveType getType() {
 		return type;
 	}
 

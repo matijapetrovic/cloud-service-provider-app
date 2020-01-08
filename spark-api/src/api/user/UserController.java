@@ -1,18 +1,40 @@
 package api.user;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import application.App;
-import domain.organization.Organization;
 import domain.user.User;
+import domain.user.UserService;
+import domain.user.UserStorage;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class UserController {
+import static api.authentication.LoginController.ensureUserHasPermission;
+import static spark.Spark.*;
+import static spark.Spark.put;
 
-	public static Route serveUserPage = (Request request, Response response) -> {
+public class UserController {
+	private UserService service;
+
+	public UserController(UserStorage storage) {
+		this.service = new UserRESTService(storage);
+		setUpRoutes();
+	}
+
+	private void setUpRoutes() {
+		path("api", () -> {
+			path("/users", () -> {
+				get("", serveUserPage);
+				get("/currentUser", serveCurrentUser);
+				get("/:email", handleGetSingle);
+				get("/organizations/:email", handleUsersOrganization);
+				post("/add", handlePost);
+				put("/update/:email", handlePut);
+				delete("/delete/:email", handleDelete);
+			});
+		});
+	}
+
+	private Route serveUserPage = (Request request, Response response) -> {
 		response.type("application/json");
 		User currentUser = request.attribute("loggedIn");
 
@@ -20,101 +42,70 @@ public class UserController {
 		switch(currentUser.getRole()) {
 			case SUPER_ADMIN:
 			case USER:
-				return App.g.toJson(App.userService.findAll());
+				return App.g.toJson(UserMapper.toUserDTOList(service.getAll()));
 			case ADMIN:
-				return App.g.toJson(App.userService.getAllUsersFromSameOrganization(currentUser));
+				return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(currentUser)));
 			default:
-				response.status(400);
+				response.status(500);
 				return "Something went wrong!";
 		}
-
-
 	};
 
-	public static Route serveCurrentUser = (Request request, Response response) -> {
+	private Route serveCurrentUser = (Request request, Response response) -> {
 		response.type("application/json");
 		User currentUser = request.attribute("loggedIn");
 		return App.g.toJson(currentUser);
 	};
 
-	public static Route handleGetSingle = (Request request, Response response) -> {
-		String email = request.params(":name");
-		Optional<User> user = App.userService.findByKey(email);
+	private Route handleGetSingle = (Request request, Response response) -> {
+		ensureUserHasPermission(request, User.Role.ADMIN);
+
+		String email = request.params(":email");
 
 		response.type("application/json");
-
-		if(!user.isPresent()){
-			response.status(400);
-			return "User with email " + email + " does not exist!";
-		}
-
 		response.status(200);
-		return App.g.toJson(user.get());
+		return App.g.toJson(UserMapper.toUserDTO(service.getSingle(email)));
 	};
 
-	public static Route handleUsersOrganization = (Request request, Response response) -> {
-		String email = request.params(":name");
-		Optional<User> user = App.userService.findByKey(email);
-
-		response.type("application/json");
-
-		if(!user.isPresent()){
-			response.status(400);
-			return "User with email " + email + " does not exist!";
-		}
-		Organization org = user.get().getOrganization();
-		Collection<User> usersFromOrganization = org.getUsers();
-
-		response.status(200);
-		return App.g.toJson(usersFromOrganization);
-	};
-
-	public static Route handlePost = (Request request, Response response) -> {
+	private Route handleUsersOrganization = (Request request, Response response) -> {
 		User user = App.g.fromJson(request.body(), User.class);
+		String email = request.params(":email");
 
 		response.type("application/json");
+		response.status(200);
+		return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(user)));
+	};
 
-		if (!App.userService.add(user)) {
-			response.status(400);
-			return "User with the email " + user.getEmail() + " already exists";
-		}
+	private Route handlePost = (Request request, Response response) -> {
+		ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
+
+		User user = App.g.fromJson(request.body(), User.class);
+		service.post(user);
 
 		response.status(200);
 		return "OK";
 	};
 
-	public static Route handlePut = (Request request, Response response) -> {
+	private Route handlePut = (Request request, Response response) -> {
+		ensureUserHasPermission(request, User.Role.ADMIN);
+
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
-		Optional<User> toFind = App.userService.findByKey(email);
+		String email = request.params(":email");
 
+		service.put(email, user);
 		response.type("application/json");
-
-		if(!toFind.isPresent()){
-			response.status(400);
-			return "User with email " + email + " does not exist !";
-		}
-
-		App.userService.update(email, user);
-
 		response.status(200);
 		return "OK";
 	};
 
-	public static Route handleDelete = (Request request, Response response) -> {
+	private Route handleDelete = (Request request, Response response) -> {
+		ensureUserHasPermission(request, User.Role.ADMIN);
+
 		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":name");
-		Optional<User> toFind = App.userService.findByKey(email);
+		String email = request.params(":email");
 
+		service.delete(email);
 		response.type("application/json");
-
-		if(!toFind.isPresent()){
-			response.status(400);
-			return "User with email " + email + " does not exist !";
-		}
-
-		App.userService.delete(email);
-
 		response.status(200);
 		return "OK";
 	};

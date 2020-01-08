@@ -26,7 +26,9 @@ Vue.component('admin-page',{
             >
                 <view-user-form
                     @submit="closeViewModal"
-                    @updatedOrganization="updateOrganization($event)"
+                    @submitDelete="closeViewModal"
+                    @updatedUser="updateUser($event)"
+                    @deletedUser="deleteUser($event)"
                     ref="viewForm"
                     >
                     </view-user-form>
@@ -73,6 +75,9 @@ Vue.component('admin-page',{
         },
         updateuser(user) {
             this.$refs.table.updateUser(user);
+        },
+        deleteUser(user){
+            this.$refs.table.deleteUser(user);
         },
         viewUserA(email) {
             this.$refs.viewForm.getUser(email);

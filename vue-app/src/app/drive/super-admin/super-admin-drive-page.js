@@ -25,7 +25,9 @@ Vue.component("super-admin-drive-page",{
             >
                 <view-drive-form
                     @submit="closeViewModal"
+                    @submitDelete="closeViewModal"
                     @updatedDrive="updateDrive($event)"
+                    @deletedDrive="deleteDrive($event)"
                     ref="viewForm"
                     >
                     </view-drive-form>
@@ -49,8 +51,7 @@ Vue.component("super-admin-drive-page",{
     data : function() {
         return {
             addModalId: 'addDriveModal',
-            viewModalId: 'viewDriveModal',
-            search: ''
+            viewModalId: 'viewDriveModal'
         }
     },
     methods: {
@@ -73,6 +74,9 @@ Vue.component("super-admin-drive-page",{
         },
         updateDrive(drive) {
             this.$refs.table.updateDrive(drive);
+        },
+        deleteDrive(drive){
+            this.$refs.table.deleteDrive(drive);
         },
         viewDrive(name) {
             this.$refs.viewForm.getDrive(name);

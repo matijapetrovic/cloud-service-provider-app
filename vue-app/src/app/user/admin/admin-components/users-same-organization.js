@@ -53,8 +53,15 @@ Vue.component("users-from-organization-table", {
             this.users.splice(idx, 1);
             this.users.splice(idx, 0, organization);
         },
-        viewOrganization(email) {
+        viewUser(email) {
             this.$emit('viewUser', email);
+        },
+        deleteUser(user){
+            var el = this.users.find(function(element) {
+                return element.email === user.email;
+            });
+            var idx = this.users.indexOf(el);
+            this.users.splice(idx, 1);
         }
    }
 
