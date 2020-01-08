@@ -21,17 +21,6 @@ public class UserRESTService implements UserService {
         return (List<User>) storage.findAll();
     }
 
-
-    @Override
-    public List<User> getAllUsersFromSameOrganization(String email) {
-        Optional<User> user = storage.findByName(email);
-        if (!user.isPresent())
-            halt(404, "User with the email "
-                    + email + " not found");
-
-        return user.get().getOrganization().getUsers();
-    }
-
     @Override
     public User getSingle(String email) {
         Optional<User> user = storage.findByName(email);

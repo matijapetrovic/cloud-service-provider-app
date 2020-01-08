@@ -39,7 +39,6 @@ public class DriveController {
     }
 
     private  Route handleGetAll = (Request request, Response response) -> {
-        response.type("application/json");
         User currentUser = request.attribute("loggedIn");
 
         switch(currentUser.getRole()) {
@@ -59,7 +58,6 @@ public class DriveController {
 
         String name = request.params(":name");
 
-        response.type("application/json");
         response.status(200);
         return App.g.toJson(DriveMapper.toDriveDTO(service.getSingle(name)));
     };
@@ -90,7 +88,6 @@ public class DriveController {
         String name = request.params(":name");
 
         service.put(name, drive);
-        response.type("application/json");
         response.status(200);
         return "OK";
     };
@@ -102,7 +99,6 @@ public class DriveController {
         String name = request.params(":name");
 
         service.delete(name);
-        response.type("application/json");
         response.status(200);
         return "OK";
     };

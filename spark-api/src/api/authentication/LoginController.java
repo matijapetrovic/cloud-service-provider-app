@@ -12,7 +12,6 @@ import spark.Route;
 import application.App;
 import domain.user.User;
 
-import static application.App.userService;
 import static spark.Spark.halt;
 
 public class LoginController {

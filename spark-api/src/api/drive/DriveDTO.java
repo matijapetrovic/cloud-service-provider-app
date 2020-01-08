@@ -8,15 +8,15 @@ public class DriveDTO {
     enum DriveType {SSD, HDD}
 
     private String name;
-    private DriveType type;
+    private Drive.DriveType type;
     private int capacity;
     private VirtualMachine vm;
 
-    public DriveType getType() {
+    public Drive.DriveType getType() {
         return type;
     }
 
-    public void setType(DriveType type) {
+    public void setType(Drive.DriveType type) {
         this.type = type;
     }
 

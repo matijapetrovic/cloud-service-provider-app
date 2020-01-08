@@ -21,6 +21,7 @@ import storage.json_storage.organization.OrganizationJSONFileStorage;
 import storage.json_storage.virtual_machine.VirtualMachineJSONFileStorage;
 import storage.json_storage.drive.DriveJSONFileStorage;
 import storage.json_storage.user.UserJSONFileStorage;
+import storage.json_storage.vm_category.CategoryJSONFileStorage;
 
 public class App {
     public static final Gson g = new GsonBuilder().setPrettyPrinting().create();
@@ -31,7 +32,7 @@ public class App {
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
 
         path("/api", () -> {
-            before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: "+ q.requestMethod() + " " + q.uri()));
+            before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: " + q.requestMethod() + " " + q.uri()));
             before("/*", LoginController::ensureUserIsLoggedIn);
             after("/*", (q, a) -> a.type("application/json"));
 
@@ -39,6 +40,7 @@ public class App {
                 post("", LoginController.handlePost);
             });
         });
+
         JSONDbContext dbContext = new JSONDbContext("data");
         new OrganizationController(
                 new OrganizationJSONFileStorage(dbContext));
@@ -47,14 +49,13 @@ public class App {
                 new VirtualMachineJSONFileStorage(dbContext));
 
         new UserController(
-                new UserJSONFileStorage(
-                        "./data/users.json"
-                ));
+                new UserJSONFileStorage(dbContext));
+
         new DriveController(
-                new DriveJSONFileStorage(
-                    "./data/drives.json"
-                ));
-//        new CategoryController(
-//                new CategoryJSONFileStorage(dbContext));
+                new DriveJSONFileStorage( dbContext));
+
+        new CategoryController(
+                new CategoryJSONFileStorage(dbContext));
+
     }
 }

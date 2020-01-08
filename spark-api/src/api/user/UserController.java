@@ -26,7 +26,6 @@ public class UserController {
 				get("", serveUserPage);
 				get("/currentUser", serveCurrentUser);
 				get("/:email", handleGetSingle);
-				get("/organizations/:email", handleUsersOrganization);
 				post("/add", handlePost);
 				put("/update/:email", handlePut);
 				delete("/delete/:email", handleDelete);
@@ -39,20 +38,11 @@ public class UserController {
 		User currentUser = request.attribute("loggedIn");
 
 		response.status(200);
-		switch(currentUser.getRole()) {
-			case SUPER_ADMIN:
-			case USER:
-				return App.g.toJson(UserMapper.toUserDTOList(service.getAll()));
-			case ADMIN:
-				return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(currentUser)));
-			default:
-				response.status(500);
-				return "Something went wrong!";
-		}
+
+		return App.g.toJson(UserMapper.toUserDTOList(service.getAll()));
 	};
 
 	private Route serveCurrentUser = (Request request, Response response) -> {
-		response.type("application/json");
 		User currentUser = request.attribute("loggedIn");
 		return App.g.toJson(currentUser);
 	};
@@ -62,18 +52,8 @@ public class UserController {
 
 		String email = request.params(":email");
 
-		response.type("application/json");
 		response.status(200);
 		return App.g.toJson(UserMapper.toUserDTO(service.getSingle(email)));
-	};
-
-	private Route handleUsersOrganization = (Request request, Response response) -> {
-		User user = App.g.fromJson(request.body(), User.class);
-		String email = request.params(":email");
-
-		response.type("application/json");
-		response.status(200);
-		return App.g.toJson(UserMapper.toUserDTOList(service.getAllUsersFromSameOrganization(user)));
 	};
 
 	private Route handlePost = (Request request, Response response) -> {
@@ -93,7 +73,6 @@ public class UserController {
 		String email = request.params(":email");
 
 		service.put(email, user);
-		response.type("application/json");
 		response.status(200);
 		return "OK";
 	};
@@ -105,7 +84,6 @@ public class UserController {
 		String email = request.params(":email");
 
 		service.delete(email);
-		response.type("application/json");
 		response.status(200);
 		return "OK";
 	};

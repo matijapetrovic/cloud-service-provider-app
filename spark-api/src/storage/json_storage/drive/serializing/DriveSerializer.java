@@ -30,16 +30,6 @@ public class DriveSerializer extends JSONSerializer<Drive> {
     @Override
     public List<Drive> deserialize(FileReader reader) {
         List<Drive> data = Arrays.asList(gson.fromJson(reader, Drive[].class));
-//        buildReferences(data);
         return data;
     }
-
-//    private void buildReferences(List<Drive> data) {
-//        data.forEach(this::buildReferences);
-//    }
-//
-//    private void buildReferences(Drive drive) {
-//        VirtualMachine vm  = App.vmService.findByKey(drive.getVm().getName()).orElse(null);
-//        drive.setVm(vm);
-//    }
 }

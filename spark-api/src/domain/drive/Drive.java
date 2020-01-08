@@ -6,7 +6,7 @@ import domain.virtual_machine.VirtualMachine;
 
 public class Drive implements Model<String> {
 
-	enum DriveType {SSD, HDD}
+	public enum DriveType {SSD, HDD}
 
 	private String name;
 	private DriveType type;
@@ -21,7 +21,7 @@ public class Drive implements Model<String> {
 		this.vm = vm;
 	}
 
-	public DriveDTO.DriveType getType() {
+	public DriveType getType() {
 		return type;
 	}
 

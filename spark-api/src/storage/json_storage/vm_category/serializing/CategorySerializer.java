@@ -29,15 +29,7 @@ public class CategorySerializer extends JSONSerializer<VMCategory> {
     @Override
     public List<VMCategory> deserialize(FileReader reader) {
         List<VMCategory> data = Arrays.asList(gson.fromJson(reader, VMCategory[].class));
-        buildReferences(data);
         return data;
     }
 
-    private void buildReferences(List<VMCategory> data) {
-        data.forEach(this::buildReferences);
-    }
-
-    private void buildReferences(VMCategory org) {
-
-    }
 }

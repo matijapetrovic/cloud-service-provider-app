@@ -54,7 +54,6 @@ public class CategoryController {
 
         String name = request.params(":name");
 
-        response.type("application/json");
         response.status(200);
         return App.g.toJson(CategoryMapper.toCategoryDTO(service.getSingle(name)));
     };
@@ -65,7 +64,6 @@ public class CategoryController {
         VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
         service.post(category);
 
-        response.type("application/json");
         response.status(200);
         return "OK";
     };
@@ -77,7 +75,6 @@ public class CategoryController {
         String name = request.params(":email");
 
         service.put(name, category);
-        response.type("application/json");
         response.status(200);
         return "OK";
     };
@@ -89,7 +86,6 @@ public class CategoryController {
         String name = request.params(":name");
 
         service.delete(name);
-        response.type("application/json");
         response.status(200);
         return "OK";
     };

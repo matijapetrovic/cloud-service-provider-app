@@ -3,6 +3,7 @@ package api.drive;
 import domain.drive.Drive;
 import domain.drive.DriveStorage;
 import domain.drive.DriveService;
+import domain.user.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,11 @@ public class DriveRESTService implements DriveService {
     }
 
     @Override
+    public List<Drive> getAllDrivesFromSameOrganization(User user) {
+        return null;
+    }
+
+    @Override
     public void post(Drive drive) {
         if (!storage.add(drive))
             halt(409, "Drive with the name "
@@ -41,6 +47,13 @@ public class DriveRESTService implements DriveService {
     @Override
     public void put(String name, Drive drive) {
         if (!storage.update(name, drive))
+            halt(404, "Drive with the name "
+                    + name + " not found");
+    }
+
+    @Override
+    public void delete(String name) {
+        if (!storage.delete(name))
             halt(404, "Drive with the name "
                     + name + " not found");
     }
