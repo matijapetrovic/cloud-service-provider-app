@@ -33,15 +33,14 @@ public class App {
 
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: " + q.requestMethod() + " " + q.uri()));
-            before("/*", LoginController::ensureUserIsLoggedIn);
             after("/*", (q, a) -> a.type("application/json"));
-
-            path("/login", () -> {
-                post("", LoginController.handlePost);
-            });
         });
 
         JSONDbContext dbContext = new JSONDbContext("data");
+
+        new LoginController(
+                new UserJSONFileStorage(dbContext));
+
         new OrganizationController(
                 new OrganizationJSONFileStorage(dbContext));
 
@@ -52,7 +51,7 @@ public class App {
                 new UserJSONFileStorage(dbContext));
 
         new DriveController(
-                new DriveJSONFileStorage( dbContext));
+                new DriveJSONFileStorage(dbContext));
 
         new CategoryController(
                 new CategoryJSONFileStorage(dbContext));

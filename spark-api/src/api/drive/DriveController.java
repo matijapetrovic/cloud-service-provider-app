@@ -1,7 +1,5 @@
 package api.drive;
 
-import api.user.UserController;
-import api.user.UserMapper;
 import application.App;
 import domain.drive.Drive;
 import domain.drive.DriveService;
@@ -10,9 +8,6 @@ import domain.user.User;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-
-import java.util.Collection;
-import java.util.Optional;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;

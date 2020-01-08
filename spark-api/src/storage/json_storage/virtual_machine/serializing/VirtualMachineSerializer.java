@@ -28,7 +28,6 @@ public class VirtualMachineSerializer extends JSONSerializer<VirtualMachine> {
 
     @Override
     public List<VirtualMachine> deserialize(FileReader reader) {
-        List<VirtualMachine> data = Arrays.asList(gson.fromJson(reader, VirtualMachine[].class));
-        return data;
+        return Arrays.asList(gson.fromJson(reader, VirtualMachine[].class));
     }
 }

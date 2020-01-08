@@ -1,8 +1,5 @@
 package api.vm_category;
 
-import api.user.UserDTO;
-import api.user.UserMapper;
-import domain.user.User;
 import domain.vm_category.VMCategory;
 
 import java.util.List;

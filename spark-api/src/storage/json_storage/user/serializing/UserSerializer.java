@@ -29,7 +29,6 @@ public class UserSerializer extends JSONSerializer<User> {
 
     @Override
     public List<User> deserialize(FileReader reader) {
-        List<User> data = Arrays.asList(gson.fromJson(reader, User[].class));
-        return data;
+        return Arrays.asList(gson.fromJson(reader, User[].class));
     }
 }

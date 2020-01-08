@@ -28,8 +28,7 @@ public class CategorySerializer extends JSONSerializer<VMCategory> {
 
     @Override
     public List<VMCategory> deserialize(FileReader reader) {
-        List<VMCategory> data = Arrays.asList(gson.fromJson(reader, VMCategory[].class));
-        return data;
+        return Arrays.asList(gson.fromJson(reader, VMCategory[].class));
     }
 
 }

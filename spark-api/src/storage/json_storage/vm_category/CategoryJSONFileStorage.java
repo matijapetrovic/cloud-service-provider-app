@@ -1,6 +1,5 @@
 package storage.json_storage.vm_category;
 
-import domain.user.User;
 import domain.vm_category.CategoryStorage;
 import domain.vm_category.VMCategory;
 import storage.json_storage.JSONDbContext;

@@ -1,10 +1,7 @@
 package storage.json_storage.organization.serializing;
 
 import com.google.gson.GsonBuilder;
-import application.App;
-import domain.drive.Drive;
 import domain.organization.Organization;
-import domain.user.User;
 import storage.json_storage.JSONSerializer;
 
 
@@ -30,8 +27,7 @@ public class OrganizationSerializer extends JSONSerializer<Organization> {
 
     @Override
     public List<Organization> deserialize(FileReader reader) {
-        List<Organization> data = Arrays.asList(gson.fromJson(reader, Organization[].class));
-        return data;
+        return Arrays.asList(gson.fromJson(reader, Organization[].class));
     }
 
 }

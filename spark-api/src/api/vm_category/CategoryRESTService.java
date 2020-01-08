@@ -1,13 +1,10 @@
 package api.vm_category;
 
-import domain.user.User;
-import domain.user.UserStorage;
 import domain.vm_category.CategoryService;
 import domain.vm_category.CategoryStorage;
 import domain.vm_category.VMCategory;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import static spark.Spark.halt;

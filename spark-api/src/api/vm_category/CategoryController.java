@@ -1,6 +1,5 @@
 package api.vm_category;
 
-import api.user.UserMapper;
 import application.App;
 import domain.user.User;
 import domain.vm_category.CategoryService;
@@ -10,7 +9,6 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.Optional;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;

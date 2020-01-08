@@ -29,7 +29,6 @@ public class DriveSerializer extends JSONSerializer<Drive> {
 
     @Override
     public List<Drive> deserialize(FileReader reader) {
-        List<Drive> data = Arrays.asList(gson.fromJson(reader, Drive[].class));
-        return data;
+        return Arrays.asList(gson.fromJson(reader, Drive[].class));
     }
 }

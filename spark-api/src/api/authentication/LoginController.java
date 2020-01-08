@@ -3,6 +3,7 @@ package api.authentication;
 
 import java.util.Optional;
 
+import domain.user.UserStorage;
 import org.eclipse.jetty.http.HttpStatus;
 import org.jose4j.lang.JoseException;
 import spark.Request;
@@ -12,10 +13,27 @@ import spark.Route;
 import application.App;
 import domain.user.User;
 
-import static spark.Spark.halt;
+import static spark.Spark.*;
 
 public class LoginController {
-	public static Route handlePost = (Request request, Response response) -> {
+	private UserStorage storage;
+
+	public LoginController(UserStorage storage) {
+		this.storage = storage;
+		setUpRoutes();
+	}
+
+	private void setUpRoutes() {
+		path("api", () -> {
+			before("/*", this::ensureUserIsLoggedIn);
+			path("/login", () -> {
+				post("", handlePost);
+			});
+		});
+
+	}
+
+	private Route handlePost = (Request request, Response response) -> {
 		User toLogin = App.g.fromJson(request.body(), User.class);
 
 		User user = validateEmail(toLogin);
@@ -26,8 +44,8 @@ public class LoginController {
 		return App.g.toJson(new TokenResponse(true, token, new UserResponse(user)));
 	};
 
-	private static User validateEmail(User toLogin) {
-		Optional<User> user = userService.findByKey(toLogin.getKey());
+	private User validateEmail(User toLogin) {
+		Optional<User> user = storage.findByName(toLogin.getName());
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, "Invalid e-mail");
 		return user.get();
@@ -44,7 +62,7 @@ public class LoginController {
 			halt(403,"Forbidden");
 	}
 
-	public static void ensureUserIsLoggedIn(Request request, Response response) {
+	public void ensureUserIsLoggedIn(Request request, Response response) {
 		if (request.pathInfo().equalsIgnoreCase("/api/login"))
 			return;
 
@@ -64,9 +82,9 @@ public class LoginController {
 		return token;
 	}
 
-	private static User validateToken(String token) {
+	private User validateToken(String token) {
 		String email = getEmail(token);
-		Optional<User> user = userService.findByKey(email);
+		Optional<User> user = storage.findByName(email);
 		if (!user.isPresent())
 			halt(HttpStatus.UNAUTHORIZED_401, App.g.toJson("Invalid token"));
 		return user.get();
