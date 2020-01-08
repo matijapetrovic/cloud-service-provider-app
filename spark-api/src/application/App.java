@@ -16,7 +16,6 @@ import api.user.UserController;
 import api.virtual_machine.VMService;
 import api.virtual_machine.VirtualMachineController;
 import api.vm_category.CategoryController;
-import api.vm_category.CategoryService;
 import com.google.gson.GsonBuilder;
 import storage.drive.DriveJSONFileStorage;
 import storage.organization.OrganizationJSONFileStorage;

@@ -74,4 +74,5 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
             App.logger.log(Level.WARNING, "Reading from " + filePath + " failed");
         }
     }
+
 }

@@ -1,7 +1,10 @@
 package api.vm_category;
 
+import api.user.UserMapper;
 import application.App;
 import domain.user.User;
+import domain.vm_category.CategoryService;
+import domain.vm_category.CategoryStorage;
 import domain.vm_category.VMCategory;
 import spark.Request;
 import spark.Response;
@@ -9,82 +12,84 @@ import spark.Route;
 
 import java.util.Optional;
 
+import static api.authentication.LoginController.ensureUserHasPermission;
+import static spark.Spark.*;
+
 public class CategoryController {
-    public static Route handleGetAll = (Request request, Response response) -> {
+
+    private CategoryService service;
+
+    public CategoryController(CategoryStorage storage) {
+        this.service = new CategoryRESTService(storage);
+        setUpRoutes();
+    }
+
+    private void setUpRoutes() {
+        path("api", () -> {
+            path("/categories", () -> {
+                get("", handleGetAll);
+                get("/:name", handleGetSingle);
+                post("/add", handlePost);
+                put("/update/:name", handlePut);
+                delete("/delete/:name", handleDelete);
+            });
+        });
+    }
+
+    private Route handleGetAll = (Request request, Response response) -> {
         response.type("application/json");
         User currentUser = request.attribute("loggedIn");
 
         switch(currentUser.getRole()) {
             case SUPER_ADMIN:
-                return App.g.toJson(App.categoryService.findAll());
+                return App.g.toJson(CategoryMapper.toCategoryDTOList(service.getAll()));
             default:
-                response.status(400);
+                response.status(500);
                 return "Something went wrong!";
         }
     };
 
-    public static Route handleGetSingle = (Request request, Response response) -> {
+    private Route handleGetSingle = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
         String name = request.params(":name");
 
-        Optional<VMCategory> vmCategory = App.categoryService.findByKey(name);
-
         response.type("application/json");
-
-        if(!vmCategory.isPresent()){
-            response.status(400);
-            return "Category with name " + name + " does not exist!";
-        }
-
         response.status(200);
-        return App.g.toJson(vmCategory.get());
+        return App.g.toJson(CategoryMapper.toCategoryDTO(service.getSingle(name)));
     };
 
-    public static Route handlePost = (Request request, Response response) -> {
-        VMCategory vmCategory = App.g.fromJson(request.body(), VMCategory.class);
+    private Route handlePost = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
+
+        VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
+        service.post(category);
 
         response.type("application/json");
-
-        if (!App.categoryService.add(vmCategory)) {
-            response.status(400);
-            return "Category with the name " + vmCategory.getName() + " already exists";
-        }
-
         response.status(200);
         return "OK";
     };
 
-    public static Route handlePut = (Request request, Response response) -> {
+    private Route handlePut = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
         VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
-        String name = request.params(":name");
-        Optional<VMCategory> toFind = App.categoryService.findByKey(name);
+        String name = request.params(":email");
 
+        service.put(name, category);
         response.type("application/json");
-
-        if(!toFind.isPresent()){
-            response.status(400);
-            return "Drive with name " + name + " does not exist !";
-        }
-
-        App.categoryService.update(name, category);
-
         response.status(200);
         return "OK";
     };
 
-    public static Route handleDelete = (Request request, Response response) -> {
+    private Route handleDelete = (Request request, Response response) -> {
+        ensureUserHasPermission(request, User.Role.ADMIN);
+
         VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
         String name = request.params(":name");
-        Optional<VMCategory> toFind = App.categoryService.findByKey(name);
 
+        service.delete(name);
         response.type("application/json");
-
-        if(!toFind.isPresent()){
-            response.status(400);
-            return "Category with name " + name + " does not exist !";
-        }
-
-        App.categoryService.delete(name);
-
         response.status(200);
         return "OK";
     };

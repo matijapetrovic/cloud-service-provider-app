@@ -21,6 +21,7 @@ public class UserRESTService implements UserService {
         return (List<User>) storage.findAll();
     }
 
+
     @Override
     public List<User> getAllUsersFromSameOrganization(String email) {
         Optional<User> user = storage.findByName(email);

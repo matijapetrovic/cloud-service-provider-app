@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserService {
     List<User> getAll();
-    List<User> getAllUsersFromSameOrganization(User user);
+    List<User> getAllUsersFromSameOrganization(String email);
     User getSingle(String email);
     void post(User user);
     void put(String email, User user);
