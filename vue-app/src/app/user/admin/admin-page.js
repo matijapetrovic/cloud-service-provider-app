@@ -3,7 +3,7 @@ Vue.component('admin-page',{
     template: `
         <div>    
             <users-from-organization-table
-            @viewUSer="viewUser($event)"
+            @viewUserA="viewUserA($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
@@ -26,7 +26,9 @@ Vue.component('admin-page',{
             >
                 <view-user-form
                     @submit="closeViewModal"
-                    @updatedOrganization="updateOrganization($event)"
+                    @submitDelete="closeViewModal"
+                    @updatedUser="updateUser($event)"
+                    @deletedUser="deleteUser($event)"
                     ref="viewForm"
                     >
                     </view-user-form>
@@ -37,12 +39,12 @@ Vue.component('admin-page',{
             v-bind:modal-id="addModalId"
             modal-title="Add user"
             >
-                <add-user-form
+                <admin-add-user-form
                     @submit="   "
                     @addedUser="addUser($event)"
                     ref="addForm"
                     >
-                    </add-user-form>
+                    </admin-add-user-form>
             </full-modal>
         </div>
         
@@ -52,13 +54,6 @@ Vue.component('admin-page',{
             addModalId: 'addUserModal',
             viewModalId: 'viewUserModal'
         }
-    },
-    mounted () {
-        axios
-            .get('api/users')
-            .then(response => {
-                this.users = response.data
-            })
     },
     methods: {
         removeViewValidation() {
@@ -81,7 +76,10 @@ Vue.component('admin-page',{
         updateuser(user) {
             this.$refs.table.updateUser(user);
         },
-        viewUser(email) {
+        deleteUser(user){
+            this.$refs.table.deleteUser(user);
+        },
+        viewUserA(email) {
             this.$refs.viewForm.getUser(email);
         }
     }

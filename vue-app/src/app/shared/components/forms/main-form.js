@@ -6,6 +6,7 @@ Vue.component("main-form", {
             v-on:submit="submitForm"
             class="main-form card"
             novalidate
+            activeDelete
         >
             <div class="card-header">
                 <h5>{{ headerText }}</h5>
@@ -18,6 +19,15 @@ Vue.component("main-form", {
                 >
                     {{ buttonText }}
                 </button>
+                
+                <button
+                    v-show="this.activeDelete"
+                    v-on:click="submitDelete"
+                    class="btn btn-outline-secondary pull-right"
+                    type="submit"
+                >
+                    {{ buttonTextDelete }}
+                </button>
             </div>
         </form>
     `,
@@ -25,7 +35,9 @@ Vue.component("main-form", {
         id: String,
         method: String,
         headerText: String,
-        buttonText: String
+        buttonText: String,
+        buttonTextDelete: String,
+        activeDelete : Boolean,
     },
     methods: {
         removeValidation: function() {
@@ -41,6 +53,12 @@ Vue.component("main-form", {
             e.preventDefault();
             if (this.validateForm()) {
                 this.$emit('submit');
+            }
+        },
+        submitDelete: function(e) {
+            e.preventDefault();
+            if (this.validateForm()) {
+                this.$emit('submitDelete');
             }
         }
     }

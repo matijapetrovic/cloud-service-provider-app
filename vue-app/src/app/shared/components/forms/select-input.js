@@ -2,36 +2,32 @@ Vue.component('select-input',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                <slot></slot>
+               <slot></slot>
             </label>  
             <div> 
-                <select
-                class="selectpicker"  
-                v-bind:name="name"
-                v-bind:options=options
-                v-on:input="$emit('input', $event.target.value)"
-                    >
+                <select 
+                v-model="orgVal"
+                v-bind:options="options"
+                required="required"
+                >
                     <option disabled value="">Please select one</option>
-                    <div v-for="opt in options">
-                        <option><slot></slot></option>
-                    </div>
-                </select>
+                    <option v-for="item in options" :value="item">{{item.name}}</option>
+                </select>   
             </div>
         </div>
     `,
-    data : function () {
-        return {
-            name: String,
-            selected: null,
-            options: [],
-            required: {
-                type: Boolean,
-                default: false
-            },
-            
+    props: {
+        name: String,
+        value: '',
+        required: {
+            type: Boolean,
+            default: false
         }
     },
-
-
-
+    data : function () {
+        return {
+            options : null,
+            orgVal: null
+        }
+    }
 })

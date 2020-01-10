@@ -1,25 +1,25 @@
 Vue.component("users-page",{
     template: `
-
-        <base-layout v-bind:page-title="$route.meta.title">
+    <base-layout v-bind:page-title="$route.meta.title">
+        <div v-if="role==='SUPER_ADMIN'">
             <super-admin-page></super-admin-page>
-        </base-layout>
+        </div>
+        <div v-else-if="role==='ADMIN'">
+            <super-admin-page></super-admin-page>
+        </div>
+        <div v-else="role==='USER'">
+            <admin-page></admin-page>
+        </div>    
+    </base-layout>
     `
     ,
     data: function(){
         return {
-            users : null,
-            user : null
+            role: null
         }
     },
-    mounted () {
-
-        axios
-            .get('api/users')
-            .then(response => {
-                this.users = response.data
-             })
-          
+    mounted(){
+        let user = JSON.parse(localStorage.getItem("user"));
+        this.role = user.role;
     }
-
 });

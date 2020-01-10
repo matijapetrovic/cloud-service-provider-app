@@ -7,7 +7,6 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-.idea/**/misc.xml
 
 # Generated files
 .idea/**/contentModel.xml
@@ -49,8 +48,6 @@ cmake-build-*/
 
 # IntelliJ
 out/
-
-bin/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

@@ -1,9 +1,9 @@
 Vue.component('super-admin-page',{
 
     template: `
-        <div>    
+        <div>                
             <all-users-table
-            @viewUSer="viewUser($event)"
+            @viewUser="viewUser($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
@@ -26,7 +26,9 @@ Vue.component('super-admin-page',{
             >
                 <view-user-form
                     @submit="closeViewModal"
+                    @submitDelete="closeViewModal"
                     @updatedUser="updateUser($event)"
+                    @deletedUser="deleteUser($event)"
                     ref="viewForm"
                     >
                     </view-user-form>
@@ -38,12 +40,12 @@ Vue.component('super-admin-page',{
             modal-title="Add user"
             >
                 <add-user-form
-                    @submit="   "
+                    @submit="closeAddModal"
                     @addedUser="addUser($event)"
                     ref="addForm"
                     >
                     </add-user-form>
-            </full-modal>
+        </full-modal>
         </div>
         
     `,
@@ -52,13 +54,6 @@ Vue.component('super-admin-page',{
             addModalId: 'addUserModal',
             viewModalId: 'viewUserModal'
         }
-    },
-    mounted () {
-        axios
-            .get('api/users')
-            .then(response => {
-                this.users = response.data
-            })
     },
     methods: {
         removeViewValidation() {
@@ -72,7 +67,7 @@ Vue.component('super-admin-page',{
             $('#' + this.viewModalId).modal('hide');
         },
         closeAddModal() {
-            this.removeAddValidation();
+            this.removeAddValidation(); 
             $('#' + this.addModalId).modal('hide');
         },
         addUser(user) {
@@ -80,6 +75,9 @@ Vue.component('super-admin-page',{
         },
         updateUser(user) {
             this.$refs.table.updateUser(user);
+        },
+        deleteUser(user){
+            this.$refs.table.deleteUser(user);
         },
         viewUser(email) {
             this.$refs.viewForm.getUser(email);

@@ -4,7 +4,7 @@ Vue.component("side-nav",{
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link class="nav-link" to="/">
+              <router-link class="nav-link" to="/profile">
                 <span data-feather="home"></span>
                 Profile
               </router-link>
@@ -28,13 +28,13 @@ Vue.component("side-nav",{
                 </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">
+              <router-link class="nav-link" to="/drives">
                 <span data-feather="database"></span>
                 Drives
                 </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="#">
+              <router-link class="nav-link" to="/categories">
                 <span data-feather="folder"></span>
                 VM Categories
               </router-link>
