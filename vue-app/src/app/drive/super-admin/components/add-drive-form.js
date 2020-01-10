@@ -27,6 +27,7 @@ Vue.component("add-drive-form", {
                 v-model=drive.capacity
                 required
             >
+            Capacity
             </number-input>
             
             <select-vms

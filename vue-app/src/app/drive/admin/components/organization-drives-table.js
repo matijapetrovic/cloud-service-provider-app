@@ -44,7 +44,7 @@ Vue.component("drives-from-organization-table", {
         methods: {
             loadDrives(email){
                 axios
-                .get('api/drives/organizations/' + email)
+                .get('api/drives')
                 .then(response =>{
                     this.drives = response.data;
                 });

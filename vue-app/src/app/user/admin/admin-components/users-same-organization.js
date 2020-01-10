@@ -1,6 +1,6 @@
 Vue.component("users-from-organization-table", {
     template:`
-    <div>
+    <div v-if="loaded">
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -11,7 +11,7 @@ Vue.component("users-from-organization-table", {
 
                 </tr>
             </thead>
-            <tr v-for="u in users" v-if="user.email !== currentUser.email">
+            <tr v-for="u in userOrganization.users" v-if="user.email !== currentUser.email">
                 <td><a href="#">{{ u.email }}</a></td>
                 <td>{{ u.name }}</td>
                 <td>{{ u.surname }}</td>
@@ -26,21 +26,21 @@ Vue.component("users-from-organization-table", {
     data: function(){
         return {
             users: null,
+            loaded : false,
             currentUser: null,
             loaded : false,
+            userOrganization :{
+                users: []
+            }
         }
     },
     mounted () {
         this.currentUser = JSON.parse(localStorage.getItem('user'));
-        this.loadUsers(this.currentUser.email);       
+        this.loadUsers();    
     },
     methods: {
-        loadUsers(email){
-            axios
-            .get('api/users/organizations/' + email)
-            .then(response =>{
-                this.users = response.data;
-            });
+        loadUsers(){
+            this.userOrganization = this.currentUser.organization; 
         },
         addUser(user) {
             this.users.push(user);

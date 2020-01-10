@@ -47,14 +47,7 @@ Vue.component("admin-add-user-form", {
    
     data : function () {
         return {  
-            currentUser: {
-                email: null,
-                password: null,
-                name: null,
-                surname: null,
-                organization: null,
-                role : null
-            },      
+            currentUser: null,      
             user : {
                 email: null,
                 password: null,
@@ -67,13 +60,8 @@ Vue.component("admin-add-user-form", {
         }
     },
     mounted () {
-        axios
-        .get('api/users/currentUser')
-        .then(response => {
-            this.currentUser = response.data
-            this.user.organization = this.currentUser.organization;
-        });
-        
+        let currentUser = JSON.parse(localStorage.getItem("user"));
+        this.user.organization = currentUser.organization;
     },
     methods: {
         
