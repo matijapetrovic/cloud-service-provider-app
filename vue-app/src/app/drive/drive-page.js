@@ -6,9 +6,11 @@ Vue.component("drive-page",{
                 <super-admin-drive-page></super-admin-drive-page>
             </div>
             <div v-else-if="user.role ==='ADMIN'">
-                <admin-drive-page></admin-drive-page>
+                <super-admin-drive-page></super-admin-drive-page>
+                
             </div>
             <div v-else="user.role ==='USER'">
+                <admin-drive-page></admin-drive-page>
                 <user-drive-page></user-drive-page>
             </div>    
         </base-layout>

@@ -37,17 +37,6 @@ Vue.component("view-user-form", {
             required
             >
             </select-role>
-<<<<<<< HEAD
-
-=======
-            <button
-                class="btn btn-outline-secondary pull-right"
-                id='deleteButton'
-                @click="deleteUser($event)"
-                >
-                    Delete
-            </button>
->>>>>>> 874c70ac4bef0ced2a43025300c2e35db7092b61
         </main-form>
     `,
     data : function () {

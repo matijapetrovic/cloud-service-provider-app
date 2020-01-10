@@ -110,12 +110,10 @@ Vue.component("profile-info", {
         }
     },
     mounted(){
-        axios
-        .get('api/users/currentUser')
-        .then(response => {
-            this.user = response.data; 
-            this.loaded = true;  
-        });
+        let currentUser = JSON.parse(localStorage.getItem("user"));
+        this.user = currentUser; 
+        this.loaded = true;  
+        
         axios
         .get('api/users')
         .then(response => {
