@@ -22,4 +22,12 @@ public class CategoryMapper {
                 .map(CategoryMapper::toCategoryDTO)
                 .collect(Collectors.toList());
     }
+
+    public static VMCategory fromCategoryDTO(CategoryDTO dto) {
+        return new VMCategory(
+                dto.getName(),
+                dto.getCpus(),
+                dto.getRam(),
+                dto.getGpus());
+    }
 }

@@ -1,6 +1,9 @@
 package api.virtual_machine;
 
+import api.vm_category.CategoryDTO;
+import api.vm_category.CategoryMapper;
 import domain.drive.Drive;
+import domain.organization.Organization;
 import domain.virtual_machine.VirtualMachine;
 
 import java.util.ArrayList;
@@ -11,15 +14,16 @@ public class VirtualMachineMapper {
     public static VirtualMachineDTO toVirtualMachineDTO(VirtualMachine virtualMachine) {
         VirtualMachineDTO dto = new VirtualMachineDTO();
         dto.setName(virtualMachine.getName());
-        dto.setCpus(virtualMachine.getCpus());
-        dto.setRam(virtualMachine.getRam());
-        dto.setGpus(virtualMachine.getGpus());
+
+        CategoryDTO catDTO = CategoryMapper.toCategoryDTO(virtualMachine.getCategory());
+        dto.setCategory(catDTO);
         dto.setDrives(new ArrayList<String>(virtualMachine
                 .getDrives()
                 .stream()
                 .map(Drive::getName)
                 .collect(Collectors.toList())
         ));
+        dto.setOrganization(virtualMachine.getOrganization().getName());
         return dto;
     }
 
@@ -28,5 +32,17 @@ public class VirtualMachineMapper {
                 .stream()
                 .map(VirtualMachineMapper::toVirtualMachineDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static VirtualMachine fromVirtualMachineDTO(VirtualMachineDTO dto) {
+        return new VirtualMachine(
+                dto.getName(),
+                CategoryMapper.fromCategoryDTO(dto.getCategory()),
+                new ArrayList<Drive>(
+                        dto.getDrives()
+                        .stream()
+                        .map(Drive::new)
+                        .collect(Collectors.toList())),
+                new Organization(dto.getOrganization()));
     }
 }

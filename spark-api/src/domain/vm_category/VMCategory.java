@@ -8,6 +8,9 @@ public class VMCategory implements Model<String> {
 	private int ram;
 	private int gpus;
 
+	public VMCategory(String name) {
+		this.name = name;
+	}
 
 	public VMCategory(String name, int cpus, int ram, int gpus) {
 		super();

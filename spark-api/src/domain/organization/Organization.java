@@ -16,6 +16,10 @@ public class Organization implements Model<String> {
 	private List<VirtualMachine> virtualMachines;
 	private List<Drive> drives;
 
+	public Organization(String name) {
+		this.name = name;
+	}
+
 	public Organization(String name, String description, String logo) {
 		this.name = name;
 		this.description = description;

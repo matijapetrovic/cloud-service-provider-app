@@ -2,6 +2,7 @@ package domain.virtual_machine;
 
 import domain.drive.Drive;
 import domain.Model;
+import domain.organization.Organization;
 import domain.vm_category.VMCategory;
 
 import java.util.List;
@@ -10,12 +11,18 @@ public class VirtualMachine implements Model<String> {
 	private String name;
 	private VMCategory category;
 	private List<Drive> drives;
-	
-	public VirtualMachine(String name, VMCategory category, List<Drive> drives) {
+	private Organization organization;
+
+	public VirtualMachine(String name) {
+		this.name = name;
+	}
+
+	public VirtualMachine(String name, VMCategory category, List<Drive> drives, Organization organization) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.drives = drives;
+		this.organization = organization;
 	}
 
 	public String getName() {
@@ -52,6 +59,14 @@ public class VirtualMachine implements Model<String> {
 	
 	public void setDrives(List<Drive> drives) {
 		this.drives = drives;
+	}
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	public boolean addDrive(Drive drive) {

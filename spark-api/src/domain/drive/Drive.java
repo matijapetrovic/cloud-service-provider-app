@@ -12,6 +12,10 @@ public class Drive implements Model<String> {
 	private DriveType type;
 	private int capacity;
 	private VirtualMachine vm;
+
+	public Drive(String name) {
+		this.name = name;
+	}
 	
 	public Drive(String name, DriveType type, int capacity, VirtualMachine vm) {
 		super();

@@ -1,13 +1,14 @@
 package api.virtual_machine;
 
+import api.vm_category.CategoryDTO;
+
 import java.util.List;
 
 public class VirtualMachineDTO {
     private String name;
-    private int cpus;
-    private int ram;
-    private int gpus;
+    private CategoryDTO category;
     private List<String> drives;
+    private String organization;
 
     public VirtualMachineDTO() {
 
@@ -21,16 +22,12 @@ public class VirtualMachineDTO {
         return name;
     }
 
-    public int getGpus() {
-        return gpus;
+    public CategoryDTO getCategory() {
+        return category;
     }
 
-    public int getCpus() {
-        return cpus;
-    }
-
-    public int getRam() {
-        return ram;
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
     }
 
     public void setName(String name) {
@@ -41,15 +38,11 @@ public class VirtualMachineDTO {
         this.drives = drives;
     }
 
-    public void setGpus(int gpus) {
-        this.gpus = gpus;
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setCpus(int cpus) {
-        this.cpus = cpus;
-    }
-
-    public void setRam(int ram) {
-        this.ram = ram;
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 }

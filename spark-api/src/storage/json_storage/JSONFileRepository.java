@@ -72,6 +72,4 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
             App.logger.log(Level.WARNING, "Saving to " + filePath + " failed");
         }
     }
-
-
 }
