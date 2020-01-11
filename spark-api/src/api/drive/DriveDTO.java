@@ -5,12 +5,10 @@ import domain.virtual_machine.VirtualMachine;
 
 public class DriveDTO {
 
-    enum DriveType {SSD, HDD}
-
     private String name;
     private Drive.DriveType type;
     private int capacity;
-    private VirtualMachine vm;
+    private String vm;
 
     public Drive.DriveType getType() {
         return type;
@@ -28,11 +26,11 @@ public class DriveDTO {
         this.capacity = capacity;
     }
 
-    public VirtualMachine getVm() {
+    public String getVm() {
         return vm;
     }
 
-    public void setVm(VirtualMachine vm) {
+    public void setVm(String vm) {
         this.vm = vm;
     }
 

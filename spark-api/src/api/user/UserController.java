@@ -1,12 +1,16 @@
 package api.user;
 
 import application.App;
+import domain.organization.Organization;
 import domain.user.User;
 import domain.user.UserService;
 import domain.user.UserStorage;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
@@ -34,12 +38,9 @@ public class UserController {
 	}
 
 	private Route serveUserPage = (Request request, Response response) -> {
-		response.type("application/json");
-		User currentUser = request.attribute("loggedIn");
-
 		response.status(200);
-
-		return App.g.toJson(UserMapper.toUserDTOList(service.getAll()));
+		List<User> users = applyRoleFilter(request, service.getAll());
+		return App.g.toJson(UserMapper.toUserDTOList(users));
 	};
 
 	private Route serveCurrentUser = (Request request, Response response) -> {
@@ -87,5 +88,17 @@ public class UserController {
 		response.status(200);
 		return "OK";
 	};
+
+	private List<User> applyRoleFilter(Request request, List<User> users) {
+		User user = request.attribute("loggedIn");
+		if (user.getRole().equals(User.Role.SUPER_ADMIN))
+			return users;
+
+		Organization org = user.getOrganization();
+		return users
+				.stream()
+					.filter(x -> org.getUsers().contains(x))
+				.collect(Collectors.toList());
+	}
 
 }

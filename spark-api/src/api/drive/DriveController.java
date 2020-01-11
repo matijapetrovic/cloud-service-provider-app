@@ -4,10 +4,15 @@ import application.App;
 import domain.drive.Drive;
 import domain.drive.DriveService;
 import domain.drive.DriveStorage;
+import domain.organization.Organization;
 import domain.user.User;
+import domain.virtual_machine.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
@@ -34,18 +39,9 @@ public class DriveController {
     }
 
     private  Route handleGetAll = (Request request, Response response) -> {
-        User currentUser = request.attribute("loggedIn");
 
-        switch(currentUser.getRole()) {
-            case SUPER_ADMIN:
-                return App.g.toJson(DriveMapper.toDriveDTOList(service.getAll()));
-            case ADMIN:
-            case USER:
-                return App.g.toJson(DriveMapper.toDriveDTOList(service.getAllDrivesFromSameOrganization(currentUser)));
-            default:
-                response.status(500);
-                return "Something went wrong!";
-        }
+        List<Drive> drives = applyRoleFilter(request, service.getAll());
+        return App.g.toJson(DriveMapper.toDriveDTOList(drives));
     };
 
     private Route handleGetSingle = (Request request, Response response) -> {
@@ -97,4 +93,16 @@ public class DriveController {
         response.status(200);
         return "OK";
     };
+
+    private List<Drive> applyRoleFilter(Request request, List<Drive> drives) {
+        User user = request.attribute("loggedIn");
+        if (user.getRole().equals(User.Role.SUPER_ADMIN))
+            return drives;
+
+        Organization org = user.getOrganization();
+        return drives
+                .stream()
+                .filter(x -> org.getDrives().contains(x))
+                .collect(Collectors.toList());
+    }
 }
