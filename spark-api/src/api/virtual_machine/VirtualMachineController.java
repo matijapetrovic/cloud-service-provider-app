@@ -60,7 +60,6 @@ public class VirtualMachineController {
     // TODO : SUPER_ADMIN adds a VM, how to send domain.organization?
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
-
         VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
         service.post(VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(201);

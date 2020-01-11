@@ -12,9 +12,11 @@ public class VirtualMachineReferenceBuilder {
 
     public void buildReferences(VirtualMachine virtualMachine) {
             buildDriveReferences(virtualMachine);
+            buildCategoryReference(virtualMachine);
+            buildOrganizationReference(virtualMachine);
     }
 
-    public void buildDriveReferences(VirtualMachine virtualMachine) {
+    private void buildDriveReferences(VirtualMachine virtualMachine) {
         for (int i = 0; i < virtualMachine.getDrives().size(); i++)
             virtualMachine.updateDrive(i, context.getDrivesRepository()
                     .findByKey(virtualMachine
@@ -22,5 +24,21 @@ public class VirtualMachineReferenceBuilder {
                             .get(i)
                             .getName())
                     .orElse(null));
+    }
+
+    private void buildOrganizationReference(VirtualMachine virtualMachine) {
+        virtualMachine.setOrganization(context.getOrganizationsRepository()
+                .findByKey(virtualMachine
+                            .getOrganization()
+                            .getName())
+                .orElse(null));
+    }
+
+    private void buildCategoryReference(VirtualMachine virtualMachine) {
+        virtualMachine.setCategory(context.getVmCategoriesRepository()
+                .findByKey(virtualMachine
+                            .getCategory()
+                            .getName())
+                .orElse(null));
     }
 }

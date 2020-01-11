@@ -55,6 +55,5 @@ public class App {
 
         new CategoryController(
                 new CategoryJSONFileStorage(dbContext));
-
     }
 }

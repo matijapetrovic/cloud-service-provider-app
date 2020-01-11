@@ -11,7 +11,7 @@ public class DriveMapper {
         dto.setName(drive.getName());
         dto.setType(drive.getType());
         dto.setCapacity(drive.getCapacity());
-        dto.setVm(drive.getVm());
+        dto.setVm(drive.getVm().getName());
 
         return dto;
     }
