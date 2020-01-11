@@ -9,8 +9,10 @@ import domain.virtual_machine.VirtualMachine;
 import domain.vm_category.VMCategory;
 
 import storage.json_storage.drive.serializing.DriveSerializer;
+import storage.json_storage.organization.OrganizationReferenceBuilder;
 import storage.json_storage.organization.serializing.OrganizationSerializer;
 import storage.json_storage.user.serializing.UserSerializer;
+import storage.json_storage.virtual_machine.VirtualMachineReferenceBuilder;
 import storage.json_storage.virtual_machine.serializing.VirtualMachineSerializer;
 import storage.json_storage.vm_category.serializing.CategorySerializer;
 
@@ -21,8 +23,12 @@ public class JSONDbContext {
     private JSONFileRepository<String, Drive> drivesRepository;
     private JSONFileRepository<String, VMCategory> vmCategoriesRepository;
 
+    private OrganizationReferenceBuilder organizationReferenceBuilder;
+    private VirtualMachineReferenceBuilder virtualMachineReferenceBuilder;
+
     public JSONDbContext(String directoryName) {
         initRepositories(directoryName);
+        initReferenceBuilders();
         buildReferences();
     }
 
@@ -39,11 +45,16 @@ public class JSONDbContext {
                 Utility.joinPath(directoryName, "categories.json"));
     }
 
+    private void initReferenceBuilders() {
+        virtualMachineReferenceBuilder = new VirtualMachineReferenceBuilder(this);
+        organizationReferenceBuilder = new OrganizationReferenceBuilder(this);
+    }
+
     private void buildReferences() {
         buildUserReferences();
-        buildOrganizationsReferences();
-        buildVirtualMachineReferences();
         buildDriveReferences();
+        buildVirtualMachineReferences();
+        buildOrganizationsReferences();
     }
 
     private void buildUserReferences() {
@@ -59,48 +70,6 @@ public class JSONDbContext {
                         });
     }
 
-    private void buildOrganizationsReferences() {
-        organizationsRepository.data
-                .forEach(
-                        organization -> {
-                            for (int i = 0; i < organization.getUsers().size(); i++)
-                                organization.updateUser(i, usersRepository
-                                                            .findByKey(organization
-                                                                    .getUsers()
-                                                                    .get(i)
-                                                                    .getEmail())
-                                                                    .orElse(null));
-                            for (int i = 0; i < organization.getVirtualMachines().size(); i++)
-                                organization.updateVirtualMachine(i, virtualMachinesRepository
-                                                            .findByKey(organization
-                                                                    .getVirtualMachines()
-                                                                    .get(i)
-                                                                    .getName())
-                                                                    .orElse(null));
-                            for (int i = 0; i < organization.getDrives().size(); i++)
-                                organization.updateDrive(i, drivesRepository
-                                        .findByKey(organization
-                                                .getDrives()
-                                                .get(i)
-                                                .getName())
-                                        .orElse(null));
-                        });
-    }
-
-    private void buildVirtualMachineReferences() {
-        virtualMachinesRepository.data
-                .forEach(
-                        virtualMachine -> {
-                            for (int i = 0; i < virtualMachine.getDrives().size(); i++)
-                                virtualMachine.updateDrive(i, drivesRepository
-                                        .findByKey(virtualMachine
-                                                .getDrives()
-                                                .get(i)
-                                                .getName())
-                                        .orElse(null));
-                        });
-    }
-
     private void buildDriveReferences() {
         drivesRepository.data
                 .forEach(
@@ -111,6 +80,15 @@ public class JSONDbContext {
                                             .getName())
                                             .orElse(null));
                         });
+    }
+    private void buildVirtualMachineReferences() {
+        virtualMachinesRepository.data
+                .forEach(virtualMachineReferenceBuilder::buildReferences);
+    }
+
+    private void buildOrganizationsReferences() {
+        organizationsRepository.data
+                .forEach(organizationReferenceBuilder::buildReferences);
     }
 
     public JSONFileRepository<String, Drive> getDrivesRepository() {
@@ -127,6 +105,10 @@ public class JSONDbContext {
 
     public JSONFileRepository<String, VirtualMachine> getVirtualMachinesRepository() {
         return virtualMachinesRepository;
+    }
+
+    public VirtualMachineReferenceBuilder getVirtualMachineReferenceBuilder() {
+        return virtualMachineReferenceBuilder;
     }
 
     public JSONFileRepository<String, VMCategory> getVmCategoriesRepository() {

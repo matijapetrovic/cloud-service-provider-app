@@ -15,7 +15,7 @@ if (token) {
 const router = new VueRouter({
     mode : 'hash',
     routes : [
-        { path: '/', component: UsersPage, meta: {title: 'Home', requiresAuth: true}},
+        { path: '/', component: VMPage, meta: {title: 'Home', requiresAuth: true}},
         { path: '/login', component: LoginPage, meta: { title: 'Login', requiresAuth: false}},
         { path: '/organizations', component: OrganizationsPage, meta: { title: 'Organizations', requiresAuth: true} },
         { path: '/users', component: UsersPage, meta: { title: 'Users', requiresAuth: true }},

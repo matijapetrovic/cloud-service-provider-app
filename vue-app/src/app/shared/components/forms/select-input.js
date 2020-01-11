@@ -5,29 +5,31 @@ Vue.component('select-input',{
                <slot></slot>
             </label>  
             <div> 
-                <select 
-                v-model="orgVal"
-                v-bind:options="options"
-                required="required"
+                <select
+                    class="selectpicker"
+                    :name="name"
+                    :required="required"
+                    :multiple="multiple"
                 >
-                    <option disabled value="">Please select one</option>
-                    <option v-for="item in options" :value="item">{{item.name}}</option>
-                </select>   
+                    <option v-if="required" disabled value="">Please select one</option>
+                    <option v-for="item in options" :value="item">{{item}}</option>
+                </select>
             </div>
         </div>
     `,
     props: {
         name: String,
         value: '',
+        options: {
+            type: Array
+        },
         required: {
             type: Boolean,
             default: false
-        }
-    },
-    data : function () {
-        return {
-            options : null,
-            orgVal: null
+        },
+        multiple: {
+            type: Boolean,
+            default: false
         }
     }
 })

@@ -30,6 +30,10 @@ public class User  implements Model<String> {
 	private String surname;
 	private Organization organization;
 	private Role role;
+
+	public User(String email) {
+		this.email = email;
+	}
 	
 	public User(String email, String password, String name, String surname, Organization organization, Role role) {
 		super();

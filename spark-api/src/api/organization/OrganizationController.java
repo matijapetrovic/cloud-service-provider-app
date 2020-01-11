@@ -72,6 +72,9 @@ public class OrganizationController {
 
     private static void ensureUserCanAccessOrganization(Request request, String name) {
         User loggedIn = request.attribute("loggedIn");
+        if (loggedIn.getRole().equals(User.Role.SUPER_ADMIN))
+            return;
+
         if (userOrganizationNameNotEqualTo(name, loggedIn))
             halt(403, "Forbidden");
     }

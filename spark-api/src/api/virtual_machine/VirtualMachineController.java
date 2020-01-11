@@ -51,17 +51,18 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
+        // temporary
+        VirtualMachineDTO dto = VirtualMachineMapper.toVirtualMachineDTO(virtualMachine);
         response.status(200);
-        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(virtualMachine));
+        return App.g.toJson(dto);
     };
 
     // TODO : SUPER_ADMIN adds a VM, how to send domain.organization?
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
-        VirtualMachine virtualMachine = App.g.fromJson(request.body(), VirtualMachine.class);
-        // dodaj za admina da mu se poveze vm sa organizacijom
 
-        service.post(virtualMachine);
+        VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
+        service.post(VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(201);
         return "Created";
     };
@@ -105,6 +106,8 @@ public class VirtualMachineController {
 
     private static void ensureUserCanAccessVirtualMachine(Request request, VirtualMachine virtualMachine) {
         User loggedIn = request.attribute("loggedIn");
+        if (loggedIn.getRole().equals(User.Role.SUPER_ADMIN))
+            return;
         if (!userOrganizationContainsVirtualMachine(virtualMachine, loggedIn))
             halt(403, "Forbidden");
     }

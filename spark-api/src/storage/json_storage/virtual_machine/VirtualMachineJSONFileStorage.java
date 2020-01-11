@@ -10,9 +10,11 @@ import java.util.Optional;
 
 public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
     private JSONFileRepository<String, VirtualMachine> repository;
+    private VirtualMachineReferenceBuilder referenceBuilder;
 
     public VirtualMachineJSONFileStorage(JSONDbContext context) {
         repository = context.getVirtualMachinesRepository();
+        referenceBuilder = context.getVirtualMachineReferenceBuilder();
     }
 
     @Override
@@ -30,6 +32,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
         if (repository.findByKey(entity.getKey()).isPresent())
             return false;
 
+        referenceBuilder.buildReferences(entity);
         repository.save(entity);
         return true;
     }
