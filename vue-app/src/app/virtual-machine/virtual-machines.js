@@ -65,14 +65,14 @@ Vue.component("virtual-machines-page", {
             this.removeAddValidation();
             $('#' + this.addModalId).modal('hide');
         },
-        addOrganization(organization) {
-            this.$refs.table.addOrganization(organization);
+        addVirtualMachine(organization) {
+            this.$refs.table.addVirtualMachine(organization);
         },
-        updateOrganization(organization) {
-            this.$refs.table.updateOrganization(organization);
+        updateVirtualMachine(organization) {
+            this.$refs.table.updateVirtualMachine(organization);
         },
-        viewOrganization(name) {
-            this.$refs.viewForm.getOrganization(name);
+        viewVirtualMachine(name) {
+            this.$refs.viewForm.getVirtualMachine(name);
         }
     }
 });
