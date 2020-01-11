@@ -18,20 +18,19 @@ Vue.component('change-profile-form',{
         <text-input
             name="name"
             v-model="user.name"
+            required
         >
             Name
         </text-input>
         <text-input
             name="surname"
             v-model="user.surname"
+            required
         >
             Surname
         </text-input>
 
-        <password-confirm-input
-            v-model="user.password"
-        >
-        </password-confirm-input>
+       
     </main-form>
     
     `,

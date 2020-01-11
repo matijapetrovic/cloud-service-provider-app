@@ -5,10 +5,10 @@ Vue.component("users-page",{
             <super-admin-page></super-admin-page>
         </div>
         <div v-else-if="role==='ADMIN'">
-            <super-admin-page></super-admin-page>
+            <admin-page></admin-page>
         </div>
         <div v-else="role==='USER'">
-            <admin-page></admin-page>
+            
         </div>    
     </base-layout>
     `

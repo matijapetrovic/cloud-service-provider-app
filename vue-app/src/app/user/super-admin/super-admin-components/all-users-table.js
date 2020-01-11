@@ -6,10 +6,10 @@ Vue.component("all-users-table",{
                     <th>Email</th>
                     <th>Name</th>
                     <th>Surname</th>
-                    <th>Organization</th>
+                    <th v-if="currentUserRole !== 'ADMIN'">Organization</th>
                 </tr>
             </thead>
-            <!-- Check printing currentUser in table -->
+            <!-- Check printing super_admin in table -->
             <tr v-for="user in users" v-if="user.role !== 'SUPER_ADMIN'">
                 <td>
                 <a
@@ -21,7 +21,7 @@ Vue.component("all-users-table",{
                  </a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
-                <td>{{user.organization.name}}</td>
+                <td v-if="currentUserRole !== 'ADMIN'">{{user.organization.name}}</td>
             </tr>
         </table>
 
@@ -32,7 +32,8 @@ Vue.component("all-users-table",{
     },
     data: function(){
         return {
-            users: null           
+            users: null,   
+            currentUserRole : null     
         }
     },
     mounted () {
@@ -40,6 +41,8 @@ Vue.component("all-users-table",{
             .get('api/users')
             .then(response => {
                 this.users = response.data;
+                let currentUser = JSON.parse(localStorage.getItem("user"));
+                this.currentUserRole = currentUser.role;
             })
     },
     methods: {

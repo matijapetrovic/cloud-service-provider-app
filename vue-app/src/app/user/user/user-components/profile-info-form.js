@@ -106,18 +106,15 @@ Vue.component("profile-info", {
             },
             loaded: false,
             users : null
-
         }
     },
     mounted(){
-        let currentUser = JSON.parse(localStorage.getItem("user"));
-        this.user = currentUser; 
-        this.loaded = true;  
-        
+            
         axios
-        .get('api/users')
+        .get('api/users/currentUser')
         .then(response => {
-            this.users = response.data;   
+            this.user = response.data; 
+            this.loaded = true;    
         });
     },
     methods:{

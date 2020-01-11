@@ -18,8 +18,7 @@ Vue.component("drives-from-organization-table", {
             </tr>
         </table>
     </div>
-        `
-         ,
+    `,
         props : {
             viewModalId : String
         },

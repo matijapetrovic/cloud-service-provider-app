@@ -21,6 +21,11 @@ Vue.component("view-drive-form", {
             >
                 Type
             </text-input>
+            <select-type
+            v-model="drive.type"
+            required
+            >
+            </select-type>
             <number-input
                 name="capacity"
                 v-model="drive.capacity"
@@ -28,7 +33,6 @@ Vue.component("view-drive-form", {
                 Capacity
             </number-input>
 
-            </select-role>
             <button
                 class="btn btn-outline-secondary pull-right"
                 id='deleteButton'
