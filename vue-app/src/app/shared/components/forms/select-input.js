@@ -9,6 +9,7 @@ Vue.component('select-input',{
                     :name="name"
                     :required="required"
                     :multiple="multiple"
+                    :value="value"
                     @input="$emit('input', $event.target.value)"
                 >
                     <option v-if="required" disabled value="" selected>Please select one</option>
@@ -19,7 +20,7 @@ Vue.component('select-input',{
     `,
     props: {
         name: String,
-        value: String,
+        value: String | Array,
         options: {
             type: Array
         },

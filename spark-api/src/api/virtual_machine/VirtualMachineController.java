@@ -40,7 +40,7 @@ public class VirtualMachineController {
     private Route handleGetAll = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.USER);
 
-        List<VirtualMachine> virtualMachines = applyRoleFilter(request, service.getAll());
+        List<VirtualMachine> virtualMachines = applyQuery(request, applyRoleFilter(request, service.getAll()));
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTOList(virtualMachines));
     };
 
@@ -101,6 +101,17 @@ public class VirtualMachineController {
             .stream()
             .filter(x -> org.getVirtualMachines().contains(x))
             .collect(Collectors.toList());
+    }
+
+    private List<VirtualMachine> applyQuery(Request request, List<VirtualMachine> virtualMachines) {
+        List<VirtualMachine> result = virtualMachines;
+        if (request.queryParams("name") != null) {
+            result = virtualMachines
+                        .stream()
+                        .filter(vm -> vm.getName().contains(request.queryParams("name")))
+                        .collect(Collectors.toList());
+        }
+        return result;
     }
 
     private static void ensureUserCanAccessVirtualMachine(Request request, VirtualMachine virtualMachine) {
