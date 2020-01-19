@@ -1,1 +1,14 @@
-[{"name":"Cat1","cpus":5,"ram":100,"gpus":20},{"name":"Cat2","cpus":123,"ram":321,"gpus":123}]
+[
+    {
+        "name": "Cat1",
+        "cpus": 5,
+        "ram": 100,
+        "gpus": 20
+    },
+    {
+        "name": "Cat2",
+        "cpus": 123,
+        "ram": 321,
+        "gpus": 123
+    }
+]

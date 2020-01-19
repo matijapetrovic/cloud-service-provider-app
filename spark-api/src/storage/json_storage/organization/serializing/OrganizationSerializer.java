@@ -1,5 +1,6 @@
 package storage.json_storage.organization.serializing;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.GsonBuilder;
 import domain.organization.Organization;
 import storage.json_storage.JSONSerializer;
@@ -11,13 +12,8 @@ import java.util.*;
 
 public class OrganizationSerializer extends JSONSerializer<Organization> {
 
-    public OrganizationSerializer() {
-        gson = new GsonBuilder()
-                .addSerializationExclusionStrategy(
-                        new OrganizationExclusionStrategy())
-                .addDeserializationExclusionStrategy(
-                        new OrganizationExclusionStrategy())
-                .create();
+    public OrganizationSerializer(ExclusionStrategy strategy) {
+        super(strategy);
     }
 
     @Override

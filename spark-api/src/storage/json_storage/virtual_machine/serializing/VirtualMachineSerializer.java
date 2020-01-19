@@ -1,5 +1,6 @@
 package storage.json_storage.virtual_machine.serializing;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.GsonBuilder;
 import domain.virtual_machine.VirtualMachine;
 import storage.json_storage.JSONSerializer;
@@ -12,13 +13,8 @@ import java.util.List;
 
 public class VirtualMachineSerializer extends JSONSerializer<VirtualMachine> {
 
-    public VirtualMachineSerializer() {
-        gson = new GsonBuilder()
-                .addSerializationExclusionStrategy(
-                        new VirtualMachineExclusionStrategy())
-                .addDeserializationExclusionStrategy(
-                        new VirtualMachineExclusionStrategy())
-                .create();
+    public VirtualMachineSerializer(ExclusionStrategy strategy) {
+        super(strategy);
     }
 
     @Override

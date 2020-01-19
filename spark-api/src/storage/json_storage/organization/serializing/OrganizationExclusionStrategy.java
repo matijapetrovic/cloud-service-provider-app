@@ -2,6 +2,7 @@ package storage.json_storage.organization.serializing;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
+import domain.drive.Drive;
 import domain.user.User;
 import domain.virtual_machine.VirtualMachine;
 
@@ -13,6 +14,10 @@ public class OrganizationExclusionStrategy implements ExclusionStrategy {
             return true;
 
         if (field.getDeclaringClass() == VirtualMachine.class &&
+                !field.getName().equals("name"))
+            return true;
+
+        if (field.getDeclaringClass() == Drive.class &&
                 !field.getName().equals("name"))
             return true;
 

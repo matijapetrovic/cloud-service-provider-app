@@ -39,7 +39,12 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
 
     @Override
     public boolean update(String name, VirtualMachine entity) {
-        repository.save(entity);
+        Optional<VirtualMachine> toUpdate = repository.findByKey(name);
+        if (!toUpdate.isPresent())
+            return false;
+
+        referenceBuilder.buildReferences(entity);
+        toUpdate.get().update(entity);
         return true;
     }
 

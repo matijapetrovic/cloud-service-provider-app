@@ -25,6 +25,20 @@ public class VirtualMachine implements Model<String> {
 		this.organization = organization;
 	}
 
+	public void update(VirtualMachine other) {
+		if (other.name != null)
+			this.name = other.name;
+
+		if (other.category != null)
+			this.category = other.category;
+
+		if (other.drives != null)
+			this.drives = other.drives;
+
+		if (other.organization != null)
+			this.organization = other.organization;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -120,7 +134,6 @@ public class VirtualMachine implements Model<String> {
 			return false;
 		return true;
 	}
-
 
 	@Override
 	public String getKey() {

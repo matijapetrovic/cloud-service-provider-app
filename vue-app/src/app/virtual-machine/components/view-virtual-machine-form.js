@@ -17,7 +17,7 @@ Vue.component("view-vm-form", {
         </text-input>
         <select-input
             name="category"
-            v-model="virtualMachine.category"
+            v-model="virtualMachine.category.name"
             v-bind:options="categories"
             required
         >
@@ -46,7 +46,7 @@ Vue.component("view-vm-form", {
         return {
             virtualMachine: {
                 name: null,
-                category: null,
+                category: { name: ""},
                 drives: [],
                 organization: null
             },
@@ -61,12 +61,36 @@ Vue.component("view-vm-form", {
                 .get('/api/virtualmachines/' + name)
                 .then(response => {
                     this.virtualMachine = response.data;
+                    this.getCategories();
+                    this.getDrives();
+                    this.getOrganizations();
                 });
+        },
+        getCategories: function() {
+            axios
+            .get('/api/categories')
+            .then(response => {
+                this.categories = response.data.map(cat => cat.name);
+            });
+        },
+        getDrives: function() {
+            axios
+            .get('api/drives?organization=' + this.virtualMachine.organization)
+            .then(response => {
+                this.drives = response.data.map(drive => drive.name);
+            });
+        },
+        getOrganizations: function() {
+            axios
+            .get('api/organizations')
+            .then(response => {
+                this.organizations = response.data.map(organization => organization.name);
+            });
         },
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedVirtualMachine', this.virtualMachine);
-                alert('Adding virtual machine successful');
+                alert('Updating virtual machine successful');
                 this.$emit('submit')
             }
             // useless
@@ -76,10 +100,10 @@ Vue.component("view-vm-form", {
         },
         submitForm: function() {
             axios
-                .put('/api/virtualmachines/update', 
+                .put('/api/virtualmachines/update/' + this.virtualMachine.name, 
                 {
                     "name": this.virtualMachine.name,
-                    "category": {"name": this.virtualMachine.category },
+                    "category": this.virtualMachine.category,
                     "drives": this.virtualMachine.drives instanceof Array ? this.virtualMachine.drives : [ this.virtualMachine.drives ],
                     "organization": this.virtualMachine.organization
                 })
@@ -87,22 +111,5 @@ Vue.component("view-vm-form", {
                     this.checkResponse(response);
                 });
         }
-    },
-    mounted() {
-        axios
-        .get('/api/categories')
-        .then(response => {
-            this.categories = response.data.map(cat => cat.name);
-        });
-        axios
-        .get('api/drives')
-        .then(response => {
-            this.drives = response.data.map(drive => drive.name);
-        });
-        axios
-        .get('api/organizations')
-        .then(response => {
-            this.organizations = response.data.map(organization => organization.name);
-        });
     }
 });

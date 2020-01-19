@@ -1,5 +1,6 @@
 package storage.json_storage.drive.serializing;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.GsonBuilder;
 import application.App;
 import domain.drive.Drive;
@@ -13,13 +14,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class DriveSerializer extends JSONSerializer<Drive> {
-    public DriveSerializer() {
-        gson = new GsonBuilder()
-                .addSerializationExclusionStrategy(
-                        new DriveExclusionStrategy())
-                .addDeserializationExclusionStrategy(
-                        new DriveExclusionStrategy())
-                .create();
+    public DriveSerializer(ExclusionStrategy strategy) {
+        super(strategy);
     }
 
     @Override

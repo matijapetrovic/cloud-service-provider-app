@@ -41,6 +41,7 @@ public class DriveController {
     private  Route handleGetAll = (Request request, Response response) -> {
 
         List<Drive> drives = applyRoleFilter(request, service.getAll());
+        // TODO : proveriti i filtrirati po query parametrima
         return App.g.toJson(DriveMapper.toDriveDTOList(drives));
     };
 

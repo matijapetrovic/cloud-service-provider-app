@@ -88,7 +88,7 @@ Vue.component("add-vm-form", {
             this.categories = response.data.map(cat => cat.name);
         });
         axios
-        .get('api/drives')
+        .get('api/drives?organization=' + this.virtualMachine.organization)
         .then(response => {
             this.drives = response.data.map(drive => drive.name);
         });

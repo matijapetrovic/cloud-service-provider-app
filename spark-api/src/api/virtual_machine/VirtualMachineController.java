@@ -73,8 +73,8 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        VirtualMachine toUpdate = App.g.fromJson(request.body(), VirtualMachine.class);
-        service.put(name, toUpdate);
+        VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
+        service.put(name, VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(200);
         return "OK";
     };
