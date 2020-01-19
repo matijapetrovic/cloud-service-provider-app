@@ -12,7 +12,7 @@ Vue.component('select-vms',{
                 required="required"
                 >
                     <option disabled selected value="">Please select one</option>
-                    <option v-for="vm in vms" :value="JSON.stringify(vm)">{{vm.name}}</option>
+                    <option v-for="vm in vms" :value="JSON.stringify(vm)">{{vm}}</option>
                 </select>   
                 <div class="invalid-feedback">
                     Please provide a valid Virtual machine

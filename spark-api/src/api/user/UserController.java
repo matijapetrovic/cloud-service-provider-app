@@ -40,8 +40,13 @@ public class UserController {
 	private Route serveUserPage = (Request request, Response response) -> {
 		response.status(200);
 		List<User> users = applyRoleFilter(request, service.getAll());
-		return App.g.toJson(UserMapper.toUserDTOList(users));
+		List<UserDTO> users1 =  UserMapper.toUserDTOList(allExceptSuperAdmin(users));
+		return App.g.toJson(users1);
 	};
+
+	private List<User> allExceptSuperAdmin ( List<User> users){
+		return users.stream().filter(x -> !x.getRole().equals("SUPER_ADMIN")).collect(Collectors.toList());
+	}
 
 	private Route serveCurrentUser = (Request request, Response response) -> {
 		User currentUser = request.attribute("loggedIn");

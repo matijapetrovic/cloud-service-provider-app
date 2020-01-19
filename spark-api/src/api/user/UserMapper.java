@@ -21,7 +21,8 @@ public class UserMapper {
     public static List<UserDTO> toUserDTOList(List<User> users) {
         return users
                 .stream()
+                .filter(x -> x.getRole() != User.Role.SUPER_ADMIN)
                 .map(UserMapper::toUserDTO)
                 .collect(Collectors.toList());
-    }
+        }
 }

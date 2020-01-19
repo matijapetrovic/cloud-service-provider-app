@@ -84,8 +84,7 @@ Vue.component('password-confirm-input', {
                 .then(response => {
                     this.checkResponse(response);
                 });
-            }
-            
+            }  
         },
         checkResponse: function (response) {
             if (response.status === 200) {

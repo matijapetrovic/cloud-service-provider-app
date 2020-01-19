@@ -21,11 +21,14 @@ Vue.component("view-drive-form", {
             >
                 Type
             </text-input>
+
             <select-type
             v-model="drive.type"
             required
             >
+                Type
             </select-type>
+
             <number-input
                 name="capacity"
                 v-model="drive.capacity"
@@ -52,7 +55,6 @@ Vue.component("view-drive-form", {
             }
         }
     },
-    
     methods: {
         getDrive: function(name) {
             axios
