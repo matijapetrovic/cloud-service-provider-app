@@ -40,7 +40,7 @@ public class VirtualMachineController {
     private Route handleGetAll = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.USER);
 
-        List<VirtualMachine> virtualMachines = applyRoleFilter(request, service.getAll());
+        List<VirtualMachine> virtualMachines = applyQuery(request, applyRoleFilter(request, service.getAll()));
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTOList(virtualMachines));
     };
 
@@ -60,7 +60,6 @@ public class VirtualMachineController {
     // TODO : SUPER_ADMIN adds a VM, how to send domain.organization?
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
-
         VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
         service.post(VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(201);
@@ -74,8 +73,8 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        VirtualMachine toUpdate = App.g.fromJson(request.body(), VirtualMachine.class);
-        service.put(name, toUpdate);
+        VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
+        service.put(name, VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(200);
         return "OK";
     };
@@ -102,6 +101,17 @@ public class VirtualMachineController {
             .stream()
             .filter(x -> org.getVirtualMachines().contains(x))
             .collect(Collectors.toList());
+    }
+
+    private List<VirtualMachine> applyQuery(Request request, List<VirtualMachine> virtualMachines) {
+        List<VirtualMachine> result = virtualMachines;
+        if (request.queryParams("name") != null) {
+            result = virtualMachines
+                        .stream()
+                        .filter(vm -> vm.getName().contains(request.queryParams("name")))
+                        .collect(Collectors.toList());
+        }
+        return result;
     }
 
     private static void ensureUserCanAccessVirtualMachine(Request request, VirtualMachine virtualMachine) {

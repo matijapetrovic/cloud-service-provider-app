@@ -8,12 +8,17 @@ import domain.user.User;
 import domain.virtual_machine.VirtualMachine;
 import domain.vm_category.VMCategory;
 
+import storage.json_storage.drive.serializing.DriveExclusionStrategy;
 import storage.json_storage.drive.serializing.DriveSerializer;
 import storage.json_storage.organization.OrganizationReferenceBuilder;
+import storage.json_storage.organization.serializing.OrganizationExclusionStrategy;
 import storage.json_storage.organization.serializing.OrganizationSerializer;
+import storage.json_storage.user.serializing.UserExclusionStrategy;
 import storage.json_storage.user.serializing.UserSerializer;
 import storage.json_storage.virtual_machine.VirtualMachineReferenceBuilder;
+import storage.json_storage.virtual_machine.serializing.VirtualMachineExclusionStrategy;
 import storage.json_storage.virtual_machine.serializing.VirtualMachineSerializer;
+import storage.json_storage.vm_category.serializing.CategoryExclusionStrategy;
 import storage.json_storage.vm_category.serializing.CategorySerializer;
 
 public class JSONDbContext {
@@ -33,15 +38,20 @@ public class JSONDbContext {
     }
 
     private void initRepositories(String directoryName) {
-        organizationsRepository = new JSONFileRepository<>(new OrganizationSerializer(),
+        organizationsRepository = new JSONFileRepository<>(
+                new OrganizationSerializer(new OrganizationExclusionStrategy()),
                 Utility.joinPath(directoryName, "organizations.json"));
-        usersRepository = new JSONFileRepository<>(new UserSerializer(),
+        usersRepository = new JSONFileRepository<>(
+                new UserSerializer(new UserExclusionStrategy()),
                 Utility.joinPath(directoryName, "users.json"));
-        virtualMachinesRepository = new JSONFileRepository<>(new VirtualMachineSerializer(),
+        virtualMachinesRepository = new JSONFileRepository<>(
+                new VirtualMachineSerializer(new VirtualMachineExclusionStrategy()),
                 Utility.joinPath(directoryName, "vms.json"));
-        drivesRepository = new JSONFileRepository<>(new DriveSerializer(),
+        drivesRepository = new JSONFileRepository<>(
+                new DriveSerializer(new DriveExclusionStrategy()),
                 Utility.joinPath(directoryName, "drives.json"));
-        vmCategoriesRepository = new JSONFileRepository<>(new CategorySerializer(),
+        vmCategoriesRepository = new JSONFileRepository<>(
+                new CategorySerializer(new CategoryExclusionStrategy()),
                 Utility.joinPath(directoryName, "categories.json"));
     }
 

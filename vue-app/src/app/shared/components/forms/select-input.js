@@ -6,12 +6,13 @@ Vue.component('select-input',{
             </label>  
             <div> 
                 <select
-                    class="selectpicker"
                     :name="name"
                     :required="required"
                     :multiple="multiple"
+                    :value="value"
+                    @input="$emit('input', $event.target.value)"
                 >
-                    <option v-if="required" disabled value="">Please select one</option>
+                    <option v-if="required" disabled value="" selected>Please select one</option>
                     <option v-for="item in options" :value="item">{{item}}</option>
                 </select>
             </div>
@@ -19,7 +20,7 @@ Vue.component('select-input',{
     `,
     props: {
         name: String,
-        value: '',
+        value: String | Array,
         options: {
             type: Array
         },

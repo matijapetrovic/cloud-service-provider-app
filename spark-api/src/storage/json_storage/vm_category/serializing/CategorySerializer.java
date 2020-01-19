@@ -1,5 +1,6 @@
 package storage.json_storage.vm_category.serializing;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.GsonBuilder;
 
 import domain.vm_category.VMCategory;
@@ -12,13 +13,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class CategorySerializer extends JSONSerializer<VMCategory> {
-    public CategorySerializer() {
-        gson = new GsonBuilder()
-                .addSerializationExclusionStrategy(
-                        new CategoryExclusionStrategy())
-                .addDeserializationExclusionStrategy(
-                        new CategoryExclusionStrategy())
-                .create();
+    public CategorySerializer(ExclusionStrategy strategy) {
+        super(strategy);
     }
 
     @Override

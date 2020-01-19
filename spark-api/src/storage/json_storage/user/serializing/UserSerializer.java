@@ -1,5 +1,6 @@
 package storage.json_storage.user.serializing;
 
+import com.google.gson.ExclusionStrategy;
 import com.google.gson.GsonBuilder;
 
 import domain.user.User;
@@ -13,13 +14,8 @@ import java.util.List;
 
 public class UserSerializer extends JSONSerializer<User> {
 
-    public UserSerializer() {
-        gson = new GsonBuilder()
-                .addSerializationExclusionStrategy(
-                        new UserExclusionStrategy())
-                .addDeserializationExclusionStrategy(
-                        new UserExclusionStrategy())
-                .create();
+    public UserSerializer(ExclusionStrategy strategy) {
+        super(strategy);
     }
 
     @Override
