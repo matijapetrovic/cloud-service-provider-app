@@ -1,43 +1,52 @@
 Vue.component('password-confirm-input', {
     template: `
-    <form id="demo" @submit.prevent="validateBeforeSubmit()">
-  <div class="input-group">
-    <div class="input-group-addon">
-      Enter Password
-    </div>
-
-    <div class="input-fields">
-      <input v-validate="'required'"
-      name="password"
-      type="password"
-      class="form-control"
-     placeholder="Password" ref="password">
-
-      <input v-validate="'required|confirmed:password'"
-       name="password_confirmation" 
-       type="password" class="form-control"
-        placeholder="Confirm password" data-vv-as="password">
-    </div>
-  </div>
-
-  <div class="alert alert-danger" v-show="errors.any()">
-    <div v-if="errors.has('password')">
-      {{ errors.first('password') }}
-    </div>
-    <div v-if="errors.has('password_confirmation')">
-      {{ errors.first('password_confirmation') }}
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary">
-        Validate!
-    </button>
-</form>
-
+        <main-form 
+            id="viewUserForm"
+            method="PUT"
+            headerText="Change password"
+            buttonText="Change password"
+            v-on:submit="submitForm($event)"
+            ref="form"
+        >
+            <div if="loaded">
+            <text-input
+                name="password"
+                v-model="password"
+                required
+            >
+                Password
+            </text-input>
+            <text-input
+                name="confirm"
+                v-model="confirm"
+                required
+            >
+                Confirm password
+            </text-input>
+            </div>
+        </main-form>
     `
     ,
+    mounted(){
+        axios
+        .get('api/users/currentUser')
+        .then(response => {
+            this.user = response.data;
+            this.loaded = true;
+        });
+    },
     data() {
         return {
+            user : {
+                email: null,
+                password : null,
+                name : null,
+                surname : null,
+                organizaion : {
+                    name: null
+                },
+            },
+            loaded: false,
             errors: [],
             password: null,
             confirm: null
@@ -51,24 +60,45 @@ Vue.component('password-confirm-input', {
         }
     },
     methods: {
-        validateBeforeSubmit: function () {
-            if (this.password === this.confirm) {
-                this.value = this.password;
-                return true;
+        passwordConfirmed: function(){
+           if(this.password !== this.confirm){
+               return false;
+           }
+           return true;
+        },
+        submitForm: function(e) {
+            if(this.password !== this.confirm){
+                alert("Password is not confirmed!");
+            }else{
+                this.user.password = this.password;
+                axios
+                .put('/api/users/update/' + this.user.email, 
+                {
+                    "email": this.user.email,
+                    "password": this.user.password,
+                    "name": this.user.name,
+                    "surname": this.user.surname,
+                    "role" : this.user.role,
+                    "organization" : this.user.organization
+                })
+                .then(response => {
+                    this.checkResponse(response);
+                });
             }
-            if (!this.password && this.confirm) {
-                this.errors.push("Password is empty!");
+            
+        },
+        checkResponse: function (response) {
+            if (response.status === 200) {
+                this.$emit('updatedUser', this.user);
+                alert('Updating user successful');
+                this.$emit('submit')
             }
-            else if (!this.confirm && this.password) {
-                this.errors.push("Password is not confirmed!");
+            else {
+                alert('Error: ' + response.data);
             }
-            else if (this.password !== this.confirm) {
-                this.errors.push("Your password and confirmation password do not match.");
-            }
-
-            e.preventDefault();
             return false;
         }
-    }
+    },
+    
 
 })

@@ -13,7 +13,7 @@ public class UserMapper {
         dto.setName(user.getName());
         dto.setSurname(user.getSurname());
         dto.setRole(user.getRole());
-        dto.setOrganization(user.getOrganization());
+        dto.setOrganization(user.getOrganization().getName());
 
         return dto;
     }

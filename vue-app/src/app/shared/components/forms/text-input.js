@@ -12,6 +12,7 @@ Vue.component("text-input", {
                     v-bind:value="value"
                     v-on:input="$emit('input', $event.target.value)"
                     v-bind:required="required"
+                    v-bind:disabled="disabled"  x    
                 >
                 <div class="invalid-feedback">
                     Please provide a valid {{ name }}
@@ -24,6 +25,10 @@ Vue.component("text-input", {
         name: String,
         value: String,
         required: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }

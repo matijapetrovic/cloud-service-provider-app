@@ -1,6 +1,6 @@
 Vue.component("profile-info", {
     template: `
-    <base-layout v-bind:page-title="$route.meta.title">
+    <base-layout v-bind:page-title="$route.meta.title" class="profile">
         <div v-if="loaded">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
         <div class="panel panel-primary">
@@ -109,7 +109,6 @@ Vue.component("profile-info", {
         }
     },
     mounted(){
-            
         axios
         .get('api/users/currentUser')
         .then(response => {
@@ -126,10 +125,7 @@ Vue.component("profile-info", {
             this.$refs.viewForm.$refs.form.removeValidation();
         },
         updateUser(user) {
-            var el = this.user;
-            var idx = this.users.indexOf(el);
-            this.users.splice(idx, 1);
-            this.users.splice(idx, 0, user);
+           this.user = user;
         }
     }
 });
