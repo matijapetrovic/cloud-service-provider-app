@@ -19,7 +19,6 @@ Vue.component("password-input", {
             </div>
         </div>
     `,
-
     props: {
         name: String,
         value: String,

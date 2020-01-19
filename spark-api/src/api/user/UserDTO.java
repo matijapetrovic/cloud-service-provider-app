@@ -14,7 +14,7 @@ public class UserDTO {
     private String password;
     private String name;
     private String surname;
-    private Organization organization;
+    private String organization;
     private User.Role role;
 
 
@@ -50,11 +50,11 @@ public class UserDTO {
         this.surname = surname;
     }
 
-    public Organization getOrganization() {
+    public String getOrganization() {
         return organization;
     }
 
-    public void setOrganization(Organization organization) {
+    public void setOrganization(String organization) {
         this.organization = organization;
     }
 

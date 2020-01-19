@@ -13,7 +13,7 @@ Vue.component('change-profile-form',{
             v-model="user.email"
             required
         >
-            Password
+            Email
         </text-input>
         <text-input
             name="name"
@@ -30,12 +30,45 @@ Vue.component('change-profile-form',{
             Surname
         </text-input>
 
-       
+        <div class="input-group">
+            <text-input
+            name="surname"
+            v-model="user.password"
+            required
+            disabled
+            >
+                Password
+            </text-input>
+            <button class="btn btn-light h-25" 
+            type="button"
+            data-toggle="modal"
+            v-bind:data-target="'#' + changePasswordModalId"
+            style="margin: 15px 0;"
+            >
+                Change password
+            </button>
+        </div>
+
+        <full-modal
+            @close="removeViewValidation"
+            v-bind:modal-id="changePasswordModalId"
+            modal-title="Change password"
+            
+            >
+                <password-confirm-input
+                    @submit="closeViewModal"
+                    @updatedUser="updateUser($event)"
+                    ref="viewForm"
+                    >
+                    </password-confirm-input>
+            </full-modal>
+    
     </main-form>
     
     `,
     data: function(){
         return {
+            changePasswordModalId: 'changePasswordModalId',
             errors: [],
             user : {
                 email : null,
@@ -56,34 +89,42 @@ Vue.component('change-profile-form',{
             this.email = this.user.email
         ))  
     },
-methods:{
-    checkResponse: function(response) {
-        if (response.status === 200) {
-            this.$emit('updatedUser', this.user);
-            alert('Updating user successful');
-            this.$emit('submit')
+    methods:{
+        updateUser(user) {
+            console.log(user);
+            this.user = user;
+        },
+        removeViewValidation() {
+            this.$refs.viewForm.$refs.form.removeValidation();
+        },
+        closeViewModal() {
+            this.removeViewValidation();
+            $('#' + this.changePasswordModalId).modal('hide');
+        },
+        checkResponse: function(response) {
+            if (response.status === 200) {
+                this.$emit('updatedUser', this.user);
+                alert('Updating user successful');
+                this.$emit('submit')
+            }
+            else {  
+                alert('Error: ' + response.data);
+            }      
+        },
+        submitForm: function(e) {
+            axios
+                .put('/api/users/update/' + this.email, 
+                {
+                    "email": this.user.email,
+                    "password": this.user.password,
+                    "name": this.user.name,
+                    "surname": this.user.surname,
+                    "organization": this.user.organization,
+                    "role" : this.user.role
+                })
+                .then(response => {
+                    this.checkResponse(response);
+                });
+            }
         }
-        else {  
-            alert('Error: ' + response.data);
-        }
-              
-    },
-    submitForm: function(e) {
-        axios
-            .put('/api/users/update/' + this.email, 
-            {
-                "email": this.user.email,
-                "password": this.user.password,
-                "name": this.user.name,
-                "surname": this.user.surname,
-                "organization": this.user.organization,
-                "role" : this.user.role
-            })
-            .then(response => {
-                this.checkResponse(response);
-
-            });
-        }
-    } 
-
 })

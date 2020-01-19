@@ -83,5 +83,4 @@ Vue.component('super-admin-page',{
             this.$refs.viewForm.getUser(email);
         }
     }
-
 })
