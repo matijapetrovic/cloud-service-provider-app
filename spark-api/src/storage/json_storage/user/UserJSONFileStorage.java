@@ -2,16 +2,19 @@ package storage.json_storage.user;
 
 import domain.user.User;
 import domain.user.UserStorage;
+import domain.virtual_machine.VirtualMachine;
 import storage.json_storage.JSONDbContext;
 import storage.json_storage.JSONFileRepository;
 
 import java.util.Optional;
 
 public class UserJSONFileStorage implements UserStorage {
-    JSONFileRepository<String, User> repository;
+    private JSONFileRepository<String, User> repository;
+    private UserReferenceBuilder referenceBuilder;
 
     public UserJSONFileStorage(JSONDbContext context) {
         repository = context.getUsersRepository();
+        referenceBuilder = context.getUserReferenceBuilder();
     }
 
     @Override
@@ -35,9 +38,12 @@ public class UserJSONFileStorage implements UserStorage {
 
     @Override
     public boolean update(String name, User entity) {
-        if (!delete(name))
+        Optional<User> toUpdate = repository.findByKey(name);
+        if (!toUpdate.isPresent())
             return false;
-        repository.save(entity);
+
+        referenceBuilder.buildReferences(entity);
+        toUpdate.get().update(entity);
         return true;
     }
 
@@ -46,6 +52,8 @@ public class UserJSONFileStorage implements UserStorage {
         Optional<User> entity = repository.findByKey(name);
         if (!entity.isPresent())
             return false;
+
+        entity.get().detachOrganization();
 
         repository.delete(entity.get());
         return true;

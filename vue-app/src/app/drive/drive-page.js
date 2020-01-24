@@ -1,6 +1,5 @@
 Vue.component("drive-page",{
     template: `
-
         <base-layout v-bind:page-title="$route.meta.title">
             <div v-if="user.role ==='SUPER_ADMIN'">
                 <super-admin-drive-page></super-admin-drive-page>

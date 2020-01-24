@@ -2,6 +2,7 @@ package domain.user;
 
 import domain.Model;
 import domain.organization.Organization;
+import domain.virtual_machine.VirtualMachine;
 
 public class User  implements Model<String> {
 	public enum Role
@@ -45,6 +46,29 @@ public class User  implements Model<String> {
 		this.role = role;
 	}
 
+	public void update(User other) {
+		if (other.email != null)
+			this.email = other.email;
+
+		if (other.name != null)
+			this.name = other.name;
+
+		if (other.surname != null)
+			this.surname = other.surname;
+
+		if (other.password != null)
+			this.password = other.password;
+
+		if (other.role != null)
+			this.role = other.role;
+
+		if (other.organization != null)
+			this.organization = other.organization;
+	}
+
+	public void detachOrganization(){
+		setOrganization(null);
+	}
 	public String getEmail() {
 		return email;
 	}

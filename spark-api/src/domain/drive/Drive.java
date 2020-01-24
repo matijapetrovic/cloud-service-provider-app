@@ -25,6 +25,21 @@ public class Drive implements Model<String> {
 		this.vm = vm;
 	}
 
+	public void detachVirtualMachine(){
+		setVm(null);
+	}
+
+	public void update(Drive other) {
+		if (other.name != null)
+			this.name = other.name;
+
+		if (other.type != null)
+			this.type = other.type;
+
+		if (other.vm != null)
+			this.vm = other.vm;
+	}
+
 	public DriveType getType() {
 		return type;
 	}

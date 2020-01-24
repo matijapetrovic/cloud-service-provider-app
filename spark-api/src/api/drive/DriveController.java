@@ -39,11 +39,20 @@ public class DriveController {
     }
 
     private  Route handleGetAll = (Request request, Response response) -> {
-
-        List<Drive> drives = applyRoleFilter(request, service.getAll());
-        // TODO : proveriti i filtrirati po query parametrima
+        List<Drive> drives = applyQuery(request, applyRoleFilter(request, service.getAll()));
         return App.g.toJson(DriveMapper.toDriveDTOList(drives));
     };
+
+    private List<Drive> applyQuery(Request request, List<Drive> drives) {
+        List<Drive> result = drives;
+        if (request.queryParams("name") != null) {
+            result = drives
+                    .stream()
+                    .filter(vm -> vm.getName().contains(request.queryParams("name")))
+                    .collect(Collectors.toList());
+        }
+        return result;
+    }
 
     private Route handleGetSingle = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);

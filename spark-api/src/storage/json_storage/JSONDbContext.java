@@ -8,11 +8,13 @@ import domain.user.User;
 import domain.virtual_machine.VirtualMachine;
 import domain.vm_category.VMCategory;
 
+import storage.json_storage.drive.DriveReferenceBuilder;
 import storage.json_storage.drive.serializing.DriveExclusionStrategy;
 import storage.json_storage.drive.serializing.DriveSerializer;
 import storage.json_storage.organization.OrganizationReferenceBuilder;
 import storage.json_storage.organization.serializing.OrganizationExclusionStrategy;
 import storage.json_storage.organization.serializing.OrganizationSerializer;
+import storage.json_storage.user.UserReferenceBuilder;
 import storage.json_storage.user.serializing.UserExclusionStrategy;
 import storage.json_storage.user.serializing.UserSerializer;
 import storage.json_storage.virtual_machine.VirtualMachineReferenceBuilder;
@@ -30,6 +32,8 @@ public class JSONDbContext {
 
     private OrganizationReferenceBuilder organizationReferenceBuilder;
     private VirtualMachineReferenceBuilder virtualMachineReferenceBuilder;
+    private DriveReferenceBuilder driveReferenceBuilder;
+    private UserReferenceBuilder userReferenceBuilder;
 
     public JSONDbContext(String directoryName) {
         initRepositories(directoryName);
@@ -58,6 +62,8 @@ public class JSONDbContext {
     private void initReferenceBuilders() {
         virtualMachineReferenceBuilder = new VirtualMachineReferenceBuilder(this);
         organizationReferenceBuilder = new OrganizationReferenceBuilder(this);
+        driveReferenceBuilder = new DriveReferenceBuilder(this);
+        userReferenceBuilder = new UserReferenceBuilder(this);
     }
 
     private void buildReferences() {
@@ -113,15 +119,17 @@ public class JSONDbContext {
         return usersRepository;
     }
 
-    public JSONFileRepository<String, VirtualMachine> getVirtualMachinesRepository() {
-        return virtualMachinesRepository;
+    public JSONFileRepository<String, VirtualMachine> getVirtualMachinesRepository() { return virtualMachinesRepository; }
+
+    public JSONFileRepository<String, VMCategory> getVmCategoriesRepository() {
+        return vmCategoriesRepository;
     }
 
     public VirtualMachineReferenceBuilder getVirtualMachineReferenceBuilder() {
         return virtualMachineReferenceBuilder;
     }
 
-    public JSONFileRepository<String, VMCategory> getVmCategoriesRepository() {
-        return vmCategoriesRepository;
-    }
+    public DriveReferenceBuilder getDriveReferenceBuilder() {return driveReferenceBuilder;}
+
+    public UserReferenceBuilder getUserReferenceBuilder() {return userReferenceBuilder;}
 }

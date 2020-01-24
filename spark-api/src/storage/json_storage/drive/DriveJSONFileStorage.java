@@ -2,16 +2,20 @@ package storage.json_storage.drive;
 
 import domain.drive.Drive;
 import domain.drive.DriveStorage;
+import domain.virtual_machine.VirtualMachine;
 import storage.json_storage.JSONDbContext;
 import storage.json_storage.JSONFileRepository;
+import storage.json_storage.virtual_machine.VirtualMachineReferenceBuilder;
 
 import java.util.Optional;
 
 public class DriveJSONFileStorage implements DriveStorage {
-    JSONFileRepository<String, Drive> repository;
+    private JSONFileRepository<String, Drive> repository;
+    private DriveReferenceBuilder referenceBuilder;
 
     public DriveJSONFileStorage(JSONDbContext context) {
         repository = context.getDrivesRepository();
+        referenceBuilder = context.getDriveReferenceBuilder();
     }
 
     @Override
@@ -36,9 +40,12 @@ public class DriveJSONFileStorage implements DriveStorage {
     // TODO : promeni kao u VirtualMachineStorage
     @Override
     public boolean update(String name, Drive entity) {
-        if (!delete(name))
+        Optional<Drive> toUpdate = repository.findByKey(name);
+        if (!toUpdate.isPresent())
             return false;
-        repository.save(entity);
+
+        referenceBuilder.buildReferences(entity);
+        toUpdate.get().update(entity);
         return true;
     }
 
@@ -47,6 +54,8 @@ public class DriveJSONFileStorage implements DriveStorage {
         Optional<Drive> entity = repository.findByKey(name);
         if (!entity.isPresent())
             return false;
+
+        entity.get().detachVirtualMachine();
 
         repository.delete(entity.get());
         return true;

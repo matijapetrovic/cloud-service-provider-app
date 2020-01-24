@@ -21,7 +21,7 @@ Vue.component("all-users-table",{
                  </a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
-                <td v-if="currentUserRole !== 'ADMIN'">{{user.organization.name}}</td>
+                <td v-if="currentUserRole !== 'ADMIN'">{{user.organization}}</td>
             </tr>
         </table>
 
