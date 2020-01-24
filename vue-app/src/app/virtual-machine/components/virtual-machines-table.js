@@ -7,6 +7,7 @@ Vue.component("vm-table", {
                     <th>CPUs</th>
                     <th>RAM</th>
                     <th>GPUs</th>
+                    <th>Organization</th>
                 </tr>
             </thead>
 
@@ -21,9 +22,10 @@ Vue.component("vm-table", {
                         {{ virtualMachine.name }}
                     </a>
                 </td>
-                <td>{{ virtualMachine.cpus }}</td>
-                <td>{{ virtualMachine.ram }}</td>
-                <td>{{ virtualMachine.gpus }}</td>
+                <td>{{ virtualMachine.category.cpus }}</td>
+                <td>{{ virtualMachine.category.ram }}</td>
+                <td>{{ virtualMachine.category.gpus }}</td>
+                <td>{{ virtualMachine.organization}}</td>
             </tr>
         </table>
     `, // dodaj v-if na kolonu za organizacije nekako

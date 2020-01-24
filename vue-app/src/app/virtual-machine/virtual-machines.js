@@ -10,6 +10,8 @@ Vue.component("virtual-machines-page", {
             >
                 Add virtual machine
             </button>
+            <search-bar>
+            </search-bar>
             <vm-table
                 @viewVirtualMachine="viewVirtualMachine($event)"
                 v-bind:view-modal-id="viewModalId"

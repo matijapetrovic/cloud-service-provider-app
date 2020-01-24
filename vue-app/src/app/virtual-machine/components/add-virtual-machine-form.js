@@ -34,10 +34,11 @@ Vue.component("add-vm-form", {
         </select-input>
         <select-input
             name="organization"
-            v-model="virtualMachine.organization
+            v-model="virtualMachine.organization"
             v-bind:options="organizations"
             required
         >
+            Organization
         </select-input>
     </main-form>
     `,
@@ -46,7 +47,8 @@ Vue.component("add-vm-form", {
             virtualMachine: {
                 name: null,
                 category: null,
-                drives: []
+                drives: [],
+                organization: null
             },
             categories: [],
             drives: [],
@@ -70,8 +72,8 @@ Vue.component("add-vm-form", {
                 .post('/api/virtualmachines/add', 
                 {
                     "name": this.virtualMachine.name,
-                    "category": this.virtualMachine.category,
-                    "drives": this.virtualMachine.drives,
+                    "category": {"name": this.virtualMachine.category },
+                    "drives": this.virtualMachine.drives instanceof Array ? this.virtualMachine.drives : [ this.virtualMachine.drives ],
                     "organization": this.virtualMachine.organization
                 })
                 .then(response => {
@@ -86,7 +88,7 @@ Vue.component("add-vm-form", {
             this.categories = response.data.map(cat => cat.name);
         });
         axios
-        .get('api/drives')
+        .get('api/drives?organization=' + this.virtualMachine.organization)
         .then(response => {
             this.drives = response.data.map(drive => drive.name);
         });
