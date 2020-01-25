@@ -1,6 +1,13 @@
 Vue.component("all-drives-table",{
     template:`
     <div  v-if="loaded">
+        <search-bar
+        v-model="parameter"
+        @search="sendSearchRequest"
+        >
+        </search-bar>
+
+        
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -14,7 +21,7 @@ Vue.component("all-drives-table",{
                 <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
                 <td>{{ drive.type }}</td>
                 <td>{{ drive.capacity }}</td>
-                <td>{{ drive.vm.name }}</td>
+                <td>{{ drive.vm }}</td>
             </tr>
         </table>
     </div>
@@ -26,6 +33,7 @@ Vue.component("all-drives-table",{
     data: function(){
         return {
             drives: null,
+            parameter: '',
             loaded: false
         }
     },
@@ -38,6 +46,14 @@ Vue.component("all-drives-table",{
             })
     },
     methods: {
+        sendSearchRequest(){
+            axios
+                .get('api/drives?name='+ this.parameter)
+                .then(response => {
+                    this.drives = response.data;
+                    console.log(this.parameter)
+                })
+        },
         addDrive(drive) {
             this.drives.push(drive);
         },

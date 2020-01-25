@@ -14,7 +14,7 @@ Vue.component("drives-from-organization-table", {
                 <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
                 <td>{{ drive.type }}</td>
                 <td>{{ drive.capacity }}</td>
-                <td>{{ drive.vm.name }}</td>
+                <td>{{ drive.vm }}</td>
             </tr>
         </table>
     </div>

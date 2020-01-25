@@ -39,6 +39,8 @@ public class DriveController {
     }
 
     private  Route handleGetAll = (Request request, Response response) -> {
+        System.out.println("Usao");
+        System.out.println(request.queryParams("name"));
         List<Drive> drives = applyQuery(request, applyRoleFilter(request, service.getAll()));
         return App.g.toJson(DriveMapper.toDriveDTOList(drives));
     };
