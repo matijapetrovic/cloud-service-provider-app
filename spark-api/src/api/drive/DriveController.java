@@ -6,7 +6,6 @@ import domain.drive.DriveService;
 import domain.drive.DriveStorage;
 import domain.organization.Organization;
 import domain.user.User;
-import domain.virtual_machine.VirtualMachine;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -29,6 +28,7 @@ public class DriveController {
         path("api", () -> {
             path ("/drives", () -> {
                 get("", handleGetAll);
+                get("/filter", handleFilter);
                 get("/:name", handleGetSingle);
                 get("/organizations/:name", handleDrivesOrganization);
                 post("/add", handlePost);
@@ -39,9 +39,12 @@ public class DriveController {
     }
 
     private  Route handleGetAll = (Request request, Response response) -> {
-        System.out.println("Usao");
-        System.out.println(request.queryParams("name"));
         List<Drive> drives = applyQuery(request, applyRoleFilter(request, service.getAll()));
+        return App.g.toJson(DriveMapper.toDriveDTOList(drives));
+    };
+
+    private  Route handleFilter = (Request request, Response response) -> {
+        List<Drive> drives = applyFilterQuery(request, applyRoleFilter(request, service.getAll()));
         return App.g.toJson(DriveMapper.toDriveDTOList(drives));
     };
 
@@ -51,6 +54,33 @@ public class DriveController {
             result = drives
                     .stream()
                     .filter(vm -> vm.getName().contains(request.queryParams("name")))
+                    .collect(Collectors.toList());
+        }
+        return result;
+    }
+
+    private List<Drive> applyFilterQuery(Request request, List<Drive> drives) {
+        List<Drive> result = drives;
+        if (request.queryParams("type") != null && !request.queryParams("type").equals("null")) {
+            result = result
+                    .stream()
+                    .filter(vm -> vm.getTypeToString().equals(request.queryParams("type")))
+                    .collect(Collectors.toList());
+        }
+        if (request.queryParams("from") != null && !request.queryParams("from").equals("null")) {
+            String fromS = request.queryParams("from");
+            int from = Integer.parseInt(fromS);
+            result = result
+                    .stream()
+                    .filter(vm -> vm.getCapacity() > from)
+                    .collect(Collectors.toList());
+        }
+        if (request.queryParams("to") != null && !request.queryParams("to").equals("null")) {
+            String toS = request.queryParams("to");
+            int to = Integer.parseInt(toS);
+            result = result
+                    .stream()
+                    .filter(vm -> vm.getCapacity() < to)
                     .collect(Collectors.toList());
         }
         return result;

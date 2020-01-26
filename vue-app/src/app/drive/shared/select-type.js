@@ -2,7 +2,7 @@ Vue.component('select-type',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
-                Role
+                Type
             </label>  
             <div> 
                 <select
@@ -10,7 +10,7 @@ Vue.component('select-type',{
                 v-bind:value="value" 
                 v-on:input="$emit('input', $event.target.value)"
                 v-bind:required="required"
-                >
+                >   
                     <option>SSD</option>
                     <option>HDD</option>
                 </select>

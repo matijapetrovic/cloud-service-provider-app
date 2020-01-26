@@ -48,6 +48,8 @@ public class Drive implements Model<String> {
 		this.type = type;
 	}
 
+	public String getTypeToString() { return this.type.toString(); }
+
 	public int getCapacity() {
 		return capacity;
 	}
