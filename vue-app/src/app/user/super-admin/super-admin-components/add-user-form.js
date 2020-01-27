@@ -35,20 +35,23 @@ Vue.component("add-user-form", {
             required
             >
                 Surname
-            </text-input>
-            
-            <select-role
-            v-model="user.role"
-            required
-            >
-            </select-role>
-
-            <select-organization
+            </text-input>     
+            <select-input
+            name="organization"
             v-model="user.organization"
+            v-bind:options="allOrgnizations"
             required
             >
-            {{user.organization}}
-            </select-organization>  
+            Organization
+            </select-input>
+            <select-input
+            name="role"
+            v-model="user.role"
+            v-bind:options="roles"
+            required
+            >
+            Role
+            </select-input>
         </main-form>
     `,
     data : function () {
@@ -60,11 +63,22 @@ Vue.component("add-user-form", {
                 surname: null,
                 organization: null,
                 role : null
-            }
+            },
+            allOrgnizations: [],
+            roles: ["ADMIN", "USER"]
         }
     },
-    methods: {
-        
+    mounted () {
+        this.getOrganizations()
+    },
+    methods: {     
+        getOrganizations: function(){
+                axios
+                .get('api/organizations')
+                .then(response => {
+                    this.allOrgnizations = response.data.map(organization => organization.name);
+                })
+        },
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedUser', this.user);
@@ -83,7 +97,7 @@ Vue.component("add-user-form", {
                     "password": this.user.password,
                     "name": this.user.name,
                     "surname": this.user.surname,
-                    "organization": JSON.parse(this.user.organization),
+                    "organization":{"name": this.user.organization },
                     "role": this.user.role
                 })
                 .then(response => {

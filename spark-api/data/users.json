@@ -1,49 +1,59 @@
 [
-    {
-        "email": "mattheo@gmail.com",
-        "password": "Hasaki",
-        "name": "Admin",
-        "surname": "Petrovic",
-        "role": "SUPER_ADMIN"
+  {
+    "email": "mattheo@gmail.com",
+    "password": "Hasaki",
+    "name": "Admin",
+    "surname": "Petrovic",
+    "role": "SUPER_ADMIN"
+  },
+  {
+    "email": "dragam@gmail.com",
+    "password": "dragan",
+    "name": "Dragan",
+    "surname": "Dragic",
+    "organization": {
+      "name": "Lavovi"
     },
-    {
-        "email": "dragam@gmail.com",
-        "password": "dragan",
-        "name": "Dragan",
-        "surname": "Dragic",
-        "organization": {
-            "name": "Lavovi"
-        },
-        "role": "ADMIN"
+    "role": "ADMIN"
+  },
+  {
+    "email": "ana@gmail.com",
+    "password": "ana",
+    "name": "Ana",
+    "surname": "Naic",
+    "organization": {
+      "name": "Doktori"
     },
-    {
-        "email": "ana@gmail.com",
-        "password": "ana",
-        "name": "Ana",
-        "surname": "Naic",
-        "organization": {
-            "name": "Doktori"
-        },
-        "role": "USER"
+    "role": "USER"
+  },
+  {
+    "email": "nemanja543@gmail.com",
+    "password": "nemanja",
+    "name": "Nemanja",
+    "surname": "Matic",
+    "organization": {
+      "name": "Lavovi"
     },
-    {
-        "email": "nemanja543@gmail.com",
-        "password": "nemanja",
-        "name": "Nemanja",
-        "surname": "Matic",
-        "organization": {
-            "name": "Lavovi"
-        },
-        "role": "ADMIN"
+    "role": "ADMIN"
+  },
+  {
+    "email": "nikola@gmail.com",
+    "password": "nikola",
+    "name": "Admino",
+    "surname": "Adminovovski",
+    "organization": {
+      "name": "Doktori"
     },
-    {
-        "email": "nikola@gmail.com",
-        "password": "nikola",
-        "name": "Admino",
-        "surname": "Adminovovski",
-        "organization": {
-            "name": "Doktori"
-        },
-        "role": "ADMIN"
-    }
+    "role": "ADMIN"
+  },
+  {
+    "email": "blagoje@gmail.com",
+    "password": "jfjasd",
+    "name": "blagoje",
+    "surname": "Miradzic",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "ADMIN"
+  }
 ]

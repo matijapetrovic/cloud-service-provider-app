@@ -2,48 +2,7 @@
   {
     "name": "VM1",
     "category": {
-      "name": "Cat1",
-      "cpus": 5,
-      "ram": 100,
-      "gpus": 20
-    },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
-    "organization": {
-      "name": "Lavovi"
-    }
-  },
-  {
-    "name": "VM2",
-    "category": {
-      "name": "Cat1",
-      "cpus": 5,
-      "ram": 100,
-      "gpus": 20
-    },
-    "drives": [],
-    "organization": {
-      "name": "Doktori",
-      "description": "Mateo i Kabi",
-      "users": [],
-      "virtualMachines": [],
-      "drives": [
-        {
-          "name": "drive1"
-        }
-      ]
-    }
-  },
-  {
-    "name": "VM4",
-    "category": {
-      "name": "Cat2",
-      "cpus": 123,
-      "ram": 321,
-      "gpus": 123
+      "name": "Cat1"
     },
     "drives": [
       {
@@ -61,6 +20,71 @@
         },
         {
           "name": "drive2"
+        }
+      ]
+    }
+  },
+  {
+    "name": "VM2",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori",
+      "description": "Mateo i Kabi",
+      "users": [],
+      "virtualMachines": [],
+      "drives": [
+        {
+          "name": "drive1"
+        }
+      ]
+    }
+  },
+  {
+    "name": "VM4",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
+    "organization": {
+      "name": "Lavovi",
+      "description": "asdgzdg",
+      "users": [],
+      "virtualMachines": [],
+      "drives": [
+        {
+          "name": "drive3"
+        },
+        {
+          "name": "drive2"
+        }
+      ]
+    }
+  },
+  {
+    "name": "vm3",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
+    "organization": {
+      "name": "Doktori",
+      "description": "Mateo i Kabi",
+      "users": [],
+      "virtualMachines": [],
+      "drives": [
+        {
+          "name": "drive1"
         }
       ]
     }

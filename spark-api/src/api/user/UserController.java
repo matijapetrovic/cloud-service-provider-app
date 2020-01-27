@@ -64,7 +64,7 @@ public class UserController {
 
 	private Route handlePost = (Request request, Response response) -> {
 		ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
-
+		System.out.println(request.body());
 		User user = App.g.fromJson(request.body(), User.class);
 		service.post(user);
 

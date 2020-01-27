@@ -37,11 +37,14 @@ Vue.component("admin-add-user-form", {
                 Surname
             </text-input>
             
-            <select-role
+            <select-input
+            name="role"
             v-model="user.role"
+            v-bind:options="roles"
             required
             >
-            </select-role>
+            Role
+            </select-input>
         </main-form>
     `,
    
@@ -57,6 +60,7 @@ Vue.component("admin-add-user-form", {
                 role : null
             },
             organizations : null,
+            roles: ["ADMIN", "USER"]
         }
     },
     mounted () {

@@ -72,7 +72,7 @@ public class DriveController {
             int from = Integer.parseInt(fromS);
             result = result
                     .stream()
-                    .filter(vm -> vm.getCapacity() > from)
+                    .filter(vm -> vm.getCapacity() >= from)
                     .collect(Collectors.toList());
         }
         if (request.queryParams("to") != null && !request.queryParams("to").equals("null")) {
@@ -80,7 +80,7 @@ public class DriveController {
             int to = Integer.parseInt(toS);
             result = result
                     .stream()
-                    .filter(vm -> vm.getCapacity() < to)
+                    .filter(vm -> vm.getCapacity() <= to)
                     .collect(Collectors.toList());
         }
         return result;

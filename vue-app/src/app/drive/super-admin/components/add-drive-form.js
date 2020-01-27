@@ -15,13 +15,14 @@ Vue.component("add-drive-form", {
             >
                 Name
             </text-input>
-            <text-input
-                name="type"
-                v-model="drive.type"
-                required
+            <select-input
+            name="type"
+            v-model="drive.type"
+            v-bind:options="types"
+            required
             >
-                Type
-            </text-input>
+            Type
+            </select-input>
             <number-input 
                 name="Capacity"
                 v-model=drive.capacity
@@ -30,11 +31,14 @@ Vue.component("add-drive-form", {
             Capacity
             </number-input>
             
-            <select-vms
+            <select-input
+            name="virtualmachine"
             v-model="drive.vm"
+            v-bind:options="vms"
             required
             >
-            </select-vms>
+            Virtual Machine
+            </select-input>
             
         </main-form>
     `,
@@ -47,10 +51,21 @@ Vue.component("add-drive-form", {
                 vm: null,
             },
             organizations : null,
+            vms: [],
+            types: ["SSD", "HDD"]
         }
     },
+    mounted () {
+        this.loadVMs();
+    },
     methods: {
-        
+        loadVMs: function(){
+            axios
+            .get('api/virtualmachines')
+            .then(response => {
+                this.vms = response.data.map(vm => vm.name);
+            })
+        },
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedDrive', this.drive);
@@ -68,7 +83,7 @@ Vue.component("add-drive-form", {
                     "name": this.drive.name,
                     "type": this.drive.type,
                     "capacity": this.drive.capacity,
-                    "vm": JSON.parse(this.drive.vm),
+                    "vm": {"name": this.drive.vm},
                 })
                 .then(response => {
                     this.checkResponse(response);
