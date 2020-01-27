@@ -8,11 +8,14 @@ Vue.component("filter-drive-form", {
             v-on:submit="submitForm($event)"
             ref="form"
         >
-        <select-type
-        v-model="type"   
+        <select-input
+        name="type"
+        v-model="type"
+        v-bind:options="types"
+        required
         >
         Type
-        </select-type>
+        </select-input>
 
         <number-input
         v-model="from">
@@ -31,7 +34,8 @@ Vue.component("filter-drive-form", {
         return {        
            type: null,
            from: null,
-           to: null
+           to: null,
+           types: ["SSD", "HDD"]
         }
     },
     methods: {
