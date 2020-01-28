@@ -13,12 +13,21 @@ public class DriveReferenceBuilder {
 
     public void buildReferences(Drive drive) {
         buildVirtualMachineReferences(drive);
+        buildOrganizationReferences(drive);
     }
 
     private void buildVirtualMachineReferences(Drive drive) {
         drive.setVm(context.getVirtualMachinesRepository()
                 .findByKey(drive
                         .getVm()
+                        .getName())
+                .orElse(null));
+    }
+
+    private void buildOrganizationReferences(Drive drive) {
+        drive.setOrganization(context.getOrganizationsRepository()
+                .findByKey(drive
+                        .getOrganization()
                         .getName())
                 .orElse(null));
     }

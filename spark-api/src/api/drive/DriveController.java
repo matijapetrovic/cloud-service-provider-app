@@ -107,8 +107,8 @@ public class DriveController {
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
 
-        Drive drive = App.g.fromJson(request.body(), Drive.class);
-        service.post(drive);
+        DriveDTO drive = App.g.fromJson(request.body(), DriveDTO.class);
+        service.post(DriveMapper.fromDriveDTO(drive));
 
         response.status(200);
         return "OK";
@@ -117,10 +117,10 @@ public class DriveController {
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
-        Drive drive = App.g.fromJson(request.body(), Drive.class);
+        DriveDTO drive = App.g.fromJson(request.body(), DriveDTO.class);
         String name = request.params(":name");
 
-        service.put(name, drive);
+        service.put(name, DriveMapper.fromDriveDTO(drive));
         response.status(200);
         return "OK";
     };
@@ -128,7 +128,6 @@ public class DriveController {
     private Route handleDelete = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
-        Drive drive = App.g.fromJson(request.body(), Drive.class);
         String name = request.params(":name");
 
         service.delete(name);

@@ -7,6 +7,7 @@ public class DriveDTO {
         private Drive.DriveType type;
         private int capacity;
         private String vm;
+        private String organization;
 
         public Drive.DriveType getType() {
             return type;
@@ -39,4 +40,12 @@ public class DriveDTO {
     public void setName(String name) {
             this.name = name;
         }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
 }

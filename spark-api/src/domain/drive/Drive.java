@@ -2,6 +2,7 @@ package domain.drive;
 
 import api.drive.DriveDTO;
 import domain.Model;
+import domain.organization.Organization;
 import domain.virtual_machine.VirtualMachine;
 
 public class Drive implements Model<String> {
@@ -12,18 +13,19 @@ public class Drive implements Model<String> {
 	private DriveType type;
 	private int capacity;
 	private VirtualMachine vm;
-	// TODO : dodati organizaciju
+	private Organization organization;
 
 	public Drive(String name) {
 		this.name = name;
 	}
 	
-	public Drive(String name, DriveType type, int capacity, VirtualMachine vm) {
+	public Drive(String name, DriveType type, int capacity, VirtualMachine vm, Organization organization) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.capacity = capacity;
 		this.vm = vm;
+		this.organization = organization;
 	}
 
 	public void detachVirtualMachine(){
@@ -39,6 +41,17 @@ public class Drive implements Model<String> {
 
 		if (other.vm != null)
 			this.vm = other.vm;
+
+		if(other.organization != null)
+			this.organization = other.organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+
+	public Organization getOrganization() {
+		return organization;
 	}
 
 	public DriveType getType() {

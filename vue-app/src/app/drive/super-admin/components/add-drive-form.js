@@ -83,7 +83,8 @@ Vue.component("add-drive-form", {
                     "name": this.drive.name,
                     "type": this.drive.type,
                     "capacity": this.drive.capacity,
-                    "vm": {"name": this.drive.vm},
+                    "vm": this.drive.vm,
+                    
                 })
                 .then(response => {
                     this.checkResponse(response);

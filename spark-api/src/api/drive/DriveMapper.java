@@ -1,6 +1,8 @@
 package api.drive;
 
 import domain.drive.Drive;
+import domain.organization.Organization;
+import domain.virtual_machine.VirtualMachine;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +14,7 @@ public class DriveMapper {
         dto.setType(drive.getType());
         dto.setCapacity(drive.getCapacity());
         dto.setVm(drive.getVm().getName());
+        dto.setOrganization(drive.getOrganization().getName());
 
         return dto;
     }
@@ -21,5 +24,14 @@ public class DriveMapper {
                 .stream()
                 .map(DriveMapper::toDriveDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static Drive fromDriveDTO(DriveDTO dto) {
+        return new Drive(
+                dto.getName(),
+                dto.getType(),
+                dto.getCapacity(),
+                new VirtualMachine(dto.getVm()),
+                new Organization(dto.getOrganization()));
     }
 }

@@ -5,6 +5,9 @@
     "capacity": 64,
     "vm": {
       "name": "VM1"
+    },
+    "organization": {
+      "name": "Lavovi"
     }
   },
   {
@@ -13,6 +16,9 @@
     "capacity": 300,
     "vm": {
       "name": "VM2"
+    },
+    "organization": {
+      "name": "Lavovi"
     }
   },
   {
@@ -21,6 +27,9 @@
     "capacity": 75,
     "vm": {
       "name": "VM2"
+    },
+    "organization": {
+      "name": "Lavovi"
     }
   },
   {
@@ -29,6 +38,9 @@
     "capacity": 42,
     "vm": {
       "name": "VM1"
+    },
+    "organization": {
+      "name": "Lavovi"
     }
   },
   {
@@ -37,6 +49,9 @@
     "capacity": 77,
     "vm": {
       "name": "VM1"
+    },
+    "organization": {
+      "name": "Lavovi"
     }
   }
 ]

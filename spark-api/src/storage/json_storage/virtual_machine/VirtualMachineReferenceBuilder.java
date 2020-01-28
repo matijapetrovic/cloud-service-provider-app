@@ -27,7 +27,8 @@ public class VirtualMachineReferenceBuilder {
     }
 
     private void buildOrganizationReference(VirtualMachine virtualMachine) {
-        virtualMachine.setOrganization(context.getOrganizationsRepository()
+        virtualMachine.setOrganization(context.
+                getOrganizationsRepository()
                 .findByKey(virtualMachine
                             .getOrganization()
                             .getName())
