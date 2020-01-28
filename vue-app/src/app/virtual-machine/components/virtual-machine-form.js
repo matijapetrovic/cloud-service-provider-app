@@ -5,6 +5,10 @@ Vue.component("vm-form", {
         :headerText="headerText"
         :buttonText="buttonText"
         @submit="emitSubmit"
+
+        activeDelete
+        buttonTextDelete="Delete"
+        @submitDelete="emitDelete"
         ref="form"
     >
         <text-input
@@ -16,9 +20,9 @@ Vue.component("vm-form", {
         </text-input>
         
         <select-input
-            name="category"
-            v-model="virtualMachine.category"
+            v-model="virtualMachine.category.name"
             :options="categories"
+            name="category"
             required
         >
             Category
@@ -34,10 +38,12 @@ Vue.component("vm-form", {
         </select-input>
 
         <select-input
-            name="organization"
             v-if="$root.isSuperAdmin"
             v-model="virtualMachine.organization"
+
+            @input="getDrives"
             :options="organizations"
+            name="organization"
             required
         >
             Organization
@@ -103,6 +109,9 @@ Vue.component("vm-form", {
         },
         emitSubmit() {
             this.$emit('submit', this.virtualMachine);
+        },
+        emitDelete() {
+            this.$emit('delete', this.virtualMachine);
         }
     }
 });

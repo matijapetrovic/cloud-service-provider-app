@@ -57,9 +57,7 @@ Vue.component("main-form", {
         },
         submitDelete: function(e) {
             e.preventDefault();
-            if (this.validateForm()) {
-                this.$emit('submitDelete');
-            }
+            this.$emit('submitDelete');
         }
     }
 });

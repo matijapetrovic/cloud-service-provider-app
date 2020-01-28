@@ -13,6 +13,7 @@ Vue.component('select-input',{
                     @input="$emit('input', $event.target.value)"
                 >
                     <option v-if="required" disabled value="" selected>Please select one</option>
+                    <option v-else-if="!multiple" value="null"></option>
                     <option v-for="item in options" :value="item">{{item}}</option>
                 </select>
             </div>

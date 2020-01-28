@@ -179,3 +179,17 @@ body {
 .main-form .card-body {
   padding: 10px;
 }
+
+/* Filter side bar */
+
+.filter-group {
+  display: flex;
+}
+
+.filter-group > div {
+  width: 48%;
+}
+
+.filter-group > div:last-child {
+  margin-left: 2%;
+}

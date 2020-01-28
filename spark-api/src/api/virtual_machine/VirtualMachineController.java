@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,8 @@ public class VirtualMachineController {
     private Route handleGetAll = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.USER);
 
-        List<VirtualMachine> virtualMachines = applyQuery(request, applyRoleFilter(request, service.getAll()));
+        List<VirtualMachine> virtualMachines = new ArrayList<>(service.getAll());
+        applyQuery(request, applyRoleFilter(request, virtualMachines));
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTOList(virtualMachines));
     };
 
@@ -102,15 +104,21 @@ public class VirtualMachineController {
             .collect(Collectors.toList());
     }
 
-    private List<VirtualMachine> applyQuery(Request request, List<VirtualMachine> virtualMachines) {
-        List<VirtualMachine> result = virtualMachines;
-        if (request.queryParams("name") != null) {
-            result = virtualMachines
-                        .stream()
-                        .filter(vm -> vm.getName().contains(request.queryParams("name")))
-                        .collect(Collectors.toList());
-        }
-        return result;
+    private void applyQuery(Request request, List<VirtualMachine> virtualMachines) {
+        if (request.queryParams("name") != null)
+            VirtualMachineFilter.filterByName(request.queryParams("name"), virtualMachines);
+        if (request.queryParams("cpuFrom") != null)
+            VirtualMachineFilter.filterByCpuFrom(Integer.parseInt(request.queryParams("cpuFrom")), virtualMachines);
+        if (request.queryParams("cpuTo") != null)
+            VirtualMachineFilter.filterByCpuTo(Integer.parseInt(request.queryParams("cpuTo")), virtualMachines);
+        if (request.queryParams("ramFrom") != null)
+            VirtualMachineFilter.filterByRamFrom(Integer.parseInt(request.queryParams("ramFrom")), virtualMachines);
+        if (request.queryParams("ramTo") != null)
+            VirtualMachineFilter.filterByRamTo(Integer.parseInt(request.queryParams("ramTo")), virtualMachines);
+        if (request.queryParams("gpuFrom") != null)
+            VirtualMachineFilter.filterByGpuFrom(Integer.parseInt(request.queryParams("gpuFrom")), virtualMachines);
+        if (request.queryParams("gpuTo") != null)
+            VirtualMachineFilter.filterByGpuTo(Integer.parseInt(request.queryParams("gpuTo")), virtualMachines);
     }
 
     private static void ensureUserCanAccessVirtualMachine(Request request, VirtualMachine virtualMachine) {

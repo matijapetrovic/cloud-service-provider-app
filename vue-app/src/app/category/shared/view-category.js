@@ -6,6 +6,10 @@ Vue.component("view-category-form", {
             headerText="Category info"
             buttonText="Update"
             v-on:submit="submitForm($event)"
+
+            activeDelete
+            buttonTextDelete="Delete"
+            v-on:submitDelete="submitDelete($event)"
             ref="form"
         >
             <text-input
@@ -33,14 +37,6 @@ Vue.component("view-category-form", {
             >
                 GPUs
             </number-input>
-
-            <button
-                class="btn btn-outline-secondary pull-right"
-                id='deleteButton'
-                @click="deleteCategory($event)"
-                >
-                    Delete
-            </button>
         </main-form>
     `,
     data : function () {
@@ -76,8 +72,8 @@ Vue.component("view-category-form", {
         },
         checkDeleteResponse: function(response) {
             if (response.status === 200) {
-                this.$emit('updatedCategory', this.category);
-                alert('Category with name '+ this.id + ' successfully!');
+                this.$emit('deletedCategory', this.category);
+                alert('Category with name '+ this.id + ' successfully deleted!');
                 this.$emit('submitDelete')
             }
             else {

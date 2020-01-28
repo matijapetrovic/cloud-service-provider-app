@@ -1,18 +1,18 @@
 Vue.component("text-input", {
     template: `
         <div class="form-group">
-            <label v-bind:for="name">
+            <label :for="name">
                 <slot></slot>
             </label>
             <div class="input-group">
                 <input
                     class="form-control"
                     type="text"
-                    v-bind:name="name"
-                    v-bind:value="value"
-                    v-on:input="$emit('input', $event.target.value)"
-                    v-bind:required="required"
-                    v-bind:disabled="disabled"  x    
+                    :name="name"
+                    :value="value"
+                    :required="required"
+                    :disabled="disabled"
+                    @input="$emit('input', $event.target.value)"
                 >
                 <div class="invalid-feedback">
                     Please provide a valid {{ name }}

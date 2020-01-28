@@ -45,15 +45,5 @@
       "name": "Doktori"
     },
     "role": "ADMIN"
-  },
-  {
-    "email": "blagoje@gmail.com",
-    "password": "jfjasd",
-    "name": "blagoje",
-    "surname": "Miradzic",
-    "organization": {
-      "name": "Doktori"
-    },
-    "role": "ADMIN"
   }
 ]

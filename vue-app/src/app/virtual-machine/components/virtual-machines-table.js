@@ -1,6 +1,6 @@
 Vue.component("vm-table", {
     template: `
-        <table border="1" class="table">
+        <table border="1" class="table col-md-8">
             <thead class="thead-dark">
                 <tr>
                     <th>Name</th>
@@ -34,17 +34,20 @@ Vue.component("vm-table", {
     },
     data : function() {
         return {
-            virtualMachines: null
+            virtualMachines: []
         }
     },
     mounted() {
-        axios
-            .get('api/virtualmachines')
+        this.getVirtualMachines("");
+    },
+    methods: {
+        getVirtualMachines(searchString) {
+            axios
+            .get('api/virtualmachines' + searchString)
             .then(response => {
                 this.virtualMachines = response.data;
             });
-    },
-    methods: {
+        },
         addVirtualMachine(vm) {
             this.virtualMachines.push(vm);
         },
@@ -55,6 +58,13 @@ Vue.component("vm-table", {
             var idx = this.virtualMachines.indexOf(el);
             this.virtualMachines.splice(idx, 1);
             this.virtualMachines.splice(idx, 0, vm);
+        },
+        deleteVirtualMachine(vm) {
+            var el = this.virtualMachines.find(function(element) {
+                return element.name === vm.name;
+            });
+            var idx = this.virtualMachines.indexOf(el);
+            this.virtualMachines.splice(idx, 1);
         },
         viewVirtualMachine(name) {
             this.$emit('viewVirtualMachine', name)

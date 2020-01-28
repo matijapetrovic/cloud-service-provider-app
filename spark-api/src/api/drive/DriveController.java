@@ -78,11 +78,11 @@ public class DriveController {
         if (request.queryParams("to") != null && !request.queryParams("to").equals("null")) {
             String toS = request.queryParams("to");
             int to = Integer.parseInt(toS);
-            result = result
-                    .stream()
-                    .filter(vm -> vm.getCapacity() <= to)
-                    .collect(Collectors.toList());
-        }
+        result = result
+                .stream()
+                .filter(vm -> vm.getCapacity() <= to)
+                .collect(Collectors.toList());
+    }
         return result;
     }
 

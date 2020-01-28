@@ -13,16 +13,22 @@ Vue.component("virtual-machines-page", {
             >
                 Add virtual machine
             </button>
-
-            <search-bar>
-            </search-bar>
             
-            <vm-table
-                @viewVirtualMachine="viewVirtualMachine($event)"
-                :view-modal-id="viewModalId"
-                ref="table"
-            >
-            </vm-table>
+            <div class="container">
+                <div class="row">
+                    <vm-table
+                        @viewVirtualMachine="viewVirtualMachine($event)"
+                        :view-modal-id="viewModalId"
+                        ref="table"
+                    >
+                    </vm-table>
+
+                    <vm-filter-sidebar
+                        @search="searchVirtualMachines($event)"
+                    >
+                    </vm-filter-sidebar>
+                </div>
+            </div>
             
             <full-modal
                 @close="removeAddValidation"
@@ -49,6 +55,7 @@ Vue.component("virtual-machines-page", {
                     headerText="Virtual machine info"
                     buttonText="Update"
                     @submit="updateVirtualMachine($event)"
+                    @delete="deleteVirtualMachine($event)"
                     ref="viewForm"
                 >
                 </vm-form>
@@ -59,7 +66,8 @@ Vue.component("virtual-machines-page", {
     data: function() {
         return {
             addModalId: 'addVirtualMachineModal',
-            viewModalId: 'viewVirtualMachineModal'
+            viewModalId: 'viewVirtualMachineModal',
+            searchText: ""
         }
     },
     methods: {
@@ -93,6 +101,16 @@ Vue.component("virtual-machines-page", {
                     this.closeViewModal();
                 });
         },
+        // TODO : mozda promeniti delete da bude u tabeli
+        deleteVirtualMachine(virtualMachine) {
+            axios
+                .delete('/api/virtualmachines/' + virtualMachine.name)
+                .then(response => {
+                    this.$refs.table.deleteVirtualMachine(response.data);
+                    alert('Deleting virtual machine successful');
+                    this.closeViewModal();
+                });
+        },
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();
         },
@@ -112,6 +130,9 @@ Vue.component("virtual-machines-page", {
         },
         viewVirtualMachine(name) {
             this.$refs.viewForm.getVirtualMachine(name);
+        },
+        searchVirtualMachines(searchString) {
+            this.$refs.table.getVirtualMachines(searchString);
         }
     }
 });

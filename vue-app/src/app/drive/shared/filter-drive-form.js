@@ -12,7 +12,6 @@ Vue.component("filter-drive-form", {
         name="type"
         v-model="type"
         v-bind:options="types"
-        required
         >
         Type
         </select-input>
