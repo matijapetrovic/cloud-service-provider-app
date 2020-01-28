@@ -26,8 +26,8 @@ public class OrganizationController {
             path("/organizations", () -> {
                 get("", handleGetAll);
                 get("/:name", handleGetSingle);
-                post("/add", handlePost);
-                put("/update/:name", handlePut);
+                post("", handlePost);
+                put("/:name", handlePut);
             });
         });
     }

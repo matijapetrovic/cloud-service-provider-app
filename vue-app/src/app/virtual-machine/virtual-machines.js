@@ -33,7 +33,7 @@ Vue.component("virtual-machines-page", {
                     id="addVirtualMachineForm"
                     headerText="Virtual machine info"
                     buttonText="Add"
-                    @submit="submitForm($event)"
+                    @submit="addVirtualMachine($event)"
                     ref="addForm"
                 >
                 </vm-form>

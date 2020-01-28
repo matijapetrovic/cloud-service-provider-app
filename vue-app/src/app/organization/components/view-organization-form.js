@@ -29,48 +29,5 @@ Vue.component("view-org-form", {
             </file-input>
         </main-form>
     `,
-    data : function () {
-        return {
-            errors: [],
-            organization : {
-                name: null,
-                description: null,
-                logo: null,
-            }
-        }
-    },
     
-    methods: {
-        getOrganization: function(name) {
-            axios
-                .get('/api/organizations/' + name)
-                .then(response => {
-                    this.organization = response.data
-                });
-        },
-        checkResponse: function(response) {
-            if (response.status === 200) {
-                this.$emit('updatedOrganization', this.organization);
-                alert('Updating organization successful');
-                this.$emit('submit')
-            }
-            else {
-                alert('Error: ' + response.data);
-            }
-        },
-        submitForm: function(e) {
-            axios
-                .put('/api/organizations/update/' + this.organization.name, 
-                {
-                    "name": this.organization.name,
-                    "description": this.organization.description,
-                    "logo": this.organization.logo,
-                    "users": [],
-                    "resources": []
-                })
-                .then(response => {
-                    this.checkResponse(response);
-                });
-        }
-    }
 });

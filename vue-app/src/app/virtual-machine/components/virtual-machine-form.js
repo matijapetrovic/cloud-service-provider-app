@@ -1,9 +1,9 @@
 Vue.component("vm-form", {
     template:`
     <main-form 
-        id="addVirtualMachineForm"
-        headerText="Virtual machine info"
-        buttonText="Add"
+        :id="id"
+        :headerText="headerText"
+        :buttonText="buttonText"
         @submit="emitSubmit"
         ref="form"
     >
@@ -44,6 +44,11 @@ Vue.component("vm-form", {
         </select-input>
     </main-form>
     `,
+    props: {
+        id: String,
+        headerText: String,
+        buttonText: String,
+    },
     data: function() {
         return {
             virtualMachine: {

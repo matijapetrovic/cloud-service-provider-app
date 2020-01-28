@@ -1,44 +1,51 @@
 Vue.component("organizations-page", {
     template: `
-    <base-layout v-bind:page-title="$route.meta.title">
+    <base-layout :page-title="$route.meta.title">
         <button
             type="button"
             class="btn btn-outline-primary"
+
             data-toggle="modal"
-            v-bind:data-target="'#' + addModalId"
-            style="margin: 15px 0;"
+            :data-target="'#' + addModalId"
             >
                 Add organization
         </button>
+
         <org-table
             @viewOrganization="viewOrganization($event)"
-            v-bind:view-modal-id="viewModalId"
+            :view-modal-id="viewModalId"
             ref="table"
             >
-            </org-table>
+        </org-table>
+
         <full-modal
             @close="removeAddValidation"
-            v-bind:modal-id="addModalId"
+            :modal-id="addModalId"
             modal-title="Add organization"
             >
-                <add-org-form
-                    @submit="closeAddModal"
-                    @addedOrganization="addOrganization($event)"
+                <organization-form
+                    id="addOrganizationForm"
+                    headerText="Organization info"
+                    buttonText="Add"
+                    @submit="addOrganization($event)"
                     ref="addForm"
-                    >
-                    </add-org-form>
+                >
+                </organization-form>
         </full-modal>
+
         <full-modal
             @close="removeViewValidation"
-            v-bind:modal-id="viewModalId"
+            :modal-id="viewModalId"
             modal-title="View organization"
             >
-                <view-org-form
-                    @submit="closeViewModal"
-                    @updatedOrganization="updateOrganization($event)"
+                <organization-form
+                    id="viewOrganizationForm"
+                    headerText="Organization info"
+                    buttonText="Update"
+                    @submit="updateOrganization($event)"
                     ref="viewForm"
-                    >
-                    </view-org-form>
+                >
+                </organization-form>
         </full-modal>
     </base-layout>
     `,
@@ -49,6 +56,37 @@ Vue.component("organizations-page", {
         }
     },
     methods: {
+        addOrganization(organization) {
+            axios
+                .post('/api/organizations', 
+                {
+                    "name": organization.name,
+                    "description": organization.description,
+                    "logo": organization.logo,
+                    "users": [],
+                    "resources": []
+                })
+                .then(response => {
+                    this.$refs.table.addOrganization(response.data); 
+                    alert('Adding organization successful');
+                });
+            
+        },
+        updateOrganization(organization) {
+            axios
+                .put('/api/organizations/' + organization.name, 
+                {
+                    "name": organization.name,
+                    "description": organization.description,
+                    "logo": organization.logo,
+                    "users": [],
+                    "resources": []
+                })
+                .then(response => {
+                    this.$refs.table.updateOrganization(response.data);
+                    alert('Updating organization successful');
+                });
+        },
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();
         },
@@ -62,12 +100,6 @@ Vue.component("organizations-page", {
         closeAddModal() {
             this.removeAddValidation();
             $('#' + this.addModalId).modal('hide');
-        },
-        addOrganization(organization) {
-            this.$refs.table.addOrganization(organization);
-        },
-        updateOrganization(organization) {
-            this.$refs.table.updateOrganization(organization);
         },
         viewOrganization(name) {
             this.$refs.viewForm.getOrganization(name);

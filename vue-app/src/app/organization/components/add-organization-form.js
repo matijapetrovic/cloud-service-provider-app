@@ -42,7 +42,6 @@ Vue.component("add-org-form", {
         checkResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('addedOrganization', this.organization);
-                alert('Adding organization successful');
                 this.$emit('submit')
             }
             else {
@@ -50,18 +49,7 @@ Vue.component("add-org-form", {
             }
         },
         submitForm: function() {
-            axios
-                .post('/api/organizations/add', 
-                {
-                    "name": this.organization.name,
-                    "description": this.organization.description,
-                    "logo": this.organization.logo,
-                    "users": [],
-                    "resources": []
-                })
-                .then(response => {
-                    this.checkResponse(response);
-                });
+            
         }
     }
 });
