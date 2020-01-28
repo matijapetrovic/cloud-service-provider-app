@@ -13,7 +13,8 @@ public class UserMapper {
         dto.setName(user.getName());
         dto.setSurname(user.getSurname());
         dto.setRole(user.getRole());
-        dto.setOrganization(user.getOrganization().getName());
+        if (user.getRole() != User.Role.SUPER_ADMIN)
+            dto.setOrganization(user.getOrganization().getName());
 
         return dto;
     }

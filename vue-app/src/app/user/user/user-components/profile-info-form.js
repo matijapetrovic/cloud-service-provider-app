@@ -1,6 +1,6 @@
 Vue.component("profile-info", {
     template: `
-    <base-layout v-bind:page-title="$route.meta.title" class="profile">
+    <base-layout :page-title="$route.meta.title" class="profile">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -46,14 +46,27 @@ Vue.component("profile-info", {
             type="button"
             class="btn btn-outline-primary"
             data-toggle="modal"
-            v-bind:data-target="'#' + viewProfileId"
+            :data-target="'#' + viewProfileId"
             style="margin: 15px 0;"
         >
             Change profile
         </button>
 
+        <button    
+            v-if="$root.isAdmin"
+            @click="viewOrganization"
+            type="button"
+            class="btn btn-outline-primary"
+            data-toggle="modal"
+            :data-target="'#' + viewModalId"
+            style="margin: 15px 0;"
+        >
+            Update organization
+        </button>
+
+
         <full-modal
-            v-bind:modal-id="viewProfileId"
+            :modal-id="viewProfileId"
             modal-title="View profile"
         >
             <change-profile-form
@@ -63,21 +76,36 @@ Vue.component("profile-info", {
             >
             </change-profile-form>
         </full-modal>
+
+        <full-modal
+            v-if="$root.isAdmin"
+            @close="closeOrganizationModal"
+            :modal-id="viewModalId"
+            modal-title="View organization"
+            >
+                <organization-form
+                    id="viewOrganizationForm"
+                    headerText="Organization info"
+                    buttonText="Update"
+                    @submit="updateOrganization($event)"
+                    ref="viewOrganizationForm"
+                >
+                </organization-form>
+        </full-modal>
             
     </base-layout>
     `,
     data : function () {
         return {
             viewProfileId : "viewUserModal",
+            viewModalId: "viewOrganizationModal",
             errors: [],
             user : {
                 email: null,
                 password : null,
                 name : null,
                 surname : null,
-                organizaion : {
-                    name: null
-                },
+                organization: null,
             }
         }
     },
@@ -96,8 +124,32 @@ Vue.component("profile-info", {
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();
         },
+        closeOrganizationModal() {
+            this.removeOrganizationValidation();
+            $('#' + this.viewModalId).modal('hide');
+        },
+        removeOrganizationValidation() {
+            this.$refs.viewOrganizationForm.$refs.form.removeValidation();
+        },
         updateUser(user) {
            this.user = user;
+        },
+        viewOrganization() {
+            this.$refs.viewOrganizationForm.getOrganization(this.user.organization);
+        },
+        updateOrganization(organization) {
+            axios
+                .put('/api/organizations/' + organization.name, 
+                {
+                    "name": organization.name,
+                    "description": organization.description,
+                    "logo": organization.logo,
+                    "users": [],
+                    "resources": []
+                })
+                .then(response => {
+                    alert('Updating organization successful');
+                });
         }
     }
 });

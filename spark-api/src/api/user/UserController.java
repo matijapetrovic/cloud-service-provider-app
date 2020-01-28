@@ -43,6 +43,7 @@ public class UserController {
 		return App.g.toJson(users1);
 	};
 
+	// TODO : dozvoliti obicnom useru da getuje sebe zbog profila
 	private Route handleGetSingle = (Request request, Response response) -> {
 		ensureUserHasPermission(request, User.Role.ADMIN);
 
