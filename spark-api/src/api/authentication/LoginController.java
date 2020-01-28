@@ -30,7 +30,6 @@ public class LoginController {
 				post("", handlePost);
 			});
 		});
-
 	}
 
 	private Route handlePost = (Request request, Response response) -> {

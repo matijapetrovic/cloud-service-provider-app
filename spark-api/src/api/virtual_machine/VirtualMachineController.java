@@ -30,9 +30,9 @@ public class VirtualMachineController {
             path("/virtualmachines", () -> {
                 get("", handleGetAll);
                 get("/:name", handleGetSingle);
-                post("/add", handlePost);
-                put("/update/:name", handlePut);
-                delete("delete/:name", handleDelete);
+                post("", handlePost);
+                put("/:name", handlePut);
+                delete("/:name", handleDelete);
             });
         });
     }
@@ -59,10 +59,10 @@ public class VirtualMachineController {
 
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
-        VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
-        service.post(VirtualMachineMapper.fromVirtualMachineDTO(dto));
+        VirtualMachineDTO toAdd = App.g.fromJson(request.body(), VirtualMachineDTO.class);
+        VirtualMachine added = service.post(VirtualMachineMapper.fromVirtualMachineDTO(toAdd));
         response.status(201);
-        return "Created";
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(added));
     };
     // TODO : check
     private Route handlePut = (Request request, Response response) -> {
@@ -73,9 +73,9 @@ public class VirtualMachineController {
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
         VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
-        service.put(name, VirtualMachineMapper.fromVirtualMachineDTO(dto));
+        VirtualMachine updated = service.put(name, VirtualMachineMapper.fromVirtualMachineDTO(dto));
         response.status(200);
-        return "OK";
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(updated));
     };
 
     private Route handleDelete = (Request request, Response response) -> {
@@ -87,7 +87,7 @@ public class VirtualMachineController {
 
         service.delete(name);
         response.status(204);
-        return "No content";
+        return "";
     };
 
     private List<VirtualMachine> applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {

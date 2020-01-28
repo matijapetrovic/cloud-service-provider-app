@@ -31,17 +31,19 @@ public class VirtualMachineRESTService implements VirtualMachineService {
     }
 
     @Override
-    public void post(VirtualMachine virtualMachine) {
+    public VirtualMachine post(VirtualMachine virtualMachine) {
         if (!storage.add(virtualMachine))
             halt(409, "Virtual machine with the name "
                     + virtualMachine.getName() + " already exists");
+        return storage.findByName(virtualMachine.getName()).orElse(null);
     }
 
     @Override
-    public void put(String name, VirtualMachine virtualMachine) {
+    public VirtualMachine put(String name, VirtualMachine virtualMachine) {
         if (!storage.update(name, virtualMachine))
             halt(404, "Virtual machine with the name "
                     + name + " not found");
+        return storage.findByName(virtualMachine.getName()).orElse(null);
     }
 
     @Override

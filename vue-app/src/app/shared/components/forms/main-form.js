@@ -1,9 +1,9 @@
 Vue.component("main-form", {
     template: `
         <form
-            v-bind:id="id"
-            v-bind:method="method"
-            v-on:submit="submitForm"
+            :id="id"
+            :method="method"
+            @submit="submitForm"
             class="main-form card"
             novalidate
             activeDelete
@@ -22,7 +22,7 @@ Vue.component("main-form", {
                 
                 <button
                     v-show="this.activeDelete"
-                    v-on:click="submitDelete"
+                    @click="submitDelete"
                     class="btn btn-outline-secondary pull-right"
                     type="submit"
                 >

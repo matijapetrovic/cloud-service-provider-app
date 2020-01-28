@@ -28,7 +28,7 @@ Vue.component("vm-table", {
                 <td v-if="$root.isSuperAdmin">{{ virtualMachine.organization}}</td>
             </tr>
         </table>
-    `, // dodaj v-if na kolonu za organizacije nekako
+    `,
     props: {
         viewModalId: String
     },

@@ -41,52 +41,5 @@
         }
       ]
     }
-  },
-  {
-    "name": "VM4",
-    "category": {
-      "name": "Cat2"
-    },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
-    "organization": {
-      "name": "Lavovi",
-      "description": "asdgzdg",
-      "users": [],
-      "virtualMachines": [],
-      "drives": [
-        {
-          "name": "drive3"
-        },
-        {
-          "name": "drive2"
-        }
-      ]
-    }
-  },
-  {
-    "name": "vm3",
-    "category": {
-      "name": "Cat1"
-    },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
-    "organization": {
-      "name": "Doktori",
-      "description": "Mateo i Kabi",
-      "users": [],
-      "virtualMachines": [],
-      "drives": [
-        {
-          "name": "drive1"
-        }
-      ]
-    }
   }
 ]
