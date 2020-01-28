@@ -1,61 +1,61 @@
 Vue.component("filter-side-bar", {
     template: `
-    
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-right">
-    <a class="navbar-brand" href="">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div>
+            <h5> Search and filter </h5>
+            <text-input name="name" v-model="name">Search</text-input>
+            <div class="filter-group">
+                <number-input name="capacityFrom" v-model="capacityFrom">Capacity from</number-input>
+                <number-input name="capacityTo" v-model="capacityTo">Capacity to</number-input>
+            </div>
+            <div class="filter-group">
+                <select-input
+                name="type"
+                v-model="type"
+                v-bind:options="types"
+                >
+                Type
+                </select-input>
+            </div>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Contact</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item">Action</a>
-                    <a class="dropdown-item">Another action</a>
-                    <a class="dropdown-item">Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item">Separated link</a>
-                    <a class="dropdown-item">One more separated link</a>
-                </div>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-class="fixed-left">
-                    <i class="fa fa-arrow-left"></i>
-                    Fixed Left
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-class="fixed-top">
-                    <i class="fa fa-arrow-up"></i>
-                    Fixed Top
-                    <small>(original)</small>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link active" data-class="fixed-right">
-                    <i class="fa fa-arrow-right"></i>
-                    Fixed Right
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+            <button
+                class="btn btn-outline-primary"
+                @click="submitForm($event)" 
+            >
+                Search
+            </button>
+            
+            <button
+                class="btn btn-danger"
+                @click="resetSearch"
+            >
+                Reset
+            </button>
+        </div>
     
     `,
-    props: {
-        value: ''
+    data : function () {
+        return {        
+           type: null,
+           capacityFrom: null,
+           capacityTo: null,
+           name: null,
+           types: ["SSD", "HDD"]
+        }
+    },
+    methods: {
+        submitForm: function() {
+            this.$emit('emitFilter',{'name': this.name,'type': this.type, 'from': this.capacityFrom,'to': this.capacityTo } );
+            this.$emit('apply')
+        },
+        resetForm: function(){
+            this.type =  null,
+            this.capacityFrom = null,
+            this.capacityTo = null,
+            this.name =  null
+        },
+        resetSearch: function() {
+            this.resetForm();
+            this.$emit('reset');
+        }
     }
 });

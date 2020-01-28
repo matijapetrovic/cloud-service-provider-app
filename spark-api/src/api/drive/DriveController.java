@@ -61,6 +61,12 @@ public class DriveController {
 
     private List<Drive> applyFilterQuery(Request request, List<Drive> drives) {
         List<Drive> result = drives;
+        if (request.queryParams("name") != null && !request.queryParams("name").equals("null")) {
+            result = result
+                    .stream()
+                    .filter(vm -> vm.getName().equals(request.queryParams("name")))
+                    .collect(Collectors.toList());
+        }
         if (request.queryParams("type") != null && !request.queryParams("type").equals("null")) {
             result = result
                     .stream()
@@ -78,11 +84,12 @@ public class DriveController {
         if (request.queryParams("to") != null && !request.queryParams("to").equals("null")) {
             String toS = request.queryParams("to");
             int to = Integer.parseInt(toS);
-        result = result
+             result = result
                 .stream()
                 .filter(vm -> vm.getCapacity() <= to)
                 .collect(Collectors.toList());
     }
+
         return result;
     }
 
