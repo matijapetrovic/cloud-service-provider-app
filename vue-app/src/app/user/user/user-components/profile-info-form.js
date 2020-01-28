@@ -1,7 +1,6 @@
 Vue.component("profile-info", {
     template: `
     <base-layout v-bind:page-title="$route.meta.title" class="profile">
-        <div v-if="loaded">
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -26,33 +25,10 @@ Vue.component("profile-info", {
                             <dt>Role</dt>
                             <dd>{{user.role}}</dd>
                             <div v-if="user.role!=='SUPER_ADMIN'">
-                            <dt>Organization</dt>
-                            <dd>{{user.organization.name}}</dd>
+                                <dt>Organization</dt>
+                                <dd>{{user.organization}}</dd>
                             </div>
                         </dl>
-                    </div>
-                    <div v-if="(user.role!=='SUPER_ADMIN')">
-                        <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
-                            <strong>Organization info</strong><br>
-                            <table class="table table-user-information">
-                                <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Users number</th>
-                                    <th>Virtual machines number</th>
-                                    <th>Drives number</th>
-                                </tr>
-                                <tr>
-                                    <td>{{user.organization.name}}</td>
-                                    <td>{{user.organization.description}}</td>
-                                    <td>{{user.organization.users.length}}</td>
-                                    <td>{{user.organization.virtualMachines.length}}</td>
-                                    <td>{{user.organization.drives.length}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -65,26 +41,25 @@ Vue.component("profile-info", {
                 </div>
             </div>
         </div>
-        </div>
             
         <button    
-        type="button"
-        class="btn btn-outline-primary"
-        data-toggle="modal"
-        v-bind:data-target="'#' + viewProfileId"
-        style="margin: 15px 0;"
+            type="button"
+            class="btn btn-outline-primary"
+            data-toggle="modal"
+            v-bind:data-target="'#' + viewProfileId"
+            style="margin: 15px 0;"
         >
             Change profile
         </button>
 
         <full-modal
-        v-bind:modal-id="viewProfileId"
-        modal-title="View profile"
+            v-bind:modal-id="viewProfileId"
+            modal-title="View profile"
         >
             <change-profile-form
-            @submit="closeViewModal"
-            @updatedUser="updateUser($event)" 
-            ref="viewForm"
+                @submit="closeViewModal"
+                @updatedUser="updateUser($event)" 
+                ref="viewForm"
             >
             </change-profile-form>
         </full-modal>
@@ -103,17 +78,14 @@ Vue.component("profile-info", {
                 organizaion : {
                     name: null
                 },
-            },
-            loaded: false,
-            users : null
+            }
         }
     },
     mounted(){
         axios
-        .get('api/users/currentUser')
+        .get('api/users/' + this.$root.currentUser.email)
         .then(response => {
-            this.user = response.data; 
-            this.loaded = true;    
+            this.user = response.data;    
         });
     },
     methods:{

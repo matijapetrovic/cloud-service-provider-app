@@ -1,35 +1,15 @@
 Vue.component("drive-page",{
     template: `
         <base-layout v-bind:page-title="$route.meta.title">
-            <div v-if="user.role ==='SUPER_ADMIN'">
+            <div v-if="$root.isSuperAdmin">
                 <super-admin-drive-page></super-admin-drive-page>
             </div>
-            <div v-else-if="user.role ==='ADMIN'">
+            <div v-else-if="$root.isAdmin">
                 <admin-drive-page></admin-drive-page>
             </div>
-            <div v-else="user.role ==='USER'">
+            <div v-else>
                 <user-drive-page></user-drive-page>
-            </div>    
+            </div>
         </base-layout>
     `
-    ,
-    data: function(){
-        return {
-            user : {
-                email : null,
-                password : null,
-                name : null,
-                surname : null,
-                role : null,
-                oganization : null
-            }
-        }
-    },
-    mounted(){
-        axios
-        .get('api/users/currentUser')
-        .then(response => {
-            this.user = response.data;
-        });
-    }
 });

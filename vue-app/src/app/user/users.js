@@ -1,25 +1,7 @@
 Vue.component("users-page",{
     template: `
     <base-layout v-bind:page-title="$route.meta.title">
-        <div v-if="role==='SUPER_ADMIN'">
-            <super-admin-page></super-admin-page>
-        </div>
-        <div v-else-if="role==='ADMIN'">
-            <admin-page></admin-page>
-        </div>
-        <div v-else="role==='USER'">
-            
-        </div>    
+        <super-admin-page></super-admin-page>
     </base-layout>
     `
-    ,
-    data: function(){
-        return {
-            role: null
-        }
-    },
-    mounted(){
-        let user = JSON.parse(localStorage.getItem("user"));
-        this.role = user.role;
-    }
 });

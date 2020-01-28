@@ -1,6 +1,6 @@
 Vue.component("users-from-organization-table", {
     template:`
-    <div v-if="loaded">
+    <div>
         <table border="1" class="table">
             <thead class="thead-dark">
                 <tr>
@@ -40,7 +40,7 @@ Vue.component("users-from-organization-table", {
     },
     methods: {
         loadUsers(){
-            this.userOrganization = this.currentUser.organization; 
+            this.userOrganization = this.currentUser.organization;
         },
         addUser(user) {
             this.users.push(user);
@@ -64,5 +64,4 @@ Vue.component("users-from-organization-table", {
             this.users.splice(idx, 1);
         }
    }
-
 });

@@ -30,25 +30,26 @@ Vue.component("add-user-form", {
                 Name
             </text-input>
             <text-input
-            name="surname"
-            v-model="user.surname"
-            required
+                name="surname"
+                v-model="user.surname"
+                required
             >
                 Surname
             </text-input>     
             <select-input
-            name="organization"
-            v-model="user.organization"
-            v-bind:options="allOrgnizations"
-            required
+                v-if="$root.isSuperAdmin"
+                name="organization"
+                v-model="user.organization"
+                v-bind:options="allOrgnizations"
+                required
             >
             Organization
             </select-input>
             <select-input
-            name="role"
-            v-model="user.role"
-            v-bind:options="roles"
-            required
+                name="role"
+                v-model="user.role"
+                v-bind:options="roles"
+                required
             >
             Role
             </select-input>
@@ -69,7 +70,8 @@ Vue.component("add-user-form", {
         }
     },
     mounted () {
-        this.getOrganizations()
+        if (this.$root.isSuperAdmin)
+            this.getOrganizations();
     },
     methods: {     
         getOrganizations: function(){

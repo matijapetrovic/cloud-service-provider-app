@@ -77,21 +77,18 @@ Vue.component('change-profile-form',{
                 surname : null,
                 role : null,
                 oganization : null
-            },
-            email : null,
+            }
         }
     },
     mounted(){
         axios
-        .get('api/users/currentUser')
+        .get('api/users/' + this.$root.currentUser.email)
         .then(response =>(
-            this.user = response.data,
-            this.email = this.user.email
+            this.user = response.data
         ))  
     },
     methods:{
         updateUser(user) {
-            console.log(user);
             this.user = user;
         },
         removeViewValidation() {

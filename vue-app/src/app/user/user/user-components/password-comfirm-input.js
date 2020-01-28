@@ -8,7 +8,6 @@ Vue.component('password-confirm-input', {
             v-on:submit="submitForm($event)"
             ref="form"
         >
-            <div if="loaded">
             <text-input
                 name="password"
                 v-model="password"
@@ -23,16 +22,14 @@ Vue.component('password-confirm-input', {
             >
                 Confirm password
             </text-input>
-            </div>
         </main-form>
     `
     ,
     mounted(){
         axios
-        .get('api/users/currentUser')
+        .get('api/users/' + this.$root.currentUser.email)
         .then(response => {
             this.user = response.data;
-            this.loaded = true;
         });
     },
     data() {
@@ -46,7 +43,6 @@ Vue.component('password-confirm-input', {
                     name: null
                 },
             },
-            loaded: false,
             errors: [],
             password: null,
             confirm: null

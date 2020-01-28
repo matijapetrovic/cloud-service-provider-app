@@ -1,15 +1,8 @@
 package api.user;
 
-import domain.organization.Organization;
 import domain.user.User;
 
 public class UserDTO {
-    public enum Role
-    {
-        USER ,
-        ADMIN ,
-        SUPER_ADMIN;
-    };
     private String email;
     private String password;
     private String name;

@@ -26,29 +26,16 @@ Vue.component("categories-from-organization-table", {
         data: function(){
             return {
                 categories: null,
-                currentUser: null,
-                loaded : false,
             }
         },
         mounted () {
             axios
-                .get('api/users/currentUser')
-                .then(response => {
-                    this.currentUser = response.data
-                    this.loaded = true;
-                    if(this.currentUser.role !== 'SUPER_ADMIN'){
-                        this.loadCategories(this.currentUser.email);  
-                    }     
-                });
-            },
+            .get('api/categories')
+            .then(response =>{
+                this.categories = response.data;
+            });
+        },
         methods: {
-            loadCategories(email){
-                axios
-                .get('api/categories/organizations/' + email)
-                .then(response =>{
-                    this.categories = response.data;
-                });
-            },
             addCategory(category) {
                 this.categories.push(category);
             },
@@ -70,7 +57,5 @@ Vue.component("categories-from-organization-table", {
             viewCategory(name) {
                 this.$emit('viewCategory', name);
             }
-            
        }
-
 });

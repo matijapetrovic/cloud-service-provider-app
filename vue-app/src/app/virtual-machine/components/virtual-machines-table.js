@@ -14,10 +14,10 @@ Vue.component("vm-table", {
             <tr v-for="virtualMachine in virtualMachines">
                 <td>
                     <a 
-                    href="#" 
-                    @click.prevent="viewVirtualMachine(virtualMachine.name)"
-                    data-toggle="modal"
-                    v-bind:data-target="'#' + viewModalId"
+                        href="#" 
+                        @click.prevent="viewVirtualMachine(virtualMachine.name)"
+                        data-toggle="modal"
+                        v-bind:data-target="'#' + viewModalId"
                     >
                         {{ virtualMachine.name }}
                     </a>
@@ -58,10 +58,6 @@ Vue.component("vm-table", {
         },
         viewVirtualMachine(name) {
             this.$emit('viewVirtualMachine', name)
-        },
-        userIsSuperAdmin() {
-            let user = localStorage.getItem("user");
-            return user.role >= 2;
         }
     }
 })

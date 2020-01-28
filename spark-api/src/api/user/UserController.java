@@ -27,8 +27,7 @@ public class UserController {
 	private void setUpRoutes() {
 		path("api", () -> {
 			path("/users", () -> {
-				get("", serveUserPage);
-				get("/currentUser", serveCurrentUser);
+				get("", handleGetAll);
 				get("/:email", handleGetSingle);
 				post("/add", handlePost);
 				put("/update/:email", handlePut);
@@ -37,20 +36,11 @@ public class UserController {
 		});
 	}
 
-	private Route serveUserPage = (Request request, Response response) -> {
+	private Route handleGetAll = (Request request, Response response) -> {
 		response.status(200);
 		List<User> users = applyRoleFilter(request, service.getAll());
 		List<UserDTO> users1 =  UserMapper.toUserDTOList(allExceptSuperAdmin(users));
 		return App.g.toJson(users1);
-	};
-
-	private List<User> allExceptSuperAdmin ( List<User> users){
-		return users.stream().filter(x -> !x.getRole().equals("SUPER_ADMIN")).collect(Collectors.toList());
-	}
-
-	private Route serveCurrentUser = (Request request, Response response) -> {
-		User currentUser = request.attribute("loggedIn");
-		return App.g.toJson(currentUser);
 	};
 
 	private Route handleGetSingle = (Request request, Response response) -> {
@@ -104,6 +94,9 @@ public class UserController {
 				.stream()
 					.filter(x -> org.getUsers().contains(x))
 				.collect(Collectors.toList());
+	}
+	private List<User> allExceptSuperAdmin (List<User> users) {
+		return users.stream().filter(x -> x.getRole() != User.Role.SUPER_ADMIN).collect(Collectors.toList());
 	}
 
 }

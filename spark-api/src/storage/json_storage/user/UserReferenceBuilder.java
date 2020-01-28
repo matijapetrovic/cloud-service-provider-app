@@ -15,7 +15,8 @@ public class UserReferenceBuilder {
     }
 
     private void buildOrganizationReferences(User user) {
-        user.setOrganization(context.getOrganizationsRepository()
+        if (user.getRole() != User.Role.SUPER_ADMIN)
+            user.setOrganization(context.getOrganizationsRepository()
                 .findByKey(user
                         .getOrganization()
                         .getName())

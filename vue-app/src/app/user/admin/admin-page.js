@@ -1,12 +1,11 @@
 Vue.component('admin-page',{
-
     template: `
         <div>    
             <users-from-organization-table
-            @viewUserA="viewUserA($event)"
-            v-bind:view-modal-id="viewModalId"
-            ref="table"
-            >
+                @viewUserA="viewUserA($event)"
+                v-bind:view-modal-id="viewModalId"
+                ref="table"
+                >
             </users-from-organization-table>
 
             <button
