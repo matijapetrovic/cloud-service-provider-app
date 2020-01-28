@@ -75,27 +75,12 @@ public class JSONDbContext {
 
     private void buildUserReferences() {
         usersRepository.data
-                .forEach(
-                        user ->  {
-                            if (user.getRole() != User.Role.SUPER_ADMIN)
-                                user.setOrganization(organizationsRepository
-                                        .findByKey(user
-                                                .getOrganization()
-                                                .getName())
-                                                .orElse(null));
-                        });
+                .forEach(userReferenceBuilder::buildReferences);
     }
 
     private void buildDriveReferences() {
         drivesRepository.data
-                .forEach(
-                        drive -> {
-                            drive.setVm(virtualMachinesRepository
-                                    .findByKey(drive
-                                            .getVm()
-                                            .getName())
-                                            .orElse(null));
-                        });
+                .forEach(driveReferenceBuilder::buildReferences);
     }
     private void buildVirtualMachineReferences() {
         virtualMachinesRepository.data

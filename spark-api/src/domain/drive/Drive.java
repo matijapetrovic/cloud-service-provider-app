@@ -12,6 +12,7 @@ public class Drive implements Model<String> {
 	private DriveType type;
 	private int capacity;
 	private VirtualMachine vm;
+	// TODO : dodati organizaciju
 
 	public Drive(String name) {
 		this.name = name;

@@ -15,7 +15,7 @@ Vue.component("side-nav",{
                 Users
               </router-link>
             </li>
-            <li class="nav-item" v-if="isSuperAdmin">
+            <li class="nav-item" v-if="$root.isSuperAdmin">
               <router-link class="nav-link" to="/organizations">
                 <span data-feather="users"></span>
                 Organizations
@@ -33,7 +33,7 @@ Vue.component("side-nav",{
                 Drives
                 </router-link>
             </li>
-            <li class="nav-item" v-if="isSuperAdmin">
+            <li class="nav-item" v-if="$root.isSuperAdmin">
               <router-link class="nav-link" to="/categories">
                 <span data-feather="folder"></span>
                 VM Categories
@@ -57,22 +57,7 @@ Vue.component("side-nav",{
           </ul>
         </div>
       </nav>
-  `
-  ,
-  data: function(){
-      return {
-          currentUser: null
-      }
-  },
-  computed: {
-    isSuperAdmin() {
-        return this.currentUser && this.currentUser.role === SUPER_ADMIN;
-    }
-  },
-  created() {
-    let user = JSON.parse(localStorage.getItem("user"));
-    this.user = user;
-  },
+  `,
   mounted() {
     feather.replace();
   }

@@ -34,17 +34,10 @@ public class CategoryController {
         });
     }
 
+    // TODO MAYBE: dodati param names pa pustati sve ako je true, ako ne ne pustati
     private Route handleGetAll = (Request request, Response response) -> {
         response.type("application/json");
-        User currentUser = request.attribute("loggedIn");
-
-        switch(currentUser.getRole()) {
-            case SUPER_ADMIN:
-                return App.g.toJson(CategoryMapper.toCategoryDTOList(service.getAll()));
-            default:
-                response.status(500);
-                return "Something went wrong!";
-        }
+        return App.g.toJson(CategoryMapper.toCategoryDTOList(service.getAll()));
     };
 
     private Route handleGetSingle = (Request request, Response response) -> {

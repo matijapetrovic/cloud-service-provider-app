@@ -37,7 +37,6 @@ public class DriveJSONFileStorage implements DriveStorage {
         return true;
     }
 
-    // TODO : promeni kao u VirtualMachineStorage
     @Override
     public boolean update(String name, Drive entity) {
         Optional<Drive> toUpdate = repository.findByKey(name);
