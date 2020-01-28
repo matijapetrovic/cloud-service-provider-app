@@ -2,6 +2,7 @@ Vue.component("virtual-machines-page", {
     template: `
         <base-layout v-bind:page-title="$route.meta.title">
             <button
+                v-if="!$root.isDefaultUser"
                 type="button"
                 class="btn btn-outline-primary"
                 data-toggle="modal"
@@ -51,7 +52,6 @@ Vue.component("virtual-machines-page", {
             viewModalId: 'viewVirtualMachineModal'
         }
     },
-
     methods: {
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();

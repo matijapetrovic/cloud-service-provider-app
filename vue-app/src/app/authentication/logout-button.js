@@ -13,6 +13,7 @@ Vue.component("logout-button", {
             localStorage.removeItem('user-token');
             localStorage.removeItem('user');
             delete axios.defaults.headers.common['Authorization'];
+            this.$root.updateCurrentUser();
             this.$router.push('/login');
         }
     }

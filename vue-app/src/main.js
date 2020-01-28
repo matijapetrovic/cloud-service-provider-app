@@ -1,52 +1,66 @@
-const Profile = {template: '<profile></profile>'}
+const ProfilePage = {template: '<profile></profile>'}
 const UsersPage = { template : '<users-page></users-page>' }
 const LoginPage = { template: '<login-page></login-page>' }
 const OrganizationsPage = { template: '<organizations-page></organizations-page>' }
 const VMPage = { template: '<virtual-machines-page></virtual-machines-page>'}
-const Drive = {template: '<drive-page></drive-page>'}
-const Category = {template: '<category-page></category-page>'}
+const DrivePage = {template: '<drive-page></drive-page>'}
+const CategoryPage = {template: '<category-page></category-page>'}
 
 // kad se refreshuje stranica da pokupi token
-const token = localStorage.getItem('user-token')
+const token = localStorage.getItem('user-token');
 if (token) {
-  axios.defaults.headers.common['Authorization'] = token
+  axios.defaults.headers.common['Authorization'] = token;
 }
 
 const router = new VueRouter({
     mode : 'hash',
     routes : [
-        { path: '/', component: VMPage, meta: {title: 'Home', requiresAuth: true}},
+        { path: '/', component: VMPage, meta: {title: 'Home', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
         { path: '/login', component: LoginPage, meta: { title: 'Login', requiresAuth: false}},
-        { path: '/organizations', component: OrganizationsPage, meta: { title: 'Organizations', requiresAuth: true} },
-        { path: '/users', component: UsersPage, meta: { title: 'Users', requiresAuth: true }},
-        { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true}},
-        { path: '/profile', component: Profile, meta: { title:'Profile', requiresAuth: true}},
-        { path: '/drives', component: Drive, meta: { title:'Drives', requiresAuth: true}},
-        { path: '/categories', component: Category, meta: { title:'Categories', requiresAuth: true}}
-        
+        { path: '/organizations', component: OrganizationsPage, meta: { title: 'Organizations', requiresAuth: true, authorize: ["SUPER_ADMIN"]} },
+        { path: '/users', component: UsersPage, meta: { title: 'Users', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN"] }},
+        { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
+        { path: '/profile', component: ProfilePage, meta: { title:'Profile', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
+        { path: '/drives', component: DrivePage, meta: { title:'Drives', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
+        { path: '/categories', component: CategoryPage, meta: { title:'Categories', requiresAuth: true, authorize: ["SUPER_ADMIN"]}}
     ]
 });
 
 router.beforeEach((to, from, next) => {
-    
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (localStorage.getItem('user-token') == null) {
-            next({
-                path: '/login',
-                params: { nextUrl: to.fullPath }
-            });
-        } else {
-            next();
-        }
-    } else {
-        if (localStorage.getItem('user-token') != null) {
-            next({
-                path: '/'
-            });
-        } else {
-            next();
-        }
-    }
+    let currentUser = JSON.parse(localStorage.getItem("user"));
+
+    let userIsLoggedIn = function() {
+        return currentUser != null;
+    };
+    let routeRequiresAuthentication = function() {
+        return to.matched.some(record => record.meta.requiresAuth);
+    };
+    let userIsAuthorized = function() {
+        return to.matched.some(record => record.meta.authorize.includes(currentUser.role));
+    };
+    let redirectHome = function() {
+        next({
+            path: '/'
+        });
+    };
+    let redirectLogin = function() {
+        next({
+            path: '/login',
+            params: { nextUrl: to.fullPath }
+        });
+    };
+    let forward = function() {
+        next();
+    };
+
+    if (routeRequiresAuthentication()) {
+        if (userIsLoggedIn())
+            userIsAuthorized() ? forward() : redirectHome();
+        else
+            redirectLogin();
+    } 
+    else
+        userIsLoggedIn() ? redirectHome() : forward();
 });
 
 var app = new Vue({
@@ -56,6 +70,25 @@ var app = new Vue({
     router,
     el: '#app',
     data: {
-        message: 'Kabib'
+        currentUser: null
+    },
+    computed: {
+        isSuperAdmin() {
+            return this.currentUser && this.currentUser.role === "SUPER_ADMIN";
+        },
+        isAdmin() {
+            return this.currentUser && this.currentUser.role === "ADMIN";
+        },
+        isDefaultUser() {
+            return this.currentUser && this.currentUser.role === "USER";
+        }
+    },
+    methods: {
+        updateCurrentUser() {
+            this.currentUser = JSON.parse(localStorage.getItem("user"));
+        }
+    },
+    beforeMount() {
+        this.updateCurrentUser();
     }
 });

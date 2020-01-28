@@ -18,7 +18,7 @@ Vue.component("add-vm-form", {
         <select-input
             name="category"
             v-model="virtualMachine.category"
-            v-bind:options="categories"
+            :options="categories"
             required
         >
             Category
@@ -27,15 +27,16 @@ Vue.component("add-vm-form", {
         <select-input
             name="drives"
             v-model="virtualMachine.drives"
-            v-bind:options="drives"
+            :options="drives"
             multiple
         >
             Drives
         </select-input>
         <select-input
+            v-if="$root.isSuperAdmin"
             name="organization"
             v-model="virtualMachine.organization"
-            v-bind:options="organizations"
+            :options="organizations"
             required
         >
             Organization
@@ -92,10 +93,12 @@ Vue.component("add-vm-form", {
         .then(response => {
             this.drives = response.data.map(drive => drive.name);
         });
-        axios
-        .get('api/organizations')
-        .then(response => {
-            this.organizations = response.data.map(organization => organization.name);
-        });
+        if (this.isSuperAdmin) {
+            axios
+            .get('api/organizations')
+            .then(response => {
+                this.organizations = response.data.map(organization => organization.name);
+            });
+        }
     }
 });

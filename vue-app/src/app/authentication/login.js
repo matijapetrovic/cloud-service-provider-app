@@ -63,6 +63,7 @@ Vue.component("login-page", {
                         // stavljamo po defaultu u header da bi axios automatski
                         // slao zahteve sa nasim tokenom
                         axios.defaults.headers.common['Authorization'] = token;
+                        this.$root.updateCurrentUser();
                         this.$router.push('/');
                     })
                     .catch(err => {
