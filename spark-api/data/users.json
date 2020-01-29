@@ -4,6 +4,7 @@
     "password": "Hasaki",
     "name": "Admin",
     "surname": "Petrovic",
+    "organization": {},
     "role": "SUPER_ADMIN"
   },
   {
@@ -17,7 +18,7 @@
     "role": "ADMIN"
   },
   {
-    "email": "ana@gmail.com",
+    "email": "anan@gmail.com",
     "password": "ana",
     "name": "Ana",
     "surname": "Naic",
@@ -39,11 +40,21 @@
   {
     "email": "nikola@gmail.com",
     "password": "nikola",
-    "name": "Admino",
+    "name": "Admin",
     "surname": "Adminovovski",
     "organization": {
       "name": "Doktori"
     },
     "role": "ADMIN"
+  },
+  {
+    "email": "aleksandar@gmail.com",
+    "password": "aleksandar",
+    "name": "Aleksandar",
+    "surname": "Mitic",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "USER"
   }
 ]

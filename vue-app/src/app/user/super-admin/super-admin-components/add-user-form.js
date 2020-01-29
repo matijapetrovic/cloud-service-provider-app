@@ -69,11 +69,22 @@ Vue.component("add-user-form", {
             roles: ["ADMIN", "USER"]
         }
     },
-    mounted () {
-        if (this.$root.isSuperAdmin)
+    mounted () { 
+        if (this.$root.isAdmin){
+            this.getCurrentUserOrganization();
+        }else if (this.$root.isSuperAdmin) {
             this.getOrganizations();
+        }
+        
     },
     methods: {     
+        getCurrentUserOrganization(){
+            axios
+                .get('api/users/'+ this.$root.currentUser.email)
+                .then(response => {
+                    this.user.organization = response.data.organization;
+                })
+        },
         getOrganizations: function(){
                 axios
                 .get('api/organizations')

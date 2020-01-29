@@ -39,6 +39,15 @@ Vue.component("add-drive-form", {
             >
             Virtual Machine
             </select-input>
+
+            <select-input
+            name="organization"
+            v-model="drive.organization"
+            v-bind:options="organizations"
+            required
+            >
+            Organization
+            </select-input>
             
         </main-form>
     `,
@@ -49,14 +58,16 @@ Vue.component("add-drive-form", {
                 type: null,
                 capacity: null,
                 vm: null,
+                organization: null
             },
-            organizations : null,
+            organizations : [],
             vms: [],
             types: ["SSD", "HDD"]
         }
     },
     mounted () {
         this.loadVMs();
+        this.loadOrganizations();
     },
     methods: {
         loadVMs: function(){
@@ -64,6 +75,13 @@ Vue.component("add-drive-form", {
             .get('api/virtualmachines')
             .then(response => {
                 this.vms = response.data.map(vm => vm.name);
+            })
+        },
+        loadOrganizations: function(){
+            axios
+            .get('api/organizations')
+            .then(response => {
+                this.organizations = response.data.map(organization => organization.name);
             })
         },
         checkResponse: function(response) {
@@ -83,7 +101,8 @@ Vue.component("add-drive-form", {
                     "name": this.drive.name,
                     "type": this.drive.type,
                     "capacity": this.drive.capacity,
-                    "vm": this.drive.vm,
+                    "vm":  this.drive.vm ,
+                    "organization": this.drive.organization 
                     
                 })
                 .then(response => {

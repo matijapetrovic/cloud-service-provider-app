@@ -1,5 +1,6 @@
 package storage.json_storage.vm_category;
 
+import domain.user.User;
 import domain.vm_category.CategoryStorage;
 import domain.vm_category.VMCategory;
 import storage.json_storage.JSONDbContext;
@@ -35,8 +36,11 @@ public class CategoryJSONFileStorage implements CategoryStorage {
 
     @Override
     public boolean update(String name, VMCategory entity) {
-        if (!delete(name))
+        Optional<VMCategory> toUpdate = repository.findByKey(name);
+        if (!toUpdate.isPresent())
             return false;
+
+        toUpdate.get().update(entity);
         repository.save(entity);
         return true;
     }

@@ -108,9 +108,36 @@ Vue.component('change-profile-form',{
                 alert('Error: ' + response.data);
             }      
         },
+        setCurrentUser : function() {
+            axios
+                .post('/api/login', 
+                {
+                    email: this.user.email,
+                    password: this.user.password
+                })
+                .then(response => {
+                    const token = response.data.token;
+                    // cuvamo u local storageu da bismo pristupili iz bilo koje komponente
+                    // i da bi ostalo i kad se refreshuje
+                    localStorage.setItem('user-token', token);
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    // stavljamo po defaultu u header da bi axios automatski
+                    // slao zahteve sa nasim tokenom
+                    axios.defaults.headers.common['Authorization'] = token;
+                    this.$root.updateCurrentUser();
+                    this.$router.push('/profile');
+                })
+                .catch(err => {
+                    localStorage.removeItem('user-token');
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
+                })
+        
+        },
         submitForm: function(e) {
             axios
-                .put('/api/users/update/' + this.email, 
+                .put('/api/users/update/' + this.$root.currentUser.email, 
                 {
                     "email": this.user.email,
                     "password": this.user.password,
@@ -121,7 +148,8 @@ Vue.component('change-profile-form',{
                 })
                 .then(response => {
                     this.checkResponse(response);
+                    this.setCurrentUser();
                 });
             }
-        }
+        },
 })
