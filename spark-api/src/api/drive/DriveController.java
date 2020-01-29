@@ -56,6 +56,15 @@ public class DriveController {
                     .filter(vm -> vm.getName().contains(request.queryParams("name")))
                     .collect(Collectors.toList());
         }
+        if (request.queryParams("organization") != null) {
+            result = result
+                    .stream()
+                    .filter(drive -> drive
+                            .getOrganization()
+                            .getName()
+                            .equalsIgnoreCase(request.queryParams("organization")))
+                    .collect(Collectors.toList());
+        }
         return result;
     }
 
@@ -78,11 +87,11 @@ public class DriveController {
         if (request.queryParams("to") != null && !request.queryParams("to").equals("null")) {
             String toS = request.queryParams("to");
             int to = Integer.parseInt(toS);
-        result = result
-                .stream()
-                .filter(vm -> vm.getCapacity() <= to)
-                .collect(Collectors.toList());
-    }
+            result = result
+                    .stream()
+                    .filter(vm -> vm.getCapacity() <= to)
+                    .collect(Collectors.toList());
+        }
         return result;
     }
 

@@ -68,7 +68,7 @@ public class VirtualMachineController {
         response.status(201);
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(added));
     };
-    // TODO : check
+    // TODO : check if name change works
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
@@ -99,7 +99,7 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        response.status(204);
+        response.status(200);
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name)));
     };
 

@@ -1,18 +1,20 @@
 Vue.component("virtual-machines-page", {
     template: `
         <base-layout :page-title="$route.meta.title">
-            <button
-                v-if="!$root.isDefaultUser"
-                @click="prepareAdd"
-                
-                type="button"
-                class="btn btn-outline-primary"
-                
-                data-toggle="modal"
-                :data-target="'#' + addModalId"
-            >
-                Add virtual machine
-            </button>
+            <div class="row">
+                <button
+                    v-if="!$root.isDefaultUser"
+                    @click="prepareAdd"
+                    
+                    type="button"
+                    class="btn btn-outline-primary"
+                    
+                    data-toggle="modal"
+                    :data-target="'#' + addModalId"
+                >
+                    Add virtual machine
+                </button>
+            </div>
             
             <div class="row">
                 <vm-table
@@ -53,8 +55,10 @@ Vue.component("virtual-machines-page", {
                     headerText="Virtual machine info"
                     buttonText="Update"
                     :disableOrganizationSelect="true"
+                    :toggleButton="true"
                     @submit="updateVirtualMachine($event)"
                     @delete="deleteVirtualMachine($event)"
+                    @toggled="toggleVirtualMachine($event)"
                     ref="viewForm"
                 >
                 </vm-form>
@@ -108,6 +112,15 @@ Vue.component("virtual-machines-page", {
                     this.$refs.table.deleteVirtualMachine(response.data);
                     alert('Deleting virtual machine successful');
                     this.closeViewModal();
+                });
+        },
+        toggleVirtualMachine(virtualMachine) {
+            axios
+                .post('/api/virtualmachines/toggle/' + virtualMachine.name)
+                .then(response => {
+                    this.$refs.table.updateVirtualMachine(response.data);
+                    this.$refs.viewForm.getVirtualMachine(virtualMachine.name);
+                    alert('Toggling virtual machine successful');
                 });
         },
         removeViewValidation() {

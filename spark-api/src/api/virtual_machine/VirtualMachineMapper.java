@@ -25,6 +25,7 @@ public class VirtualMachineMapper {
         ));
         dto.setOrganization(virtualMachine.getOrganization().getName());
         dto.setTurnedOn(virtualMachine.isTurnedOn());
+        dto.setActivity(virtualMachine.getActivity());
         return dto;
     }
 
@@ -45,6 +46,7 @@ public class VirtualMachineMapper {
                         .map(Drive::new)
                         .collect(Collectors.toList())),
                 new Organization(dto.getOrganization()),
-                dto.isTurnedOn());
+                dto.isTurnedOn(),
+                dto.getActivity());
     }
 }
