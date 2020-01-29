@@ -4,45 +4,57 @@
     "category": {
       "name": "Cat1"
     },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
+    "drives": [],
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false
+    "turnedOn": false,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 3:49:13 PM",
+        "endDate": "Jan 29, 2020 4:06:13 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 4:07:16 PM",
+        "endDate": "Jan 29, 2020 4:35:56 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 4:35:59 PM",
+        "endDate": "Jan 29, 2020 4:36:00 PM"
+      } 
+    ]
   },
   {
     "name": "VM2",
     "category": {
       "name": "Cat1"
     },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
+    "drives": [],
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 3:51:47 PM"
+      }
+    ]
   },
   {
     "name": "VM23",
     "category": {
       "name": "Cat1"
     },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
+    "drives": [],
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": true
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 4:03:00 PM"
+      }
+    ]
   },
   {
     "name": "VM560",
@@ -57,7 +69,8 @@
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false
+    "turnedOn": false,
+    "activity": []
   },
   {
     "name": "VM123",
@@ -72,7 +85,8 @@
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false
+    "turnedOn": false,
+    "activity": []
   },
   {
     "name": "VM233",
@@ -87,6 +101,7 @@
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false
+    "turnedOn": false,
+    "activity": []
   }
 ]

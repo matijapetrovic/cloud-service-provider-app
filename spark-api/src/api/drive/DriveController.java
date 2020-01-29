@@ -56,6 +56,15 @@ public class DriveController {
                     .filter(vm -> vm.getName().contains(request.queryParams("name")))
                     .collect(Collectors.toList());
         }
+        if (request.queryParams("organization") != null) {
+            result = result
+                    .stream()
+                    .filter(drive -> drive
+                            .getOrganization()
+                            .getName()
+                            .equalsIgnoreCase(request.queryParams("organization")))
+                    .collect(Collectors.toList());
+        }
         return result;
     }
 
@@ -89,7 +98,6 @@ public class DriveController {
                 .filter(vm -> vm.getCapacity() <= to)
                 .collect(Collectors.toList());
     }
-
         return result;
     }
 

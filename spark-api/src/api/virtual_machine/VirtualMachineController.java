@@ -43,7 +43,8 @@ public class VirtualMachineController {
         ensureUserHasPermission(request, User.Role.USER);
 
         List<VirtualMachine> virtualMachines = new ArrayList<>(service.getAll());
-        applyQuery(request, applyRoleFilter(request, virtualMachines));
+        applyRoleFilter(request, virtualMachines);
+        applyQuery(request, virtualMachines);
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTOList(virtualMachines));
     };
 
@@ -67,7 +68,7 @@ public class VirtualMachineController {
         response.status(201);
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(added));
     };
-    // TODO : check
+    // TODO : check if name change works
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
@@ -98,20 +99,17 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        response.status(204);
+        response.status(200);
         return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name)));
     };
 
-    private List<VirtualMachine> applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {
+    private void applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {
         User user = request.attribute("loggedIn");
         if (user.getRole().equals(User.Role.SUPER_ADMIN))
-            return virtualMachines;
+            return;
 
         Organization org = user.getOrganization();
-        return virtualMachines
-            .stream()
-            .filter(x -> org.getVirtualMachines().contains(x))
-            .collect(Collectors.toList());
+        virtualMachines.removeIf(vm -> !vm.getOrganization().equals(org));
     }
 
     private void applyQuery(Request request, List<VirtualMachine> virtualMachines) {
@@ -135,7 +133,7 @@ public class VirtualMachineController {
         User loggedIn = request.attribute("loggedIn");
         if (loggedIn.getRole().equals(User.Role.SUPER_ADMIN))
             return;
-        if (!userOrganizationContainsVirtualMachine(virtualMachine, loggedIn))
+        if (!virtualMachine.getOrganization().equals(loggedIn.getOrganization()))
             halt(403, "Forbidden");
     }
 

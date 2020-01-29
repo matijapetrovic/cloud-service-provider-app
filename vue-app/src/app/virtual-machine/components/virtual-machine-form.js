@@ -9,11 +9,13 @@ Vue.component("vm-form", {
         activeDelete
         buttonTextDelete="Delete"
         @submitDelete="emitDelete"
+        :disableButtons="$root.isDefaultUser"
         ref="form"
     >
         <text-input
             name="name"
             v-model="virtualMachine.name"
+            :disabled="$root.isDefaultUser"
             required
         >
             Name
@@ -22,6 +24,7 @@ Vue.component("vm-form", {
         <select-input
             v-model="virtualMachine.category.name"
             :options="categories"
+            :disabled="$root.isDefaultUser"
             name="category"
             required
         >
@@ -32,6 +35,7 @@ Vue.component("vm-form", {
             name="drives"
             v-model="virtualMachine.drives"
             :options="drives"
+            :disabled="$root.isDefaultUser"
         >
             Drives
         </multiple-select-input>
@@ -40,7 +44,6 @@ Vue.component("vm-form", {
             v-if="$root.isSuperAdmin"
             v-model="virtualMachine.organization"
 
-            @input="getDrives"
             :options="organizations"
             :disabled="disableOrganizationSelect === true"
             name="organization"
@@ -48,6 +51,13 @@ Vue.component("vm-form", {
         >
             Organization
         </select-input>
+
+        <switch-button
+            v-model="virtualMachine.turnedOn"
+            @toggle="emitToggled"
+        >
+            Turn {{ virtualMachine.turnedOn ? 'off' : 'on' }}
+        </switch-button>
     </main-form>
     `,
     props: {
@@ -55,6 +65,10 @@ Vue.component("vm-form", {
         headerText: String,
         buttonText: String,
         disableOrganizationSelect: {
+            type: Boolean,
+            default: false
+        },
+        toggleButton: {
             type: Boolean,
             default: false
         }
@@ -65,7 +79,9 @@ Vue.component("vm-form", {
                 name: null,
                 category: { name: ""},
                 drives: [],
-                organization: null
+                organization: null,
+                turnedOn: false,
+                activity: []
             },
             categories: [],
             drives: [],
@@ -83,7 +99,6 @@ Vue.component("vm-form", {
         },
         getSelectInfo: function() {
             this.getCategories();
-            this.getDrives();
             if (this.$root.isSuperAdmin)
                 this.getOrganizations();
             else
@@ -116,6 +131,15 @@ Vue.component("vm-form", {
         },
         emitDelete() {
             this.$emit('delete', this.virtualMachine);
+        },
+        emitToggled() {
+            this.$emit('toggled', this.virtualMachine);
+        }
+    },
+    watch: {
+        'virtualMachine.organization': function (val, oldVal) {
+            this.virtualMachine.drives = []
+            this.getDrives();
         }
     }
 });

@@ -5,6 +5,7 @@ import domain.Model;
 import domain.organization.Organization;
 import domain.vm_category.VMCategory;
 
+import java.util.Date;
 import java.util.List;
 
 public class VirtualMachine implements Model<String> {
@@ -13,18 +14,21 @@ public class VirtualMachine implements Model<String> {
 	private List<Drive> drives;
 	private Organization organization;
 	private boolean turnedOn;
+	private List<DateRange> activity;
 
 	public VirtualMachine(String name) {
 		this.name = name;
 	}
 
-	public VirtualMachine(String name, VMCategory category, List<Drive> drives, Organization organization, boolean turnedOn) {
+	public VirtualMachine(String name, VMCategory category, List<Drive> drives,
+						  Organization organization, boolean turnedOn, List<DateRange> activity) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.drives = drives;
 		this.organization = organization;
 		this.turnedOn = turnedOn;
+		this.activity = activity;
 	}
 
 	public void update(VirtualMachine other) {
@@ -39,6 +43,9 @@ public class VirtualMachine implements Model<String> {
 
 		if (other.organization != null)
 			this.organization = other.organization;
+
+		if (other.activity != null)
+			this.activity = other.activity;
 	}
 
 	public String getName() {
@@ -85,12 +92,24 @@ public class VirtualMachine implements Model<String> {
 		this.organization = organization;
 	}
 
+	public List<DateRange> getActivity() {
+		return activity;
+	}
+
+	public void setActivity(List<DateRange> activity) {
+		this.activity = activity;
+	}
+
 	public boolean isTurnedOn() {
 		return turnedOn;
 	}
 
 	public void toggle() {
 		turnedOn = !turnedOn;
+		if (turnedOn)
+			activity.add(new DateRange(new Date()));
+		else
+			activity.get(activity.size() - 1).setEndDate(new Date());
 	}
 
 	public boolean addDrive(Drive drive) {

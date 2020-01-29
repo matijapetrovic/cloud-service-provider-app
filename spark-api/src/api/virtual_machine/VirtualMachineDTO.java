@@ -1,6 +1,7 @@
 package api.virtual_machine;
 
 import api.vm_category.CategoryDTO;
+import domain.virtual_machine.DateRange;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class VirtualMachineDTO {
     private List<String> drives;
     private String organization;
     private boolean turnedOn;
+    private List<DateRange> activity;
 
     public VirtualMachineDTO() {
 
@@ -53,5 +55,13 @@ public class VirtualMachineDTO {
 
     public void setTurnedOn(boolean turnedOn) {
         this.turnedOn = turnedOn;
+    }
+
+    public List<DateRange> getActivity() {
+        return activity;
+    }
+
+    public void setActivity(List<DateRange> activity) {
+        this.activity = activity;
     }
 }

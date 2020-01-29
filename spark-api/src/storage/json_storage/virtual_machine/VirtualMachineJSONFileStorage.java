@@ -45,6 +45,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
+        repository.saveChanges();
         return true;
     }
 
@@ -55,7 +56,6 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
             return false;
 
         entity.get().detachDrives();
-
         repository.delete(entity.get());
         return true;
     }
@@ -66,6 +66,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
         if (!entity.isPresent())
             return false;
         entity.get().toggle();
+        repository.saveChanges();
         return true;
     }
 

@@ -15,6 +15,7 @@ Vue.component('multiple-select-input',{
                     :multiple="true"
                     :close-on-select="false"
                     :clear-on-select="false"
+                    :disabled="disabled===true"
                 >
                 </multiselect>
 

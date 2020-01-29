@@ -16,6 +16,7 @@ Vue.component("main-form", {
                 <button
                     class="btn btn-outline-primary"
                     type="submit"
+                    :disabled="disableButtons"
                 >
                     {{ buttonText }}
                 </button>
@@ -25,6 +26,7 @@ Vue.component("main-form", {
                     @click="submitDelete"
                     class="btn btn-outline-secondary pull-right"
                     type="submit"
+                    :disabled="disableButtons"
                 >
                     {{ buttonTextDelete }}
                 </button>
@@ -38,6 +40,10 @@ Vue.component("main-form", {
         buttonText: String,
         buttonTextDelete: String,
         activeDelete : Boolean,
+        disableButtons: {
+            type: Boolean,
+            default: false
+        }
     },
     methods: {
         removeValidation: function() {
