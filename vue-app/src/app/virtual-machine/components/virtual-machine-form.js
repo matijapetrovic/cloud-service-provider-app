@@ -9,11 +9,13 @@ Vue.component("vm-form", {
         activeDelete
         buttonTextDelete="Delete"
         @submitDelete="emitDelete"
+        :disableButtons="$root.isDefaultUser"
         ref="form"
     >
         <text-input
             name="name"
             v-model="virtualMachine.name"
+            :disabled="$root.isDefaultUser"
             required
         >
             Name
@@ -22,6 +24,7 @@ Vue.component("vm-form", {
         <select-input
             v-model="virtualMachine.category.name"
             :options="categories"
+            :disabled="$root.isDefaultUser"
             name="category"
             required
         >
@@ -32,6 +35,7 @@ Vue.component("vm-form", {
             name="drives"
             v-model="virtualMachine.drives"
             :options="drives"
+            :disabled="$root.isDefaultUser"
         >
             Drives
         </multiple-select-input>

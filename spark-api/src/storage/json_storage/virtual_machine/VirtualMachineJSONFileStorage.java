@@ -45,6 +45,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
+        repository.save(toUpdate.get());
         return true;
     }
 
