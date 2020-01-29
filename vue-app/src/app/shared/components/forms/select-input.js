@@ -1,27 +1,30 @@
+Vue.component('multiselect', window.VueMultiselect.default);
+
 Vue.component('select-input',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
                <slot></slot>
             </label>  
-            <div> 
-                <select
-                    :name="name"
-                    :required="required"
-                    :multiple="multiple"
-                    :value="value"
-                    @input="$emit('input', $event.target.value)"
+            <div>
+                <multiselect
+                    v-model="selectedVal"
+                    :options="options"
+                    :searchable="false"
+                    :close-on-select="true"
+                    :allow-empty="required === false"
+                    :show-labels="false"
+                    :disabled="disabled===true"
                 >
-                    <option v-if="required" disabled value="" selected>Please select one</option>
-                    <option v-else-if="!multiple" value="null"></option>
-                    <option v-for="item in options" :value="item">{{item}}</option>
-                </select>
+
+                </multiselect>
+
             </div>
         </div>
     `,
     props: {
         name: String,
-        value: String | Array,
+        value: String,
         options: {
             type: Array
         },
@@ -29,9 +32,19 @@ Vue.component('select-input',{
             type: Boolean,
             default: false
         },
-        multiple: {
+        disabled: {
             type: Boolean,
             default: false
         }
+    },
+    computed: {
+        selectedVal: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit('input', val);
+            }
+        }
     }
-})
+});
