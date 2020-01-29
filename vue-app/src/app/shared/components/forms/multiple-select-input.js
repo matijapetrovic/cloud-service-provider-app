@@ -1,6 +1,6 @@
 Vue.component('multiselect', window.VueMultiselect.default);
 
-Vue.component('select-input',{
+Vue.component('multiple-select-input',{
     template: `
         <div  class="form-group">   
             <label v-bind:for="name">
@@ -11,12 +11,11 @@ Vue.component('select-input',{
                     v-model="selectedVal"
                     :options="options"
                     :searchable="false"
-                    :close-on-select="true"
                     :allow-empty="required === false"
-                    :show-labels="false"
-                    :disabled="disabled===true"
+                    :multiple="true"
+                    :close-on-select="false"
+                    :clear-on-select="false"
                 >
-
                 </multiselect>
 
             </div>
@@ -24,7 +23,7 @@ Vue.component('select-input',{
     `,
     props: {
         name: String,
-        value: String,
+        value: Array,
         options: {
             type: Array
         },

@@ -28,14 +28,13 @@ Vue.component("vm-form", {
             Category
         </select-input>
 
-        <select-input
+        <multiple-select-input
             name="drives"
             v-model="virtualMachine.drives"
             :options="drives"
-            multiple
         >
             Drives
-        </select-input>
+        </multiple-select-input>
 
         <select-input
             v-if="$root.isSuperAdmin"
@@ -43,6 +42,7 @@ Vue.component("vm-form", {
 
             @input="getDrives"
             :options="organizations"
+            :disabled="disableOrganizationSelect === true"
             name="organization"
             required
         >
@@ -54,6 +54,10 @@ Vue.component("vm-form", {
         id: String,
         headerText: String,
         buttonText: String,
+        disableOrganizationSelect: {
+            type: Boolean,
+            default: false
+        }
     },
     data: function() {
         return {

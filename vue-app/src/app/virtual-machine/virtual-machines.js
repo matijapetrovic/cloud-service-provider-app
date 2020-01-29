@@ -14,20 +14,18 @@ Vue.component("virtual-machines-page", {
                 Add virtual machine
             </button>
             
-            <div class="container">
-                <div class="row">
-                    <vm-table
-                        @viewVirtualMachine="viewVirtualMachine($event)"
-                        :view-modal-id="viewModalId"
-                        ref="table"
-                    >
-                    </vm-table>
+            <div class="row">
+                <vm-table
+                    @viewVirtualMachine="viewVirtualMachine($event)"
+                    :view-modal-id="viewModalId"
+                    ref="table"
+                >
+                </vm-table>
 
-                    <vm-filter-sidebar
-                        @search="searchVirtualMachines($event)"
-                    >
-                    </vm-filter-sidebar>
-                </div>
+                <vm-filter-sidebar
+                    @search="searchVirtualMachines($event)"
+                >
+                </vm-filter-sidebar>
             </div>
             
             <full-modal
@@ -54,6 +52,7 @@ Vue.component("virtual-machines-page", {
                     id="viewVirtualMachineForm"
                     headerText="Virtual machine info"
                     buttonText="Update"
+                    :disableOrganizationSelect="true"
                     @submit="updateVirtualMachine($event)"
                     @delete="deleteVirtualMachine($event)"
                     ref="viewForm"
@@ -92,7 +91,7 @@ Vue.component("virtual-machines-page", {
                 {
                     "name": virtualMachine.name,
                     "category": virtualMachine.category,
-                    "drives": virtualMachine.drives instanceof Array ? this.virtualMachine.drives : [ this.virtualMachine.drives ],
+                    "drives": virtualMachine.drives instanceof Array ? virtualMachine.drives : [ virtualMachine.drives ],
                     "organization": virtualMachine.organization
                 })
                 .then(response => {

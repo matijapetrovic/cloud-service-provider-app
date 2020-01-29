@@ -8,6 +8,7 @@ Vue.component("vm-table", {
                     <th>RAM</th>
                     <th>GPUs</th>
                     <th v-if="$root.isSuperAdmin">Organization</th>
+                    <th>Turned on</th>
                 </tr>
             </thead>
 
@@ -26,6 +27,7 @@ Vue.component("vm-table", {
                 <td>{{ virtualMachine.category.ram }}</td>
                 <td>{{ virtualMachine.category.gpus }}</td>
                 <td v-if="$root.isSuperAdmin">{{ virtualMachine.organization}}</td>
+                <td>{{ virtualMachine.turnedOn ? 'Yes' : 'No' }}</td>
             </tr>
         </table>
     `,
