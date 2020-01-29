@@ -1,6 +1,7 @@
 package domain.vm_category;
 
 import domain.Model;
+import domain.user.User;
 
 public class VMCategory implements Model<String> {
 	private String name;
@@ -20,6 +21,19 @@ public class VMCategory implements Model<String> {
 		this.gpus = gpus;
 	}
 
+	public void update(VMCategory other) {
+		if (other.name != null)
+			this.name = other.name;
+
+		if (other.cpus != 0)
+			this.cpus = other.cpus;
+
+		if (other.gpus != 0)
+			this.gpus = other.gpus;
+
+		if (other.ram != 0)
+			this.ram = other.ram;
+	}
 	public String getName() {
 		return name;
 	}

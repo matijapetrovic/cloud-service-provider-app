@@ -41,6 +41,7 @@ Vue.component("view-drive-form", {
                 type : null,
                 capacity : null,
                 vm : null,
+                organization: null
             }
         }
     },
@@ -80,7 +81,8 @@ Vue.component("view-drive-form", {
                     "name": this.drive.name,
                     "type": this.drive.type,
                     "capacity": this.drive.capacity,
-                    "vm": this.drive.vm,
+                    "vm":  this.drive.vm,
+                    "organization": this.drive.organization
                 })
                 .then(response => {
                     this.checkResponse(response);

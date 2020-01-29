@@ -32,6 +32,7 @@ public class UserJSONFileStorage implements UserStorage {
         if (repository.findByKey(entity.getKey()).isPresent())
             return false;
 
+        referenceBuilder.buildReferences(entity);
         repository.save(entity);
         return true;
     }
@@ -44,6 +45,7 @@ public class UserJSONFileStorage implements UserStorage {
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
+        repository.save(entity);
         return true;
     }
 

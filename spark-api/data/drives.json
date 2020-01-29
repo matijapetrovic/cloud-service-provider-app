@@ -37,21 +37,21 @@
     "type": "SSD",
     "capacity": 42,
     "vm": {
-      "name": "VM1"
+      "name": "VM2"
     },
     "organization": {
       "name": "Lavovi"
     }
   },
   {
-    "name": "drive5",
+    "name": "drive9",
     "type": "SSD",
-    "capacity": 77,
+    "capacity": 3,
     "vm": {
       "name": "VM1"
     },
     "organization": {
-      "name": "Lavovi"
+      "name": "Doktori"
     }
   }
 ]

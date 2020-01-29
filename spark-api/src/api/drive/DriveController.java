@@ -113,7 +113,7 @@ public class DriveController {
 
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
-
+        System.out.println(request.body());
         DriveDTO drive = App.g.fromJson(request.body(), DriveDTO.class);
         service.post(DriveMapper.fromDriveDTO(drive));
 

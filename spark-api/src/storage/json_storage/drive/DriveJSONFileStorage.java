@@ -45,6 +45,7 @@ public class DriveJSONFileStorage implements DriveStorage {
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
+        repository.save(entity);
         return true;
     }
 

@@ -101,6 +101,7 @@ public class UserController {
 					.filter(x -> org.getUsers().contains(x))
 				.collect(Collectors.toList());
 	}
+
 	private List<User> allExceptSuperAdmin (List<User> users) {
 		return users.stream().filter(x -> x.getRole() != User.Role.SUPER_ADMIN).collect(Collectors.toList());
 	}
