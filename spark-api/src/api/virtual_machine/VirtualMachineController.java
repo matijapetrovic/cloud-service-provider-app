@@ -99,7 +99,7 @@ public class VirtualMachineController {
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
         response.status(204);
-        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name));;
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name)));
     };
 
     private List<VirtualMachine> applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {
