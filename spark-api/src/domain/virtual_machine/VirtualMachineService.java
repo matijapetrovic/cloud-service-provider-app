@@ -2,7 +2,7 @@ package domain.virtual_machine;
 
 import java.util.List;
 
-public interface VirtualMachineService {
+public interface    VirtualMachineService {
     List<VirtualMachine> getAll();
     VirtualMachine getSingle(String name);
     VirtualMachine post(VirtualMachine virtualMachine);

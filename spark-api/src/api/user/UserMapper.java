@@ -1,7 +1,13 @@
 package api.user;
 
+import api.virtual_machine.VirtualMachineDTO;
+import api.vm_category.CategoryMapper;
+import domain.drive.Drive;
+import domain.organization.Organization;
 import domain.user.User;
+import domain.virtual_machine.VirtualMachine;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,5 +31,15 @@ public class UserMapper {
                 .filter(x -> x.getRole() != User.Role.SUPER_ADMIN)
                 .map(UserMapper::toUserDTO)
                 .collect(Collectors.toList());
-        }
+    }
+
+    public static User fromUserDTO(UserDTO dto) {
+        return new User(
+                dto.getEmail(),
+                dto.getPassword(),
+                dto.getName(),
+                dto.getSurname(),
+                new Organization(dto.getOrganization()),
+                dto.getRole());
+    }
 }

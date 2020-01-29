@@ -110,7 +110,7 @@ Vue.component('change-profile-form',{
         },
         submitForm: function(e) {
             axios
-                .put('/api/users/update/' + this.email, 
+                .put('/api/users/update/' + this.$root.currentUser.email, 
                 {
                     "email": this.user.email,
                     "password": this.user.password,
@@ -121,6 +121,7 @@ Vue.component('change-profile-form',{
                 })
                 .then(response => {
                     this.checkResponse(response);
+                    this.$root.currentUser.email = this.user.email;
                 });
             }
         }

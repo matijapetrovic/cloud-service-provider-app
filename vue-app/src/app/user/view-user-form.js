@@ -32,11 +32,14 @@ Vue.component("view-user-form", {
                 Surname
             </text-input>
 
-            <select-role
+            <select-input
+            name="role"
             v-model="user.role"
+            v-bind:options="roles"
             required
             >
-            </select-role>
+            Role
+            </select-input>
         </main-form>
     `,
     data : function () {
@@ -48,7 +51,8 @@ Vue.component("view-user-form", {
                 surname : null,
                 role : null ,
                 organization: null 
-            }
+            },
+            roles: ["ADMIN", "USER"]
         }
     },
     

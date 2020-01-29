@@ -54,22 +54,27 @@ public class UserController {
 	};
 
 	private Route handlePost = (Request request, Response response) -> {
-		ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
-		System.out.println(request.body());
-		User user = App.g.fromJson(request.body(), User.class);
-		service.post(user);
+		UserDTO user = App.g.fromJson(request.body(), UserDTO.class);
+		if(!ensureUserGetHimself(request, user.getEmail())){
+			ensureUserHasPermission(request, User.Role.ADMIN);
+		}
+
+		service.post(UserMapper.fromUserDTO(user));
 
 		response.status(200);
 		return "OK";
 	};
 
 	private Route handlePut = (Request request, Response response) -> {
-		ensureUserHasPermission(request, User.Role.ADMIN);
-
-		User user = App.g.fromJson(request.body(), User.class);
 		String email = request.params(":email");
 
-		service.put(email, user);
+		if(!ensureUserGetHimself(request, email)){
+			ensureUserHasPermission(request, User.Role.ADMIN);
+		}
+
+		UserDTO user = App.g.fromJson(request.body(), UserDTO.class);
+
+		service.put(email, UserMapper.fromUserDTO(user));
 		response.status(200);
 		return "OK";
 	};
@@ -100,4 +105,11 @@ public class UserController {
 		return users.stream().filter(x -> x.getRole() != User.Role.SUPER_ADMIN).collect(Collectors.toList());
 	}
 
+	private static boolean ensureUserGetHimself(Request request, String email){
+		User user = request.attribute("loggedIn");
+		if(user.getEmail().equals(email)){
+			return true;
+		}
+		return false;
+	}
 }

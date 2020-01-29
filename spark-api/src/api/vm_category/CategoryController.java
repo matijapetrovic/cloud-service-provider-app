@@ -62,10 +62,10 @@ public class CategoryController {
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
-        VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
+        CategoryDTO category = App.g.fromJson(request.body(), CategoryDTO.class);
         String name = request.params(":email");
 
-        service.put(name, category);
+        service.put(name, CategoryMapper.fromCategoryDTO(category));
         response.status(200);
         return "OK";
     };
