@@ -55,6 +55,7 @@ Vue.component("virtual-machines-page", {
                     headerText="Virtual machine info"
                     buttonText="Update"
                     :disableOrganizationSelect="true"
+                    :activityList="true"
                     :toggleButton="true"
                     @submit="updateVirtualMachine($event)"
                     @delete="deleteVirtualMachine($event)"

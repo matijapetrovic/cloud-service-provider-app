@@ -16,7 +16,6 @@ Vue.component('select-input',{
                     :show-labels="false"
                     :disabled="disabled===true"
                 >
-
                 </multiselect>
 
             </div>
