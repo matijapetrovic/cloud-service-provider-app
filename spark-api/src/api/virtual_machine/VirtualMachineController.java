@@ -32,6 +32,7 @@ public class VirtualMachineController {
                 get("", handleGetAll);
                 get("/:name", handleGetSingle);
                 post("", handlePost);
+                post("/toggle/:name", handleToggle);
                 put("/:name", handlePut);
                 delete("/:name", handleDelete);
             });
@@ -90,6 +91,15 @@ public class VirtualMachineController {
         service.delete(name);
         response.status(204);
         return "";
+    };
+
+    private Route handleToggle = (Request request, Response response) -> {
+        String name = request.params(":name");
+        VirtualMachine virtualMachine = service.getSingle(name);
+        ensureUserCanAccessVirtualMachine(request, virtualMachine);
+
+        response.status(204);
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name)));
     };
 
     private List<VirtualMachine> applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {

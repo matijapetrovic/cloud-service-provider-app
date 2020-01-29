@@ -12,17 +12,19 @@ public class VirtualMachine implements Model<String> {
 	private VMCategory category;
 	private List<Drive> drives;
 	private Organization organization;
+	private boolean turnedOn;
 
 	public VirtualMachine(String name) {
 		this.name = name;
 	}
 
-	public VirtualMachine(String name, VMCategory category, List<Drive> drives, Organization organization) {
+	public VirtualMachine(String name, VMCategory category, List<Drive> drives, Organization organization, boolean turnedOn) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.drives = drives;
 		this.organization = organization;
+		this.turnedOn = turnedOn;
 	}
 
 	public void update(VirtualMachine other) {
@@ -81,6 +83,14 @@ public class VirtualMachine implements Model<String> {
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	public boolean isTurnedOn() {
+		return turnedOn;
+	}
+
+	public void toggle() {
+		turnedOn = !turnedOn;
 	}
 
 	public boolean addDrive(Drive drive) {

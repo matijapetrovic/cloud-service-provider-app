@@ -9,6 +9,7 @@ public class VirtualMachineDTO {
     private CategoryDTO category;
     private List<String> drives;
     private String organization;
+    private boolean turnedOn;
 
     public VirtualMachineDTO() {
 
@@ -44,5 +45,13 @@ public class VirtualMachineDTO {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public boolean isTurnedOn() {
+        return turnedOn;
+    }
+
+    public void setTurnedOn(boolean turnedOn) {
+        this.turnedOn = turnedOn;
     }
 }
