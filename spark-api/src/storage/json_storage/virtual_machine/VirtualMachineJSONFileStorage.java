@@ -59,4 +59,15 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
         repository.delete(entity.get());
         return true;
     }
+
+    @Override
+    public boolean toggle(String name) {
+        Optional<VirtualMachine> entity = repository.findByKey(name);
+        if (!entity.isPresent())
+            return false;
+        entity.get().toggle();
+        return true;
+    }
+
+
 }

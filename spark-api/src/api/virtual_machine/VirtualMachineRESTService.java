@@ -52,4 +52,12 @@ public class VirtualMachineRESTService implements VirtualMachineService {
             halt(404, "Virtual machine with the name "
                     + name + " not found");
     }
+
+    @Override
+    public VirtualMachine toggle(String name) {
+        if (!storage.toggle(name))
+            halt(404, "Virtual machine with the name "
+                    + name + " not found");
+        return storage.findByName(name).orElse(null);
+    }
 }

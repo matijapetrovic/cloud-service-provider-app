@@ -8,4 +8,5 @@ public interface VirtualMachineService {
     VirtualMachine post(VirtualMachine virtualMachine);
     VirtualMachine put(String name, VirtualMachine virtualMachine);
     void delete(String name);
+    VirtualMachine toggle(String name);
 }

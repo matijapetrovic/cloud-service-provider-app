@@ -8,4 +8,5 @@ public interface VirtualMachineStorage {
     boolean add(VirtualMachine entity);
     boolean update(String name, VirtualMachine entity);
     boolean delete(String name);
+    boolean toggle(String name);
 }
