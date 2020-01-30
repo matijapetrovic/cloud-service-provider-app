@@ -30,6 +30,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         port(8080);
         staticFiles.externalLocation(new File("./../vue-app").getCanonicalPath());
+        staticFiles.location("/public");
 
         path("/api", () -> {
             before("/*", (q, a) -> logger.log(Level.INFO, "Received API call: " + q.requestMethod() + " " + q.uri()));

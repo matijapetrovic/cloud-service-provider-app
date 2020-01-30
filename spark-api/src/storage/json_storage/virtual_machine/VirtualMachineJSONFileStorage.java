@@ -55,7 +55,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
         if (!entity.isPresent())
             return false;
 
-        entity.get().detachDrives();
+        entity.get().removeReferences();
         repository.delete(entity.get());
         return true;
     }

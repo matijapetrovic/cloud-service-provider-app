@@ -3,11 +3,8 @@
     "name": "drive1",
     "type": "HDD",
     "capacity": 64,
-    "vm": {
-      "name": "VM1"
-    },
     "organization": {
-      "name": "Lavovi"
+      "name": "Doktori"
     }
   },
   {
@@ -47,9 +44,6 @@
     "name": "drive9",
     "type": "SSD",
     "capacity": 3,
-    "vm": {
-      "name": "VM1"
-    },
     "organization": {
       "name": "Doktori"
     }

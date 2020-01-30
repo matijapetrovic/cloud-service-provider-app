@@ -55,9 +55,10 @@ public class DriveJSONFileStorage implements DriveStorage {
         if (!entity.isPresent())
             return false;
 
-        entity.get().detachVirtualMachine();
+        Drive drive = entity.get();
+        drive.removeReferences();
 
-        repository.delete(entity.get());
+        repository.delete(drive);
         return true;
     }
 
