@@ -73,7 +73,7 @@ public class DriveController {
         if (request.queryParams("name") != null && !request.queryParams("name").equals("null")) {
             result = result
                     .stream()
-                    .filter(vm -> vm.getName().equals(request.queryParams("name")))
+                    .filter(vm -> vm.getName().contains(request.queryParams("name")))
                     .collect(Collectors.toList());
         }
         if (request.queryParams("type") != null && !request.queryParams("type").equals("null")) {

@@ -41,6 +41,7 @@ Vue.component("add-drive-form", {
             </select-input>
 
             <select-input
+            v-if="$root.isSuperAdmin"
             name="organization"
             v-model="drive.organization"
             v-bind:options="organizations"
@@ -67,9 +68,21 @@ Vue.component("add-drive-form", {
     },
     mounted () {
         this.loadVMs();
-        this.loadOrganizations();
+        if(this.$root.isSuperAdmin){
+            this.loadOrganizations();
+        }else {
+            this.setUserOrganization();
+        }
+        
     },
     methods: {
+        setUserOrganization: function(){
+            axios
+            .get('api/users/' + this.$root.currentUser.email)
+            .then(response => {
+                this.drive.organization = response.data.organization;
+            }) 
+        },
         loadVMs: function(){
             axios
             .get('api/virtualmachines')

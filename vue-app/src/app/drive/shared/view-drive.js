@@ -31,6 +31,23 @@ Vue.component("view-drive-form", {
             >
                 Capacity
             </number-input>
+            <select-input
+                v-if="$root.isSuperAdmin"
+                name="organization"
+                v-model="drive.organization"
+                :options="organizations"
+                required
+            >
+                Organization
+            </select-input>
+            <select-input
+                name="virtualmachines"
+                v-model="drive.vm"
+                :options="vms"
+                required
+            >
+                Virtual machines
+            </select-input>
 
         </main-form>
     `,
@@ -42,11 +59,43 @@ Vue.component("view-drive-form", {
                 capacity : null,
                 vm : null,
                 organization: null
-            }
+            },
+            organizations: [],
+            vms: []
         }
     },
+    mounted(){
+        this.getVMS();
+        if(this.$root.isSuperAdmin){
+            this.getOrganization();
+
+        }else {
+            this.setDriveOrganization();
+        }    
+    },
     
-    methods: {
+    methods: {    
+        setDriveOrganization: function(){
+            axios
+            .get('api/users/' + this.$root.currentUser.email)
+            .then(response => {
+                this.drive.organization = response.data.organization;
+            }) 
+        },
+        getOrganization: function(){
+            axios
+                .get('/api/organizations')
+                .then(response => {
+                    this.organizations = response.data.map(organization => organization.name);
+                });
+        },
+        getVMS: function(){
+            axios
+                .get('/api/virtualmachines')
+                .then(response => {
+                    this.vms = response.data.map(vm => vm.name);
+                });
+        },
         getDrive: function(name) {
             axios
                 .get('/api/drives/' + name)

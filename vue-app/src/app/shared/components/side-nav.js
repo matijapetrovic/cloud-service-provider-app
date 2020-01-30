@@ -9,7 +9,7 @@ Vue.component("side-nav",{
                 Profile
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="!$root.isDefaultUser">
               <router-link class="nav-link" to="/users">
                 <span data-feather="user"></span>
                 Users

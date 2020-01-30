@@ -43,9 +43,8 @@ public class UserController {
 		return App.g.toJson(users1);
 	};
 
-	// TODO : dozvoliti obicnom useru da getuje sebe zbog profila
 	private Route handleGetSingle = (Request request, Response response) -> {
-		ensureUserHasPermission(request, User.Role.ADMIN);
+		ensureUserHasPermission(request, User.Role.USER);
 
 		String email = request.params(":email");
 
@@ -93,12 +92,14 @@ public class UserController {
 	private List<User> applyRoleFilter(Request request, List<User> users) {
 		User user = request.attribute("loggedIn");
 		if (user.getRole().equals(User.Role.SUPER_ADMIN))
-			return users;
+			return users.stream().
+					filter(x -> !x.getEmail().equals(user.getEmail())
+					).collect(Collectors.toList());
 
 		Organization org = user.getOrganization();
 		return users
 				.stream()
-					.filter(x -> org.getUsers().contains(x))
+				.filter(x -> org.getUsers().contains(x) && !x.getEmail().equals(user.getEmail()))
 				.collect(Collectors.toList());
 	}
 
