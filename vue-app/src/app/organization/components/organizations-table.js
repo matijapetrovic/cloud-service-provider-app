@@ -15,13 +15,13 @@ Vue.component("org-table", {
                 href="#" 
                 @click.prevent="viewOrganization(org.name)" 
                 data-toggle="modal" 
-                v-bind:data-target="'#' + viewModalId"
+                :data-target="'#' + viewModalId"
                 >
                     {{ org.name }}
                 </a>
             </td>
             <td>{{ org.description }}</td>
-            <td>{{ org.logo }}</td>
+            <td><img style="height:2em;" :src="'/' + org.logo"></td>
         </tr>
     </table>
     `,
