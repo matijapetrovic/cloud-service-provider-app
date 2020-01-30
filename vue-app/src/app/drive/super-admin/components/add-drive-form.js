@@ -85,7 +85,7 @@ Vue.component("add-drive-form", {
         },
         loadVMs: function(){
             axios
-            .get('api/virtualmachines')
+            .get('api/virtualmachines?organization='+ this.drive.organization)
             .then(response => {
                 this.vms = response.data.map(vm => vm.name);
             })
@@ -115,12 +115,17 @@ Vue.component("add-drive-form", {
                     "type": this.drive.type,
                     "capacity": this.drive.capacity,
                     "vm":  this.drive.vm ,
-                    "organization": this.drive.organization 
-                    
+                    "organization": this.drive.organization       
                 })
                 .then(response => {
                     this.checkResponse(response);
                 });
+        }        
+    },
+    watch: {
+        'drive.organization': function (val, oldVal) {
+            this.drive.vm = null;
+            this.loadVMs();
         }
     }
 });

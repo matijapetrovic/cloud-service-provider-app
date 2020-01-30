@@ -6,6 +6,10 @@ import java.util.List;
 
 public class VirtualMachineFilter {
 
+    public static void filterByOrganization(String name, List<VirtualMachine> virtualMachines) {
+        virtualMachines.removeIf(vm -> !vm.getOrganization().getName().contains(name));
+    }
+
     public static void filterByName(String name, List<VirtualMachine> virtualMachines) {
         virtualMachines.removeIf(vm -> !vm.getName().contains(name));
     }

@@ -92,8 +92,12 @@
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false,
-    "activity": []
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 6:51:04 PM"
+      }
+    ]
   },
   {
     "name": "VM233",

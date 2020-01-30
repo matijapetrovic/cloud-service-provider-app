@@ -113,6 +113,8 @@ public class VirtualMachineController {
     }
 
     private void applyQuery(Request request, List<VirtualMachine> virtualMachines) {
+        if (request.queryParams("organization") != null)
+            VirtualMachineFilter.filterByOrganization(request.queryParams("organization"), virtualMachines);
         if (request.queryParams("name") != null)
             VirtualMachineFilter.filterByName(request.queryParams("name"), virtualMachines);
         if (request.queryParams("cpuFrom") != null)

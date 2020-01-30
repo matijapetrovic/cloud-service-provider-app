@@ -14,8 +14,7 @@ Vue.component("drives-from-organization-table", {
                             </tr>
                         </thead>
                         <tr v-for="drive in drives">
-                            <td  v-if="!$root.isDefaultUser"><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
-                            <td v-else>{{ drive.name }}</td>
+                            <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
                             <td>{{ drive.capacity }}</td>
                             <td>{{ drive.type }}</td>
                             <td>{{ drive.vm }}</td>

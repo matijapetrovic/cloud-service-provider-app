@@ -16,18 +16,22 @@ Vue.component("view-drive-form", {
                 name="name"
                 v-model="drive.name"
                 required
+                :disabled="$root.isDefaultUser"
             >
                 Name
             </text-input>
-            <text-input
+            <select-input
                 name="type"
                 v-model="drive.type"
+                :options="types"
+                :disabled="$root.isDefaultUser"
             >
                 Type
-            </text-input>
+            </select-input>
             <number-input
                 name="capacity"
                 v-model="drive.capacity"
+                :disabled="$root.isDefaultUser"
             >
                 Capacity
             </number-input>
@@ -37,6 +41,7 @@ Vue.component("view-drive-form", {
                 v-model="drive.organization"
                 :options="organizations"
                 required
+                disabled
             >
                 Organization
             </select-input>
@@ -45,6 +50,7 @@ Vue.component("view-drive-form", {
                 v-model="drive.vm"
                 :options="vms"
                 required
+                :disabled="$root.isDefaultUser"
             >
                 Virtual machines
             </select-input>
@@ -61,7 +67,8 @@ Vue.component("view-drive-form", {
                 organization: null
             },
             organizations: [],
-            vms: []
+            vms: [],
+            types: ["HDD", "SSD"]
         }
     },
     mounted(){
