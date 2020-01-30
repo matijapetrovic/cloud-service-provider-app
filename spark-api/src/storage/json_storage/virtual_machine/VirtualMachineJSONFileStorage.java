@@ -1,5 +1,6 @@
 package storage.json_storage.virtual_machine;
 
+import com.google.gson.stream.JsonReader;
 import domain.virtual_machine.VirtualMachineStorage;
 import domain.virtual_machine.VirtualMachine;
 import storage.json_storage.JSONDbContext;
@@ -11,8 +12,10 @@ import java.util.Optional;
 public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
     private JSONFileRepository<String, VirtualMachine> repository;
     private VirtualMachineReferenceBuilder referenceBuilder;
+    private JSONDbContext context;
 
     public VirtualMachineJSONFileStorage(JSONDbContext context) {
+        this.context = context;
         repository = context.getVirtualMachinesRepository();
         referenceBuilder = context.getVirtualMachineReferenceBuilder();
     }
@@ -33,7 +36,9 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
             return false;
 
         referenceBuilder.buildReferences(entity);
+        entity.buildReferences();
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -45,7 +50,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
-        repository.saveChanges();
+        context.saveDb();
         return true;
     }
 
@@ -57,6 +62,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
 
         entity.get().removeReferences();
         repository.delete(entity.get());
+        context.saveDb();
         return true;
     }
 
@@ -66,7 +72,7 @@ public class VirtualMachineJSONFileStorage implements VirtualMachineStorage {
         if (!entity.isPresent())
             return false;
         entity.get().toggle();
-        repository.saveChanges();
+        context.saveDb();
         return true;
     }
 

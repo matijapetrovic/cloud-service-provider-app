@@ -40,9 +40,12 @@ public class UserRESTService implements UserService {
 
     @Override
     public void put(String email, User user) {
-        if (!storage.update(email, user))
+        if (!storage.findByName(email).isPresent())
             halt(404, "User with the email "
                     + email + " not found");
+        if (!storage.update(email, user))
+            halt(400, "Email "
+                    + user.getEmail() + " already taken");
     }
 
     @Override

@@ -10,8 +10,10 @@ import java.util.Optional;
 
 public class CategoryJSONFileStorage implements CategoryStorage {
     JSONFileRepository<String, VMCategory> repository;
+    private JSONDbContext context;
 
     public CategoryJSONFileStorage(JSONDbContext context) {
+        this.context = context;
         repository = context.getVmCategoriesRepository();
     }
 
@@ -31,6 +33,7 @@ public class CategoryJSONFileStorage implements CategoryStorage {
             return false;
 
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -42,6 +45,7 @@ public class CategoryJSONFileStorage implements CategoryStorage {
 
         toUpdate.get().update(entity);
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -52,6 +56,7 @@ public class CategoryJSONFileStorage implements CategoryStorage {
             return false;
 
         repository.delete(entity.get());
+        context.saveDb();
         return true;
     }
 

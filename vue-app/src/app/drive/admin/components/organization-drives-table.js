@@ -1,36 +1,34 @@
 Vue.component("drives-from-organization-table", {
     template:`
     <div>
-        <div class="container">
-            <div class="row">   
-                <div class="col-8">
-                    <table border="1" class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Name</th>
-                                <th>Capacity</th>
-                                <th>Type</th>
-                                <th>Virtual Machine</th>
-                            </tr>
-                        </thead>
-                        <tr v-for="drive in drives">
-                            <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
-                            <td>{{ drive.capacity }}</td>
-                            <td>{{ drive.type }}</td>
-                            <td>{{ drive.vm }}</td>
+        <div class="row">   
+            <div class="col-8">
+                <table border="1" class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Capacity</th>
+                            <th>Type</th>
+                            <th>Virtual Machine</th>
                         </tr>
-                    </table>
-                </div>
-
-                <aside class="col-md-4">
-                    <filter-side-bar
-                    @emitFilter=sendFilterRequest($event)
-                    @reset="getAllDrives"    
-                    ref="filterForm"
-                    >
-                    </filter-side-bar>
-                </aside>
+                    </thead>
+                    <tr v-for="drive in drives">
+                        <td><a href="#" @click.prevent="viewDrive(drive.name)" data-toggle="modal" v-bind:data-target="'#' + viewModalId">{{ drive.name }}</a></td>
+                        <td>{{ drive.capacity }}</td>
+                        <td>{{ drive.type }}</td>
+                        <td>{{ drive.vm }}</td>
+                    </tr>
+                </table>
             </div>
+
+            <aside class="col-md-4">
+                <filter-side-bar
+                @emitFilter=sendFilterRequest($event)
+                @reset="getAllDrives"    
+                ref="filterForm"
+                >
+                </filter-side-bar>
+            </aside>
         </div>
     </div>
     `,

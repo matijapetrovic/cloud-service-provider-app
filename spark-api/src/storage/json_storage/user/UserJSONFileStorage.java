@@ -11,8 +11,10 @@ import java.util.Optional;
 public class UserJSONFileStorage implements UserStorage {
     private JSONFileRepository<String, User> repository;
     private UserReferenceBuilder referenceBuilder;
+    private JSONDbContext context;
 
     public UserJSONFileStorage(JSONDbContext context) {
+        this.context = context;
         repository = context.getUsersRepository();
         referenceBuilder = context.getUserReferenceBuilder();
     }
@@ -33,7 +35,9 @@ public class UserJSONFileStorage implements UserStorage {
             return false;
 
         referenceBuilder.buildReferences(entity);
+        entity.buildReferences();
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -43,9 +47,13 @@ public class UserJSONFileStorage implements UserStorage {
         if (!toUpdate.isPresent())
             return false;
 
+        if (repository.findByKey(entity.getEmail()).isPresent())
+            return false;
+
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -59,6 +67,7 @@ public class UserJSONFileStorage implements UserStorage {
         user.removeReferences();
 
         repository.delete(user);
+        context.saveDb();
         return true;
     }
 }

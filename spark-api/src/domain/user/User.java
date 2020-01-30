@@ -61,9 +61,6 @@ public class User  implements Model<String> {
 
 		if (other.role != null)
 			this.role = other.role;
-
-		if (other.organization != null)
-			this.organization = other.organization;
 	}
 
 	public String getEmail() {
@@ -114,6 +111,9 @@ public class User  implements Model<String> {
 		this.role = role;
 	}
 
+	public void buildReferences() {
+		organization.addUser(this);
+	}
 	public void removeReferences() {
 		organization.removeUser(this);
 	}

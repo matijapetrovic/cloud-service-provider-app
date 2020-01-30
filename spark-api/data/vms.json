@@ -31,7 +31,11 @@
         "endDate": "Jan 30, 2020 3:08:21 PM"
       },
       {
-        "startDate": "Jan 30, 2020 3:08:26 PM"
+        "startDate": "Jan 30, 2020 3:08:26 PM",
+        "endDate": "Jan 30, 2020 8:55:01 PM"
+      },
+      {
+        "startDate": "Jan 30, 2020 8:55:03 PM"
       }
     ]
   },
@@ -40,7 +44,11 @@
     "category": {
       "name": "Cat1"
     },
-    "drives": [],
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
     "organization": {
       "name": "Lavovi"
     },
@@ -88,11 +96,7 @@
     "category": {
       "name": "Cat2"
     },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
+    "drives": [],
     "organization": {
       "name": "Lavovi"
     },
@@ -108,13 +112,74 @@
     "category": {
       "name": "Cat2"
     },
+    "drives": [],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": false,
+    "activity": []
+  },
+  {
+    "name": "Nova mahina",
+    "category": {
+      "name": "Cat1"
+    },
     "drives": [
       {
-        "name": "drive3"
+        "name": "drive1"
+      },
+      {
+        "name": "drive9"
       }
     ],
     "organization": {
-      "name": "Lavovi"
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 9:43:23 PM",
+        "endDate": "Jan 30, 2020 9:43:25 PM"
+      }
+    ]
+  },
+  {
+    "name": "Nova mahina 2",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": []
+  },
+  {
+    "name": "Nova mahina 3",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 10:33:06 PM",
+        "endDate": "Jan 30, 2020 10:33:08 PM"
+      }
+    ]
+  },
+  {
+    "name": "Nova mahina 4",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
     },
     "turnedOn": false,
     "activity": []

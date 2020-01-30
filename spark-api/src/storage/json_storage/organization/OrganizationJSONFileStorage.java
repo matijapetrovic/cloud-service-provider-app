@@ -9,8 +9,10 @@ import java.util.Optional;
 
 public class OrganizationJSONFileStorage implements OrganizationStorage {
     JSONFileRepository<String, Organization> repository;
+    private JSONDbContext context;
 
     public OrganizationJSONFileStorage(JSONDbContext context) {
+        this.context = context;
         repository = context.getOrganizationsRepository();
     }
 
@@ -30,6 +32,7 @@ public class OrganizationJSONFileStorage implements OrganizationStorage {
             return false;
 
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -38,6 +41,7 @@ public class OrganizationJSONFileStorage implements OrganizationStorage {
         if (!delete(name))
             return false;
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -48,6 +52,7 @@ public class OrganizationJSONFileStorage implements OrganizationStorage {
             return false;
 
         repository.delete(entity.get());
+        context.saveDb();
         return true;
     }
 }

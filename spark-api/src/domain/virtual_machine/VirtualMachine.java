@@ -32,6 +32,7 @@ public class VirtualMachine implements Model<String> {
 	}
 
 	public void update(VirtualMachine other) {
+		removeReferences();
 		if (other.name != null)
 			this.name = other.name;
 
@@ -41,11 +42,9 @@ public class VirtualMachine implements Model<String> {
 		if (other.drives != null)
 			this.drives = other.drives;
 
-		if (other.organization != null)
-			this.organization = other.organization;
-
 		if (other.activity != null)
 			this.activity = other.activity;
+		buildReferences();
 	}
 
 	public String getName() {
@@ -133,6 +132,11 @@ public class VirtualMachine implements Model<String> {
 		if (drive == null)
 			return;
 		drives.set(idx, drive);
+	}
+
+	public void buildReferences() {
+		drives.forEach(drive -> drive.setVm(this));
+		organization.addVirtualMachine(this);
 	}
 
 	public void removeReferences() {

@@ -28,12 +28,18 @@ public class Drive implements Model<String> {
 		this.organization = organization;
 	}
 
+	public void buildReferences() {
+		vm.addDrive(this);
+		organization.addDrive(this);
+	}
+
 	public void removeReferences() {
 		vm.removeDrive(this);
 		organization.removeDrive(this);
 	}
 
 	public void update(Drive other) {
+		removeReferences();
 		if (other.name != null)
 			this.name = other.name;
 
@@ -42,9 +48,7 @@ public class Drive implements Model<String> {
 
 		if (other.vm != null)
 			this.vm = other.vm;
-
-		if(other.organization != null)
-			this.organization = other.organization;
+		buildReferences();
 	}
 
 	public void setOrganization(Organization organization) {

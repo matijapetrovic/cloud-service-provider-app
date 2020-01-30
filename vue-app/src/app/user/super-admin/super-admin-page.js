@@ -1,23 +1,23 @@
 Vue.component('super-admin-page',{
-
     template: `
-        <div>                
+        <div>
+            <div class="row">
+                <button
+                type="button"
+                class="btn btn-outline-primary"
+                data-toggle="modal"
+                v-bind:data-target="'#' + addModalId"
+                style="margin: 15px 0;"
+                >
+                    Add user
+                </button>
+            </div>          
             <all-users-table
             @viewUser="viewUser($event)"
             v-bind:view-modal-id="viewModalId"
             ref="table"
             >
             </all-users-table>
-
-            <button
-            type="button"
-            class="btn btn-outline-primary"
-            data-toggle="modal"
-            v-bind:data-target="'#' + addModalId"
-            style="margin: 15px 0;"
-            >
-                Add user
-            </button>
 
             <full-modal
             @close="removeViewValidation"

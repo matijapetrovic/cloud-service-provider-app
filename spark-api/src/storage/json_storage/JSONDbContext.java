@@ -117,4 +117,12 @@ public class JSONDbContext {
     public DriveReferenceBuilder getDriveReferenceBuilder() {return driveReferenceBuilder;}
 
     public UserReferenceBuilder getUserReferenceBuilder() {return userReferenceBuilder;}
+
+    public void saveDb() {
+        organizationsRepository.saveChanges();
+        drivesRepository.saveChanges();
+        usersRepository.saveChanges();
+        virtualMachinesRepository.saveChanges();
+        drivesRepository.saveChanges();
+    }
 }

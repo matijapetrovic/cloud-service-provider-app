@@ -3,6 +3,9 @@
     "name": "drive1",
     "type": "HDD",
     "capacity": 64,
+    "vm": {
+      "name": "Nova mahina"
+    },
     "organization": {
       "name": "Doktori"
     }
@@ -42,8 +45,11 @@
   },
   {
     "name": "drive9",
-    "type": "SSD",
-    "capacity": 3,
+    "type": "HDD",
+    "capacity": 64,
+    "vm": {
+      "name": "Nova mahina"
+    },
     "organization": {
       "name": "Doktori"
     }

@@ -62,7 +62,8 @@ public class DriveController {
                     .filter(drive -> drive
                             .getOrganization()
                             .getName()
-                            .equalsIgnoreCase(request.queryParams("organization")))
+                            .equalsIgnoreCase(request.queryParams("organization"))
+                            && drive.getVm() == null)
                     .collect(Collectors.toList());
         }
         return result;
@@ -102,9 +103,9 @@ public class DriveController {
     }
 
     private Route handleGetSingle = (Request request, Response response) -> {
-        ensureUserHasPermission(request, User.Role.ADMIN);
-
         String name = request.params(":name");
+        Drive drive = service.getSingle(name);
+        ensureUserCanAccessDrive(request, drive);
 
         response.status(200);
         return App.g.toJson(DriveMapper.toDriveDTO(service.getSingle(name)));
@@ -114,7 +115,6 @@ public class DriveController {
         ensureUserHasPermission(request, User.Role.ADMIN);
         User user = App.g.fromJson(request.body(), User.class);
 
-        response.type("application/json");
         response.status(200);
         return App.g.toJson(DriveMapper.toDriveDTOList(service.getAllDrivesFromSameOrganization(user)));
     };
@@ -160,5 +160,13 @@ public class DriveController {
                 .stream()
                 .filter(x -> org.getDrives().contains(x))
                 .collect(Collectors.toList());
+    }
+
+    private static void ensureUserCanAccessDrive(Request request, Drive drive) {
+        User loggedIn = request.attribute("loggedIn");
+        if (loggedIn.getRole().equals(User.Role.SUPER_ADMIN))
+            return;
+        if (!drive.getOrganization().equals(loggedIn.getOrganization()))
+            halt(403, "Forbidden");
     }
 }

@@ -54,7 +54,6 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        // temporary
         VirtualMachineDTO dto = VirtualMachineMapper.toVirtualMachineDTO(virtualMachine);
         response.status(200);
         return App.g.toJson(dto);
@@ -136,12 +135,5 @@ public class VirtualMachineController {
             return;
         if (!virtualMachine.getOrganization().equals(loggedIn.getOrganization()))
             halt(403, "Forbidden");
-    }
-
-    private static boolean userOrganizationContainsVirtualMachine(VirtualMachine virtualMachine, User loggedIn) {
-        return loggedIn
-                .getOrganization()
-                .getVirtualMachines()
-                .contains(virtualMachine);
     }
 }

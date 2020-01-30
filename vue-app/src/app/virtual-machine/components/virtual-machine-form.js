@@ -60,7 +60,7 @@ Vue.component("vm-form", {
         </vm-activity-list>
 
         <switch-button
-            v-if="toggleButton"
+            v-if="toggleButton && !$root.isDefaultUser"
             v-model="virtualMachine.turnedOn"
             @toggle="emitToggled"
         >
@@ -112,6 +112,7 @@ Vue.component("vm-form", {
         },
         getSelectInfo: function() {
             this.getCategories();
+            this.getDrives();
             if (this.$root.isSuperAdmin)
                 this.getOrganizations();
             else
@@ -130,6 +131,7 @@ Vue.component("vm-form", {
             .get('api/drives?organization=' + this.virtualMachine.organization)
             .then(response => {
                 this.drives = response.data.map(drive => drive.name);
+                this.drives = this.drives.concat(this.virtualMachine.drives);
             });
         },
         getOrganizations: function() {
@@ -147,11 +149,18 @@ Vue.component("vm-form", {
         },
         emitToggled() {
             this.$emit('toggled', this.virtualMachine);
+        },
+        resetVirtualMachine() {
+            this.virtualMachine.name = null;
+            this.virtualMachine.category = {name: ""};
+            this.virtualMachine.drives = [];
+            this.virtualMachine.organization = null;
+            this.virtualMachine.turnedOn = false;
+            this.virtualMachine.activity = [];
         }
     },
     watch: {
         'virtualMachine.organization': function (val, oldVal) {
-            this.virtualMachine.drives = []
             this.getDrives();
         }
     }

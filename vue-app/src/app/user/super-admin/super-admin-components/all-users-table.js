@@ -1,31 +1,33 @@
 Vue.component("all-users-table",{
     template:`
-    <table border="1" class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th v-if="$root.isSuperAdmin">Organization</th>
-                </tr>
-            </thead>
+    <div class="row">
+        <table border="1" class="table col-md-8">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th v-if="$root.isSuperAdmin">Organization</th>
+                    </tr>
+                </thead>
 
-            <tr v-for="user in users">
-                <td>
-                    <a
-                    href="#" 
-                    @click.prevent="viewUser(user.email)" 
-                    data-toggle="modal" 
-                    v-bind:data-target="'#' + viewModalId"
-                    >
-                        {{ user.email }}
-                    </a>
-                </td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.surname }}</td>
-                <td v-if="$root.isSuperAdmin">{{user.organization}}</td>
-            </tr>
-        </table>
+                <tr v-for="user in users">
+                    <td>
+                        <a
+                        href="#" 
+                        @click.prevent="viewUser(user.email)" 
+                        data-toggle="modal" 
+                        v-bind:data-target="'#' + viewModalId"
+                        >
+                            {{ user.email }}
+                        </a>
+                    </td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td v-if="$root.isSuperAdmin">{{user.organization}}</td>
+                </tr>
+            </table>
+    </div>
 
     `,
     props : {

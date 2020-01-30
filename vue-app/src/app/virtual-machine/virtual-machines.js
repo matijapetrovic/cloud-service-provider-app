@@ -11,6 +11,7 @@ Vue.component("virtual-machines-page", {
                     
                     data-toggle="modal"
                     :data-target="'#' + addModalId"
+                    style="margin: 15px 0;"
                 >
                     Add virtual machine
                 </button>
@@ -80,9 +81,11 @@ Vue.component("virtual-machines-page", {
                 .post('/api/virtualmachines', 
                 {
                     "name": virtualMachine.name,
-                    "category": {"name": virtualMachine.category },
-                    "drives": virtualMachine.drives instanceof Array ? this.virtualMachine.drives : [ this.virtualMachine.drives ],
-                    "organization": virtualMachine.organization
+                    "category": virtualMachine.category,
+                    "drives": virtualMachine.drives instanceof Array ? virtualMachine.drives : [ virtualMachine.drives ],
+                    "organization": virtualMachine.organization,
+                    "turnedOn": false,
+                    "activity": []
                 })
                 .then(response => {
                     this.$refs.table.addVirtualMachine(response.data);
@@ -129,6 +132,7 @@ Vue.component("virtual-machines-page", {
         },
         removeAddValidation () {
             this.$refs.addForm.$refs.form.removeValidation();
+            this.$refs.addForm.resetVirtualMachine();
         },
         closeViewModal() {
             this.removeViewValidation();

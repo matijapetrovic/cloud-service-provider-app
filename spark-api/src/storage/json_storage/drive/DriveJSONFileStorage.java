@@ -12,8 +12,10 @@ import java.util.Optional;
 public class DriveJSONFileStorage implements DriveStorage {
     private JSONFileRepository<String, Drive> repository;
     private DriveReferenceBuilder referenceBuilder;
+    private JSONDbContext context;
 
     public DriveJSONFileStorage(JSONDbContext context) {
+        this.context = context;
         repository = context.getDrivesRepository();
         referenceBuilder = context.getDriveReferenceBuilder();
     }
@@ -33,7 +35,10 @@ public class DriveJSONFileStorage implements DriveStorage {
         if (repository.findByKey(entity.getKey()).isPresent())
             return false;
 
+        referenceBuilder.buildReferences(entity);
+        entity.buildReferences();
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -46,6 +51,7 @@ public class DriveJSONFileStorage implements DriveStorage {
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
         repository.save(entity);
+        context.saveDb();
         return true;
     }
 
@@ -59,6 +65,7 @@ public class DriveJSONFileStorage implements DriveStorage {
         drive.removeReferences();
 
         repository.delete(drive);
+        context.saveDb();
         return true;
     }
 

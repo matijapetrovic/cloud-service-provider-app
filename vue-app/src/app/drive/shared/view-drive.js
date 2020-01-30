@@ -10,6 +10,7 @@ Vue.component("view-drive-form", {
             activeDelete
             buttonTextDelete="Delete"
             @submitDelete="deleteDrive"
+            :disableButtons="$root.isDefaultUser"
             ref="form"
         >
             <text-input
@@ -52,7 +53,7 @@ Vue.component("view-drive-form", {
                 required
                 :disabled="$root.isDefaultUser"
             >
-                Virtual machines
+                Virtual machine
             </select-input>
 
         </main-form>

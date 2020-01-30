@@ -1,6 +1,15 @@
 Vue.component("super-admin-drive-page",{
     template: `
     <div>
+            <button
+                type="button"
+                class="btn btn-outline-primary"
+                data-toggle="modal"
+                v-bind:data-target="'#' + addModalId"
+                style="margin: 15px 0;"
+            >
+                Add drive
+            </button>
             <all-drives-table
             @viewDrive="viewDrive($event)"
             v-bind:view-modal-id="viewModalId"
@@ -8,15 +17,7 @@ Vue.component("super-admin-drive-page",{
             >
             </all-drives-table>
 
-            <button
-            type="button"
-            class="btn btn-outline-primary"
-            data-toggle="modal"
-            v-bind:data-target="'#' + addModalId"
-            style="margin: 15px 0;"
-            >
-                Add drive
-            </button>
+            
             
             <full-modal
             @close="removeViewValidation"

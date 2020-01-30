@@ -42,13 +42,11 @@ public class JSONFileRepository<K, E extends Model<K>> implements Repository<K, 
         }
         else
             data.add(entity);
-        saveChanges();
     }
 
     @Override
     public void delete(E entity) {
         data.remove(entity);
-        saveChanges();
     }
 
     @Override

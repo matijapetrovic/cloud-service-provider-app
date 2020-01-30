@@ -149,6 +149,11 @@ Vue.component('change-profile-form',{
                 .then(response => {
                     this.checkResponse(response);
                     this.setCurrentUser();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
             }
         },

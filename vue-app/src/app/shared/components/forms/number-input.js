@@ -1,7 +1,7 @@
 Vue.component("number-input", {
     template: `
         <div class="form-group">
-            <label v-bind:for="name">
+            <label :for="name">
                 <slot></slot>
             </label>
             <div class="input-group">
@@ -9,10 +9,12 @@ Vue.component("number-input", {
                     class="form-control"
                     type="number"
                     min=1
-                    v-bind:name="name"
-                    v-bind:value="value"
-                    v-on:input="$emit('input', Number($event.target.value))"
-                    v-bind:required="required"
+                    :name="name"
+                    :value="value"
+                    @input="$emit('input', Number($event.target.value))"
+                    :required="required"
+                    :disabled="disabled"
+                    @keydown="validate"
                 >
                 <div class="invalid-feedback">
                     Please provide a valid {{ name }}
@@ -27,6 +29,17 @@ Vue.component("number-input", {
         required: {
             type: Boolean,
             default: false
+        },
+        disabled : {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        validate(event) {
+            if (event.keyCode == 189 || event.keyCode == 190) {
+                event.preventDefault();
+            }
         }
     }
 });
