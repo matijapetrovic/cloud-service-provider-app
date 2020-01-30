@@ -43,7 +43,7 @@ Vue.component('change-profile-form',{
             type="button"
             data-toggle="modal"
             v-bind:data-target="'#' + changePasswordModalId"
-            style="margin: 15px 0;"
+            style="margin: 29px 0;"
             >
                 Change password
             </button>

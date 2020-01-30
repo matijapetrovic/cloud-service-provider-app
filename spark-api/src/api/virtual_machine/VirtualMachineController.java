@@ -12,7 +12,6 @@ import spark.Route;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;

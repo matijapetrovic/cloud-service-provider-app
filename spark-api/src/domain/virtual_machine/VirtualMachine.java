@@ -135,8 +135,9 @@ public class VirtualMachine implements Model<String> {
 		drives.set(idx, drive);
 	}
 
-	public void detachDrives() {
+	public void removeReferences() {
 		drives.forEach(drive -> drive.setVm(null));
+		organization.removeVirtualMachine(this);
 	}
 
 	@Override

@@ -66,9 +66,6 @@ public class User  implements Model<String> {
 			this.organization = other.organization;
 	}
 
-	public void detachOrganization(){
-		setOrganization(null);
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -115,6 +112,10 @@ public class User  implements Model<String> {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public void removeReferences() {
+		organization.removeUser(this);
 	}
 
 	@Override
