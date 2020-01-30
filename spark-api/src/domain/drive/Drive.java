@@ -28,8 +28,9 @@ public class Drive implements Model<String> {
 		this.organization = organization;
 	}
 
-	public void detachVirtualMachine(){
-		setVm(null);
+	public void removeReferences() {
+		vm.removeDrive(this);
+		organization.removeDrive(this);
 	}
 
 	public void update(Drive other) {

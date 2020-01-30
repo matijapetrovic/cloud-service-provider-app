@@ -17,18 +17,15 @@ public class DriveReferenceBuilder {
     }
 
     private void buildVirtualMachineReferences(Drive drive) {
-        drive.setVm(context.getVirtualMachinesRepository()
-                .findByKey(drive
-                        .getVm()
-                        .getName())
-                .orElse(null));
+        if (drive.getVm() != null)
+            drive.setVm(context.getVirtualMachinesRepository()
+                    .findByKey(drive.getVm().getName())
+                    .orElse(null));
     }
 
     private void buildOrganizationReferences(Drive drive) {
         drive.setOrganization(context.getOrganizationsRepository()
-                .findByKey(drive
-                        .getOrganization()
-                        .getName())
+                .findByKey(drive.getOrganization().getName())
                 .orElse(null));
     }
 }

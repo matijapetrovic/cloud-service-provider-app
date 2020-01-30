@@ -55,9 +55,10 @@ public class UserJSONFileStorage implements UserStorage {
         if (!entity.isPresent())
             return false;
 
-        entity.get().detachOrganization();
+        User user = entity.get();
+        user.removeReferences();
 
-        repository.delete(entity.get());
+        repository.delete(user);
         return true;
     }
 }

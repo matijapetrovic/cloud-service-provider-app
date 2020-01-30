@@ -1,10 +1,7 @@
 package storage.json_storage.drive.serializing;
 
 import com.google.gson.ExclusionStrategy;
-import com.google.gson.GsonBuilder;
-import application.App;
 import domain.drive.Drive;
-import domain.virtual_machine.VirtualMachine;
 import storage.json_storage.JSONSerializer;
 
 import java.io.FileReader;
