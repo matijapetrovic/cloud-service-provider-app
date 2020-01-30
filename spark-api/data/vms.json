@@ -8,7 +8,7 @@
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": false,
+    "turnedOn": true,
     "activity": [
       {
         "startDate": "Jan 29, 2020 3:49:13 PM",
@@ -21,7 +21,14 @@
       {
         "startDate": "Jan 29, 2020 4:35:59 PM",
         "endDate": "Jan 29, 2020 4:36:00 PM"
-      } 
+      },
+      {
+        "startDate": "Jan 29, 2020 5:21:41 PM",
+        "endDate": "Jan 29, 2020 5:21:44 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 5:21:51 PM"
+      }
     ]
   },
   {

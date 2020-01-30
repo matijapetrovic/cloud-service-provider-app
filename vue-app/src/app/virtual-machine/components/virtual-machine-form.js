@@ -52,7 +52,15 @@ Vue.component("vm-form", {
             Organization
         </select-input>
 
+        <vm-activity-list
+            v-if="activityList"
+            v-model="activityItem"
+            :options="virtualMachine.activity"
+        >
+        </vm-activity-list>
+
         <switch-button
+            v-if="toggleButton"
             v-model="virtualMachine.turnedOn"
             @toggle="emitToggled"
         >
@@ -71,6 +79,10 @@ Vue.component("vm-form", {
         toggleButton: {
             type: Boolean,
             default: false
+        },
+        activityList: {
+            type: Boolean,
+            default: false
         }
     },
     data: function() {
@@ -85,7 +97,8 @@ Vue.component("vm-form", {
             },
             categories: [],
             drives: [],
-            organizations: []
+            organizations: [],
+            activityItem: null
         }
     },
     methods: {
