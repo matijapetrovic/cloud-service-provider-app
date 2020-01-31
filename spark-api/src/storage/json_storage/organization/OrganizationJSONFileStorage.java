@@ -45,7 +45,7 @@ public class OrganizationJSONFileStorage implements OrganizationStorage {
         if (!toUpdate.isPresent())
             return false;
 
-        if (!name.equalsIgnoreCase(entity.getName()) && repository.findByKey(entity.getName()).isPresent())
+        if (repository.findByKey(entity.getName()).isPresent() && !name.equalsIgnoreCase(entity.getName()))
             return false;
 
         updateLogo(entity);

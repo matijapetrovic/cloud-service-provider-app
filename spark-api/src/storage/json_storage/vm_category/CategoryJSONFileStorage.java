@@ -1,11 +1,13 @@
 package storage.json_storage.vm_category;
 
 import domain.user.User;
+import domain.virtual_machine.VirtualMachine;
 import domain.vm_category.CategoryStorage;
 import domain.vm_category.VMCategory;
 import storage.json_storage.JSONDbContext;
 import storage.json_storage.JSONFileRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CategoryJSONFileStorage implements CategoryStorage {
@@ -43,8 +45,10 @@ public class CategoryJSONFileStorage implements CategoryStorage {
         if (!toUpdate.isPresent())
             return false;
 
+        if (repository.findByKey(entity.getName()).isPresent() && !name.equalsIgnoreCase(entity.getName()))
+            return false;
+
         toUpdate.get().update(entity);
-        repository.save(entity);
         context.saveDb();
         return true;
     }
@@ -55,9 +59,16 @@ public class CategoryJSONFileStorage implements CategoryStorage {
         if (!entity.isPresent())
             return false;
 
+        if (vmReferencesCategory(context.getVirtualMachinesRepository().findAll(), entity.get())) {
+            return false;
+        }
+
         repository.delete(entity.get());
         context.saveDb();
         return true;
     }
 
+    private boolean vmReferencesCategory(List<VirtualMachine> virtualMachines, VMCategory category) {
+        return virtualMachines.stream().anyMatch(vm -> vm.getCategory().equals(category));
+    }
 }

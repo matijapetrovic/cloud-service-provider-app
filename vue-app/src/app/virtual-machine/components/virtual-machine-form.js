@@ -88,6 +88,7 @@ Vue.component("vm-form", {
     data: function() {
         return {
             virtualMachine: {
+                oldName: null,
                 name: null,
                 category: { name: ""},
                 drives: [],
@@ -107,6 +108,7 @@ Vue.component("vm-form", {
                 .get('/api/virtualmachines/' + name)
                 .then(response => {
                     this.virtualMachine = response.data;
+                    this.virtualMachine.oldName = response.data.name;
                     this.getSelectInfo();
                 });
         },

@@ -122,7 +122,7 @@ public class JSONDbContext {
 
     public void saveDb() {
         organizationsRepository.saveChanges();
-        drivesRepository.saveChanges();
+        vmCategoriesRepository.saveChanges();
         usersRepository.saveChanges();
         virtualMachinesRepository.saveChanges();
         drivesRepository.saveChanges();

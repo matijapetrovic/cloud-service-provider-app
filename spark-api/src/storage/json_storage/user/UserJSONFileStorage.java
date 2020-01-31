@@ -47,7 +47,7 @@ public class UserJSONFileStorage implements UserStorage {
         if (!toUpdate.isPresent())
             return false;
 
-        if (!email.equalsIgnoreCase(entity.getName()) &&  repository.findByKey(entity.getEmail()).isPresent())
+        if (repository.findByKey(entity.getName()).isPresent() && !email.equalsIgnoreCase(entity.getName()))
             return false;
 
         referenceBuilder.buildReferences(entity);

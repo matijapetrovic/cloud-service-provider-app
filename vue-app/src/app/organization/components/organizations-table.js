@@ -34,13 +34,16 @@ Vue.component("org-table", {
         }
     },
     mounted () {
-        axios
-            .get('/api/organizations')
+        this.getOrganizations();
+    },
+    methods: {
+        getOrganizations() {
+            axios
+            .get('api/organizations')
             .then(response => {
                 this.organizations = response.data;
             });
-    },
-    methods: {
+        },
         addOrganization(organization) {
             this.organizations.push(organization);
         },

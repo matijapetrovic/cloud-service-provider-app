@@ -1,7 +1,15 @@
 Vue.component("admin-category-page",{
     template: `
     <div>
-        
+    <button
+    type="button"
+    class="btn btn-outline-primary"
+    data-toggle="modal"
+    v-bind:data-target="'#' + addModalId"
+    style="margin: 15px 0;"
+    >
+        Add category
+    </button>
         <categories-from-organization-table
         @viewCategory="viewCategory($event)"
         v-bind:view-modal-id="viewModalId"
@@ -9,15 +17,7 @@ Vue.component("admin-category-page",{
         >
         </categories-from-organization-table>
 
-        <button
-        type="button"
-        class="btn btn-outline-primary"
-        data-toggle="modal"
-        v-bind:data-target="'#' + addModalId"
-        style="margin: 15px 0;"
-        >
-            Add category
-        </button>
+        
         
         <full-modal
         @close="removeViewValidation"

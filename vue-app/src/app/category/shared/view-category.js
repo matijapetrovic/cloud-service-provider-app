@@ -71,14 +71,9 @@ Vue.component("view-category-form", {
             }
         },
         checkDeleteResponse: function(response) {
-            if (response.status === 200) {
-                this.$emit('deletedCategory', this.category);
-                alert('Category with name '+ this.id + ' successfully deleted!');
-                this.$emit('submitDelete')
-            }
-            else {
-                alert('Error: ' + response.data);
-            }
+            this.$emit('deletedCategory', this.category);
+            alert('Category with name '+ this.id + ' successfully deleted!');
+            this.$emit('submitDelete')
         },
         submitForm: function(e) {
             axios
@@ -98,6 +93,11 @@ Vue.component("view-category-form", {
                 .delete('api/categories/delete/' + this.id)
                 .then(response => {
                     this.checkDeleteResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         }
     }

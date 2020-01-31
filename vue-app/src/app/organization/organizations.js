@@ -7,6 +7,7 @@ Vue.component("organizations-page", {
 
             data-toggle="modal"
             :data-target="'#' + addModalId"
+            style="margin: 15px 0;"
             >
                 Add organization
         </button>
@@ -82,7 +83,7 @@ Vue.component("organizations-page", {
                     "drives": []
                 })
                 .then(response => {
-                    self.$refs.table.addOrganization(response.data); 
+                    self.$refs.table.getOrganizations(); 
                     alert('Adding organization successful');
                     self.closeAddModal();
                 });
@@ -116,7 +117,7 @@ Vue.component("organizations-page", {
                     "drives": []
                 })
                 .then(response => {
-                    self.$refs.table.updateOrganization(response.data);
+                    self.$refs.table.getOrganizations();
                     alert('Updating organization successful');
                     self.closeViewModal();
                 });

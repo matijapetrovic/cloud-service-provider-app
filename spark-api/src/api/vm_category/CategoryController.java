@@ -52,8 +52,8 @@ public class CategoryController {
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
 
-        VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
-        service.post(category);
+        CategoryDTO dto = App.g.fromJson(request.body(), CategoryDTO.class);
+        service.post(CategoryMapper.fromCategoryDTO(dto));
 
         response.status(200);
         return "OK";
@@ -63,7 +63,7 @@ public class CategoryController {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
         CategoryDTO category = App.g.fromJson(request.body(), CategoryDTO.class);
-        String name = request.params(":email");
+        String name = request.params(":name");
 
         service.put(name, CategoryMapper.fromCategoryDTO(category));
         response.status(200);
@@ -73,11 +73,10 @@ public class CategoryController {
     private Route handleDelete = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
-        VMCategory category = App.g.fromJson(request.body(), VMCategory.class);
         String name = request.params(":name");
 
         service.delete(name);
-        response.status(200);
-        return "OK";
+        response.status(204);
+        return "";
     };
 }

@@ -41,14 +41,17 @@ public class CategoryRESTService implements CategoryService {
     @Override
     public void put(String name, VMCategory category) {
         if (!storage.update(name, category))
-            halt(404, "User with the name "
+            halt(404, "Category with the name "
                     + name + " not found");
     }
 
     @Override
     public void delete(String name) {
-        if (!storage.delete(name))
-            halt(404, "User with the name "
+        Optional<VMCategory> user = storage.findByName(name);
+        if (!user.isPresent())
+            halt(404, "Category with the name "
                     + name + " not found");
+        if (!storage.delete(name))
+            halt(400, "Category " + name + " is used by virtual machines");
     }
 }

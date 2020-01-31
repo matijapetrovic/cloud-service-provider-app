@@ -73,6 +73,14 @@ Vue.component("add-category-form", {
                 .then(response => {
                     this.checkResponse(response);
                 });
+        },
+        resetCategory() {
+            this.category = {
+                name : null,
+                cpus: null,
+                ram: null,
+                gpus: null,
+            }
         }
     }
 });

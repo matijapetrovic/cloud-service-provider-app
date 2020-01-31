@@ -88,14 +88,14 @@ Vue.component("virtual-machines-page", {
                     "activity": []
                 })
                 .then(response => {
-                    this.$refs.table.addVirtualMachine(response.data);
+                    this.$refs.table.getVirtualMachines("");
                     alert('Adding virtual machine successful');
                     this.closeAddModal();
                 });
         },
         updateVirtualMachine(virtualMachine) {
             axios
-                .put('/api/virtualmachines/' + virtualMachine.name, 
+                .put('/api/virtualmachines/' + virtualMachine.oldName, 
                 {
                     "name": virtualMachine.name,
                     "category": virtualMachine.category,
@@ -103,7 +103,7 @@ Vue.component("virtual-machines-page", {
                     "organization": virtualMachine.organization
                 })
                 .then(response => {
-                    this.$refs.table.updateVirtualMachine(response.data);
+                    this.$refs.table.getVirtualMachines("");
                     alert('Updating virtual machine successful');
                     this.closeViewModal();
                 });
@@ -113,7 +113,7 @@ Vue.component("virtual-machines-page", {
             axios
                 .delete('/api/virtualmachines/' + virtualMachine.name)
                 .then(response => {
-                    this.$refs.table.deleteVirtualMachine(response.data);
+                    this.$refs.table.getVirtualMachines("");
                     alert('Deleting virtual machine successful');
                     this.closeViewModal();
                 });
@@ -122,7 +122,7 @@ Vue.component("virtual-machines-page", {
             axios
                 .post('/api/virtualmachines/toggle/' + virtualMachine.name)
                 .then(response => {
-                    this.$refs.table.updateVirtualMachine(response.data);
+                    this.$refs.table.getVirtualMachines("");
                     this.$refs.viewForm.getVirtualMachine(virtualMachine.name);
                     alert('Toggling virtual machine successful');
                 });

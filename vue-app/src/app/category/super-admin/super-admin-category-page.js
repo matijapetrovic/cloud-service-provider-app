@@ -1,14 +1,7 @@
 Vue.component("super-admin-category-page",{
     template: `
     <div>
-            <all-categories-table
-            @viewCategory="viewCategory($event)"
-            v-bind:view-modal-id="viewModalId"
-            ref="table"
-            >
-            </all-categories-table>
-
-            <button
+    <button
             type="button"
             class="btn btn-outline-primary"
             data-toggle="modal"
@@ -17,7 +10,13 @@ Vue.component("super-admin-category-page",{
             >
                 Add category
             </button>
-            
+            <all-categories-table
+            @viewCategory="viewCategory($event)"
+            v-bind:view-modal-id="viewModalId"
+            ref="table"
+            >
+            </all-categories-table>
+
             <full-modal
             @close="removeViewValidation"
             v-bind:modal-id="viewModalId"
@@ -60,6 +59,7 @@ Vue.component("super-admin-category-page",{
         },
         removeAddValidation () {
             this.$refs.addForm.$refs.form.removeValidation();
+            this.$refs.addForm.resetCategory();
         },
         closeViewModal() {
             this.removeViewValidation();
