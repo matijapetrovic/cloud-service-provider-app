@@ -32,16 +32,18 @@ public class OrganizationRESTService implements OrganizationService {
     }
 
     @Override
-    public void post(Organization organization) {
+    public Organization post(Organization organization) {
         if (!storage.add(organization))
             halt(409, "Organization with the name "
                     + organization.getName() + " already exists");
+        return storage.findByName(organization.getName()).orElse(null);
     }
 
     @Override
-    public void put(String name, Organization organization) {
+    public Organization put(String name, Organization organization) {
         if (!storage.update(name, organization))
             halt(404, "Organization with the name "
                     + name + " not found");
+        return storage.findByName(organization.getName()).orElse(null);
     }
 }

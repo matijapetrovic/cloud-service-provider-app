@@ -52,10 +52,10 @@ public class OrganizationController {
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
 
-        Organization organization = App.g.fromJson(request.body(), Organization.class);
-        service.post(organization);
+        OrganizationDTO dto = App.g.fromJson(request.body(), OrganizationDTO.class);
+        Organization added = service.post(OrganizationMapper.fromOrganizationDTO(dto));
         response.status(201);
-        return "Created";
+        return App.g.toJson(OrganizationMapper.toOrganizationDTO(added));
     };
 
     private Route handlePut = (Request request, Response response) -> {
@@ -64,10 +64,10 @@ public class OrganizationController {
         String name = request.params(":name");
         ensureUserCanAccessOrganization(request, name);
 
-        Organization organization = App.g.fromJson(request.body(), Organization.class);
-        service.put(name, organization);
+        OrganizationDTO dto = App.g.fromJson(request.body(), OrganizationDTO.class);
+        Organization updated = service.put(name, OrganizationMapper.fromOrganizationDTO(dto));
         response.status(200);
-        return "OK";
+        return App.g.toJson(OrganizationMapper.toOrganizationDTO(updated));
     };
 
     private static void ensureUserCanAccessOrganization(Request request, String name) {

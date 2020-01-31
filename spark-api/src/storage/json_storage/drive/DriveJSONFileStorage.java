@@ -48,9 +48,11 @@ public class DriveJSONFileStorage implements DriveStorage {
         if (!toUpdate.isPresent())
             return false;
 
+        if (!name.equalsIgnoreCase(entity.getName()) && repository.findByKey(entity.getName()).isPresent())
+            return false;
+
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
-        repository.save(entity);
         context.saveDb();
         return true;
     }

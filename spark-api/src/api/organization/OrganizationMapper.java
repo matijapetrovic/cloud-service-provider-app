@@ -42,4 +42,26 @@ public class OrganizationMapper {
                 .map(OrganizationMapper::toOrganizationDTO)
                 .collect(Collectors.toList());
     }
+
+    public static Organization fromOrganizationDTO(OrganizationDTO dto) {
+        return new Organization(
+                dto.getName(),
+                dto.getDescription(),
+                dto.getLogo(),
+                new ArrayList<User>(
+                        dto.getUsers()
+                                .stream()
+                                .map(User::new)
+                                .collect(Collectors.toList())),
+                new ArrayList<VirtualMachine>(
+                        dto.getVirtualMachines()
+                                .stream()
+                                .map(VirtualMachine::new)
+                                .collect(Collectors.toList())),
+                new ArrayList<Drive>(
+                        dto.getDrives()
+                                .stream()
+                                .map(Drive::new)
+                                .collect(Collectors.toList())));
+    }
 }

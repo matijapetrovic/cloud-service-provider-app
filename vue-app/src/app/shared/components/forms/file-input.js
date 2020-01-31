@@ -21,7 +21,7 @@ Vue.component("file-input", {
 
     props: {
         name: String,
-        value: String,
+        value: String | File,
         required: {
             type: Boolean,
             default: false

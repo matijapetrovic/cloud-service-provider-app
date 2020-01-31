@@ -57,35 +57,71 @@ Vue.component("organizations-page", {
     },
     methods: {
         addOrganization(organization) {
-            axios
+            function getBase64(file, onLoadCallback) {
+                return new Promise(function(resolve, reject) {
+                    var reader = new FileReader();
+                    reader.onload = function() { resolve(reader.result);};
+                    reader.onerror = reject;
+                    if (file instanceof File)
+                        reader.readAsDataURL(file);
+                    else
+                        resolve(null);
+                });
+            }
+            var self = this;
+            var promise = getBase64(organization.logo);
+            promise.then(function(result) {
+                axios
                 .post('/api/organizations', 
                 {
                     "name": organization.name,
                     "description": organization.description,
-                    "logo": organization.logo,
+                    "logo": result,
                     "users": [],
-                    "resources": []
+                    "virtualMachines": [],
+                    "drives": []
                 })
                 .then(response => {
-                    this.$refs.table.addOrganization(response.data); 
+                    self.$refs.table.addOrganization(response.data); 
                     alert('Adding organization successful');
+                    self.closeAddModal();
                 });
+            });
+            
             
         },
         updateOrganization(organization) {
-            axios
+            function getBase64(file, onLoadCallback) {
+                return new Promise(function(resolve, reject) {
+                    var reader = new FileReader();
+                    reader.onload = function() { resolve(reader.result);};
+                    reader.onerror = reject;
+                    if (file instanceof File)
+                        reader.readAsDataURL(file);
+                    else
+                        resolve(null);
+                });
+            }
+            var self = this;
+            var promise = getBase64(organization.logo);
+            promise.then(function(result) {
+                axios
                 .put('/api/organizations/' + organization.name, 
                 {
                     "name": organization.name,
                     "description": organization.description,
-                    "logo": organization.logo,
+                    "logo": result ? result : organization.logo,
                     "users": [],
-                    "resources": []
+                    "virtualMachines": [],
+                    "drives": []
                 })
                 .then(response => {
-                    this.$refs.table.updateOrganization(response.data);
+                    self.$refs.table.updateOrganization(response.data);
                     alert('Updating organization successful');
+                    self.closeViewModal();
                 });
+            });
+            
         },
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();

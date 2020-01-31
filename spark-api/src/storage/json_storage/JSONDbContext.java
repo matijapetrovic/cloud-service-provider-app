@@ -118,6 +118,8 @@ public class JSONDbContext {
 
     public UserReferenceBuilder getUserReferenceBuilder() {return userReferenceBuilder;}
 
+    public OrganizationReferenceBuilder getOrganizationReferenceBuilder() { return organizationReferenceBuilder;}
+
     public void saveDb() {
         organizationsRepository.saveChanges();
         drivesRepository.saveChanges();

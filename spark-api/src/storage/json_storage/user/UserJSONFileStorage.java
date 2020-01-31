@@ -47,12 +47,12 @@ public class UserJSONFileStorage implements UserStorage {
         if (!toUpdate.isPresent())
             return false;
 
-        if (repository.findByKey(entity.getEmail()).isPresent())
+        if (!email.equalsIgnoreCase(entity.getName()) &&  repository.findByKey(entity.getEmail()).isPresent())
             return false;
 
         referenceBuilder.buildReferences(entity);
         toUpdate.get().update(entity);
-        repository.save(entity);
+//        repository.save(entity);
         context.saveDb();
         return true;
     }

@@ -39,6 +39,17 @@ public class Organization implements Model<String> {
 		this.drives = drives;
 	}
 
+	public void update(Organization other) {
+		if (other.name != null)
+			this.name = other.name;
+
+		if (other.description != null)
+			this.description = other.description;
+
+		if (other.logo != null)
+			this.logo = other.logo;
+	}
+
 	public String getName() {
 		return name;
 	}

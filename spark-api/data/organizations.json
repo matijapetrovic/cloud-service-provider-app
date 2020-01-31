@@ -37,7 +37,7 @@
   {
     "name": "Lavovi",
     "description": "asdgzdg",
-    "logo": "logo.png",
+    "logo": "Lavovi.png",
     "users": [
       {
         "email": "nemanja543@gmail.com"
@@ -80,5 +80,37 @@
         "name": "drive4"
       }
     ]
+  },
+  {
+    "name": "adfgasdfg",
+    "description": "sdfgsdf",
+    "logo": "adfgasdfg.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "asdfasdf",
+    "description": "sadfasdf",
+    "logo": "asdfasdf.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "szxfasd",
+    "description": "asdasd",
+    "logo": "szxfasd.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "dasda",
+    "description": "asdasdasd",
+    "logo": "dasda.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
   }
 ]

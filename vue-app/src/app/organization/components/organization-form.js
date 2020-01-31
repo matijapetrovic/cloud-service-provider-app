@@ -35,7 +35,6 @@ Vue.component("organization-form", {
     },
     data : function () {
         return {
-            errors: [],
             organization : {
                 name: null,
                 description: null,
