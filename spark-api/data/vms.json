@@ -1,0 +1,187 @@
+[
+  {
+    "name": "VM1",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 3:49:13 PM",
+        "endDate": "Jan 29, 2020 4:06:13 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 4:07:16 PM",
+        "endDate": "Jan 29, 2020 4:35:56 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 4:35:59 PM",
+        "endDate": "Jan 29, 2020 4:36:00 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 5:21:41 PM",
+        "endDate": "Jan 29, 2020 5:21:44 PM"
+      },
+      {
+        "startDate": "Jan 29, 2020 5:21:51 PM",
+        "endDate": "Jan 30, 2020 3:08:21 PM"
+      },
+      {
+        "startDate": "Jan 30, 2020 3:08:26 PM",
+        "endDate": "Jan 30, 2020 8:55:01 PM"
+      },
+      {
+        "startDate": "Jan 30, 2020 8:55:03 PM"
+      }
+    ]
+  },
+  {
+    "name": "VM2",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 3:51:47 PM"
+      }
+    ]
+  },
+  {
+    "name": "VM23",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 29, 2020 4:03:00 PM"
+      }
+    ]
+  },
+  {
+    "name": "VM560",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": false,
+    "activity": []
+  },
+  {
+    "name": "VM123",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": true,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 6:51:04 PM"
+      }
+    ]
+  },
+  {
+    "name": "VM233",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Lavovi"
+    },
+    "turnedOn": false,
+    "activity": []
+  },
+  {
+    "name": "Nova mahina",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [
+      {
+        "name": "drive1"
+      },
+      {
+        "name": "drive9"
+      }
+    ],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 9:43:23 PM",
+        "endDate": "Jan 30, 2020 9:43:25 PM"
+      }
+    ]
+  },
+  {
+    "name": "Nova mahina 2",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": []
+  },
+  {
+    "name": "Nova mahina 3",
+    "category": {
+      "name": "Cat2"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": [
+      {
+        "startDate": "Jan 30, 2020 10:33:06 PM",
+        "endDate": "Jan 30, 2020 10:33:08 PM"
+      }
+    ]
+  },
+  {
+    "name": "Nova mahina 4",
+    "category": {
+      "name": "Cat1"
+    },
+    "drives": [],
+    "organization": {
+      "name": "Doktori"
+    },
+    "turnedOn": false,
+    "activity": []
+  }
+]

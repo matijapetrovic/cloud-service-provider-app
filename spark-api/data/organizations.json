@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Doktori",
+    "description": "Mateo i Kabi",
+    "logo": "logo.png",
+    "users": [
+      {
+        "email": "nikola@gmail.com"
+      },
+      {
+        "email": "aleksandar@gmail.com"
+      }
+    ],
+    "virtualMachines": [
+      {
+        "name": "Nova mahina 3"
+      },
+      {
+        "name": "Nova mahina 4"
+      },
+      {
+        "name": "Nova mahina"
+      },
+      {
+        "name": "Nova mahina 2"
+      }
+    ],
+    "drives": [
+      {
+        "name": "drive1"
+      },
+      {
+        "name": "drive9"
+      }
+    ]
+  },
+  {
+    "name": "Lavovi",
+    "description": "asdgzdg",
+    "logo": "Lavovi.png",
+    "users": [
+      {
+        "email": "nemanja543@gmail.com"
+      },
+      {
+        "email": "ana@gmail.com"
+      },
+      {
+        "email": "dragam@gmail.com"
+      }
+    ],
+    "virtualMachines": [
+      {
+        "name": "VM1"
+      },
+      {
+        "name": "VM2"
+      },
+      {
+        "name": "VM23"
+      },
+      {
+        "name": "VM560"
+      },
+      {
+        "name": "VM123"
+      },
+      {
+        "name": "233"
+      }
+    ],
+    "drives": [
+      {
+        "name": "drive3"
+      },
+      {
+        "name": "drive2"
+      },
+      {
+        "name": "drive4"
+      }
+    ]
+  },
+  {
+    "name": "adfgasdfg",
+    "description": "sdfgsdf",
+    "logo": "adfgasdfg.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "asdfasdf",
+    "description": "sadfasdf",
+    "logo": "asdfasdf.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "szxfasd",
+    "description": "asdasd",
+    "logo": "szxfasd.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "dasda",
+    "description": "asdasdasd",
+    "logo": "dasda.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  }
+]

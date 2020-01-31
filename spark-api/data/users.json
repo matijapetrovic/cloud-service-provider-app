@@ -1,0 +1,59 @@
+[
+  {
+    "email": "dragam@gmail.com",
+    "password": "dragan",
+    "name": "Dragan",
+    "surname": "Dragic",
+    "organization": {
+      "name": "Lavovi"
+    },
+    "role": "ADMIN"
+  },
+  {
+    "email": "ana@gmail.com",
+    "password": "ana",
+    "name": "Ananaki",
+    "surname": "Naic",
+    "organization": {
+      "name": "Lavovi"
+    },
+    "role": "USER"
+  },
+  {
+    "email": "nemanja543@gmail.com",
+    "password": "nemanja",
+    "name": "Nemanja",
+    "surname": "Matic",
+    "organization": {
+      "name": "Lavovi"
+    },
+    "role": "ADMIN"
+  },
+  {
+    "email": "nikola@gmail.com",
+    "password": "nikola",
+    "name": "Admin",
+    "surname": "Adminovovski",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "ADMIN"
+  },
+  {
+    "email": "aleksandar@gmail.com",
+    "password": "aleksandar",
+    "name": "Aleksandar",
+    "surname": "Mitic",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "USER"
+  },
+  {
+    "email": "admin@gmail.com",
+    "password": "admin",
+    "name": "Admin",
+    "surname": "Adminovic",
+    "role": "SUPER_ADMIN"
+  }
+]

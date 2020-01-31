@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cloud Service Provider</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="assets/css/vue-multiselect.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+  <div id="app" style="width:100%"></div>
+
+  <!-- JS Libraries -->
+  <script src="assets/js/jquery-3.4.1.js" ></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.js"></script>
+  <script src="assets/js/bootstrap-select.min.js"></script>
+  <script src="assets/js/vue.js"></script>
+  <script src="assets/js/vue-router.js"></script>
+  <script src="assets/js/vue-multiselect.min.js"></script>
+  <script src="assets/js/vue-datepicker.min.js"></script>
+  <script src="assets/js/axios.js"></script>
+  <script src="assets/js/toast.js"></script>
+  <!-- Icons -->
+  <script src="assets/js/feather.js"></script>
+  
+  <!-- App -->
+
+  <!-- shared -->
+  <!-- shared/components-->
+  <script src="src/app/shared/components/navbar.js"></script>
+  <script src="src/app/shared/components/side-nav.js"></script>
+  <script src="src/app/shared/components/modal.js"></script>
+  <script src="src/app/shared/components/main-section.js"></script>
+  <script src="src/app/shared/components/search-bar.js"></script>
+
+  <!-- shared/components/forms -->
+  <script src="src/app/shared/components/forms/text-input.js"></script>
+  <script src="src/app/shared/components/forms/number-input.js"></script>
+  <script src="src/app/shared/components/forms/file-input.js"></script>
+  <script src="src/app/shared/components/forms/email-input.js"></script>
+  <script src="src/app/shared/components/forms/password-input.js"></script>
+  <script src="src/app/shared/components/forms/select-input.js"></script>
+  <script src="src/app/shared/components/forms/multiple-select-input.js"></script>
+  <script src="src/app/shared/components/forms/main-form.js"></script>
+
+  <script src="src/app/shared/components/switch-button.js"></script>
+  <script src="src/app/shared/base-layout.js"></script>
+
+  <!-- Users -->
+  <script src="src/app/user/shared/select-organization.js"></script>
+  <script src="src/app/user/shared/select-role.js"></script>
+
+  <script src="src/app/user/users.js"></script>
+  <script src="src/app/user/view-user-form.js"></script>
+  <script src="src/app/user/user/user.js"></script>
+
+  <script src="src/app/user/user/user-components/change-profile-form.js"></script>
+  <script src="src/app/user/user/user-components/profile-info-form.js"></script>
+  <script src="src/app/user/user/user-components/password-comfirm-input.js"></script>
+
+  <script src="src/app/user/super-admin/super-admin-page.js"></script>
+  <script src="src/app/user/super-admin/super-admin-components/all-users-table.js"></script>  
+  <script src="src/app/user/super-admin/super-admin-components/add-user-form.js"></script>
+
+  <script src="src/app/user/admin/admin-components/admin-add-user-form.js"></script>
+  <script src="src/app/user/admin/admin-page.js"></script>
+  <script src="src/app/user/admin/admin-components/users-same-organization.js"></script>
+
+  <!-- Organizations -->
+  <script src="src/app/organization/components/organizations-table.js"></script>
+  <script src="src/app/organization/components/organization-form.js"></script>
+  <script src="src/app/organization/organizations.js"></script>
+
+  <!-- Virtual Machines -->
+  <script src="src/app/virtual-machine/components/virtual-machine-activity-list.js"></script>
+  <script src="src/app/virtual-machine/components/virtual-machines-table.js"></script>
+  <script src="src/app/virtual-machine/components/virtual-machine-sidebar.js"></script>
+  <script src="src/app/virtual-machine/components/virtual-machine-form.js"></script>
+  <script src="src/app/virtual-machine/virtual-machines.js"></script>
+
+  <!-- Drives-->
+  <script src="src/app/drive/drive-page.js"></script>
+  <script src="src/app/drive/shared/view-drive.js"></script>
+  <script src="src/app/drive/shared/select-vm.js"></script>
+  <script src="src/app/drive/shared/select-type.js"></script>
+  <script src="src/app/drive/shared/filter-side-bar.js"></script>
+  <script src="src/app/drive/shared/filter-drive-form.js"></script>
+
+  <script src="src/app/drive/super-admin/super-admin-drive-page.js"></script>
+  <script src="src/app/drive/super-admin/components/all-drives-table.js"></script>
+  <script src="src/app/drive/super-admin/components/add-drive-form.js"></script>
+
+  <script src="src/app/drive/admin/admin-drive-page.js"></script>
+  <script src="src/app/drive/admin/components/organization-drives-table.js"></script>
+
+  <script src="src/app/drive/user/user-drive-page.js"></script>
+
+  <!-- Categories-->
+  <script src="src/app/category/category-page.js"></script>
+  <script src="src/app/category/shared/view-category.js"></script>
+  <script src="src/app/category/shared/add-category-form.js"></script>
+
+  <script src="src/app/category/super-admin/super-admin-category-page.js"></script>
+  <script src="src/app/category/super-admin/components/all-categories-table.js"></script>
+
+  <script src="src/app/category/admin/admin-category-page.js"></script>
+  <script src="src/app/category/admin/components/organization-categories-table.js"></script>
+
+  <script src="src/app/category/user/user-category-page.js"></script>
+  
+  <!-- Authentication -->
+  <script src="src/app/authentication/login.js"></script>
+  <script src="src/app/authentication/logout-button.js"></script>
+  <!-- Main -->
+  <script src="src/main.js"></script>
+ 
+</body>
+</html>
