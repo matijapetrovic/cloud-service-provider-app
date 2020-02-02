@@ -24,10 +24,22 @@ public class CategoryMapper {
     }
 
     public static VMCategory fromCategoryDTO(CategoryDTO dto) {
+        if (!validateDTO(dto))
+            return null;
         return new VMCategory(
                 dto.getName(),
                 dto.getCpus(),
                 dto.getRam(),
                 dto.getGpus());
+    }
+
+    public static boolean validateDTO(CategoryDTO dto) {
+        if (dto.getName() == null)
+            return false;
+        if (dto.getCpus() <= 0)
+            return false;
+        if (dto.getRam() <= 0)
+            return false;
+        return true;
     }
 }

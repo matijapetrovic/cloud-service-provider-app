@@ -46,7 +46,7 @@ Vue.component("all-drives-table",{
         }
     },
     mounted () {
-        this.getAllDrives()
+        this.getAllDrives();
     },
     methods: {
         getAllDrives(){
@@ -77,6 +77,7 @@ Vue.component("all-drives-table",{
         },
         addDrive(drive) {
             this.drives.push(drive);
+            this.getAllDrives();
         },
         updateDrive(drive) {
             var el = this.drives.find(function(element) {

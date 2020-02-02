@@ -29,6 +29,8 @@ class UserMapper {
     }
 
     public static User fromUserDTO(UserDTO dto) {
+        if (!validateDTO(dto))
+            return null;
         return new User(
                 dto.getEmail(),
                 dto.getPassword(),
@@ -36,5 +38,21 @@ class UserMapper {
                 dto.getSurname(),
                 new Organization(dto.getOrganization()),
                 dto.getRole());
+    }
+
+    public static boolean validateDTO(UserDTO dto) {
+        if (dto.getEmail() == null)
+            return false;
+        if (dto.getPassword() == null)
+            return false;
+        if (dto.getName() == null)
+            return false;
+        if (dto.getSurname() == null)
+            return false;
+        if (dto.getRole() == null)
+            return false;
+        if (dto.getOrganization() == null)
+            return false;
+        return true;
     }
 }

@@ -5,6 +5,7 @@ const OrganizationsPage = { template: '<organizations-page></organizations-page>
 const VMPage = { template: '<virtual-machines-page></virtual-machines-page>'}
 const DrivePage = {template: '<drive-page></drive-page>'}
 const CategoryPage = {template: '<category-page></category-page>'}
+const Report = {template: '<report-page></report-page>'}
 
 // kad se refreshuje stranica da pokupi token
 const token = localStorage.getItem('user-token');
@@ -22,7 +23,8 @@ const router = new VueRouter({
         { path: '/virtualmachines', component: VMPage, meta: { title:'Virtual Machines', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
         { path: '/profile', component: ProfilePage, meta: { title:'Profile', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
         { path: '/drives', component: DrivePage, meta: { title:'Drives', requiresAuth: true, authorize: ["SUPER_ADMIN", "ADMIN", "USER"]}},
-        { path: '/categories', component: CategoryPage, meta: { title:'Categories', requiresAuth: true, authorize: ["SUPER_ADMIN"]}}
+        { path: '/categories', component: CategoryPage, meta: { title:'Categories', requiresAuth: true, authorize: ["SUPER_ADMIN"]}},
+        { path: '/report', component: Report, meta: { title:'Report', requiresAuth: true, authorize: ["ADMIN"]}}
     ]
 });
 

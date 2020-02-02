@@ -47,11 +47,12 @@ Vue.component("side-nav",{
               <span data-feather="plus-circle"></span>
             </a>
           </h6>
-          <ul class="nav flex-column mb-2">
+          <ul class="nav flex-column mb-2" v-if="$root.isAdmin">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Current month
+                <router-link class="nav-link" to="/report">
+                  <span data-feather="file-text"></span>
+                  Bills report
+                </router-link>
               </a>
             </li>
           </ul>

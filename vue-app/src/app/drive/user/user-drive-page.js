@@ -21,8 +21,7 @@ Vue.component("user-drive-page",{
                     </view-drive-form>
             </full-modal>    
     </div>
-    `
-    ,
+    `,
     data : function() {
         return {
             addModalId: 'addDriveModal',

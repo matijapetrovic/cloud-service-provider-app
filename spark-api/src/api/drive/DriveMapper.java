@@ -27,11 +27,25 @@ class DriveMapper {
     }
 
     public static Drive fromDriveDTO(DriveDTO dto) {
+        if (!validateDTO(dto))
+            return null;
         return new Drive(
                 dto.getName(),
                 dto.getType(),
                 dto.getCapacity(),
                 new VirtualMachine(dto.getVm()),
                 new Organization(dto.getOrganization()));
+    }
+
+    public static boolean validateDTO(DriveDTO dto) {
+        if (dto.getName() == null)
+            return false;
+        if (dto.getType() == null)
+            return false;
+        if (dto.getCapacity() <= 0)
+            return false;
+        if (dto.getOrganization() == null)
+            return false;
+        return true;
     }
 }

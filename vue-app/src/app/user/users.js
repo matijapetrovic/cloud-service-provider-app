@@ -47,7 +47,6 @@ Vue.component('users-page',{
                         </add-user-form>
             </full-modal>
         </base-layout>
-        
     `,
     data : function() {
         return {

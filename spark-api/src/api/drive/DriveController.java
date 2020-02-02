@@ -1,15 +1,19 @@
 package api.drive;
 
+import api.vm_category.CategoryDTO;
+import api.vm_category.CategoryMapper;
 import application.App;
 import domain.drive.Drive;
 import domain.drive.DriveService;
 import domain.drive.DriveStorage;
 import domain.organization.Organization;
 import domain.user.User;
+import domain.vm_category.VMCategory;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -132,10 +136,10 @@ public class DriveController {
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
-        DriveDTO drive = App.g.fromJson(request.body(), DriveDTO.class);
         String name = request.params(":name");
+        Drive drive = parseDrive(request);
 
-        service.put(name, DriveMapper.fromDriveDTO(drive));
+        service.put(name, drive);
         response.status(200);
         return "OK";
     };
@@ -168,5 +172,19 @@ public class DriveController {
             return;
         if (!drive.getOrganization().equals(loggedIn.getOrganization()))
             halt(403, "Forbidden");
+    }
+
+    private Drive parseDrive(Request request) {
+        try {
+            DriveDTO dto = App.g.fromJson(request.body(), DriveDTO.class);
+            Drive parsed = DriveMapper.fromDriveDTO(dto);
+            if (parsed == null)
+                halt(400, "Required fields missing");
+            return parsed;
+        } catch(Exception e) {
+            halt(400, "Bad request");
+        }
+        // Unreachable
+        return null;
     }
 }
