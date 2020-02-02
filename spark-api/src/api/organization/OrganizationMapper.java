@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OrganizationMapper {
+class OrganizationMapper {
     public static OrganizationDTO toOrganizationDTO(Organization organization) {
         OrganizationDTO dto = new OrganizationDTO();
         dto.setName(organization.getName());
@@ -44,6 +44,8 @@ public class OrganizationMapper {
     }
 
     public static Organization fromOrganizationDTO(OrganizationDTO dto) {
+        if (!validateDTO(dto))
+            return null;
         return new Organization(
                 dto.getName(),
                 dto.getDescription(),
@@ -63,5 +65,9 @@ public class OrganizationMapper {
                                 .stream()
                                 .map(Drive::new)
                                 .collect(Collectors.toList())));
+    }
+
+    private static boolean validateDTO(OrganizationDTO dto) {
+        return dto.getName() != null;
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VirtualMachineMapper {
+class VirtualMachineMapper {
     public static VirtualMachineDTO toVirtualMachineDTO(VirtualMachine virtualMachine) {
         VirtualMachineDTO dto = new VirtualMachineDTO();
         dto.setName(virtualMachine.getName());
@@ -37,6 +37,8 @@ public class VirtualMachineMapper {
     }
 
     public static VirtualMachine fromVirtualMachineDTO(VirtualMachineDTO dto) {
+        if (!validateDTO(dto))
+            return null;
         return new VirtualMachine(
                 dto.getName(),
                 CategoryMapper.fromCategoryDTO(dto.getCategory()),
@@ -48,5 +50,17 @@ public class VirtualMachineMapper {
                 new Organization(dto.getOrganization()),
                 dto.isTurnedOn(),
                 dto.getActivity());
+    }
+
+    public static boolean validateDTO(VirtualMachineDTO dto) {
+        if (dto.getName() == null)
+            return false;
+        if (dto.getOrganization() == null)
+            return false;
+        if (dto.getCategory() == null)
+            return false;
+        if (dto.getCategory().getName() == null)
+            return false;
+        return true;
     }
 }

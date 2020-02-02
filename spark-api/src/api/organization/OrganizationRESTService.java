@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static spark.Spark.halt;
 
-public class OrganizationRESTService implements OrganizationService {
+class OrganizationRESTService implements OrganizationService {
     private OrganizationStorage storage;
 
     public OrganizationRESTService(OrganizationStorage storage) {

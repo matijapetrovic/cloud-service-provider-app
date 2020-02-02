@@ -2,7 +2,7 @@ package api.drive;
 
 import domain.drive.Drive;
 
-public class DriveDTO {
+class DriveDTO {
         private String name;
         private Drive.DriveType type;
         private int capacity;

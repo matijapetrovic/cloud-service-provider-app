@@ -40,10 +40,10 @@ Vue.component('change-profile-form',{
                 Password
             </text-input>
             <button class="btn btn-light h-25" 
-            type="button"
-            data-toggle="modal"
-            v-bind:data-target="'#' + changePasswordModalId"
-            style="margin: 29px 0;"
+                type="button"
+                data-toggle="modal"
+                v-bind:data-target="'#' + changePasswordModalId"
+                style="margin: 29px 0;"
             >
                 Change password
             </button>
@@ -59,8 +59,8 @@ Vue.component('change-profile-form',{
                     @submit="closeViewModal"
                     @updatedUser="updateUser($event)"
                     ref="viewForm"
-                    >
-                    </password-confirm-input>
+                >
+                </password-confirm-input>
             </full-modal>
     
     </main-form>

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static spark.Spark.halt;
 
-public class VirtualMachineRESTService implements VirtualMachineService {
+class VirtualMachineRESTService implements VirtualMachineService {
     private VirtualMachineStorage storage;
 
     public VirtualMachineRESTService(VirtualMachineStorage storage) {

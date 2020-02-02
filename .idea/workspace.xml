@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8466ecc6-95dc-4941-949f-756f1fe6bfa7" name="Default Changelist" comment="" />
+    <list default="true" id="8466ecc6-95dc-4941-949f-756f1fe6bfa7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/admin/admin-components/admin-add-user-form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/admin/admin-components/users-same-organization.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/admin/admin-page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/select-role.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/shared/select-organization.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/shared/select-role.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/user/user-components/select-organization.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/user/user-components/select-role.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-app/src/app/user/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-app/src/app/user/users.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +28,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tim6-simplegraph/ProjekatTIM6" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/spark-api" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -34,9 +44,13 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1580331275700">
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1580634937641">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1580331275700" />
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1580634937641" />
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1580634913006">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1580634913006" />
   </component>
 </project>

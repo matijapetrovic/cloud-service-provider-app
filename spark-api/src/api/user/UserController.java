@@ -44,36 +44,32 @@ public class UserController {
 	};
 
 	private Route handleGetSingle = (Request request, Response response) -> {
-		ensureUserHasPermission(request, User.Role.USER);
-
 		String email = request.params(":email");
+		User user = service.getSingle(email);
+		ensureUserCanAccessUser(request, user);
 
 		response.status(200);
-		return App.g.toJson(UserMapper.toUserDTO(service.getSingle(email)));
+		return createUserResponse(service.getSingle(email));
 	};
 
 	private Route handlePost = (Request request, Response response) -> {
-		UserDTO user = App.g.fromJson(request.body(), UserDTO.class);
-		if(!ensureUserGetHimself(request, user.getEmail())){
-			ensureUserHasPermission(request, User.Role.ADMIN);
-		}
+		ensureUserHasPermission(request, User.Role.ADMIN);
 
-		service.post(UserMapper.fromUserDTO(user));
+		User toAdd = parseUser(request);
+		ensureUserCanAccessUser(request, toAdd);
 
+		service.post(toAdd);
 		response.status(200);
 		return "OK";
 	};
 
 	private Route handlePut = (Request request, Response response) -> {
 		String email = request.params(":email");
+		User user = service.getSingle(email);
+		ensureUserCanAccessUser(request, user);
 
-		if(!ensureUserGetHimself(request, email)){
-			ensureUserHasPermission(request, User.Role.ADMIN);
-		}
-
-		UserDTO user = App.g.fromJson(request.body(), UserDTO.class);
-
-		service.put(email, UserMapper.fromUserDTO(user));
+		User toUpdate = parseUser(request);
+		service.put(email, toUpdate);
 		response.status(200);
 		return "OK";
 	};
@@ -81,13 +77,29 @@ public class UserController {
 	private Route handleDelete = (Request request, Response response) -> {
 		ensureUserHasPermission(request, User.Role.ADMIN);
 
-		User user = App.g.fromJson(request.body(), User.class);
 		String email = request.params(":email");
+		User user = service.getSingle(email);
+		ensureUserCanAccessUser(request, user);
 
 		service.delete(email);
 		response.status(200);
 		return "OK";
 	};
+
+	private User parseUser(Request request) {
+		try {
+			UserDTO dto = App.g.fromJson(request.body(), UserDTO.class);
+			return UserMapper.fromUserDTO(dto);
+		} catch(Exception e) {
+			halt(400, "Bad request");
+		}
+		// Unreachable
+		return null;
+	}
+
+	private String createUserResponse(User user) {
+		return App.g.toJson(UserMapper.toUserDTO(user));
+	}
 
 	private List<User> applyRoleFilter(Request request, List<User> users) {
 		User user = request.attribute("loggedIn");
@@ -107,11 +119,16 @@ public class UserController {
 		return users.stream().filter(x -> x.getRole() != User.Role.SUPER_ADMIN).collect(Collectors.toList());
 	}
 
-	private static boolean ensureUserGetHimself(Request request, String email){
-		User user = request.attribute("loggedIn");
-		if(user.getEmail().equals(email)){
-			return true;
+	private static void ensureUserCanAccessUser(Request request, User user) {
+		User loggedIn = request.attribute("loggedIn");
+		User.Role role = loggedIn.getRole();
+		if (role == User.Role.ADMIN) {
+			if (!user.getOrganization().equals(loggedIn.getOrganization()))
+				halt(403, "Forbidden");
 		}
-		return false;
+		else if (role == User.Role.USER) {
+			if (user != loggedIn)
+				halt(403, "Forbidden");
+		}
 	}
 }

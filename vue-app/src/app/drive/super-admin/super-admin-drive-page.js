@@ -11,13 +11,11 @@ Vue.component("super-admin-drive-page",{
                 Add drive
             </button>
             <all-drives-table
-            @viewDrive="viewDrive($event)"
-            v-bind:view-modal-id="viewModalId"
-            ref="table"
+                @viewDrive="viewDrive($event)"
+                v-bind:view-modal-id="viewModalId"
+                ref="table"
             >
             </all-drives-table>
-
-            
             
             <full-modal
             @close="removeViewValidation"

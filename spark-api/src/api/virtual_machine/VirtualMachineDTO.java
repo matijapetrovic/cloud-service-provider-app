@@ -5,7 +5,7 @@ import domain.virtual_machine.DateRange;
 
 import java.util.List;
 
-public class VirtualMachineDTO {
+class VirtualMachineDTO {
     private String name;
     private CategoryDTO category;
     private List<String> drives;

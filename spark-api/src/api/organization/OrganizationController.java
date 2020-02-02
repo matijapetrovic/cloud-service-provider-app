@@ -46,16 +46,15 @@ public class OrganizationController {
         ensureUserCanAccessOrganization(request, name);
 
         response.status(200);
-        return App.g.toJson(OrganizationMapper.toOrganizationDTO(service.getSingle(name)));
+        return createOrganizationResponse(service.getSingle(name));
     };
 
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
 
-        OrganizationDTO dto = App.g.fromJson(request.body(), OrganizationDTO.class);
-        Organization added = service.post(OrganizationMapper.fromOrganizationDTO(dto));
+        Organization toAdd = parseOrganization(request);
         response.status(201);
-        return App.g.toJson(OrganizationMapper.toOrganizationDTO(added));
+        return createOrganizationResponse(service.post(toAdd));
     };
 
     private Route handlePut = (Request request, Response response) -> {
@@ -64,11 +63,28 @@ public class OrganizationController {
         String name = request.params(":name");
         ensureUserCanAccessOrganization(request, name);
 
-        OrganizationDTO dto = App.g.fromJson(request.body(), OrganizationDTO.class);
-        Organization updated = service.put(name, OrganizationMapper.fromOrganizationDTO(dto));
+        Organization toUpdate = parseOrganization(request);
         response.status(200);
-        return App.g.toJson(OrganizationMapper.toOrganizationDTO(updated));
+        return createOrganizationResponse(service.put(name, toUpdate));
     };
+
+    private Organization parseOrganization(Request request) {
+        try {
+            OrganizationDTO dto = App.g.fromJson(request.body(), OrganizationDTO.class);
+            Organization parsed = OrganizationMapper.fromOrganizationDTO(dto);
+            if (parsed == null)
+                halt(400, "Required fields missing");
+            return parsed;
+        } catch(Exception e) {
+            halt(400, "Bad request");
+        }
+        // Unreachable
+        return null;
+    }
+
+    private String createOrganizationResponse(Organization organization) {
+        return App.g.toJson(OrganizationMapper.toOrganizationDTO(organization));
+    }
 
     private static void ensureUserCanAccessOrganization(Request request, String name) {
         User loggedIn = request.attribute("loggedIn");

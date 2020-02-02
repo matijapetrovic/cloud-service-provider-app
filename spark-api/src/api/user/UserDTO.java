@@ -2,7 +2,7 @@ package api.user;
 
 import domain.user.User;
 
-public class UserDTO {
+class UserDTO {
     private String email;
     private String password;
     private String name;

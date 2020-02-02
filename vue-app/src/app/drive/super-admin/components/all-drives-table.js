@@ -23,9 +23,9 @@ Vue.component("all-drives-table",{
 
             <aside class="col-md-4">
                 <filter-side-bar
-                @emitFilter=sendFilterRequest($event)
-                @reset="getAllDrives"    
-                ref="filterForm"
+                    @emitFilter=sendFilterRequest($event)
+                    @reset="getAllDrives"    
+                    ref="filterForm"
                 >
                 </filter-side-bar>
             </aside>

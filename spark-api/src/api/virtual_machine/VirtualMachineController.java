@@ -54,19 +54,20 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        VirtualMachineDTO dto = VirtualMachineMapper.toVirtualMachineDTO(virtualMachine);
         response.status(200);
-        return App.g.toJson(dto);
+        return createVirtualMachineResponse(virtualMachine);
     };
 
     private Route handlePost = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
-        VirtualMachineDTO toAdd = App.g.fromJson(request.body(), VirtualMachineDTO.class);
-        VirtualMachine added = service.post(VirtualMachineMapper.fromVirtualMachineDTO(toAdd));
+
+        VirtualMachine toAdd = parseVirtualMachine(request);
+        ensureUserCanAccessVirtualMachine(request, toAdd);
+
         response.status(201);
-        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(added));
+        return createVirtualMachineResponse(service.post(toAdd));
     };
-    // TODO : check if name change works
+
     private Route handlePut = (Request request, Response response) -> {
         ensureUserHasPermission(request, User.Role.ADMIN);
 
@@ -74,10 +75,9 @@ public class VirtualMachineController {
         VirtualMachine virtualMachine = service.getSingle(name);
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
-        VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
-        VirtualMachine updated = service.put(name, VirtualMachineMapper.fromVirtualMachineDTO(dto));
+        VirtualMachine toUpdate = parseVirtualMachine(request);
         response.status(200);
-        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(updated));
+        return createVirtualMachineResponse(service.put(name, toUpdate));
     };
 
     private Route handleDelete = (Request request, Response response) -> {
@@ -98,8 +98,26 @@ public class VirtualMachineController {
         ensureUserCanAccessVirtualMachine(request, virtualMachine);
 
         response.status(200);
-        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(service.toggle(name)));
+        return createVirtualMachineResponse(service.toggle(name));
     };
+
+    private VirtualMachine parseVirtualMachine(Request request) {
+        try {
+            VirtualMachineDTO dto = App.g.fromJson(request.body(), VirtualMachineDTO.class);
+            VirtualMachine parsed = VirtualMachineMapper.fromVirtualMachineDTO(dto);
+            if (parsed == null)
+                halt(400, "Required fields missing");
+            return parsed;
+        } catch(Exception e) {
+            halt(400, "Bad request");
+        }
+        // Unreachable
+        return null;
+    }
+
+    private String createVirtualMachineResponse(VirtualMachine virtualMachine) {
+        return App.g.toJson(VirtualMachineMapper.toVirtualMachineDTO(virtualMachine));
+    }
 
     private void applyRoleFilter(Request request, List<VirtualMachine> virtualMachines) {
         User user = request.attribute("loggedIn");

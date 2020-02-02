@@ -4,7 +4,7 @@ import domain.virtual_machine.VirtualMachine;
 
 import java.util.List;
 
-public class VirtualMachineFilter {
+class VirtualMachineFilter {
 
     public static void filterByOrganization(String name, List<VirtualMachine> virtualMachines) {
         virtualMachines.removeIf(vm -> !vm.getOrganization().getName().contains(name));

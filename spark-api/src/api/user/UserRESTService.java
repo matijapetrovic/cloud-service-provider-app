@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static spark.Spark.halt;
 
-public class UserRESTService implements UserService {
+class UserRESTService implements UserService {
     private UserStorage storage;
 
     public UserRESTService(UserStorage storage) {

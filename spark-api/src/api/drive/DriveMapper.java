@@ -7,7 +7,7 @@ import domain.virtual_machine.VirtualMachine;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DriveMapper {
+class DriveMapper {
     public static DriveDTO toDriveDTO(Drive drive) {
         DriveDTO dto = new DriveDTO();
         dto.setName(drive.getName());

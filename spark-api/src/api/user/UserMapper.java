@@ -1,17 +1,12 @@
 package api.user;
 
-import api.virtual_machine.VirtualMachineDTO;
-import api.vm_category.CategoryMapper;
-import domain.drive.Drive;
 import domain.organization.Organization;
 import domain.user.User;
-import domain.virtual_machine.VirtualMachine;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserMapper {
+class UserMapper {
     public static UserDTO toUserDTO(User user) {
         UserDTO dto = new UserDTO();
         dto.setEmail(user.getEmail());

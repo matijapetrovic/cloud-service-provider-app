@@ -1,6 +1,5 @@
 package domain.drive;
 
-import api.drive.DriveDTO;
 import domain.Model;
 import domain.organization.Organization;
 import domain.virtual_machine.VirtualMachine;

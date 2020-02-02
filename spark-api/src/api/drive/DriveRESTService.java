@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static spark.Spark.halt;
 
-public class DriveRESTService implements DriveService {
+class DriveRESTService implements DriveService {
     private DriveStorage storage;
 
     public DriveRESTService(DriveStorage storage) {
