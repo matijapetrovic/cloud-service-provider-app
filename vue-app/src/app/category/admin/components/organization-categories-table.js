@@ -33,6 +33,11 @@ Vue.component("categories-from-organization-table", {
             .get('api/categories')
             .then(response =>{
                 this.categories = response.data;
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         methods: {

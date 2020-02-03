@@ -123,8 +123,16 @@ public class JSONDbContext {
     public void saveDb() {
         organizationsRepository.saveChanges();
         vmCategoriesRepository.saveChanges();
-        usersRepository.saveChanges();
+        saveUserChanges();
         virtualMachinesRepository.saveChanges();
         drivesRepository.saveChanges();
+    }
+
+    private void saveUserChanges() {
+        User superAdmin = usersRepository.findByKey("admin@gmail.com").orElse(null);
+        if (superAdmin != null)
+            usersRepository.delete(superAdmin);
+        usersRepository.saveChanges();
+        usersRepository.save(superAdmin);
     }
 }

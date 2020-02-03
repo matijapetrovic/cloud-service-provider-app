@@ -9,6 +9,12 @@
       },
       {
         "email": "aleksandar@gmail.com"
+      },
+      {
+        "email": "milena@gmail.com"
+      },
+      {
+        "email": "a@g.com"
       }
     ],
     "virtualMachines": [
@@ -20,9 +26,6 @@
       },
       {
         "name": "Nova mahina"
-      },
-      {
-        "name": "Nova mahina 2"
       }
     ],
     "drives": [
@@ -51,22 +54,19 @@
     ],
     "virtualMachines": [
       {
-        "name": "VM1"
+        "name": "VM560"
+      },
+      {
+        "name": "VM23557"
       },
       {
         "name": "VM2"
       },
       {
-        "name": "VM560"
-      },
-      {
         "name": "VM123"
       },
       {
-        "name": "233"
-      },
-      {
-        "name": "VM23557"
+        "name": "VM1"
       }
     ],
     "drives": [
@@ -98,10 +98,14 @@
     "drives": []
   },
   {
-    "name": "szxfasd",
+    "name": "Organizacija 2",
     "description": "asdasd",
     "logo": "szxfasd.png",
-    "users": [],
+    "users": [
+      {
+        "email": "marijan@hotmail.com"
+      }
+    ],
     "virtualMachines": [],
     "drives": []
   },
@@ -109,6 +113,14 @@
     "name": "dasda",
     "description": "asdasdasd",
     "logo": "dasda.png",
+    "users": [],
+    "virtualMachines": [],
+    "drives": []
+  },
+  {
+    "name": "Doktori 3",
+    "description": "hahaha",
+    "logo": "logo.png",
     "users": [],
     "virtualMachines": [],
     "drives": []

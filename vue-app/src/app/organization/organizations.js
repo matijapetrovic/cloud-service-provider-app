@@ -86,6 +86,11 @@ Vue.component("organizations-page", {
                     self.$refs.table.getOrganizations(); 
                     alert('Adding organization successful');
                     self.closeAddModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
             });
             
@@ -107,7 +112,7 @@ Vue.component("organizations-page", {
             var promise = getBase64(organization.logo);
             promise.then(function(result) {
                 axios
-                .put('/api/organizations/' + organization.name, 
+                .put('/api/organizations/' + organization.oldName, 
                 {
                     "name": organization.name,
                     "description": organization.description,
@@ -120,6 +125,11 @@ Vue.component("organizations-page", {
                     self.$refs.table.getOrganizations();
                     alert('Updating organization successful');
                     self.closeViewModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
             });
             

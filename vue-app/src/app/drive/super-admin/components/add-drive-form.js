@@ -81,7 +81,12 @@ Vue.component("add-drive-form", {
             .get('api/users/' + this.$root.currentUser.email)
             .then(response => {
                 this.drive.organization = response.data.organization;
-            }) 
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
         },
         loadVMs: function(){
             axios
@@ -89,12 +94,23 @@ Vue.component("add-drive-form", {
             .then(response => {
                 this.vms = response.data.map(vm => vm.name);
             })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
         },
         loadOrganizations: function(){
             axios
             .get('api/organizations')
             .then(response => {
                 this.organizations = response.data.map(organization => organization.name);
+                this.drive.organization = this.organizations[0];
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             })
         },
         checkResponse: function(response) {
@@ -119,6 +135,11 @@ Vue.component("add-drive-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         }        
     },

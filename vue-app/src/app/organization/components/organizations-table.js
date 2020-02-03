@@ -21,7 +21,7 @@ Vue.component("org-table", {
                 </a>
             </td>
             <td>{{ org.description }}</td>
-            <td><img style="height:2em;" :src="'/' + org.logo"></td>
+            <td><img style="height:2em;" v-if="org.logo" :src="'/' + org.logo"></td>
         </tr>
     </table>
     `,
@@ -42,6 +42,11 @@ Vue.component("org-table", {
             .get('api/organizations')
             .then(response => {
                 this.organizations = response.data;
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         addOrganization(organization) {

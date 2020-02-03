@@ -2,11 +2,23 @@ package domain.drive;
 
 import domain.Model;
 import domain.organization.Organization;
+import domain.virtual_machine.DateRange;
 import domain.virtual_machine.VirtualMachine;
 
 public class Drive implements Model<String> {
+	public enum DriveType {
+		SSD(0.1), HDD(0.3);
 
-	public enum DriveType {SSD, HDD}
+		private double pricePerGB;
+
+		DriveType(double pricePerGB) {
+			this.pricePerGB = pricePerGB;
+		}
+
+		public double getPricePerGB() {
+			return pricePerGB;
+		}
+	}
 
 	private String name;
 	private DriveType type;
@@ -28,12 +40,14 @@ public class Drive implements Model<String> {
 	}
 
 	public void buildReferences() {
-		vm.addDrive(this);
+		if (vm != null)
+			vm.addDrive(this);
 		organization.addDrive(this);
 	}
 
 	public void removeReferences() {
-		vm.removeDrive(this);
+		if (vm != null)
+			vm.removeDrive(this);
 		organization.removeDrive(this);
 	}
 
@@ -90,6 +104,14 @@ public class Drive implements Model<String> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public double getPrice(DateRange dateRange) {
+		final double MONTHLY_PRICE_PER_GB = type.getPricePerGB();
+		final double HOURLY_PRICE_PER_GB = MONTHLY_PRICE_PER_GB / 30 / 24;
+		final long HOURS = dateRange.getHours();
+
+		return HOURLY_PRICE_PER_GB * HOURS;
 	}
 
 	@Override

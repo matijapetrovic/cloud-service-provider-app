@@ -30,6 +30,11 @@ Vue.component('password-confirm-input', {
         .get('api/users/' + this.$root.currentUser.email)
         .then(response => {
             this.user = response.data;
+        })
+        .catch(err => {
+            const status = err.response.status;
+            const msg = err.response.data;
+            alert('' + status + ': ' +  msg);
         });
     },
     data() {
@@ -79,13 +84,18 @@ Vue.component('password-confirm-input', {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
             }  
         },
         checkResponse: function (response) {
             if (response.status === 200) {
                 this.$emit('updatedUser', this.user);
-                alert('Updating user successful');
+                alert('Updating user successfully');
                 this.$emit('submit')
             }
             else {

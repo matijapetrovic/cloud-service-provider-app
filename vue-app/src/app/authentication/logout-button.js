@@ -1,7 +1,7 @@
 Vue.component("logout-button", {
     template:`
     <button
-        class="btn btn-outline-primary"
+        class="btn btn-outline-light"
         @click="logout"
         type="submit"
     >

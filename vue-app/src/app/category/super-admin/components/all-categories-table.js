@@ -36,6 +36,11 @@ Vue.component("all-categories-table",{
                 this.categories = response.data;
                 this.loadedAll = true;
             })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
     },
     methods: {
         addCategory(Category) {

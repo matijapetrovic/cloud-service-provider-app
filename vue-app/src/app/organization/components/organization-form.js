@@ -37,6 +37,7 @@ Vue.component("organization-form", {
         return {
             organization : {
                 name: null,
+                oldName: null,
                 description: null,
                 logo: null,
             }
@@ -47,7 +48,13 @@ Vue.component("organization-form", {
             axios
                 .get('/api/organizations/' + name)
                 .then(response => {
-                    this.organization = response.data
+                    this.organization = response.data,
+                    this.organization.oldName = response.data.name;
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         emitSubmit() {

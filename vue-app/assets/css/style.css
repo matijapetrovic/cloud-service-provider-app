@@ -5,6 +5,8 @@ body {
 
 body {
   font-size: .875rem;
+  background-color: #d7dde2;
+  background-image: linear-gradient(315deg, #aeb2b6 0%, #f7f6f5 74%);
 }
 
 .feather {
@@ -148,7 +150,6 @@ body {
 }
 
 .modal-content {
-  height: 700px;
   background-color: #f2f2f2;
 }
 .modal-header {
@@ -231,4 +232,13 @@ body {
 }
 .switch-button-control .switch-button-label {
   margin-left: 10px;
+}
+#particles-js{
+  width: 100%;
+  height: 100vh;
+  background-image: url();
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  z-index:0;
+  position: absolute;
 }

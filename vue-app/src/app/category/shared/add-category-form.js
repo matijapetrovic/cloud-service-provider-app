@@ -72,6 +72,11 @@ Vue.component("add-category-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         resetCategory() {

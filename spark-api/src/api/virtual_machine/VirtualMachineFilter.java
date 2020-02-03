@@ -7,11 +7,11 @@ import java.util.List;
 class VirtualMachineFilter {
 
     public static void filterByOrganization(String name, List<VirtualMachine> virtualMachines) {
-        virtualMachines.removeIf(vm -> !vm.getOrganization().getName().contains(name));
+        virtualMachines.removeIf(vm -> !vm.getOrganization().getName().toLowerCase().contains(name.toLowerCase()));
     }
 
     public static void filterByName(String name, List<VirtualMachine> virtualMachines) {
-        virtualMachines.removeIf(vm -> !vm.getName().contains(name));
+        virtualMachines.removeIf(vm -> !vm.getName().toLowerCase().contains(name.toLowerCase()));
     }
 
     public static void filterByCpuFrom(int cpuFrom, List<VirtualMachine> virtualMachines) {

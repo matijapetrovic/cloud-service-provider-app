@@ -6,21 +6,30 @@ Vue.component('select-input',{
             <label v-bind:for="name">
                <slot></slot>
             </label>  
-            <div>
+            <div class="input-group">
                 <multiselect
                     v-model="selectedVal"
+                    :name="name"
                     :options="options"
                     :searchable="false"
                     :close-on-select="true"
                     :allow-empty="required === false"
                     :show-labels="false"
                     :disabled="disabled===true"
+                    :preselect-first="required === true"
                 >
                 </multiselect>
-
+                <div class="invalid-feedback" :style="{display: display}">
+                    Please provide a valid {{ name }}
+                </div>
             </div>
         </div>
     `,
+    data : function() {
+        return {
+            display: 'none'
+        }
+    },
     props: {
         name: String,
         value: String,
@@ -44,6 +53,11 @@ Vue.component('select-input',{
             set(val) {
                 this.$emit('input', val);
             }
+        }
+    },
+    methods: {
+        validate() {
+            this.display = 'block';
         }
     }
 });

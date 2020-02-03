@@ -40,7 +40,8 @@ Vue.component("add-user-form", {
                 v-if="$root.isSuperAdmin"
                 name="organization"
                 v-model="user.organization"
-                v-bind:options="allOrgnizations"
+                :options="allOrganizations"
+                ref="organizationInput"
                 required
             >
             Organization
@@ -48,7 +49,7 @@ Vue.component("add-user-form", {
             <select-input
                 name="role"
                 v-model="user.role"
-                v-bind:options="roles"
+                :options="roles"
                 required
             >
             Role
@@ -65,7 +66,7 @@ Vue.component("add-user-form", {
                 organization: null,
                 role : null
             },
-            allOrgnizations: [],
+            allOrganizations: [],
             roles: ["ADMIN", "USER"]
         }
     },
@@ -84,12 +85,23 @@ Vue.component("add-user-form", {
                 .then(response => {
                     this.user.organization = response.data.organization;
                 })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
+                })
         },
         getOrganizations: function(){
                 axios
                 .get('api/organizations')
                 .then(response => {
-                    this.allOrgnizations = response.data.map(organization => organization.name);
+                    this.allOrganizations = response.data.map(organization => organization.name);
+                    this.user.organization = this.allOrganizations[0];
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 })
         },
         checkResponse: function(response) {
@@ -103,19 +115,27 @@ Vue.component("add-user-form", {
             }
         },
         submitForm: function() {
-            axios
-                .post('/api/users/add', 
-                {
-                    "email": this.user.email,
-                    "password": this.user.password,
-                    "name": this.user.name,
-                    "surname": this.user.surname,
-                    "organization":{"name": this.user.organization },
-                    "role": this.user.role
-                })
-                .then(response => {
-                    this.checkResponse(response);
-                });
+            if (!this.user.organization)
+                this.$refs.organizationInput.validate();
+            else
+                axios
+                    .post('/api/users/add', 
+                    {
+                        "email": this.user.email,
+                        "password": this.user.password,
+                        "name": this.user.name,
+                        "surname": this.user.surname,
+                        "organization": this.user.organization,
+                        "role": this.user.role
+                    })
+                    .then(response => {
+                        this.checkResponse(response);
+                    })
+                    .catch(err => {
+                        const status = err.response.status;
+                        const msg = err.response.data;
+                        alert('' + status + ': ' +  msg);
+                    });
         }
     }
 });

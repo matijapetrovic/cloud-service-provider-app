@@ -91,6 +91,11 @@ Vue.component("virtual-machines-page", {
                     this.$refs.table.getVirtualMachines("");
                     alert('Adding virtual machine successful');
                     this.closeAddModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         updateVirtualMachine(virtualMachine) {
@@ -100,15 +105,20 @@ Vue.component("virtual-machines-page", {
                     "name": virtualMachine.name,
                     "category": virtualMachine.category,
                     "drives": virtualMachine.drives instanceof Array ? virtualMachine.drives : [ virtualMachine.drives ],
-                    "organization": virtualMachine.organization
+                    "organization": virtualMachine.organization,
+                    "activity": virtualMachine.activity
                 })
                 .then(response => {
                     this.$refs.table.getVirtualMachines("");
                     alert('Updating virtual machine successful');
                     this.closeViewModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
-        // TODO : mozda promeniti delete da bude u tabeli
         deleteVirtualMachine(virtualMachine) {
             axios
                 .delete('/api/virtualmachines/' + virtualMachine.name)
@@ -116,6 +126,11 @@ Vue.component("virtual-machines-page", {
                     this.$refs.table.getVirtualMachines("");
                     alert('Deleting virtual machine successful');
                     this.closeViewModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         toggleVirtualMachine(virtualMachine) {
@@ -125,6 +140,11 @@ Vue.component("virtual-machines-page", {
                     this.$refs.table.getVirtualMachines("");
                     this.$refs.viewForm.getVirtualMachine(virtualMachine.name);
                     alert('Toggling virtual machine successful');
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         removeViewValidation() {

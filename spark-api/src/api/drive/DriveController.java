@@ -34,7 +34,6 @@ public class DriveController {
                 get("", handleGetAll);
                 get("/filter", handleFilter);
                 get("/:name", handleGetSingle);
-                get("/organizations/:name", handleDrivesOrganization);
                 post("/add", handlePost);
                 put("/update/:name", handlePut);
                 delete("/delete/:name", handleDelete);
@@ -78,13 +77,13 @@ public class DriveController {
         if (request.queryParams("name") != null && !request.queryParams("name").equals("null")) {
             result = result
                     .stream()
-                    .filter(vm -> vm.getName().contains(request.queryParams("name")))
+                    .filter(vm -> vm.getName().toLowerCase().contains(request.queryParams("name").toLowerCase()))
                     .collect(Collectors.toList());
         }
         if (request.queryParams("type") != null && !request.queryParams("type").equals("null")) {
             result = result
                     .stream()
-                    .filter(vm -> vm.getTypeToString().equals(request.queryParams("type")))
+                    .filter(vm -> vm.getTypeToString().toLowerCase().equals(request.queryParams("type").toLowerCase()))
                     .collect(Collectors.toList());
         }
         if (request.queryParams("from") != null && !request.queryParams("from").equals("null")) {
@@ -115,20 +114,11 @@ public class DriveController {
         return App.g.toJson(DriveMapper.toDriveDTO(service.getSingle(name)));
     };
 
-    private Route handleDrivesOrganization = (Request request, Response response) -> {
-        ensureUserHasPermission(request, User.Role.ADMIN);
-        User user = App.g.fromJson(request.body(), User.class);
-
-        response.status(200);
-        return App.g.toJson(DriveMapper.toDriveDTOList(service.getAllDrivesFromSameOrganization(user)));
-    };
-
     private Route handlePost = (Request request, Response response) -> {
-        ensureUserHasPermission(request, User.Role.SUPER_ADMIN);
-        System.out.println(request.body());
-        DriveDTO drive = App.g.fromJson(request.body(), DriveDTO.class);
-        service.post(DriveMapper.fromDriveDTO(drive));
+        ensureUserHasPermission(request, User.Role.ADMIN);
 
+        Drive drive = parseDrive(request);
+        service.post(drive);
         response.status(200);
         return "OK";
     };

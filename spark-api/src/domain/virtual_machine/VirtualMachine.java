@@ -5,10 +5,15 @@ import domain.Model;
 import domain.organization.Organization;
 import domain.vm_category.VMCategory;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 public class VirtualMachine implements Model<String> {
+	private static final double MONTHLY_PRICE_PER_CPU = 25;
+	private static final double MONTHLY_PRICE_PER_RAM = 15;
+	private static final double MONTHLY_PRICE_PER_GPU = 1;
+
 	private String name;
 	private VMCategory category;
 	private List<Drive> drives;
@@ -42,8 +47,10 @@ public class VirtualMachine implements Model<String> {
 		if (other.drives != null)
 			this.drives = other.drives;
 
-		if (other.activity != null)
+		if (other.activity != null) {
 			this.activity = other.activity;
+			Collections.sort(this.activity);
+		}
 		buildReferences();
 	}
 
@@ -101,6 +108,24 @@ public class VirtualMachine implements Model<String> {
 
 	public boolean isTurnedOn() {
 		return turnedOn;
+	}
+
+	public double getPrice(DateRange dateRange) {
+		final double HOURLY_PRICE_PER_CPU = MONTHLY_PRICE_PER_CPU / 30 / 24;
+		final double HOURLY_PRICE_PER_RAM = MONTHLY_PRICE_PER_RAM / 30 / 24;
+		final double HOURLY_PRICE_PER_GPU = MONTHLY_PRICE_PER_GPU / 30 / 24;
+		final long HOURS = getActiveHours(dateRange);
+
+		return HOURS * (HOURLY_PRICE_PER_CPU * getCpus()
+						+ HOURLY_PRICE_PER_RAM * getRam()
+						+ HOURLY_PRICE_PER_GPU * getGpus());
+	}
+
+	private long getActiveHours(DateRange dateRange) {
+		return activity
+				.stream()
+				.mapToLong(dateRange::getHours)
+				.sum();
 	}
 
 	public void toggle() {

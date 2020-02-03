@@ -39,5 +39,10 @@ Vue.component('select-vms',{
             .then(response => {
                 this.vms = response.data;
             })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
     },
 })

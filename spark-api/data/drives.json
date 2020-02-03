@@ -15,7 +15,7 @@
     "type": "SSD",
     "capacity": 300,
     "vm": {
-      "name": "VM2"
+      "name": "VM123"
     },
     "organization": {
       "name": "Lavovi"

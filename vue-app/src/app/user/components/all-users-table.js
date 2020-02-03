@@ -1,7 +1,7 @@
 Vue.component("all-users-table",{
     template:`
     <div class="row">
-        <table border="1" class="table col-md-8">
+        <table border="1" class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>Email</th>
@@ -44,6 +44,11 @@ Vue.component("all-users-table",{
             .get('api/users')
             .then(response => {
                 this.users = response.data;
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
     },
     methods: {

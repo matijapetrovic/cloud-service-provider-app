@@ -48,6 +48,11 @@ Vue.component("vm-table", {
             .get('api/virtualmachines' + searchString)
             .then(response => {
                 this.virtualMachines = response.data;
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         addVirtualMachine(vm) {

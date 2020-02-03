@@ -34,6 +34,7 @@ public class UserController {
 				delete("/delete/:email", handleDelete);
 			});
 		});
+		service.post(new User("admin@gmail.com", "admin", "Admin", "Adminovic", null, User.Role.SUPER_ADMIN));
 	}
 
 	private Route handleGetAll = (Request request, Response response) -> {
@@ -89,7 +90,10 @@ public class UserController {
 	private User parseUser(Request request) {
 		try {
 			UserDTO dto = App.g.fromJson(request.body(), UserDTO.class);
-			return UserMapper.fromUserDTO(dto);
+			User user = UserMapper.fromUserDTO(dto);
+			if(user == null)
+				halt(400, "Required fields missing");
+			return user;
 		} catch(Exception e) {
 			halt(400, "Bad request");
 		}

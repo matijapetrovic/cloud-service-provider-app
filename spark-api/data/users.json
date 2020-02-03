@@ -31,7 +31,7 @@
   },
   {
     "email": "nikola@gmail.com",
-    "password": "nikola",
+    "password": "baaa",
     "name": "Admin",
     "surname": "Adminovovski",
     "organization": {
@@ -50,10 +50,33 @@
     "role": "USER"
   },
   {
-    "email": "admin@gmail.com",
-    "password": "admin",
-    "name": "Admin",
-    "surname": "Adminovic",
-    "role": "SUPER_ADMIN"
+    "email": "milena@gmail.com",
+    "password": "milenaa",
+    "name": "Milenaa",
+    "surname": "Suboticc",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "ADMIN"
+  },
+  {
+    "email": "marijan@hotmail.com",
+    "password": "marijan",
+    "name": "Marijan",
+    "surname": "Jovanovic",
+    "organization": {
+      "name": "Organizacija 2"
+    },
+    "role": "ADMIN"
+  },
+  {
+    "email": "a@g.com",
+    "password": "asij",
+    "name": "sdijf",
+    "surname": "injsadf",
+    "organization": {
+      "name": "Doktori"
+    },
+    "role": "ADMIN"
   }
 ]

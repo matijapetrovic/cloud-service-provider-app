@@ -33,7 +33,6 @@ public class CategoryController {
         });
     }
 
-    // TODO MAYBE: dodati param names pa pustati sve ako je true, ako ne ne pustati
     private Route handleGetAll = (Request request, Response response) -> {
         response.type("application/json");
         return App.g.toJson(CategoryMapper.toCategoryDTOList(service.getAll()));

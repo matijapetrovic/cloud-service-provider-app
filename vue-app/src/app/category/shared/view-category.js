@@ -58,6 +58,11 @@ Vue.component("view-category-form", {
                 .then(response => {
                     this.category = response.data;
                     this.id =  this.category.name;
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         checkResponse: function(response) {
@@ -86,6 +91,11 @@ Vue.component("view-category-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         submitDelete(category){
@@ -93,6 +103,11 @@ Vue.component("view-category-form", {
                 .delete('api/categories/delete/' + this.id)
                 .then(response => {
                     this.checkDeleteResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 })
                 .catch(err => {
                     const status = err.response.status;

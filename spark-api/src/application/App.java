@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import api.authentication.LoginController;
+import api.montly_report.ReportController;
 import api.vm_category.CategoryController;
 import com.google.gson.Gson;
 
@@ -56,5 +57,7 @@ public class App {
 
         new CategoryController(
                 new CategoryJSONFileStorage(dbContext));
+
+        new ReportController();
     }
 }

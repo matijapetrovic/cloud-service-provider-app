@@ -2,17 +2,25 @@
   {
     "name": "VM1",
     "category": {
-      "name": "Cat1"
+      "name": "Cat4"
     },
     "drives": [],
     "organization": {
       "name": "Lavovi"
     },
-    "turnedOn": true,
+    "turnedOn": false,
     "activity": [
       {
-        "startDate": "Jan 29, 2020 3:49:13 PM",
-        "endDate": "Jan 29, 2020 4:06:13 PM"
+        "startDate": "Oct 7, 2019 12:00:00 AM",
+        "endDate": "Oct 10, 2019 12:00:00 AM"
+      },
+      {
+        "startDate": "Dec 1, 2019 12:00:00 AM",
+        "endDate": "Dec 5, 2019 12:00:00 AM"
+      },
+      {
+        "startDate": "Dec 1, 2019 12:00:00 AM",
+        "endDate": "Dec 5, 2019 12:00:00 AM"
       },
       {
         "startDate": "Jan 29, 2020 4:07:16 PM",
@@ -35,7 +43,12 @@
         "endDate": "Jan 30, 2020 8:55:01 PM"
       },
       {
-        "startDate": "Jan 30, 2020 8:55:03 PM"
+        "startDate": "Jan 30, 2020 8:55:03 PM",
+        "endDate": "Feb 3, 2020 10:26:41 AM"
+      },
+      {
+        "startDate": "Feb 17, 2020 12:00:00 AM",
+        "endDate": "Feb 20, 2020 12:00:00 AM"
       }
     ]
   },
@@ -44,11 +57,7 @@
     "category": {
       "name": "Cat1"
     },
-    "drives": [
-      {
-        "name": "drive3"
-      }
-    ],
+    "drives": [],
     "organization": {
       "name": "Lavovi"
     },
@@ -62,7 +71,7 @@
   {
     "name": "VM23557",
     "category": {
-      "name": "Cat1"
+      "name": "Cat2"
     },
     "drives": [],
     "organization": {
@@ -96,7 +105,11 @@
     "category": {
       "name": "Cat2"
     },
-    "drives": [],
+    "drives": [
+      {
+        "name": "drive3"
+      }
+    ],
     "organization": {
       "name": "Lavovi"
     },
@@ -142,18 +155,6 @@
         "endDate": "Jan 30, 2020 9:43:25 PM"
       }
     ]
-  },
-  {
-    "name": "Nova mahina 2",
-    "category": {
-      "name": "Cat2"
-    },
-    "drives": [],
-    "organization": {
-      "name": "Doktori"
-    },
-    "turnedOn": false,
-    "activity": []
   },
   {
     "name": "Nova mahina 3",

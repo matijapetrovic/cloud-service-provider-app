@@ -2,6 +2,7 @@ Vue.component("base-layout", {
     template: `
     <div>
         <nav-bar></nav-bar>
+        <div id="particles-js"></div>
         <div class="container-fluid">
             <div class="row">
                 <side-nav></side-nav>
@@ -19,5 +20,8 @@ Vue.component("base-layout", {
     `,
     props: {
         pageTitle: String
+    },
+    mounted() {
+        this.$root.initParticles();
     }
 })

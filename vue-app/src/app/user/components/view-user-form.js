@@ -62,6 +62,11 @@ Vue.component("view-user-form", {
                 .get('/api/users/' + email)
                 .then(response => {
                     this.user = response.data;
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         checkResponse: function(response) {
@@ -97,6 +102,11 @@ Vue.component("view-user-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         submitDelete: function(e){
@@ -104,6 +114,11 @@ Vue.component("view-user-form", {
                 .delete('api/users/delete/' + this.user.email)
                 .then(response => {
                     this.checkDeleteResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         }
     }

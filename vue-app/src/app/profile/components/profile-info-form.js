@@ -33,10 +33,10 @@ Vue.component("profile-info", {
                 </div>
             </div>
             <div class="panel-footer">
-                <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
+                <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
                 <span class="pull-right">
-                    <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
-                    <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
+                    <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                    <button class="btn btn-sm btn-light" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
                 </span>
                 </div>
             </div>
@@ -44,10 +44,11 @@ Vue.component("profile-info", {
             
         <button    
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-light"
             data-toggle="modal"
             :data-target="'#' + viewProfileId"
             style="margin: 15px 0;"
+            v-if="!$root.isSuperAdmin"
         >
             Change profile
         </button>
@@ -56,7 +57,7 @@ Vue.component("profile-info", {
             v-if="$root.isAdmin"
             @click="viewOrganization"
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-light"
             data-toggle="modal"
             :data-target="'#' + viewModalId"
             style="margin: 15px 0;"
@@ -114,6 +115,11 @@ Vue.component("profile-info", {
         .get('api/users/' + this.$root.currentUser.email)
         .then(response => {
             this.user = response.data;    
+        })
+        .catch(err => {
+            const status = err.response.status;
+            const msg = err.response.data;
+            alert('' + status + ': ' +  msg);
         });
     },
     methods:{
@@ -145,10 +151,17 @@ Vue.component("profile-info", {
                     "description": organization.description,
                     "logo": organization.logo,
                     "users": [],
-                    "resources": []
+                    "virtualMachines": [],
+                    "drives": []
                 })
                 .then(response => {
-                    alert('Updating organization successful');
+                    alert('Updating organization successfully');
+                    this.closeOrganizationModal();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         }
     }

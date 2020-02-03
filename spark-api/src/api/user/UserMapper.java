@@ -41,6 +41,8 @@ class UserMapper {
     }
 
     public static boolean validateDTO(UserDTO dto) {
+        if (dto.getRole() != User.Role.SUPER_ADMIN && dto.getOrganization() == null)
+            return false;
         if (dto.getEmail() == null)
             return false;
         if (dto.getPassword() == null)
@@ -50,8 +52,6 @@ class UserMapper {
         if (dto.getSurname() == null)
             return false;
         if (dto.getRole() == null)
-            return false;
-        if (dto.getOrganization() == null)
             return false;
         return true;
     }

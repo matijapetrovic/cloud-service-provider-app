@@ -56,6 +56,11 @@ Vue.component("all-drives-table",{
                 this.drives = response.data;
                 this.loaded = true;
             })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
         },
         sendFilterRequest(data){
             this.name = data.name;
@@ -67,12 +72,10 @@ Vue.component("all-drives-table",{
                 .then(response => {
                     this.drives = response.data;
                 })
-        },
-        sendSearchRequest(){
-            axios
-                .get('api/drives?name='+ this.parameter)
-                .then(response => {
-                    this.drives = response.data;
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 })
         },
         addDrive(drive) {

@@ -7,14 +7,20 @@
   },
   {
     "name": "Cat2",
-    "cpus": 123,
-    "ram": 321,
-    "gpus": 123
+    "cpus": 4,
+    "ram": 32,
+    "gpus": 2
   },
   {
     "name": "Cat3",
     "cpus": 123,
     "ram": 312,
     "gpus": 123
+  },
+  {
+    "name": "Cat4",
+    "cpus": 16,
+    "ram": 27,
+    "gpus": 51
   }
 ]

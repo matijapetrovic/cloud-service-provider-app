@@ -67,6 +67,7 @@ Vue.component("view-drive-form", {
                 vm : null,
                 organization: null
             },
+            id: null,
             organizations: [],
             vms: [],
             types: ["HDD", "SSD"]
@@ -88,13 +89,23 @@ Vue.component("view-drive-form", {
             .get('api/users/' + this.$root.currentUser.email)
             .then(response => {
                 this.drive.organization = response.data.organization;
-            }) 
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
+            })
         },
         getOrganization: function(){
             axios
                 .get('/api/organizations')
                 .then(response => {
                     this.organizations = response.data.map(organization => organization.name);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         getVMS: function(){
@@ -102,6 +113,11 @@ Vue.component("view-drive-form", {
                 .get('/api/virtualmachines')
                 .then(response => {
                     this.vms = response.data.map(vm => vm.name);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         getDrive: function(name) {
@@ -109,6 +125,12 @@ Vue.component("view-drive-form", {
                 .get('/api/drives/' + name)
                 .then(response => {
                     this.drive = response.data;
+                    this.id = this.drive.name;
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         checkResponse: function(response) {
@@ -124,7 +146,7 @@ Vue.component("view-drive-form", {
         checkDeleteResponse: function(response) {
             if (response.status === 200) {
                 this.$emit('deletedDrive', this.drive);
-                alert('Drive with name '+ this.drive.name + ' successfully!');
+                alert('Drive with name '+ this.drive.name + ' successfully deleted!');
                 this.$emit('submit')
             }
             else {
@@ -133,7 +155,7 @@ Vue.component("view-drive-form", {
         },
         submitForm: function(e) {
             axios
-                .put('/api/drives/update/' + this.drive.name, 
+                .put('/api/drives/update/' + this.id, 
                 {
                     "name": this.drive.name,
                     "type": this.drive.type,
@@ -143,6 +165,11 @@ Vue.component("view-drive-form", {
                 })
                 .then(response => {
                     this.checkResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         deleteDrive(){
@@ -150,6 +177,11 @@ Vue.component("view-drive-form", {
                 .delete('api/drives/delete/' + this.drive.name)
                 .then(response => {
                     this.checkDeleteResponse(response);
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         }
     }

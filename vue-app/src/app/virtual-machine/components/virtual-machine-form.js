@@ -12,6 +12,13 @@ Vue.component("vm-form", {
         :disableButtons="$root.isDefaultUser"
         ref="form"
     >
+        <switch-button
+            v-if="toggleButton && !$root.isDefaultUser"
+            v-model="virtualMachine.turnedOn"
+            @toggle="emitToggled"
+        >
+            Turn {{ virtualMachine.turnedOn ? 'off' : 'on' }}
+        </switch-button>
         <text-input
             name="name"
             v-model="virtualMachine.name"
@@ -26,6 +33,7 @@ Vue.component("vm-form", {
             :options="categories"
             :disabled="$root.isDefaultUser"
             name="category"
+            ref="categoryInput"
             required
         >
             Category
@@ -55,17 +63,11 @@ Vue.component("vm-form", {
         <vm-activity-list
             v-if="activityList"
             v-model="activityItem"
+            @activityDeleted="deleteActivity($event)"
+            @activityAdded="addActivity($event)"
             :options="virtualMachine.activity"
         >
         </vm-activity-list>
-
-        <switch-button
-            v-if="toggleButton && !$root.isDefaultUser"
-            v-model="virtualMachine.turnedOn"
-            @toggle="emitToggled"
-        >
-            Turn {{ virtualMachine.turnedOn ? 'off' : 'on' }}
-        </switch-button>
     </main-form>
     `,
     props: {
@@ -90,7 +92,7 @@ Vue.component("vm-form", {
             virtualMachine: {
                 oldName: null,
                 name: null,
-                category: { name: ""},
+                category: { name: null},
                 drives: [],
                 organization: null,
                 turnedOn: false,
@@ -110,6 +112,11 @@ Vue.component("vm-form", {
                     this.virtualMachine = response.data;
                     this.virtualMachine.oldName = response.data.name;
                     this.getSelectInfo();
+                })
+                .catch(err => {
+                    const status = err.response.status;
+                    const msg = err.response.data;
+                    alert('' + status + ': ' +  msg);
                 });
         },
         getSelectInfo: function() {
@@ -126,6 +133,13 @@ Vue.component("vm-form", {
             .get('/api/categories')
             .then(response => {
                 this.categories = response.data.map(cat => cat.name);
+                if (!this.virtualMachine.category.name)
+                    this.virtualMachine.category.name = this.categories[0];
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         getDrives: function() {
@@ -134,6 +148,11 @@ Vue.component("vm-form", {
             .then(response => {
                 this.drives = response.data.map(drive => drive.name);
                 this.drives = this.drives.concat(this.virtualMachine.drives);
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         getOrganizations: function() {
@@ -141,10 +160,19 @@ Vue.component("vm-form", {
             .get('api/organizations')
             .then(response => {
                 this.organizations = response.data.map(organization => organization.name);
+                this.virtualMachine.organization = this.organizations[0];
+            })
+            .catch(err => {
+                const status = err.response.status;
+                const msg = err.response.data;
+                alert('' + status + ': ' +  msg);
             });
         },
         emitSubmit() {
-            this.$emit('submit', this.virtualMachine);
+            if (!this.virtualMachine.category.name)
+                this.$refs.categoryInput.validate();
+            else
+                this.$emit('submit', this.virtualMachine);
         },
         emitDelete() {
             this.$emit('delete', this.virtualMachine);
@@ -159,6 +187,17 @@ Vue.component("vm-form", {
             this.virtualMachine.organization = null;
             this.virtualMachine.turnedOn = false;
             this.virtualMachine.activity = [];
+        },
+        deleteActivity(activityItem) {
+            let idx = this.virtualMachine.activity.indexOf(activityItem);
+            if (idx != -1) {
+                this.virtualMachine.activity.splice(idx, 1);
+                this.activityItem = null;
+            }
+        },
+        addActivity(activityItem) {
+            this.virtualMachine.activity.push(activityItem);
+            this.virtualMachine.activity.sort();
         }
     },
     watch: {

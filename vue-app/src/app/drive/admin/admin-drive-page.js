@@ -24,6 +24,7 @@ Vue.component("admin-drive-page",{
         >
             <view-drive-form
                     @submit="closeViewModal"
+                    @deletedDrive="deleteDrive"
                     @updatedDrive="updateDrive($event)"
                     ref="viewForm"
                 >
@@ -70,8 +71,11 @@ methods: {
         this.$refs.table.addDrive(drive);
     },
     updateDrive(drive) {
-        this.$refs.table.updateDrive(drive);
+        this.$refs.table.getAllDrives();
     },
+    deleteDrive(){
+            this.$refs.table.getAllDrives();
+        },
     viewDrive(name) {
         this.$refs.viewForm.getDrive(name);
     }

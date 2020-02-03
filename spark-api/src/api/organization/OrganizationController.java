@@ -11,7 +11,6 @@ import spark.Route;
 
 import static api.authentication.LoginController.ensureUserHasPermission;
 import static spark.Spark.*;
-import static spark.Spark.put;
 
 public class OrganizationController {
     private OrganizationService service;

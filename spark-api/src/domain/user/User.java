@@ -112,7 +112,8 @@ public class User  implements Model<String> {
 	}
 
 	public void buildReferences() {
-		organization.addUser(this);
+		if (organization != null)
+			organization.addUser(this);
 	}
 	public void removeReferences() {
 		organization.removeUser(this);

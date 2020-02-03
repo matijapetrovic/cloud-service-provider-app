@@ -56,7 +56,7 @@ Vue.component('change-profile-form',{
             
             >
                 <password-confirm-input
-                    @submit="closeViewModal"
+                    @submit="passwordChanged"
                     @updatedUser="updateUser($event)"
                     ref="viewForm"
                 >
@@ -76,7 +76,7 @@ Vue.component('change-profile-form',{
                 name : null,
                 surname : null,
                 role : null,
-                oganization : null
+                organization : null
             }
         }
     },
@@ -85,11 +85,20 @@ Vue.component('change-profile-form',{
         .get('api/users/' + this.$root.currentUser.email)
         .then(response =>(
             this.user = response.data
-        ))  
+        ))
+        .catch(err => {
+            const status = err.response.status;
+            const msg = err.response.data;
+            alert('' + status + ': ' +  msg);
+        })
     },
     methods:{
         updateUser(user) {
             this.user = user;
+        },
+        passwordChanged() {
+            this.$emit("updatedUser", this.user);
+            this.closeViewModal();
         },
         removeViewValidation() {
             this.$refs.viewForm.$refs.form.removeValidation();
